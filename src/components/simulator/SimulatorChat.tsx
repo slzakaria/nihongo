@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Mic, MicOff, Send } from 'lucide-react'
+import { Loader2, Mic, MicOff, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SimulatorMessage } from '@/components/simulator/SimulatorMessage'
 import { ChatMessage } from '@/types'
@@ -20,8 +20,14 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   const [input, setInput] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { isSupported: micSupported, isListening, start: startListening, stop: stopListening } =
-    useSpeechRecognition()
+  const {
+    isSupported: micSupported,
+    isListening,
+    isTranscribing,
+    error: micError,
+    start: startListening,
+    stop: stopListening,
+  } = useSpeechRecognition()
 
   async function sendMessage() {
     const text = input.trim()
@@ -100,10 +106,9 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         className="flex gap-2"
       >
         <input
-          lang="ja"
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="日本語で入力..."
+          placeholder="Type in any language..."
           className="h-10 flex-1 rounded-md border border-border bg-card px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         {micSupported && (
@@ -111,16 +116,48 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
             type="button"
             variant={isListening ? 'secondary' : 'outline'}
             size="icon"
+            disabled={isTranscribing}
             aria-label={isListening ? 'Stop recording' : 'Record in Japanese'}
             onClick={handleMicClick}
           >
-            {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+            {isTranscribing ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : isListening ? (
+              <MicOff className="h-4 w-4" />
+            ) : (
+              <Mic className="h-4 w-4" />
+            )}
           </Button>
         )}
         <Button type="submit" size="icon" disabled={isStreaming || !input.trim()}>
           <Send className="h-4 w-4" />
         </Button>
       </form>
+      {micError && (
+        <p role="alert" className="text-xs text-red-600 dark:text-red-400">
+          {micErrorMessage(micError)}
+        </p>
+      )}
     </div>
   )
+}
+
+function micErrorMessage(error: string): string {
+  switch (error) {
+    case 'not-allowed':
+    case 'service-not-allowed':
+      return 'Microphone access was denied. Allow it in your browser\'s site settings and try again.'
+    case 'no-speech':
+      return 'No speech detected — try again and speak right after tapping the mic.'
+    case 'audio-capture':
+      return 'No microphone found. Check that one is connected and enabled.'
+    case 'network':
+      return 'Speech recognition needs network access and failed to reach it — check your connection.'
+    case 'stt-failed':
+      return 'Could not transcribe that recording — please try again.'
+    case 'not-supported':
+      return 'Speech recognition is not supported in this browser.'
+    default:
+      return `Mic error: ${error}`
+  }
 }

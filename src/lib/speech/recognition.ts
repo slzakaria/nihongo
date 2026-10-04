@@ -5,13 +5,16 @@ interface SpeechRecognitionResultLike {
 interface SpeechRecognitionEventLike {
   results: { [index: number]: SpeechRecognitionResultLike }
 }
+interface SpeechRecognitionErrorEventLike {
+  error: string
+}
 interface SpeechRecognitionLike {
   lang: string
   continuous: boolean
   interimResults: boolean
   onresult: ((event: SpeechRecognitionEventLike) => void) | null
   onend: (() => void) | null
-  onerror: (() => void) | null
+  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null
   start: () => void
   stop: () => void
 }

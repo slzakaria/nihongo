@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nihongo Trip",
+  title: "Nippon Trip",
   description: "Survival Japanese for your trip — phrases, flashcards, and a live simulator.",
 };
 

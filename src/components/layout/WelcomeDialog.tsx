@@ -1,21 +1,24 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import confetti from 'canvas-confetti'
 import { useOnboardingStore } from '@/store/onboarding'
+import { useAudio } from '@/hooks/useAudio'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 // Case-insensitive, trimmed match against our small VIP list
-const SPECIAL_NAMES = ['rimane', 'riri', 'youssra', 'youyou']
+const SPECIAL_NAMES = ['rimane', 'riri', 'youssra', 'youyou', 'narimane', 'youss' , 'yous']
 
 // NOTE: the specific message requested for the VIP list contained profanity
-// (Darija curse language), so it was swapped for this placeholder — edit freely.
 const SPECIAL_MESSAGE = "SEYEBT LIKOM ZBEL DEBRO KRRKOM TEMA, KOLA YNECH ALA KBALTO. 👋"
+const SPECIAL_VOICE_MESSAGE = (name: string) => `ようこそ、${name}さん！日本語の勉強、頑張ってね！`
 const DEFAULT_MESSAGE = (name: string) => `Happy learning${name ? `, ${name}` : ''}! 頑張って 🎌`
 
 export function WelcomeDialog() {
   const hasOnboarded = useOnboardingStore(s => s.hasOnboarded)
   const completeOnboarding = useOnboardingStore(s => s.completeOnboarding)
+  const { play } = useAudio()
   const [name, setName] = useState('')
   const [toastMessage, setToastMessage] = useState<string | null>(null)
 
@@ -25,6 +28,10 @@ export function WelcomeDialog() {
     const isSpecial = SPECIAL_NAMES.includes(trimmed.toLowerCase())
     completeOnboarding(trimmed)
     setToastMessage(isSpecial ? SPECIAL_MESSAGE : DEFAULT_MESSAGE(trimmed))
+    if (isSpecial) {
+      void play(SPECIAL_VOICE_MESSAGE(trimmed))
+      confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } })
+    }
   }
 
   if (!hasOnboarded) {
@@ -60,7 +67,7 @@ export function WelcomeDialog() {
 
 function Toast({ message, onDismiss }: { message: string; onDismiss: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(onDismiss, 10000)
+    const timer = setTimeout(onDismiss, 5000)
     return () => clearTimeout(timer)
   }, [onDismiss])
 
@@ -68,7 +75,7 @@ function Toast({ message, onDismiss }: { message: string; onDismiss: () => void 
     <div
       className={cn(
         'fixed bottom-12 left-1/2 z-50 -translate-x-1/2 rounded-md border border-border',
-        'bg-card px-4 py-3 text-md shadow-lg'
+        'bg-card px-4 py-3 text-md shadow-lg animate-bounce'
       )}
     >
       {message}

@@ -10,7 +10,7 @@ interface SettingsStore {
 export const useSettingsStore = create<SettingsStore>()(
   persist(
     set => ({
-      romajiMode: 'reveal',
+      romajiMode: 'always',
       setRomajiMode: mode => set({ romajiMode: mode }),
     }),
     { name: 'nihongo-settings' }
