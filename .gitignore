@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# tts disk cache (generated audio, never commit)
+/.cache/
+
 # next.js
 /.next/
 /out/

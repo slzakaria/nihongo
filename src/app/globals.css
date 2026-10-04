@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  --radius: 0.75rem;
+
+  /* warm, soft paper background */
+  --background: #fbf8f6;
+  --foreground: #3a3238;
+
+  --card: #ffffff;
+  --card-foreground: #3a3238;
+
+  /* light blue */
+  --primary: #bfe3f2;
+  --primary-foreground: #1f5a73;
+
+  /* sakura pink */
+  --secondary: #f6cfe0;
+  --secondary-foreground: #7a3b55;
+
+  --muted: #f0ece9;
+  --muted-foreground: #8a8086;
+
+  --accent: #f6cfe0;
+  --accent-foreground: #7a3b55;
+
+  --border: #e8e1dc;
+  --ring: #bfe3f2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+.dark {
+  --background: #201c22;
+  --foreground: #ede6e2;
+
+  --card: #2a2530;
+  --card-foreground: #ede6e2;
+
+  --primary: #7fb8d1;
+  --primary-foreground: #0f2b38;
+
+  --secondary: #c98aa8;
+  --secondary-foreground: #2f1420;
+
+  --muted: #322c38;
+  --muted-foreground: #a79fac;
+
+  --accent: #c98aa8;
+  --accent-foreground: #2f1420;
+
+  --border: #3a3440;
+  --ring: #7fb8d1;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
