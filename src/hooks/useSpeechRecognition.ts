@@ -24,6 +24,7 @@ export function useSpeechRecognition() {
   const [error, setError] = useState<string | null>(null)
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null)
   const recorderRef = useRef<MediaRecorder | null>(null)
+  const manualStopRef = useRef(false)
 
   useEffect(() => {
     // Mount-only feature detection — the standard fix for SSR/hydration mismatches
@@ -91,6 +92,7 @@ export function useSpeechRecognition() {
       if (recognitionRef.current || recorderRef.current) return
 
       setError(null)
+      manualStopRef.current = false
       const Ctor = getSpeechRecognitionCtor()
       if (!Ctor) {
         void startServerRecording(onResult)
@@ -112,9 +114,17 @@ export function useSpeechRecognition() {
       }
       recognition.onerror = event => {
         recognitionRef.current = null
-        // A blocked/unreachable speech server reports as 'network' — fall back
-        // to recording the clip ourselves and transcribing it server-side.
-        if (event.error === 'network') {
+        // The user clicking "stop" themselves also surfaces as an 'aborted' error —
+        // treat that as a normal stop rather than a failure needing a fallback.
+        if (event.error === 'aborted' && manualStopRef.current) {
+          manualStopRef.current = false
+          setIsListening(false)
+          return
+        }
+        // Chrome reports an unreachable/disabled speech backend as either 'network'
+        // or 'aborted' depending on version — fall back to recording the clip
+        // ourselves and transcribing it server-side in both cases.
+        if (event.error === 'network' || event.error === 'aborted') {
           void startServerRecording(onResult)
           return
         }
@@ -140,6 +150,7 @@ export function useSpeechRecognition() {
       recorderRef.current.stop()
       return
     }
+    manualStopRef.current = true
     recognitionRef.current?.stop()
     recognitionRef.current = null
     setIsListening(false)
