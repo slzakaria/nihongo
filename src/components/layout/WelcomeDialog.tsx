@@ -67,7 +67,7 @@ function Toast({ message, onDismiss }: { message: string; onDismiss: () => void 
   return (
     <div
       className={cn(
-        'fixed top-12 left-1/2 z-50 -translate-x-1/2 rounded-md border border-border',
+        'fixed bottom-12 left-1/2 z-50 -translate-x-1/2 rounded-md border border-border',
         'bg-card px-4 py-3 text-md shadow-lg'
       )}
     >
