@@ -30,7 +30,7 @@ export function WelcomeDialog() {
     setToastMessage(isSpecial ? SPECIAL_MESSAGE : DEFAULT_MESSAGE(trimmed))
     if (isSpecial) {
       void play(SPECIAL_VOICE_MESSAGE(trimmed))
-      confetti({ particleCount: 450, spread: 150, origin: { y: 0.6 } })
+      confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } })
     }
   }
 
