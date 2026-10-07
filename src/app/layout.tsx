@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { WelcomeDialog } from "@/components/layout/WelcomeDialog";
 import { ThemeSync } from "@/components/layout/ThemeSync";
+import { AuthSync } from "@/components/layout/AuthSync";
+import { ServiceWorkerRegister } from "@/components/layout/ServiceWorkerRegister";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,8 +19,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nippon Trip",
+  title: "Hanazono - Survival Japanese",
   description: "Survival Japanese for your trip — phrases, flashcards, and a live simulator.",
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 // Applied before hydration so there's no flash of the wrong theme on load
@@ -38,6 +49,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex flex-1 flex-col">{children}</main>
         <WelcomeDialog />
         <ThemeSync />
+        <AuthSync />
+        <ServiceWorkerRegister />
+        <Analytics />
       </body>
     </html>
   );

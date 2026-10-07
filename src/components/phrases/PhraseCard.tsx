@@ -7,10 +7,12 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { AudioButton } from '@/components/phrases/AudioButton'
 import { useSettingsStore } from '@/store/settings'
+import { useProgressStore } from '@/store/progress'
 import { cn } from '@/lib/utils'
 
 export function PhraseCard({ phrase }: { phrase: Phrase }) {
   const romajiMode = useSettingsStore(s => s.romajiMode)
+  const markReviewed = useProgressStore(s => s.markReviewed)
   const [revealed, setRevealed] = useState(false)
   const [showResponses, setShowResponses] = useState(false)
 
@@ -38,7 +40,7 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
             <Badge variant={phrase.difficulty === 'core' ? 'default' : 'secondary'}>
               {phrase.difficulty}
             </Badge>
-            <AudioButton text={phrase.japanese} />
+            <AudioButton text={phrase.japanese} onPlay={() => markReviewed(phrase.id)} />
           </div>
         </div>
 
@@ -48,8 +50,12 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
           <div>
             <button
               type="button"
-              onClick={() => setShowResponses(s => !s)}
-              className="flex items-center gap-1 text-xs font-medium text-primary-foreground"
+              onClick={() => {
+                setShowResponses(s => !s)
+                markReviewed(phrase.id)
+              }}
+              aria-expanded={showResponses}
+              className="flex items-center gap-1 text-xs font-medium text-primary-foreground dark:text-secondary"
             >
               <ChevronDown className={cn('h-3.5 w-3.5 transition-transform', showResponses && 'rotate-180')} />
               Possible responses ({phrase.responses.length})

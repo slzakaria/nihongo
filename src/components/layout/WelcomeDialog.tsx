@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import confetti from 'canvas-confetti'
 import { useOnboardingStore } from '@/store/onboarding'
+import { useAuthStore } from '@/store/auth'
 import { useAudio } from '@/hooks/useAudio'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -16,6 +17,7 @@ const SPECIAL_VOICE_MESSAGE = (name: string) => `ようこそ、${name}さん！
 const DEFAULT_MESSAGE = (name: string) => `Happy learning${name ? `, ${name}` : ''}! 頑張って 🎌`
 
 export function WelcomeDialog() {
+  const user = useAuthStore(s => s.user)
   const hasOnboarded = useOnboardingStore(s => s.hasOnboarded)
   const completeOnboarding = useOnboardingStore(s => s.completeOnboarding)
   const { play } = useAudio()
@@ -34,6 +36,9 @@ export function WelcomeDialog() {
     }
   }
 
+  // Name capture only happens once signed in, so it always has a user to persist against
+  if (!user) return null
+
   if (!hasOnboarded) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
@@ -43,9 +48,7 @@ export function WelcomeDialog() {
         >
           <div>
             <h2 className="text-lg font-semibold">ようこそ！ Welcome</h2>
-            <p className="text-sm text-muted-foreground">
-              What should we call you? (purely cosmetic — nothing is sent anywhere)
-            </p>
+            <p className="text-sm text-muted-foreground">What should we call you?</p>
           </div>
           <input
             autoFocus

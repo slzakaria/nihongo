@@ -1,15 +1,19 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Loader2, Mic, MicOff, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SimulatorMessage } from '@/components/simulator/SimulatorMessage'
 import { ChatMessage } from '@/types'
 import { getScenarioStarter } from '@/lib/simulator/prompts'
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition'
+import { useAuthStore } from '@/store/auth'
+import { fetchConversation, saveConversation, clearConversation } from '@/lib/supabase/simulator'
+import { cn } from '@/lib/utils'
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   const starter = getScenarioStarter(scenarioSlug)
+  const user = useAuthStore(s => s.user)
   // `messages` is what's shown on screen (includes the opening line); `apiHistory` is
   // what's sent to Claude — the opener never counts as a turn, so history always starts on 'user'
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
@@ -17,7 +21,9 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   )
   const [apiHistory, setApiHistory] = useState<ChatMessage[]>([])
   const [autoPlayIndex, setAutoPlayIndex] = useState<number | null>(starter ? 0 : null)
+  const [resumed, setResumed] = useState(false)
   const [input, setInput] = useState('')
+  const inputRef = useRef(input)
   const [isStreaming, setIsStreaming] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const {
@@ -29,8 +35,36 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
     stop: stopListening,
   } = useSpeechRecognition()
 
-  async function sendMessage() {
-    const text = input.trim()
+  useEffect(() => {
+    inputRef.current = input
+  }, [input])
+
+  // Resume a signed-in user's last conversation for this scenario, if any
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    fetchConversation(user.id, scenarioSlug).then(saved => {
+      if (cancelled || !saved || saved.length === 0) return
+      setApiHistory(saved)
+      setMessages(starter ? [{ role: 'assistant', content: starter }, ...saved] : saved)
+      setAutoPlayIndex(null)
+      setResumed(true)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [user, scenarioSlug, starter])
+
+  function startFresh() {
+    setMessages(starter ? [{ role: 'assistant', content: starter }] : [])
+    setApiHistory([])
+    setAutoPlayIndex(null)
+    setResumed(false)
+    if (user) void clearConversation(user.id, scenarioSlug)
+  }
+
+  async function sendMessage(overrideText?: string) {
+    const text = (overrideText ?? input).trim()
     if (!text || isStreaming) return
 
     const baseLen = messages.length
@@ -45,6 +79,19 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: nextApiHistory, scenarioSlug }),
       })
+
+      if (res.status === 429) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null
+        setMessages(prev => {
+          const updated = [...prev]
+          updated[baseLen + 1] = {
+            role: 'assistant',
+            content: `${data?.error ?? "You've reached the free message limit for today."} [HINT: sign in for unlimited messages]`,
+          }
+          return updated
+        })
+        return
+      }
 
       if (!res.body) throw new Error('No response body')
       const reader = res.body.getReader()
@@ -65,6 +112,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
 
       setApiHistory([...nextApiHistory, { role: 'assistant', content: assistantText }])
       setAutoPlayIndex(baseLen + 1)
+      if (user) void saveConversation(user.id, scenarioSlug, [...nextApiHistory, { role: 'assistant', content: assistantText }])
     } catch {
       setMessages(prev => {
         const updated = [...prev]
@@ -85,12 +133,22 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
       return
     }
     startListening(transcript => {
-      setInput(prev => (prev ? `${prev} ${transcript}` : transcript))
+      const combined = inputRef.current ? `${inputRef.current} ${transcript}` : transcript
+      setInput('')
+      void sendMessage(combined)
     })
   }
 
   return (
     <div className="flex flex-1 flex-col gap-4">
+      {resumed && (
+        <div className="flex items-center justify-between gap-2 rounded-md border border-border bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
+          <span>Resumed from your last session</span>
+          <button type="button" onClick={startFresh} className="font-medium underline hover:text-foreground">
+            Start fresh
+          </button>
+        </div>
+      )}
       <div className="flex max-h-[60vh] flex-col gap-3 overflow-y-auto sm:max-h-[65vh]">
         {messages.map((m, i) => (
           <SimulatorMessage key={i} message={m} autoPlay={i === autoPlayIndex} />
@@ -119,6 +177,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
             disabled={isTranscribing}
             aria-label={isListening ? 'Stop recording' : 'Record in Japanese'}
             onClick={handleMicClick}
+            className={cn(isListening && 'ring-2 ring-red-500')}
           >
             {isTranscribing ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -133,6 +192,24 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
           <Send className="h-4 w-4" />
         </Button>
       </form>
+      {(isListening || isTranscribing) && (
+        <p role="status" className="flex items-center gap-2 text-xs text-muted-foreground">
+          {isListening ? (
+            <>
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+              </span>
+              Listening… tap the mic again to stop
+            </>
+          ) : (
+            <>
+              <Loader2 className="h-3 w-3 animate-spin" />
+              Transcribing…
+            </>
+          )}
+        </p>
+      )}
       {micError && (
         <p role="alert" className="text-xs text-red-600 dark:text-red-400">
           {micErrorMessage(micError)}

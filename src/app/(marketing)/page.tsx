@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-10 px-4 py-10 sm:px-6">
       <section className="flex flex-col items-start gap-3">
-        <h1 className="text-3xl font-semibold tracking-tight">Survival Japanese for your trip</h1>
+        <h1 className="text-3xl font-semibold tracking-tight"><span>はなぞの -</span> Survival Japanese for your trip</h1>
         <p className="max-w-xl text-muted-foreground">
           Phrases organized by situation, spaced-repetition drills, and a live chat simulator —
           everything you need for bars, shops, and small talk in Japan.

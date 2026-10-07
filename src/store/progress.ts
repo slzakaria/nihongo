@@ -3,12 +3,15 @@ import { persist } from 'zustand/middleware'
 import { SRSCard, SRSGrade } from '@/types'
 import { createCard, sm2 } from '@/lib/srs/sm2'
 import { getAllPhrases, getScenarioSlugForPhrase } from '@/lib/data/phrases'
+import { useAuthStore } from '@/store/auth'
+import { upsertCards, deleteScenarioCards } from '@/lib/supabase/progress'
 
 interface ProgressStore {
   cards: Record<string, SRSCard> // keyed by phraseId
   initCard: (phraseId: string) => void
   initScenario: (scenarioSlug: string) => void
   gradeCard: (phraseId: string, grade: SRSGrade) => void
+  markReviewed: (phraseId: string) => void
   getDueCards: (scenarioSlug?: string) => SRSCard[]
   getCompletion: (scenarioSlug: string) => number // 0-1, share of phrases reviewed at least once
   resetScenario: (scenarioSlug: string) => void
@@ -23,30 +26,55 @@ export const useProgressStore = create<ProgressStore>()(
         if (get().cards[phraseId]) return
         const scenarioSlug = getScenarioSlugForPhrase(phraseId)
         if (!scenarioSlug) return
+        const card = createCard(phraseId, scenarioSlug)
         set(state => ({
-          cards: { ...state.cards, [phraseId]: createCard(phraseId, scenarioSlug) },
+          cards: { ...state.cards, [phraseId]: card },
         }))
+        const userId = useAuthStore.getState().user?.id
+        if (userId) void upsertCards(userId, [card])
       },
 
       initScenario: scenarioSlug => {
         const phrases = getAllPhrases().filter(
           p => getScenarioSlugForPhrase(p.id) === scenarioSlug
         )
+        const newCards: SRSCard[] = []
         set(state => {
           const cards = { ...state.cards }
           for (const p of phrases) {
-            if (!cards[p.id]) cards[p.id] = createCard(p.id, scenarioSlug)
+            if (!cards[p.id]) {
+              const card = createCard(p.id, scenarioSlug)
+              cards[p.id] = card
+              newCards.push(card)
+            }
           }
           return { cards }
         })
+        const userId = useAuthStore.getState().user?.id
+        if (userId && newCards.length > 0) void upsertCards(userId, newCards)
       },
 
       gradeCard: (phraseId, grade) => {
         const card = get().cards[phraseId]
         if (!card) return
+        const updated = sm2(card, grade)
         set(state => ({
-          cards: { ...state.cards, [phraseId]: sm2(card, grade) },
+          cards: { ...state.cards, [phraseId]: updated },
         }))
+        const userId = useAuthStore.getState().user?.id
+        if (userId) void upsertCards(userId, [updated])
+      },
+
+      // Marks a phrase as reviewed from passive exposure (audio played / answers opened), without affecting SRS scheduling
+      markReviewed: phraseId => {
+        const card = get().cards[phraseId]
+        if (!card || card.lastReview !== null) return
+        const updated = { ...card, lastReview: Date.now() }
+        set(state => ({
+          cards: { ...state.cards, [phraseId]: updated },
+        }))
+        const userId = useAuthStore.getState().user?.id
+        if (userId) void upsertCards(userId, [updated])
       },
 
       getDueCards: scenarioSlug => {
@@ -76,6 +104,8 @@ export const useProgressStore = create<ProgressStore>()(
           }
           return { cards }
         })
+        const userId = useAuthStore.getState().user?.id
+        if (userId) void deleteScenarioCards(userId, scenarioSlug)
       },
     }),
     { name: 'nihongo-progress' }
