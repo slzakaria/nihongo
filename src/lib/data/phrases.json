@@ -490,6 +490,72 @@
           ]
         },
         {
+          "id": "rs-01b",
+          "japanese": "何名様ですか？",
+          "romaji": "Nanmei-sama desu ka?",
+          "english": "How many people? (what staff will ask you)",
+          "difficulty": "core",
+          "notes": "This is the question you'll hear at almost every restaurant entrance. Staff say 何名様 (nanmei-sama) — the polite form. Your answers: 1人 (hitori), 2人 (futari), 3人 (san-nin). Always hold up fingers at the same time.",
+          "responses": [
+            {
+              "japanese": "お一人様ですか？",
+              "romaji": "O-hitori-sama desu ka?",
+              "english": "Just one person?",
+              "listen_for": "Polite confirmation for solo diners. Answer はい to confirm."
+            },
+            {
+              "japanese": "お二人様ですね",
+              "romaji": "O-futari-sama desu ne",
+              "english": "Two people, right?",
+              "listen_for": "Polite confirmation for two. はい to confirm."
+            },
+            {
+              "japanese": "お三人様ですね",
+              "romaji": "O-sannin-sama desu ne",
+              "english": "Three people, right?",
+              "listen_for": "Polite confirmation for three. はい to confirm."
+            }
+          ]
+        },
+        {
+          "id": "rs-01c",
+          "japanese": "禁煙席をお願いします",
+          "romaji": "Kinen-seki wo onegaishimasu",
+          "english": "Non-smoking table please",
+          "difficulty": "core",
+          "notes": "禁煙 (kinen) = no smoking. 喫煙席 (kitsuen-seki) = smoking section. Many restaurants in Japan still have both. Request this when being seated.",
+          "responses": [
+            {
+              "japanese": "禁煙席にご案内いたします",
+              "romaji": "Kinen-seki ni goannai itashimasu",
+              "english": "I'll show you to a non-smoking seat",
+              "listen_for": "ご案内 = guide/lead. Follow them."
+            },
+            {
+              "japanese": "申し訳ありませんが、禁煙席が満席です",
+              "romaji": "Moushiwake arimasen ga, kinen-seki ga manseki desu",
+              "english": "I'm sorry, non-smoking is full",
+              "listen_for": "満席 (manseki) = full. You may need to wait or accept a smoking seat."
+            }
+          ]
+        },
+        {
+          "id": "rs-01d",
+          "japanese": "カウンター席でもいいですか？",
+          "romaji": "Kauntaa-seki demo ii desu ka?",
+          "english": "Is a counter seat okay?",
+          "difficulty": "extra",
+          "notes": "Staff may offer a counter seat (bar-style, solo or two people facing the kitchen) if tables are full. Solo diners are often seated here. You may hear this as a question — answer はい to accept or テーブルがいいです to request a table.",
+          "responses": [
+            {
+              "japanese": "カウンター席でよろしければご案内できます",
+              "romaji": "Kauntaa-seki de yoroshikereba goannai dekimasu",
+              "english": "We can seat you at the counter if that's okay",
+              "listen_for": "よろしければ = if that's fine. Say はい、お願いします to accept."
+            }
+          ]
+        },
+        {
           "id": "rs-02",
           "japanese": "メニューをください",
           "romaji": "Menyuu wo kudasai",
@@ -572,6 +638,28 @@
           ]
         },
         {
+          "id": "rs-05b",
+          "japanese": "別々に払えますか？",
+          "romaji": "Betsu betsu ni haraemasu ka?",
+          "english": "Can we pay separately?",
+          "difficulty": "core",
+          "notes": "別々 (betsubetsu) = separately. Very useful for groups. Some restaurants may not support split bills — they may ask you to calculate and hand over separate cash instead.",
+          "responses": [
+            {
+              "japanese": "はい、承知しました",
+              "romaji": "Hai, shouchi shimashita",
+              "english": "Yes, understood",
+              "listen_for": "They'll split it at the register."
+            },
+            {
+              "japanese": "申し訳ありませんが、別々にはできません",
+              "romaji": "Moushiwake arimasen ga, betsubetsu ni wa dekimasen",
+              "english": "Sorry, we can't split the bill",
+              "listen_for": "できません = cannot. You'll need to settle among yourselves and pay together."
+            }
+          ]
+        },
+        {
           "id": "rs-06",
           "japanese": "美味しい！",
           "romaji": "Oishii!",
@@ -648,6 +736,22 @@
           ]
         },
         {
+          "id": "rs-09b",
+          "japanese": "お水を〇つお願いします",
+          "romaji": "Omizu wo [X]-tsu onegaishimasu",
+          "english": "Water for ___ people please",
+          "difficulty": "extra",
+          "notes": "Ordering water for your group all at once. Hold up fingers to match the number.",
+          "responses": [
+            {
+              "japanese": "はい、すぐにお持ちします",
+              "romaji": "Hai, sugu ni omochi shimasu",
+              "english": "Yes, I'll bring them right away",
+              "listen_for": "すぐ = right away. All glasses coming."
+            }
+          ]
+        },
+        {
           "id": "rs-10",
           "japanese": "持ち帰りでお願いします",
           "romaji": "Mochikaeri de onegaishimasu",
@@ -704,6 +808,120 @@
               "romaji": "Seiriiken wo douzo",
               "english": "Here is your queue ticket",
               "listen_for": "整理券 (seiriiken) = numbered ticket. Hold on to it — your number will be called."
+            }
+          ]
+        },
+        {
+          "id": "rs-13",
+          "japanese": "二人です",
+          "romaji": "Futari desu",
+          "english": "Two of us",
+          "difficulty": "core",
+          "notes": "二人 (futari) is irregular — not ni-nin. From three people onward the pattern becomes regular: 三人 (san-nin), 四人 (yo-nin).",
+          "responses": [
+            {
+              "japanese": "こちらへどうぞ",
+              "romaji": "Kochira e douzo",
+              "english": "Right this way",
+              "listen_for": "Same seating phrase as for one person — follow them to your table."
+            },
+            {
+              "japanese": "禁煙席と喫煙席どちらがよろしいですか？",
+              "romaji": "Kin'en-seki to kitsuen-seki dochira ga yoroshii desu ka?",
+              "english": "Smoking or non-smoking seat?",
+              "listen_for": "Rare now but some izakaya still ask. 禁煙 (kin'en) = non-smoking, 喫煙 (kitsuen) = smoking."
+            }
+          ]
+        },
+        {
+          "id": "rs-14",
+          "japanese": "三人です",
+          "romaji": "San-nin desu",
+          "english": "Three of us",
+          "difficulty": "core",
+          "notes": "三人 (san-nin) is the regular counter pattern used from 3 people onward (四人 yo-nin, 五人 go-nin, etc.).",
+          "responses": [
+            {
+              "japanese": "少々お待ちください",
+              "romaji": "Shoushou omachi kudasai",
+              "english": "Please wait a moment",
+              "listen_for": "Larger tables may take longer to free up."
+            },
+            {
+              "japanese": "カウンター席でもよろしいですか？",
+              "romaji": "Kauntaa-seki demo yoroshii desu ka?",
+              "english": "Is a counter seat okay?",
+              "listen_for": "Some restaurants seat groups of 3 at the counter if tables are full."
+            }
+          ]
+        },
+        {
+          "id": "rs-15",
+          "japanese": "二つください",
+          "romaji": "Futatsu kudasai",
+          "english": "Two of these please",
+          "difficulty": "core",
+          "notes": "二つ (futatsu) = two, the generic item counter. Point at the menu.",
+          "responses": [
+            {
+              "japanese": "かしこまりました",
+              "romaji": "Kashikomarimashita",
+              "english": "Certainly",
+              "listen_for": "Order received."
+            }
+          ]
+        },
+        {
+          "id": "rs-16",
+          "japanese": "三つください",
+          "romaji": "Mittsu kudasai",
+          "english": "Three of these please",
+          "difficulty": "core",
+          "notes": "三つ (mittsu) = three. The generic counter (一つ, 二つ, 三つ, 四つ, 五つ...) is irregular up through 十 (too) = ten.",
+          "responses": [
+            {
+              "japanese": "かしこまりました",
+              "romaji": "Kashikomarimashita",
+              "english": "Certainly",
+              "listen_for": "Order received."
+            }
+          ]
+        },
+        {
+          "id": "rs-17",
+          "japanese": "別々に会計できますか？",
+          "romaji": "Betsubetsu ni kaikei dekimasu ka?",
+          "english": "Can we pay separately?",
+          "difficulty": "extra",
+          "notes": "別々 (betsubetsu) = separately. Some smaller shops in Japan don't allow split bills — ask before ordering if it matters.",
+          "responses": [
+            {
+              "japanese": "申し訳ございませんが、別々のお会計はできません",
+              "romaji": "Moushiwake gozaimasen ga, betsubetsu no okaikei wa dekimasen",
+              "english": "I'm sorry, we can't split the bill",
+              "listen_for": "別々 (betsubetsu) = separate. You may need one person to pay and split later."
+            },
+            {
+              "japanese": "かしこまりました、では別々にご用意します",
+              "romaji": "Kashikomarimashita, dewa betsubetsu ni goyoui shimasu",
+              "english": "Certainly, I'll prepare separate bills",
+              "listen_for": "Confirms they'll split the check for your group."
+            }
+          ]
+        },
+        {
+          "id": "rs-18",
+          "japanese": "一緒にお願いします",
+          "romaji": "Issho ni onegaishimasu",
+          "english": "Together please (one bill)",
+          "difficulty": "core",
+          "notes": "Say this when asked 別々ですか、ご一緒ですか？ (Betsubetsu desu ka, go-issho desu ka?) — Separate or together?",
+          "responses": [
+            {
+              "japanese": "かしこまりました",
+              "romaji": "Kashikomarimashita",
+              "english": "Certainly",
+              "listen_for": "One combined bill coming up."
             }
           ]
         }
@@ -897,6 +1115,44 @@
               "listen_for": "券売機 (kenbaiki) = ticket vending machine. They'll point you to it."
             }
           ]
+        },
+        {
+          "id": "tr-11",
+          "japanese": "切符を2枚ください",
+          "romaji": "Kippu o nimai kudasai",
+          "english": "Two tickets please",
+          "difficulty": "core",
+          "notes": "枚 (mai) counts flat thin objects like tickets and paper: 1枚 (ichimai), 2枚 (nimai), 3枚 (sanmai).",
+          "responses": [
+            {
+              "japanese": "片道ですか、往復ですか？",
+              "romaji": "Katamichi desu ka, oufuku desu ka?",
+              "english": "One-way or round-trip?",
+              "listen_for": "片道 (katamichi) = one-way, 往復 (oufuku) = round-trip."
+            }
+          ]
+        },
+        {
+          "id": "tr-12",
+          "japanese": "タクシーは3人乗れますか？",
+          "romaji": "Takushii wa san-nin noremasu ka?",
+          "english": "Can three people fit in this taxi?",
+          "difficulty": "extra",
+          "notes": "Standard Japanese taxis seat up to 4 passengers; larger groups need a ジャンボタクシー (jumbo taxi).",
+          "responses": [
+            {
+              "japanese": "はい、大丈夫です",
+              "romaji": "Hai, daijoubu desu",
+              "english": "Yes, that's fine",
+              "listen_for": "Confirms your group fits."
+            },
+            {
+              "japanese": "4人までです",
+              "romaji": "Yo-nin made desu",
+              "english": "Up to four people",
+              "listen_for": "4人まで (yonin made) = up to 4 people — standard taxi capacity."
+            }
+          ]
         }
       ]
     },
@@ -930,6 +1186,28 @@
               "romaji": "Oheya wa [X] kai desu",
               "english": "Your room is on floor [X]",
               "listen_for": "階 (kai) = floor number. 1階 (ikkai) = 1F. They'll hand you the key card too."
+            }
+          ]
+        },
+        {
+          "id": "ht-01b",
+          "japanese": "〇名で予約した〜です",
+          "romaji": "[X]-mei de yoyaku shita [name] desu",
+          "english": "I have a reservation for ___ people under [name]",
+          "difficulty": "core",
+          "notes": "Combine the number of guests with your name when checking in as a group. 名 (mei) is the formal counter for people used in hotels and restaurants.",
+          "responses": [
+            {
+              "japanese": "少々お待ちください、確認いたします",
+              "romaji": "Shoushou omachi kudasai, kakunin itashimasu",
+              "english": "Please wait a moment, I'll confirm",
+              "listen_for": "They're pulling up your reservation."
+            },
+            {
+              "japanese": "はい、ご予約を確認いたしました",
+              "romaji": "Hai, go-yoyaku wo kakunin itashimashita",
+              "english": "Yes, I've confirmed your reservation",
+              "listen_for": "確認 = confirmed. You're checked in."
             }
           ]
         },
@@ -1056,6 +1334,44 @@
               "listen_for": "とても (totemo) = very. They'll name a place. Ask them to write it down: 書いてもらえますか？ (Kaite moraemasu ka?)"
             }
           ]
+        },
+        {
+          "id": "ht-09",
+          "japanese": "二人部屋をお願いします",
+          "romaji": "Futari-beya o onegaishimasu",
+          "english": "A room for two please",
+          "difficulty": "core",
+          "notes": "二人部屋 (futari-beya) = twin/double room. 一人部屋 (hitori-beya) = single, 三人部屋 (san-nin-beya) = triple.",
+          "responses": [
+            {
+              "japanese": "ツインとダブル、どちらがよろしいですか？",
+              "romaji": "Tsuin to daburu, dochira ga yoroshii desu ka?",
+              "english": "Twin or double, which would you prefer?",
+              "listen_for": "ツイン (tsuin) = two separate beds, ダブル (daburu) = one large shared bed."
+            }
+          ]
+        },
+        {
+          "id": "ht-10",
+          "japanese": "三人部屋はありますか？",
+          "romaji": "San-nin-beya wa arimasu ka?",
+          "english": "Do you have a room for three?",
+          "difficulty": "extra",
+          "notes": "Triple rooms are less common in Japan — many hotels max out at 2 per room, so you may need an extra bed or a separate room.",
+          "responses": [
+            {
+              "japanese": "申し訳ございませんが、満室です",
+              "romaji": "Moushiwake gozaimasen ga, manshitsu desu",
+              "english": "I'm sorry, we're fully booked",
+              "listen_for": "満室 (manshitsu) = fully booked rooms — different from 満席 (manseki) = full seats."
+            },
+            {
+              "japanese": "エキストラベッドをご用意できます",
+              "romaji": "Ekisutora beddo o goyoui dekimasu",
+              "english": "We can provide an extra bed",
+              "listen_for": "エキストラベッド (ekisutora beddo) = extra bed, often a solution for a third guest."
+            }
+          ]
         }
       ]
     },
@@ -1083,6 +1399,28 @@
               "romaji": "Moushiwake arimasen ga, kauntaa wa manseki desu",
               "english": "Sorry, the counter is full",
               "listen_for": "満席 (manseki) = full. Ask: テーブル席はありますか？ (Is there a table?)"
+            }
+          ]
+        },
+        {
+          "id": "ba-01b",
+          "japanese": "〇人でテーブルに座れますか？",
+          "romaji": "[X]-nin de teeburu ni suwaremasu ka?",
+          "english": "Can ___ of us sit at a table?",
+          "difficulty": "core",
+          "notes": "Use this when entering a bar as a group. Some standing bars (立ち飲み/tachinomi) may only have counter seating.",
+          "responses": [
+            {
+              "japanese": "はい、こちらへどうぞ",
+              "romaji": "Hai, kochira e douzo",
+              "english": "Yes, this way please",
+              "listen_for": "Follow them to the table or counter."
+            },
+            {
+              "japanese": "テーブルは少々お待ちいただけますか？",
+              "romaji": "Teeburu wa shoushou omachi itadakemasu ka?",
+              "english": "Could you wait a moment for a table?",
+              "listen_for": "They're clearing a table. Say はい to wait."
             }
           ]
         },
@@ -1363,6 +1701,44 @@
               "listen_for": "もちろんです = of course. Completely normal to ask."
             }
           ]
+        },
+        {
+          "id": "ba-16",
+          "japanese": "二人分お願いします",
+          "romaji": "Futari-bun onegaishimasu",
+          "english": "Two servings please",
+          "difficulty": "extra",
+          "notes": "〜人分 (-nin bun) = portions for X people. Useful for sharing plates: 二人分 (futari-bun), 三人分 (san-nin bun).",
+          "responses": [
+            {
+              "japanese": "かしこまりました",
+              "romaji": "Kashikomarimashita",
+              "english": "Certainly",
+              "listen_for": "Order received for the group."
+            }
+          ]
+        },
+        {
+          "id": "ba-17",
+          "japanese": "三人で来ました",
+          "romaji": "San-nin de kimashita",
+          "english": "There are three of us",
+          "difficulty": "extra",
+          "notes": "〜人で来ました (-nin de kimashita) = we came as a group of X. Useful when a host asks your party size.",
+          "responses": [
+            {
+              "japanese": "何名様ですか？",
+              "romaji": "Nanmei-sama desu ka?",
+              "english": "How many people?",
+              "listen_for": "Polite way to ask party size — answer with 一人/二人/三人 etc."
+            },
+            {
+              "japanese": "カウンター席になりますがよろしいですか？",
+              "romaji": "Kauntaa-seki ni narimasu ga yoroshii desu ka?",
+              "english": "It will be counter seating, is that okay?",
+              "listen_for": "Common for small bars when tables don't fit your group size."
+            }
+          ]
         }
       ]
     },
@@ -1598,6 +1974,28 @@
           ]
         },
         {
+          "id": "nu-01b",
+          "japanese": "人数の数え方",
+          "romaji": "Ninzuu no kazoekata",
+          "english": "How to count people — the essential counters",
+          "difficulty": "core",
+          "notes": "Japanese uses special words for counting people. 1 and 2 are irregular; from 3 onward, use number + 人 (nin). Formal contexts (hotels, restaurants) use 名 (mei) instead of 人. 一人/一名 (hitori/ichimei) = one, 二人/二名 (futari/nimei) = two, 三人/三名 (san-nin/sanmei) = three — 人 is everyday, 名 is formal (hotel/restaurant).",
+          "responses": [
+            {
+              "japanese": "何名様ですか？",
+              "romaji": "Nanmei-sama desu ka?",
+              "english": "How many people? (polite — what staff will ask)",
+              "listen_for": "何名様 (nanmei-sama) is the question that prompts you to answer with one of these counters. Hold up fingers as you answer."
+            },
+            {
+              "japanese": "何人ですか？",
+              "romaji": "Nan-nin desu ka?",
+              "english": "How many people? (casual)",
+              "listen_for": "The everyday version of the same question, using 人 instead of the formal 名."
+            }
+          ]
+        },
+        {
           "id": "nu-02",
           "japanese": "何時ですか？",
           "romaji": "Nanji desu ka?",
@@ -1626,6 +2024,38 @@
               "romaji": "Onamae wo onegaishimasu",
               "english": "Your name please",
               "listen_for": "お名前 (onamae) = name. Say your name clearly or show it written."
+            }
+          ]
+        },
+        {
+          "id": "nu-04",
+          "japanese": "一人、二人、三人",
+          "romaji": "Hitori, futari, san-nin",
+          "english": "One person, two people, three people",
+          "difficulty": "core",
+          "notes": "The people-counter 人 (nin) is irregular for 1 and 2: 一人 (hitori), 二人 (futari). From three onward it's regular: 三人 (san-nin), 四人 (yo-nin), 五人 (go-nin). Staff use the polite form 〜名様 (-mei-sama) instead, e.g. お一人様 (o-hitori-sama).",
+          "responses": [
+            {
+              "japanese": "何名様ですか？",
+              "romaji": "Nanmei-sama desu ka?",
+              "english": "How many people (polite)?",
+              "listen_for": "Answer with 一人/二人/三人 etc., or just hold up fingers."
+            }
+          ]
+        },
+        {
+          "id": "nu-05",
+          "japanese": "一つ、二つ、三つ",
+          "romaji": "Hitotsu, futatsu, mittsu",
+          "english": "One, two, three (items)",
+          "difficulty": "core",
+          "notes": "The generic item-counter つ (tsu) is used for food orders, souvenirs, and other countable objects when you don't know the specific counter: 一つ, 二つ, 三つ, 四つ, 五つ... It stops being used after 十 (too) = 10.",
+          "responses": [
+            {
+              "japanese": "いくつになさいますか？",
+              "romaji": "Ikutsu ni nasaimasu ka?",
+              "english": "How many would you like?",
+              "listen_for": "いくつ (ikutsu) = how many — answer with 一つ/二つ/三つ."
             }
           ]
         }
@@ -1847,6 +2277,28 @@
               "romaji": "Moushiwake gozaimasen ga, kashikiri-buro wa gozaimasen",
               "english": "I'm sorry, we don't have a private bath",
               "listen_for": "A polite no — you may need to look for a different facility."
+            }
+          ]
+        },
+        {
+          "id": "on-06",
+          "japanese": "貸切風呂は何人まで入れますか？",
+          "romaji": "Kashikiri-buro wa nan-nin made hairemasu ka?",
+          "english": "How many people can use the private bath?",
+          "difficulty": "extra",
+          "notes": "Private baths (貸切風呂/家族風呂) are often capped at 2–4 people and booked in time slots — ask at check-in.",
+          "responses": [
+            {
+              "japanese": "二人までです",
+              "romaji": "Futari made desu",
+              "english": "Up to two people",
+              "listen_for": "まで (made) = up to/until — listen for the number right before it."
+            },
+            {
+              "japanese": "最大4名様までご利用いただけます",
+              "romaji": "Saidai yon-mei-sama made goriyou itadakemasu",
+              "english": "Up to a maximum of 4 people",
+              "listen_for": "名様 (mei-sama) is the polite counter for people, used by staff."
             }
           ]
         }

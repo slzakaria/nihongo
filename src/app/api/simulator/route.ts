@@ -2,9 +2,15 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest } from 'next/server'
 import { getScenarioBySlug } from '@/lib/data/phrases'
 import { getSimulatorPrompt } from '@/lib/simulator/prompts'
+import { createClient } from '@/lib/supabase/server'
+import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
 import { ChatMessage } from '@/types'
 
 const client = new Anthropic({ apiKey: process.env.CLAUDE_API_KEY })
+
+// Guests get a soft daily cap (cookie-based) so the Claude API can't be spammed anonymously
+const ANON_DAILY_LIMIT = 15
+const LIMIT_COOKIE = 'sim_msgs'
 
 export async function POST(req: NextRequest) {
   const { messages, scenarioSlug } = (await req.json()) as {
@@ -15,6 +21,23 @@ export async function POST(req: NextRequest) {
   const scenario = getScenarioBySlug(scenarioSlug)
   if (!scenario) {
     return Response.json({ error: 'Unknown scenario' }, { status: 400 })
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  let setCookie: string | undefined
+  if (!user) {
+    const { limited, setCookie: cookie } = checkAndBumpDailyLimit(req, LIMIT_COOKIE, ANON_DAILY_LIMIT)
+    if (limited) {
+      return Response.json(
+        { error: `You've reached today's ${ANON_DAILY_LIMIT}-message guest limit.` },
+        { status: 429 }
+      )
+    }
+    setCookie = cookie
   }
 
   const stream = client.messages.stream({
@@ -36,7 +59,8 @@ export async function POST(req: NextRequest) {
     },
   })
 
-  return new Response(readable, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-  })
+  const headers: HeadersInit = { 'Content-Type': 'text/plain; charset=utf-8' }
+  if (setCookie) headers['Set-Cookie'] = setCookie
+
+  return new Response(readable, { headers })
 }

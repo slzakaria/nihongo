@@ -34,7 +34,9 @@ export function ScenarioSidebar({
             )}
           >
             <span>{s.label}</span>
-            <span className="text-xs text-muted-foreground">{pct}%</span>
+            <span className={cn('text-xs text-muted-foreground', active && 'text-secondary-foreground')}>
+              {pct}%
+            </span>
           </Link>
         )
       })}

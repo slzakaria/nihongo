@@ -2,12 +2,19 @@ import { NextRequest } from 'next/server'
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { createClient } from '@/lib/supabase/server'
+import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
 
 const ELEVENLABS_API_URL = 'https://api.elevenlabs.io/v1/text-to-speech'
 const MODEL_ID = 'eleven_turbo_v2_5' // v4 Turbo — fast, Japanese support, free tier
 // Disk cache so the same phrase is never sent to ElevenLabs twice, even across
 // browsers/devices or a cleared client cache — phrases are a finite, static set.
 const CACHE_DIR = path.join(process.cwd(), '.cache', 'tts')
+
+// Generous cap since the app's own finite phrase set is served from the disk cache above
+// (free) — this only throttles genuinely novel/arbitrary text from an anonymous caller.
+const ANON_DAILY_LIMIT = 100
+const LIMIT_COOKIE = 'tts_reqs'
 
 function cacheKeyFor(text: string, voiceId: string) {
   return createHash('sha256').update(`${voiceId}:${MODEL_ID}:${text}`).digest('hex')
@@ -47,6 +54,22 @@ export async function POST(req: NextRequest) {
     })
   }
 
+  let setCookie: string | undefined
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) {
+    const { limited, setCookie: cookie } = checkAndBumpDailyLimit(req, LIMIT_COOKIE, ANON_DAILY_LIMIT)
+    if (limited) {
+      return Response.json(
+        { error: `You've reached today's ${ANON_DAILY_LIMIT}-request guest limit.` },
+        { status: 429 }
+      )
+    }
+    setCookie = cookie
+  }
+
   const res = await fetch(`${ELEVENLABS_API_URL}/${voiceId}`, {
     method: 'POST',
     headers: {
@@ -72,7 +95,8 @@ export async function POST(req: NextRequest) {
     console.error('Failed to write TTS cache', err)
   )
 
-  return new Response(new Blob([new Uint8Array(buffer)]), {
-    headers: { 'Content-Type': 'audio/mpeg', 'X-TTS-Cache': 'miss' },
-  })
+  const headers: HeadersInit = { 'Content-Type': 'audio/mpeg', 'X-TTS-Cache': 'miss' }
+  if (setCookie) headers['Set-Cookie'] = setCookie
+
+  return new Response(new Blob([new Uint8Array(buffer)]), { headers })
 }
