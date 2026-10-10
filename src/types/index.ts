@@ -1,5 +1,8 @@
 export interface PhraseResponse {
   japanese: string
+  // Original kanji form, shown as a reference alongside romaji — `japanese` itself
+  // is hiragana-only so the TTS API reads it with the correct pronunciation.
+  kanji?: string
   romaji: string
   english: string
   listen_for: string
@@ -8,6 +11,7 @@ export interface PhraseResponse {
 export interface Phrase {
   id: string
   japanese: string
+  kanji?: string
   romaji: string
   english: string
   difficulty: 'core' | 'extra'

@@ -20,10 +20,11 @@
               "listen_for": "いらっしゃいませ (Irasshaimase) is the standard shop/restaurant welcome chant. No response needed — just nod and smile."
             },
             {
-              "japanese": "こんにちは、何かお探しですか？",
+              "japanese": "こんにちは、なにかおさがしですか？",
               "romaji": "Konnichiwa, nanika osagashi desu ka?",
               "english": "Hello, are you looking for something?",
-              "listen_for": "お探し (osagashi) = looking for. Follow up with 見ているだけです if you're browsing."
+              "listen_for": "おさがし (お探し, osagashi) = looking for. Follow up with みているだけです (見ているだけです) if you're browsing.",
+              "kanji": "こんにちは、何かお探しですか？"
             }
           ]
         },
@@ -42,8 +43,8 @@
               "listen_for": "The formal response. Less common than you'd expect — Japanese often just smile or nod."
             },
             {
-              "japanese": "いいえ、どうぞ",
-              "romaji": "Iie, douzo",
+              "japanese": "いえ、どうぞ",
+              "romaji": "ie, douzo",
               "english": "Not at all, please (go ahead)",
               "listen_for": "A softer 'you're welcome'. どうぞ on its own means 'please go ahead / here you go'."
             }
@@ -64,10 +65,11 @@
               "listen_for": "Staff responding to your attention-grab. They're ready to help — go ahead with your question."
             },
             {
-              "japanese": "はい、何でしょうか？",
+              "japanese": "はい、なんでしょうか？",
               "romaji": "Hai, nan deshou ka?",
               "english": "Yes, what can I do for you?",
-              "listen_for": "Polite 'what do you need?' — follow with your question."
+              "listen_for": "Polite 'what do you need?' — follow with your question.",
+              "kanji": "はい、何でしょうか？"
             }
           ]
         },
@@ -93,7 +95,7 @@
           "romaji": "ie",
           "english": "No",
           "difficulty": "core",
-          "notes": "大丈夫です (Daijoubu desu) is a softer way to decline.",
+          "notes": "だいじょうぶです (大丈夫です, Daijoubu desu) is a softer way to decline.",
           "responses": [
             {
               "japanese": "そうですか",
@@ -105,117 +107,132 @@
         },
         {
           "id": "gr-06",
-          "japanese": "分かりました",
+          "japanese": "わかりました",
           "romaji": "Wakarimashita",
           "english": "I understood / Got it",
           "difficulty": "core",
-          "notes": "Use after someone explains something. 分かりません (Wakarimasen) = I don't understand.",
+          "notes": "Use after someone explains something. わかりません (わかりません (分かりません), Wakarimasen) = I don't understand.",
           "responses": [
             {
-              "japanese": "良かったです！",
+              "japanese": "よかったです！",
               "romaji": "Yokatta!",
               "english": "Great! / I'm glad!",
-              "listen_for": "Relief expression — they're happy you understood."
+              "listen_for": "Relief expression — they're happy you understood.",
+              "kanji": "良かったです！"
             }
-          ]
+          ],
+          "kanji": "分かりました"
         },
         {
           "id": "gr-07",
-          "japanese": "分かりません",
+          "japanese": "わかりません",
           "romaji": "Wakarimasen",
           "english": "I don't understand",
           "difficulty": "core",
           "notes": "Say this confidently rather than nodding along confused.",
           "responses": [
             {
-              "japanese": "英語で言いましょうか？",
+              "japanese": "えいごでいいましょうか？",
               "romaji": "Eigo de iimashou ka?",
               "english": "Shall I say it in English?",
-              "listen_for": "They're offering to switch to English. Say はい if you want that."
+              "listen_for": "They're offering to switch to English. Say はい if you want that.",
+              "kanji": "英語で言いましょうか？"
             },
             {
-              "japanese": "もう一度言いますね",
+              "japanese": "もういちどいいますね",
               "romaji": "Mou ichido iimasu ne",
               "english": "I'll say it one more time",
-              "listen_for": "They're going to repeat. Get ready to listen again."
+              "listen_for": "They're going to repeat. Get ready to listen again.",
+              "kanji": "もう一度言いますね"
             }
-          ]
+          ],
+          "kanji": "分かりません"
         },
         {
           "id": "gr-08",
-          "japanese": "もう一度、ゆっくりお願いします",
+          "japanese": "もういちど、ゆっくりおねがいします",
           "romaji": "Mou ichido, yukkuri onegaishimasu",
           "english": "Once more, slowly please",
           "difficulty": "core",
           "notes": "Absolute lifesaver. Most people will happily comply.",
           "responses": [
             {
-              "japanese": "はい、ゆっくり言いますね",
+              "japanese": "はい、ゆっくりいいますね",
               "romaji": "Hai, yukkuri iimasu ne",
               "english": "Yes, I'll say it slowly",
-              "listen_for": "They'll slow right down. Focus on the key words — nouns and numbers."
+              "listen_for": "They'll slow right down. Focus on the key words — nouns and numbers.",
+              "kanji": "はい、ゆっくり言いますね"
             }
-          ]
+          ],
+          "kanji": "もう一度、ゆっくりお願いします"
         },
         {
           "id": "gr-09",
-          "japanese": "日本語があまり上手じゃないです",
+          "japanese": "にほんごがあまりじょうずじゃないです",
           "romaji": "Nihongo ga amari jouzu ja nai desu",
           "english": "My Japanese isn't very good",
           "difficulty": "extra",
           "notes": "Sets expectations well. People appreciate the honesty and effort.",
           "responses": [
             {
-              "japanese": "いえいえ、上手ですよ！",
+              "japanese": "いえいえ、じょうずですよ！",
               "romaji": "Ieie, jouzu desu yo!",
               "english": "No no, you're good at it!",
-              "listen_for": "Japanese people will almost always say this even if your Japanese is minimal. It's encouragement, not assessment. Smile and say ありがとうございます."
+              "listen_for": "Japanese people will almost always say this even if your Japanese is minimal. It's encouragement, not assessment. Smile and say ありがとうございます.",
+              "kanji": "いえいえ、上手ですよ！"
             }
-          ]
+          ],
+          "kanji": "日本語があまり上手じゃないです"
         },
         {
           "id": "gr-10",
-          "japanese": "英語は話せますか？",
+          "japanese": "えいごははなせますか？",
           "romaji": "Eigo wa hanasemasu ka?",
           "english": "Do you speak English?",
           "difficulty": "core",
           "notes": "Ask before assuming. Common in tourist areas.",
           "responses": [
             {
-              "japanese": "少しだけ話せます",
+              "japanese": "すこしだけはなせます",
               "romaji": "Sukoshi dake hanasemasu",
               "english": "I can speak a little",
-              "listen_for": "少し (sukoshi) = a little. They'll try. Meet them halfway."
+              "listen_for": "すこし (少し, sukoshi) = a little. They'll try. Meet them halfway.",
+              "kanji": "少しだけ話せます"
             },
             {
-              "japanese": "すみません、英語はあまり…",
+              "japanese": "すみません、えいごはあまり…",
               "romaji": "Sumimasen, eigo wa amari…",
               "english": "Sorry, my English is not great…",
-              "listen_for": "Trailing off with あまり means 'not much'. Switch to simple Japanese and gestures."
+              "listen_for": "Trailing off with あまり means 'not much'. Switch to simple Japanese and gestures.",
+              "kanji": "すみません、英語はあまり…"
             },
             {
-              "japanese": "はい、少し話せます。どうぞ！",
+              "japanese": "はい、すこしはなせます。どうぞ！",
               "romaji": "Hai, sukoshi hanasemasu. Douzo!",
               "english": "Yes, I can speak a little. Go ahead!",
-              "listen_for": "Green light — they're willing to try English."
+              "listen_for": "Green light — they're willing to try English.",
+              "kanji": "はい、少し話せます。どうぞ！"
             }
-          ]
+          ],
+          "kanji": "英語は話せますか？"
         },
         {
           "id": "gr-11",
-          "japanese": "よろしくお願いします",
+          "japanese": "よろしくおねがいします",
           "romaji": "Yoroshiku onegaishimasu",
           "english": "Nice to meet you / Please take care of me",
           "difficulty": "extra",
           "notes": "Said when meeting someone, starting a transaction, or asking a favor.",
           "responses": [
             {
-              "japanese": "こちらこそ、よろしくお願いします",
+              "japanese": "こちらこそ、よろしくおねがいします",
               "romaji": "Kochira koso, yoroshiku onegaishimasu",
               "english": "Likewise, pleased to meet you too",
-              "listen_for": "こちらこそ = 'the same to you / likewise'. The standard warm reply."
+              "listen_for": "こちらこそ = 'the same to you / likewise'. The standard warm reply.",
+              "kanji": "こちらこそ、よろしくお願いします"
             }
-          ]
+          ],
+          "kanji": "よろしくお願いします"
         }
       ]
     },
@@ -233,22 +250,24 @@
           "notes": "Point at the item. Listen for a number.",
           "responses": [
             {
-              "japanese": "〜円です",
+              "japanese": "〜えんです",
               "romaji": "[price] en desu",
               "english": "[price] yen",
-              "listen_for": "Just the number + 円 (en). E.g., 1500円 = 1500 yen. If you don't catch it, ask: もう一度お願いします."
+              "listen_for": "Just the number + えん (円, en). E.g., 1500えん = 1500 yen. If you don't catch it, ask: もういちどおねがいします (もう一度お願いします).",
+              "kanji": "〜円です"
             },
             {
-              "japanese": "税込で〜円になります",
+              "japanese": "ぜいこみで〜えんになります",
               "romaji": "Zeikomi de [price] en ni narimasu",
               "english": "Including tax, it's [price] yen",
-              "listen_for": "税込 (zeikomi) = tax included. The final price."
+              "listen_for": "ぜいこみ (税込, zeikomi) = tax included. The final price.",
+              "kanji": "税込で〜円になります"
             }
           ]
         },
         {
           "id": "sh-02",
-          "japanese": "見ているだけです",
+          "japanese": "みているだけです",
           "romaji": "Mite iru dake desu",
           "english": "I'm just looking",
           "difficulty": "core",
@@ -261,12 +280,14 @@
               "listen_for": "ゆっくり = slowly/at your pace. They're giving you space — no pressure."
             },
             {
-              "japanese": "何かありましたらお声がけください",
+              "japanese": "なにかありましたらおこえがけください",
               "romaji": "Nanika arimashitara okoe gake kudasai",
               "english": "Please let us know if you need anything",
-              "listen_for": "Long phrase, but just means 'call us if you need help'. Nod and browse."
+              "listen_for": "Long phrase, but just means 'call us if you need help'. Nod and browse.",
+              "kanji": "何かありましたらお声がけください"
             }
-          ]
+          ],
+          "kanji": "見ているだけです"
         },
         {
           "id": "sh-03",
@@ -277,26 +298,28 @@
           "notes": "Point at item + say this. Works anywhere.",
           "responses": [
             {
-              "japanese": "ありがとうございます。〜円になります",
+              "japanese": "ありがとうございます。〜えんになります",
               "romaji": "Arigatou gozaimasu. [price] en ni narimasu",
               "english": "Thank you. That will be [price] yen.",
-              "listen_for": "Listen for the number before 円. They'll often show you on a calculator or the register screen."
+              "listen_for": "Listen for the number before えん (円). They'll often show you on a calculator or the register screen.",
+              "kanji": "ありがとうございます。〜円になります"
             },
             {
-              "japanese": "袋はご入り用ですか？",
+              "japanese": "ふくろはごいりようですか？",
               "romaji": "Fukuro wa go-iriyo desu ka?",
               "english": "Do you need a bag?",
-              "listen_for": "袋 (fukuro) = bag. Answer はい or いいえ."
+              "listen_for": "ふくろ (袋, fukuro) = bag. Answer はい or いいえ.",
+              "kanji": "袋はご入り用ですか？"
             }
           ]
         },
         {
           "id": "sh-04",
-          "japanese": "他の色はありますか？",
+          "japanese": "ほかのいろはありますか？",
           "romaji": "Hoka no iro wa arimasu ka?",
           "english": "Do you have other colors?",
           "difficulty": "extra",
-          "notes": "Replace 色 (iro / color) with サイズ (saizu / size) if needed.",
+          "notes": "Replace いろ (色, iro) / color with サイズ (saizu / size) if needed.",
           "responses": [
             {
               "japanese": "はい、こちらにございます",
@@ -305,38 +328,43 @@
               "listen_for": "こちら (kochira) = this way / over here. Follow them."
             },
             {
-              "japanese": "申し訳ありませんが、この色だけです",
+              "japanese": "もうしわけありませんが、このいろだけです",
               "romaji": "Moushiwake arimasen ga, kono iro dake desu",
               "english": "I'm sorry, we only have this color",
-              "listen_for": "申し訳ありません = formal apology. だけ = only. They don't have other colors."
+              "listen_for": "もうしわけありません (申し訳ありません) = formal apology. だけ = only. They don't have other colors.",
+              "kanji": "申し訳ありませんが、この色だけです"
             }
-          ]
+          ],
+          "kanji": "他の色はありますか？"
         },
         {
           "id": "sh-05",
-          "japanese": "大きいサイズはありますか？",
+          "japanese": "おおきいサイズはありますか？",
           "romaji": "Ookii saizu wa arimasu ka?",
           "english": "Do you have a larger size?",
           "difficulty": "extra",
-          "notes": "大きい (ookii) = larger. 小さい (chiisai) = smaller. Japanese sizing runs small.",
+          "notes": "おおきい (大きい, ookii) = larger. ちいさい (小さい, chiisai) = smaller. Japanese sizing runs small.",
           "responses": [
             {
-              "japanese": "少々お待ちください",
+              "japanese": "しょうしょうおまちください",
               "romaji": "Shoushou omachi kudasai",
               "english": "Please wait a moment",
-              "listen_for": "少々 = a brief moment. They're going to check the back. Stay put."
+              "listen_for": "しょうしょう (少々) = a brief moment. They're going to check the back. Stay put.",
+              "kanji": "少々お待ちください"
             },
             {
-              "japanese": "在庫を確認いたします",
+              "japanese": "ざいこをかくにんいたします",
               "romaji": "Zaiko wo kakunin itashimasu",
               "english": "I'll check our stock",
-              "listen_for": "在庫 (zaiko) = stock/inventory. They're checking for you."
+              "listen_for": "ざいこ (在庫, zaiko) = stock/inventory. They're checking for you.",
+              "kanji": "在庫を確認いたします"
             }
-          ]
+          ],
+          "kanji": "大きいサイズはありますか？"
         },
         {
           "id": "sh-06",
-          "japanese": "試着できますか？",
+          "japanese": "しちゃくできますか？",
           "romaji": "Shichaku dekimasu ka?",
           "english": "Can I try this on?",
           "difficulty": "extra",
@@ -354,39 +382,44 @@
               "english": "The fitting room is over there",
               "listen_for": "あちら (achira) = over there. They'll gesture the direction."
             }
-          ]
+          ],
+          "kanji": "試着できますか？"
         },
         {
           "id": "sh-07",
-          "japanese": "カードで払えますか？",
+          "japanese": "カードではらえますか？",
           "romaji": "Kaado de haraemasu ka?",
           "english": "Can I pay by card?",
           "difficulty": "core",
           "notes": "Japan is still cash-heavy. Always check.",
           "responses": [
             {
-              "japanese": "はい、クレジットカードはご利用いただけます",
+              "japanese": "はい、クレジットカードはごりよういただけます",
               "romaji": "Hai, kurejitto kaado wa go-riyou itadakemasu",
               "english": "Yes, credit cards are accepted",
-              "listen_for": "クレジットカード = credit card. 利用 = use/utilize. Green light."
+              "listen_for": "クレジットカード = credit card. りよう (利用) = use/utilize. Green light.",
+              "kanji": "はい、クレジットカードはご利用いただけます"
             },
             {
-              "japanese": "申し訳ありませんが、現金のみです",
+              "japanese": "もうしわけありませんが、げんきんのみです",
               "romaji": "Moushiwake arimasen ga, genkin nomi desu",
               "english": "Sorry, cash only",
-              "listen_for": "現金 (genkin) = cash. のみ = only. Find an ATM — 7-Eleven ATMs always work with foreign cards."
+              "listen_for": "げんきん (現金, genkin) = cash. のみ = only. Find an ATM — 7-Eleven ATMs always work with foreign cards.",
+              "kanji": "申し訳ありませんが、現金のみです"
             },
             {
-              "japanese": "Suicaはご利用いただけます",
+              "japanese": "Suicaはごりよういただけます",
               "romaji": "Suica wa go-riyou itadakemasu",
               "english": "Suica card is accepted",
-              "listen_for": "Many shops now accept IC cards like Suica as payment."
+              "listen_for": "Many shops now accept IC cards like Suica as payment.",
+              "kanji": "Suicaはご利用いただけます"
             }
-          ]
+          ],
+          "kanji": "カードで払えますか？"
         },
         {
           "id": "sh-08",
-          "japanese": "袋はいりません",
+          "japanese": "ふくろはいりません",
           "romaji": "Fukuro wa irimasen",
           "english": "I don't need a bag",
           "difficulty": "extra",
@@ -396,35 +429,39 @@
               "japanese": "かしこまりました",
               "romaji": "Kashikomarimashita",
               "english": "Understood (formal)",
-              "listen_for": "Very formal acknowledgment. Common in service contexts. Same as 分かりました but more polished."
+              "listen_for": "Very formal acknowledgment. Common in service contexts. Same as わかりました (分かりました) but more polished."
             }
-          ]
+          ],
+          "kanji": "袋はいりません"
         },
         {
           "id": "sh-09",
-          "japanese": "免税はできますか？",
+          "japanese": "めんぜいはできますか？",
           "romaji": "Menzei wa dekimasu ka?",
           "english": "Can I get tax-free?",
           "difficulty": "extra",
           "notes": "Need passport. Purchase over ¥5,000.",
           "responses": [
             {
-              "japanese": "パスポートをお持ちですか？",
+              "japanese": "パスポートをおもちですか？",
               "romaji": "Pasupooto wo omochi desu ka?",
               "english": "Do you have your passport?",
-              "listen_for": "パスポート = passport. お持ち = do you have. Always carry your passport in Japan."
+              "listen_for": "パスポート = passport. おもち (お持ち) = do you have. Always carry your passport in Japan.",
+              "kanji": "パスポートをお持ちですか？"
             },
             {
-              "japanese": "こちらの用紙にご記入ください",
+              "japanese": "こちらのようしにごきにゅうください",
               "romaji": "Kochira no youshi ni go-kinyuu kudasai",
               "english": "Please fill out this form",
-              "listen_for": "用紙 (youshi) = form/paper. 記入 (kinyuu) = fill in. They'll hand you a tax exemption form."
+              "listen_for": "ようし (用紙, youshi) = form/paper. きにゅう (記入, kinyuu) = fill in. They'll hand you a tax exemption form.",
+              "kanji": "こちらの用紙にご記入ください"
             }
-          ]
+          ],
+          "kanji": "免税はできますか？"
         },
         {
           "id": "sh-10",
-          "japanese": "これは何ですか？",
+          "japanese": "これはなんですか？",
           "romaji": "Kore wa nan desu ka?",
           "english": "What is this?",
           "difficulty": "core",
@@ -436,11 +473,12 @@
               "english": "This is [name of item]",
               "listen_for": "They'll name it. You might not know the word — that's fine. Smile and nod, or show interest with へえ！ (Hee! = Oh really!)"
             }
-          ]
+          ],
+          "kanji": "これは何ですか？"
         },
         {
           "id": "sh-11",
-          "japanese": "領収書をください",
+          "japanese": "りょうしゅうしょをください",
           "romaji": "Ryoushuusho wo kudasai",
           "english": "Please give me a receipt",
           "difficulty": "extra",
@@ -450,9 +488,10 @@
               "japanese": "はい、こちらがレシートです",
               "romaji": "Hai, kochira ga reshiito desu",
               "english": "Here is your receipt",
-              "listen_for": "レシート (reshiito) = receipt (casual). 領収書 (ryoushuusho) = formal receipt. They may ask: 宛名はどうしますか？ (Atena wa dou shimasu ka?) = What name for the receipt?"
+              "listen_for": "レシート (reshiito) = receipt (casual). りょうしゅうしょ (領収書, ryoushuusho) = formal receipt. They may ask: あてなはどうしますか？ (宛名はどうしますか？, Atena wa dou shimasu ka?) = What name for the receipt?"
             }
-          ]
+          ],
+          "kanji": "領収書をください"
         }
       ]
     },
@@ -463,17 +502,18 @@
       "phrases": [
         {
           "id": "rs-01",
-          "japanese": "1人です",
+          "japanese": "ひとりです",
           "romaji": "Hitori desu",
           "english": "Just one person",
           "difficulty": "core",
-          "notes": "Hold up fingers too. They'll ask 人数はお一人様ですか？ (Ninzuu wa o-hitorisama desu ka?)",
+          "notes": "Hold up fingers too. They'll ask にんずうはおひとりさまですか？ (人数はお一人様ですか？, Ninzuu wa o-hitorisama desu ka?)",
           "responses": [
             {
-              "japanese": "少々お待ちください",
+              "japanese": "しょうしょうおまちください",
               "romaji": "Shoushou omachi kudasai",
               "english": "Please wait a moment",
-              "listen_for": "They're finding you a table. Wait by the entrance."
+              "listen_for": "They're finding you a table. Wait by the entrance.",
+              "kanji": "少々お待ちください"
             },
             {
               "japanese": "こちらへどうぞ",
@@ -482,78 +522,89 @@
               "listen_for": "Follow them — they're seating you now."
             },
             {
-              "japanese": "ただいま満席でございます",
+              "japanese": "ただいままんせきでございます",
               "romaji": "Tadaima manseki de gozaimasu",
               "english": "We are currently full",
-              "listen_for": "満席 (manseki) = full/no seats. You may need to wait or come back."
+              "listen_for": "まんせき (満席, manseki) = full/no seats. You may need to wait or come back.",
+              "kanji": "ただいま満席でございます"
             }
-          ]
+          ],
+          "kanji": "1人です"
         },
         {
           "id": "rs-01b",
-          "japanese": "何名様ですか？",
+          "japanese": "なんめいさまですか？",
           "romaji": "Nanmei-sama desu ka?",
           "english": "How many people? (what staff will ask you)",
           "difficulty": "core",
-          "notes": "This is the question you'll hear at almost every restaurant entrance. Staff say 何名様 (nanmei-sama) — the polite form. Your answers: 1人 (hitori), 2人 (futari), 3人 (san-nin). Always hold up fingers at the same time.",
+          "notes": "This is the question you'll hear at almost every restaurant entrance. Staff say なんめいさま (何名様, nanmei-sama) — the polite form. Your answers: 1ひとり (人, hitori), 2ふたり (人, futari), 3さんにん (人, san-nin). Always hold up fingers at the same time.",
           "responses": [
             {
-              "japanese": "お一人様ですか？",
+              "japanese": "おひとりさまですか？",
               "romaji": "O-hitori-sama desu ka?",
               "english": "Just one person?",
-              "listen_for": "Polite confirmation for solo diners. Answer はい to confirm."
+              "listen_for": "Polite confirmation for solo diners. Answer はい to confirm.",
+              "kanji": "お一人様ですか？"
             },
             {
-              "japanese": "お二人様ですね",
+              "japanese": "おふたりさまですね",
               "romaji": "O-futari-sama desu ne",
               "english": "Two people, right?",
-              "listen_for": "Polite confirmation for two. はい to confirm."
+              "listen_for": "Polite confirmation for two. はい to confirm.",
+              "kanji": "お二人様ですね"
             },
             {
-              "japanese": "お三人様ですね",
+              "japanese": "おさんにんさまですね",
               "romaji": "O-sannin-sama desu ne",
               "english": "Three people, right?",
-              "listen_for": "Polite confirmation for three. はい to confirm."
+              "listen_for": "Polite confirmation for three. はい to confirm.",
+              "kanji": "お三人様ですね"
             }
-          ]
+          ],
+          "kanji": "何名様ですか？"
         },
         {
           "id": "rs-01c",
-          "japanese": "禁煙席をお願いします",
+          "japanese": "きんえんせきをおねがいします",
           "romaji": "Kinen-seki wo onegaishimasu",
           "english": "Non-smoking table please",
           "difficulty": "core",
-          "notes": "禁煙 (kinen) = no smoking. 喫煙席 (kitsuen-seki) = smoking section. Many restaurants in Japan still have both. Request this when being seated.",
+          "notes": "きねん (禁煙, kinen) = no smoking. きつえんせき (喫煙席, kitsuen-seki) = smoking section. Many restaurants in Japan still have both. Request this when being seated.",
           "responses": [
             {
-              "japanese": "禁煙席にご案内いたします",
+              "japanese": "きんえんせきにごあんないいたします",
               "romaji": "Kinen-seki ni goannai itashimasu",
               "english": "I'll show you to a non-smoking seat",
-              "listen_for": "ご案内 = guide/lead. Follow them."
+              "listen_for": "ごあんない (ご案内) = guide/lead. Follow them.",
+              "kanji": "禁煙席にご案内いたします"
             },
             {
-              "japanese": "申し訳ありませんが、禁煙席が満席です",
+              "japanese": "もうしわけありませんが、きんえんせきがまんせきです",
               "romaji": "Moushiwake arimasen ga, kinen-seki ga manseki desu",
               "english": "I'm sorry, non-smoking is full",
-              "listen_for": "満席 (manseki) = full. You may need to wait or accept a smoking seat."
+              "listen_for": "まんせき (満席, manseki) = full. You may need to wait or accept a smoking seat.",
+              "kanji": "申し訳ありませんが、禁煙席が満席です"
             }
-          ]
+          ],
+          "kanji": "禁煙席をお願いします"
         },
         {
           "id": "rs-01d",
-          "japanese": "カウンター席でもいいですか？",
+          "japanese": "カウンターせきでもいいですか？",
           "romaji": "Kauntaa-seki demo ii desu ka?",
           "english": "Is a counter seat okay?",
           "difficulty": "extra",
           "notes": "Staff may offer a counter seat (bar-style, solo or two people facing the kitchen) if tables are full. Solo diners are often seated here. You may hear this as a question — answer はい to accept or テーブルがいいです to request a table.",
           "responses": [
             {
-              "japanese": "カウンター席でよろしければご案内できます",
+              "japanese": "カウンターせきでよろしければごあんないできます",
               "romaji": "Kauntaa-seki de yoroshikereba goannai dekimasu",
               "english": "We can seat you at the counter if that's okay",
-              "listen_for": "よろしければ = if that's fine. Say はい、お願いします to accept."
+              "listen_for": "よろしければ = if that's fine. Say はい、おねがいします (お願いします) to accept.",
+              "kanji": "カウンター席でよろしければご案内できます"
             }
-          ]
+          ],
+          "kanji": "カウンター席でもいいですか？"
         },
         {
           "id": "rs-02",
@@ -567,17 +618,17 @@
               "japanese": "こちらがメニューになります",
               "romaji": "Kochira ga menyuu ni narimasu",
               "english": "Here is the menu",
-              "listen_for": "They'll hand it to you. English menus are common in tourist areas — you can ask: 英語のメニューはありますか？ (Eigo no menyuu wa arimasu ka?)"
+              "listen_for": "They'll hand it to you. English menus are common in tourist areas — you can ask: えいごのメニューはありますか？ (英語のメニューはありますか？, Eigo no menyuu wa arimasu ka?)"
             }
           ]
         },
         {
           "id": "rs-03",
-          "japanese": "これを一つください",
+          "japanese": "これをひとつください",
           "romaji": "Kore wo hitotsu kudasai",
           "english": "One of these please",
           "difficulty": "core",
-          "notes": "Point at menu item. 一つ (hitotsu) = one. 二つ (futatsu) = two.",
+          "notes": "Point at menu item. ひとつ (一つ, hitotsu) = one. ふたつ (二つ, futatsu) = two.",
           "responses": [
             {
               "japanese": "かしこまりました",
@@ -586,82 +637,93 @@
               "listen_for": "Order received. They may follow with questions about spice, toppings, or cooking preference."
             },
             {
-              "japanese": "辛さはどうしますか？",
+              "japanese": "からさはどうしますか？",
               "romaji": "Karasa wa dou shimasu ka?",
               "english": "How spicy would you like it?",
-              "listen_for": "辛さ (karasa) = level of spice. Common at curry and ramen shops. Options usually: 普通 (futsuu/normal), 辛め (karame/spicier), 辛くなし (karaku nashi/no spice)."
+              "listen_for": "からさ (辛さ, karasa) = level of spice. Common at curry and ramen shops. Options usually: ふつう (普通, futsuu) / normal, からめ (辛め, karame) / spicier, からくなし (辛くなし, karaku nashi) / no spice.",
+              "kanji": "辛さはどうしますか？"
             }
-          ]
+          ],
+          "kanji": "これを一つください"
         },
         {
           "id": "rs-04",
-          "japanese": "おすすめは何ですか？",
+          "japanese": "おすすめはなんですか？",
           "romaji": "Osusume wa nan desu ka?",
           "english": "What do you recommend?",
           "difficulty": "core",
           "notes": "Staff love this question.",
           "responses": [
             {
-              "japanese": "〜がとても人気です",
+              "japanese": "〜がとてもにんきです",
               "romaji": "[dish] ga totemo ninki desu",
               "english": "[dish] is very popular",
-              "listen_for": "人気 (ninki) = popular. Remember the dish name they say and point at it on the menu."
+              "listen_for": "にんき (人気, ninki) = popular. Remember the dish name they say and point at it on the menu.",
+              "kanji": "〜がとても人気です"
             },
             {
-              "japanese": "今日のおすすめは〜です",
+              "japanese": "きょうのおすすめは〜です",
               "romaji": "Kyou no osusume wa [dish] desu",
               "english": "Today's recommendation is [dish]",
-              "listen_for": "今日 (kyou) = today. They're giving you their daily special."
+              "listen_for": "きょう (今日, kyou) = today. They're giving you their daily special.",
+              "kanji": "今日のおすすめは〜です"
             }
-          ]
+          ],
+          "kanji": "おすすめは何ですか？"
         },
         {
           "id": "rs-05",
-          "japanese": "お会計をお願いします",
+          "japanese": "おかいけいをおねがいします",
           "romaji": "Okaikei wo onegaishimasu",
           "english": "The bill please",
           "difficulty": "core",
           "notes": "In Japan you usually pay at the register, not at the table.",
           "responses": [
             {
-              "japanese": "〜円でございます",
+              "japanese": "〜えんでございます",
               "romaji": "[amount] en de gozaimasu",
               "english": "That will be [amount] yen",
-              "listen_for": "Listen for the number. They'll often show the total on the register facing you."
+              "listen_for": "Listen for the number. They'll often show the total on the register facing you.",
+              "kanji": "〜円でございます"
             },
             {
-              "japanese": "レジでお支払いください",
+              "japanese": "レジでおしはらいください",
               "romaji": "Reji de oshiharai kudasai",
               "english": "Please pay at the register",
-              "listen_for": "レジ = register/cashier. Head to the front to pay."
+              "listen_for": "レジ = register/cashier. Head to the front to pay.",
+              "kanji": "レジでお支払いください"
             }
-          ]
+          ],
+          "kanji": "お会計をお願いします"
         },
         {
           "id": "rs-05b",
-          "japanese": "別々に払えますか？",
+          "japanese": "べつべつにはらえますか？",
           "romaji": "Betsu betsu ni haraemasu ka?",
           "english": "Can we pay separately?",
           "difficulty": "core",
-          "notes": "別々 (betsubetsu) = separately. Very useful for groups. Some restaurants may not support split bills — they may ask you to calculate and hand over separate cash instead.",
+          "notes": "べつべつ (別々, betsubetsu) = separately. Very useful for groups. Some restaurants may not support split bills — they may ask you to calculate and hand over separate cash instead.",
           "responses": [
             {
-              "japanese": "はい、承知しました",
+              "japanese": "はい、しょうちしました",
               "romaji": "Hai, shouchi shimashita",
               "english": "Yes, understood",
-              "listen_for": "They'll split it at the register."
+              "listen_for": "They'll split it at the register.",
+              "kanji": "はい、承知しました"
             },
             {
-              "japanese": "申し訳ありませんが、別々にはできません",
+              "japanese": "もうしわけありませんが、べつべつにはできません",
               "romaji": "Moushiwake arimasen ga, betsubetsu ni wa dekimasen",
               "english": "Sorry, we can't split the bill",
-              "listen_for": "できません = cannot. You'll need to settle among yourselves and pay together."
+              "listen_for": "できません = cannot. You'll need to settle among yourselves and pay together.",
+              "kanji": "申し訳ありませんが、別々にはできません"
             }
-          ]
+          ],
+          "kanji": "別々に払えますか？"
         },
         {
           "id": "rs-06",
-          "japanese": "美味しい！",
+          "japanese": "おいしい！",
           "romaji": "Oishii!",
           "english": "Delicious!",
           "difficulty": "core",
@@ -674,38 +736,43 @@
               "listen_for": "Pure joy. This is one of the best things you can say in Japan."
             },
             {
-              "japanese": "良かったです！また来てください",
+              "japanese": "よかったです！またきてください",
               "romaji": "Yokatta! Mata kite kudasai",
               "english": "I'm glad! Please come again",
-              "listen_for": "また来て (mata kite) = come again. High praise — they want you back."
+              "listen_for": "またまたきて (来て, mata kite) = come again. High praise — they want you back.",
+              "kanji": "良かったです！また来てください"
             }
-          ]
+          ],
+          "kanji": "美味しい！"
         },
         {
           "id": "rs-07",
-          "japanese": "卵アレルギーがあります",
+          "japanese": "たまごアレルギーがあります",
           "romaji": "Tamago arerugii ga arimasu",
           "english": "I have an egg allergy",
           "difficulty": "extra",
           "notes": "Swap allergen as needed.",
           "responses": [
             {
-              "japanese": "確認してまいります",
+              "japanese": "かくにんしてまいります",
               "romaji": "Kakunin shite mairimasu",
               "english": "I'll go check",
-              "listen_for": "確認 (kakunin) = confirm/check. They're checking with the kitchen. Good sign."
+              "listen_for": "かくにん (確認, kakunin) = confirm/check. They're checking with the kitchen. Good sign.",
+              "kanji": "確認してまいります"
             },
             {
-              "japanese": "申し訳ありませんが、〜が含まれています",
+              "japanese": "もうしわけありませんが、〜がふくまれています",
               "romaji": "Moushiwake arimasen ga, [allergen] ga fukumarete imasu",
               "english": "I'm sorry, it contains [allergen]",
-              "listen_for": "含まれています (fukumarete imasu) = is contained/included. The dish has the allergen — avoid it."
+              "listen_for": "ふくまれています (含まれています, fukumarete imasu) = is contained/included. The dish has the allergen — avoid it.",
+              "kanji": "申し訳ありませんが、〜が含まれています"
             }
-          ]
+          ],
+          "kanji": "卵アレルギーがあります"
         },
         {
           "id": "rs-08",
-          "japanese": "辛くしないでください",
+          "japanese": "からくしないでください",
           "romaji": "Karakunshinaide kudasai",
           "english": "Please don't make it spicy",
           "difficulty": "extra",
@@ -717,65 +784,73 @@
               "english": "Yes, understood",
               "listen_for": "They got it. Your food will be mild."
             }
-          ]
+          ],
+          "kanji": "辛くしないでください"
         },
         {
           "id": "rs-09",
-          "japanese": "お水をください",
+          "japanese": "おみずをください",
           "romaji": "Omizu wo kudasai",
           "english": "Water please",
           "difficulty": "core",
           "notes": "Free in most restaurants.",
           "responses": [
             {
-              "japanese": "はい、すぐにお持ちします",
+              "japanese": "はい、すぐにおもちします",
               "romaji": "Hai, sugu ni omochi shimasu",
               "english": "Yes, I'll bring it right away",
-              "listen_for": "すぐ (sugu) = right away/immediately. Water is coming."
+              "listen_for": "すぐ (sugu) = right away/immediately. Water is coming.",
+              "kanji": "はい、すぐにお持ちします"
             }
-          ]
+          ],
+          "kanji": "お水をください"
         },
         {
           "id": "rs-09b",
-          "japanese": "お水を〇つお願いします",
+          "japanese": "おみずを〇つおねがいします",
           "romaji": "Omizu wo [X]-tsu onegaishimasu",
           "english": "Water for ___ people please",
           "difficulty": "extra",
           "notes": "Ordering water for your group all at once. Hold up fingers to match the number.",
           "responses": [
             {
-              "japanese": "はい、すぐにお持ちします",
+              "japanese": "はい、すぐにおもちします",
               "romaji": "Hai, sugu ni omochi shimasu",
               "english": "Yes, I'll bring them right away",
-              "listen_for": "すぐ = right away. All glasses coming."
+              "listen_for": "すぐ = right away. All glasses coming.",
+              "kanji": "はい、すぐにお持ちします"
             }
-          ]
+          ],
+          "kanji": "お水を〇つお願いします"
         },
         {
           "id": "rs-10",
-          "japanese": "持ち帰りでお願いします",
+          "japanese": "もちかえりでおねがいします",
           "romaji": "Mochikaeri de onegaishimasu",
           "english": "To go please",
           "difficulty": "core",
-          "notes": "Konbini staff will ask: お温めますか？ (O-atatatemasu ka?)",
+          "notes": "Konbini staff will ask: おあたためますか？ (温めますか？) (O-atatatemasu ka?)",
           "responses": [
             {
-              "japanese": "温めますか？",
+              "japanese": "あたためますか？",
               "romaji": "Atatamemasu ka?",
               "english": "Shall I heat this up?",
-              "listen_for": "Very common at konbini for hot food. はい、お願いします (hai, onegaishimasu) = yes please, 大丈夫です (daijoubu desu) = no thank you."
+              "listen_for": "Very common at konbini for hot food. はい、おねがいします (お願いします, hai, onegaishimasu) = yes please, だいじょうぶです (大丈夫です, daijoubu desu) = no thank you.",
+              "kanji": "温めますか？"
             },
             {
-              "japanese": "お箸はお付けしますか？",
+              "japanese": "おはしはおつけしますか？",
               "romaji": "Ohashi wa otsuke shimasu ka?",
               "english": "Would you like chopsticks?",
-              "listen_for": "お箸 (ohashi) = chopsticks. They may also offer a fork (フォーク/fooku) or spoon (スプーン/supuun)."
+              "listen_for": "おはし (お箸, ohashi) = chopsticks. They may also offer a fork (フォーク/fooku) or spoon (スプーン/supuun).",
+              "kanji": "お箸はお付けしますか？"
             }
-          ]
+          ],
+          "kanji": "持ち帰りでお願いします"
         },
         {
           "id": "rs-11",
-          "japanese": "店内で食べます",
+          "japanese": "てんないでたべます",
           "romaji": "Tennai de tabemasu",
           "english": "I'll eat here",
           "difficulty": "core",
@@ -787,37 +862,41 @@
               "english": "Understood, the eat-in corner is over there",
               "listen_for": "イートイン (iito in) = eat-in area. あちら = over there. They'll gesture."
             }
-          ]
+          ],
+          "kanji": "店内で食べます"
         },
         {
           "id": "rs-12",
-          "japanese": "ラーメンは何時間待ちますか？",
+          "japanese": "ラーメンはなんじかんまちますか？",
           "romaji": "Raamen wa nan jikan machimasu ka?",
           "english": "How long is the wait for ramen?",
           "difficulty": "extra",
-          "notes": "Listen for 分 (minutes) or 時間 (hours).",
+          "notes": "Listen for みぬてs (分, minutes) or ほうrs (時間, hours).",
           "responses": [
             {
-              "japanese": "大体〜分ほどお待ちいただきます",
+              "japanese": "だいたい〜ふんほどおまちいただきます",
               "romaji": "Daitai [X] fun hodo omachi itadakimasu",
               "english": "You'll wait approximately [X] minutes",
-              "listen_for": "大体 = approximately. 分 = minutes. They may hand you a ticket or buzzer."
+              "listen_for": "だいたい (大体) = approximately. ふん (分) = minutes. They may hand you a ticket or buzzer.",
+              "kanji": "大体〜分ほどお待ちいただきます"
             },
             {
-              "japanese": "整理券をどうぞ",
+              "japanese": "せいりけんをどうぞ",
               "romaji": "Seiriiken wo douzo",
               "english": "Here is your queue ticket",
-              "listen_for": "整理券 (seiriiken) = numbered ticket. Hold on to it — your number will be called."
+              "listen_for": "せいりいけん (整理券, seiriiken) = numbered ticket. Hold on to it — your number will be called.",
+              "kanji": "整理券をどうぞ"
             }
-          ]
+          ],
+          "kanji": "ラーメンは何時間待ちますか？"
         },
         {
           "id": "rs-13",
-          "japanese": "二人です",
+          "japanese": "ふたりです",
           "romaji": "Futari desu",
           "english": "Two of us",
           "difficulty": "core",
-          "notes": "二人 (futari) is irregular — not ni-nin. From three people onward the pattern becomes regular: 三人 (san-nin), 四人 (yo-nin).",
+          "notes": "ふたり (二人, futari) is irregular — not ni-nin. From three people onward the pattern becomes regular: さんにん (三人, san-nin), よにん (四人, yo-nin).",
           "responses": [
             {
               "japanese": "こちらへどうぞ",
@@ -826,42 +905,47 @@
               "listen_for": "Same seating phrase as for one person — follow them to your table."
             },
             {
-              "japanese": "禁煙席と喫煙席どちらがよろしいですか？",
+              "japanese": "きんえんせきときつえんせきどちらがよろしいですか？",
               "romaji": "Kin'en-seki to kitsuen-seki dochira ga yoroshii desu ka?",
               "english": "Smoking or non-smoking seat?",
-              "listen_for": "Rare now but some izakaya still ask. 禁煙 (kin'en) = non-smoking, 喫煙 (kitsuen) = smoking."
+              "listen_for": "Rare now but some izakaya still ask. きねん (禁煙, kin'en) = non-smoking, きつえん (喫煙, kitsuen) = smoking.",
+              "kanji": "禁煙席と喫煙席どちらがよろしいですか？"
             }
-          ]
+          ],
+          "kanji": "二人です"
         },
         {
           "id": "rs-14",
-          "japanese": "三人です",
+          "japanese": "さんにんです",
           "romaji": "San-nin desu",
           "english": "Three of us",
           "difficulty": "core",
-          "notes": "三人 (san-nin) is the regular counter pattern used from 3 people onward (四人 yo-nin, 五人 go-nin, etc.).",
+          "notes": "さんにん (三人, san-nin) is the regular counter pattern used from 3 people onward (四人 yo-nin, 五人 go-nin, etc.).",
           "responses": [
             {
-              "japanese": "少々お待ちください",
+              "japanese": "しょうしょうおまちください",
               "romaji": "Shoushou omachi kudasai",
               "english": "Please wait a moment",
-              "listen_for": "Larger tables may take longer to free up."
+              "listen_for": "Larger tables may take longer to free up.",
+              "kanji": "少々お待ちください"
             },
             {
-              "japanese": "カウンター席でもよろしいですか？",
+              "japanese": "カウンターせきでもよろしいですか？",
               "romaji": "Kauntaa-seki demo yoroshii desu ka?",
               "english": "Is a counter seat okay?",
-              "listen_for": "Some restaurants seat groups of 3 at the counter if tables are full."
+              "listen_for": "Some restaurants seat groups of 3 at the counter if tables are full.",
+              "kanji": "カウンター席でもよろしいですか？"
             }
-          ]
+          ],
+          "kanji": "三人です"
         },
         {
           "id": "rs-15",
-          "japanese": "二つください",
+          "japanese": "ふたつください",
           "romaji": "Futatsu kudasai",
           "english": "Two of these please",
           "difficulty": "core",
-          "notes": "二つ (futatsu) = two, the generic item counter. Point at the menu.",
+          "notes": "ふたつ (二つ, futatsu) = two, the generic item counter. Point at the menu.",
           "responses": [
             {
               "japanese": "かしこまりました",
@@ -869,15 +953,16 @@
               "english": "Certainly",
               "listen_for": "Order received."
             }
-          ]
+          ],
+          "kanji": "二つください"
         },
         {
           "id": "rs-16",
-          "japanese": "三つください",
+          "japanese": "みっつください",
           "romaji": "Mittsu kudasai",
           "english": "Three of these please",
           "difficulty": "core",
-          "notes": "三つ (mittsu) = three. The generic counter (一つ, 二つ, 三つ, 四つ, 五つ...) is irregular up through 十 (too) = ten.",
+          "notes": "みっつ (三つ, mittsu) = three. The generic counter (一つ, 二つ, 三つ, 四つ, 五つ...) is irregular up through とお (十, too) = ten.",
           "responses": [
             {
               "japanese": "かしこまりました",
@@ -885,37 +970,41 @@
               "english": "Certainly",
               "listen_for": "Order received."
             }
-          ]
+          ],
+          "kanji": "三つください"
         },
         {
           "id": "rs-17",
-          "japanese": "別々に会計できますか？",
+          "japanese": "べつべつにかいけいできますか？",
           "romaji": "Betsubetsu ni kaikei dekimasu ka?",
           "english": "Can we pay separately?",
           "difficulty": "extra",
-          "notes": "別々 (betsubetsu) = separately. Some smaller shops in Japan don't allow split bills — ask before ordering if it matters.",
+          "notes": "べつべつ (別々, betsubetsu) = separately. Some smaller shops in Japan don't allow split bills — ask before ordering if it matters.",
           "responses": [
             {
-              "japanese": "申し訳ございませんが、別々のお会計はできません",
+              "japanese": "もうしわけございませんが、べつべつのおかいけいはできません",
               "romaji": "Moushiwake gozaimasen ga, betsubetsu no okaikei wa dekimasen",
               "english": "I'm sorry, we can't split the bill",
-              "listen_for": "別々 (betsubetsu) = separate. You may need one person to pay and split later."
+              "listen_for": "べつべつ (別々, betsubetsu) = separate. You may need one person to pay and split later.",
+              "kanji": "申し訳ございませんが、別々のお会計はできません"
             },
             {
-              "japanese": "かしこまりました、では別々にご用意します",
+              "japanese": "かしこまりました、ではべつべつにごよういします",
               "romaji": "Kashikomarimashita, dewa betsubetsu ni goyoui shimasu",
               "english": "Certainly, I'll prepare separate bills",
-              "listen_for": "Confirms they'll split the check for your group."
+              "listen_for": "Confirms they'll split the check for your group.",
+              "kanji": "かしこまりました、では別々にご用意します"
             }
-          ]
+          ],
+          "kanji": "別々に会計できますか？"
         },
         {
           "id": "rs-18",
-          "japanese": "一緒にお願いします",
+          "japanese": "いっしょにおねがいします",
           "romaji": "Issho ni onegaishimasu",
           "english": "Together please (one bill)",
           "difficulty": "core",
-          "notes": "Say this when asked 別々ですか、ご一緒ですか？ (Betsubetsu desu ka, go-issho desu ka?) — Separate or together?",
+          "notes": "Say this when asked べつべつですか、ごいっしょですか？ (別々ですか、ご一緒ですか？, Betsubetsu desu ka, go-issho desu ka?) — Separate or together?",
           "responses": [
             {
               "japanese": "かしこまりました",
@@ -923,7 +1012,8 @@
               "english": "Certainly",
               "listen_for": "One combined bill coming up."
             }
-          ]
+          ],
+          "kanji": "一緒にお願いします"
         }
       ]
     },
@@ -941,10 +1031,11 @@
           "notes": "Fill in the destination name.",
           "responses": [
             {
-              "japanese": "〜円です",
+              "japanese": "〜えんです",
               "romaji": "[price] en desu",
               "english": "[price] yen",
-              "listen_for": "Just the number + 円. Station machines also display fares on a map — use those to confirm."
+              "listen_for": "Just the number + えん (円). Station machines also display fares on a map — use those to confirm.",
+              "kanji": "〜円です"
             }
           ]
         },
@@ -957,10 +1048,11 @@
           "notes": "Most useful navigation phrase.",
           "responses": [
             {
-              "japanese": "まっすぐ行って、右に曲がってください",
+              "japanese": "まっすぐいって、みぎにまがってください",
               "romaji": "Massugu itte, migi ni magatte kudasai",
               "english": "Go straight and turn right",
-              "listen_for": "まっすぐ = straight, 右 (migi) = right, 左 (hidari) = left, 曲がる (magaru) = turn. These four words cover most direction answers."
+              "listen_for": "まっすぐ = straight, みぎ (右, migi) = right, ひだり (左, hidari) = left, まがる (曲がる, magaru) = turn. These four words cover most direction answers.",
+              "kanji": "まっすぐ行って、右に曲がってください"
             },
             {
               "japanese": "あそこです",
@@ -969,70 +1061,78 @@
               "listen_for": "あそこ = over there (far). They'll usually point. Look where they gesture."
             },
             {
-              "japanese": "歩いて〜分ぐらいです",
+              "japanese": "あるいて〜ふんぐらいです",
               "romaji": "Aruite [X] fun gurai desu",
               "english": "About [X] minutes on foot",
-              "listen_for": "歩いて (aruite) = walking. 分 (fun) = minutes. ぐらい = approximately."
+              "listen_for": "あるいて (歩いて, aruite) = walking. ふん (分, fun) = minutes. ぐらい = approximately.",
+              "kanji": "歩いて〜分ぐらいです"
             }
           ]
         },
         {
           "id": "tr-03",
-          "japanese": "このバスは〜に行きますか？",
+          "japanese": "このバスは〜にいきますか？",
           "romaji": "Kono basu wa [destination] ni ikimasu ka?",
           "english": "Does this bus go to [destination]?",
           "difficulty": "extra",
-          "notes": "Replace バス (basu) with 電車 (densha / train) if needed.",
+          "notes": "Replace バス (basu) with でんしゃ (電車, densha) / train if needed.",
           "responses": [
             {
-              "japanese": "はい、このバスで行けます",
+              "japanese": "はい、このバスでいけます",
               "romaji": "Hai, kono basu de ikemasu",
               "english": "Yes, you can get there on this bus",
-              "listen_for": "行けます (ikemasu) = can go. You're on the right bus."
+              "listen_for": "いけます (行けます, ikemasu) = can go. You're on the right bus.",
+              "kanji": "はい、このバスで行けます"
             },
             {
-              "japanese": "いいえ、〜番のバスに乗ってください",
+              "japanese": "いいえ、〜ばんのバスにのってください",
               "romaji": "Iie, [X] ban no basu ni notte kudasai",
               "english": "No, please take bus number [X]",
-              "listen_for": "番 (ban) = number [X]. 乗って (notte) = ride/take. Listen for the bus number."
+              "listen_for": "ばん (番, ban) = number [X]. のって (乗って, notte) = ride/take. Listen for the bus number.",
+              "kanji": "いいえ、〜番のバスに乗ってください"
             }
-          ]
+          ],
+          "kanji": "このバスは〜に行きますか？"
         },
         {
           "id": "tr-04",
-          "japanese": "次の駅はどこですか？",
+          "japanese": "つぎのえきはどこですか？",
           "romaji": "Tsugi no eki wa doko desu ka?",
           "english": "What is the next station?",
           "difficulty": "extra",
           "notes": "Announcements on most lines are bilingual.",
           "responses": [
             {
-              "japanese": "次は〜駅です",
+              "japanese": "つぎは〜えきです",
               "romaji": "Tsugi wa [station name] eki desu",
               "english": "The next station is [station name]",
-              "listen_for": "次は (tsugi wa) = next is. 駅 (eki) = [name] station."
+              "listen_for": "つぎわ (次は, tsugi wa) = next is. えき (駅, eki) = [name] station.",
+              "kanji": "次は〜駅です"
             }
-          ]
+          ],
+          "kanji": "次の駅はどこですか？"
         },
         {
           "id": "tr-05",
-          "japanese": "〜番線はどこですか？",
+          "japanese": "〜ばんせんはどこですか？",
           "romaji": "[number] bansen wa doko desu ka?",
           "english": "Where is platform [number]?",
           "difficulty": "extra",
           "notes": "Very useful in large stations like Shinjuku.",
           "responses": [
             {
-              "japanese": "〜番線にあちらです",
+              "japanese": "〜ばんせんにあちらです",
               "romaji": "[X] bansen wa achira desu",
               "english": "Platform [X] is over there",
-              "listen_for": "あちら = over there. They'll point. Follow the signs — platform numbers are clearly posted."
+              "listen_for": "あちら = over there. They'll point. Follow the signs — platform numbers are clearly posted.",
+              "kanji": "〜番線にあちらです"
             }
-          ]
+          ],
+          "kanji": "〜番線はどこですか？"
         },
         {
           "id": "tr-06",
-          "japanese": "タクシーをお願いします",
+          "japanese": "タクシーをおねがいします",
           "romaji": "Takushii wo onegaishimasu",
           "english": "A taxi please",
           "difficulty": "extra",
@@ -1044,115 +1144,130 @@
               "english": "Where are you going?",
               "listen_for": "どちら = where (polite). Show your destination in Japanese text on your phone — drivers appreciate this."
             }
-          ]
+          ],
+          "kanji": "タクシーをお願いします"
         },
         {
           "id": "tr-07",
-          "japanese": "ここで止めてください",
+          "japanese": "ここでとめてください",
           "romaji": "Koko de tomete kudasai",
           "english": "Stop here please (taxi)",
           "difficulty": "extra",
           "notes": "For taxis.",
           "responses": [
             {
-              "japanese": "〜円になります",
+              "japanese": "〜えんになります",
               "romaji": "[amount] en ni narimasu",
               "english": "That'll be [amount] yen",
-              "listen_for": "The fare total. Taxis in Japan are metered and reliable. Always pay exact if possible."
+              "listen_for": "The fare total. Taxis in Japan are metered and reliable. Always pay exact if possible.",
+              "kanji": "〜円になります"
             }
-          ]
+          ],
+          "kanji": "ここで止めてください"
         },
         {
           "id": "tr-08",
-          "japanese": "乗り換えはありますか？",
+          "japanese": "のりかえはありますか？",
           "romaji": "Norikae wa arimasu ka?",
           "english": "Is there a transfer?",
           "difficulty": "extra",
           "notes": "For complex train routes.",
           "responses": [
             {
-              "japanese": "〜駅で乗り換えてください",
+              "japanese": "〜えきでのりかえてください",
               "romaji": "[station] eki de norikae te kudasai",
               "english": "Please transfer at [station]",
-              "listen_for": "乗り換えて (norikaete) = transfer. 駅 = station name. Note the station name carefully."
+              "listen_for": "のりかえて (乗り換えて, norikaete) = transfer. えき (駅) = station name. Note the station name carefully.",
+              "kanji": "〜駅で乗り換えてください"
             },
             {
-              "japanese": "乗り換えなしで行けます",
+              "japanese": "のりかえなしでいけます",
               "romaji": "Norikae nashi de ikemasu",
               "english": "You can go without transferring",
-              "listen_for": "なし (nashi) = without. Direct route — stay on the train."
+              "listen_for": "なし (nashi) = without. Direct route — stay on the train.",
+              "kanji": "乗り換えなしで行けます"
             }
-          ]
+          ],
+          "kanji": "乗り換えはありますか？"
         },
         {
           "id": "tr-09",
-          "japanese": "出口はどこですか？",
+          "japanese": "でぐちはどこですか？",
           "romaji": "Deguchi wa doko desu ka?",
           "english": "Where is the exit?",
           "difficulty": "core",
           "notes": "Big stations have numbered/lettered exits.",
           "responses": [
             {
-              "japanese": "〜番出口があちらです",
+              "japanese": "〜ばんでぐちがあちらです",
               "romaji": "[number] ban deguchi wa achira desu",
               "english": "Exit [number] is over there",
-              "listen_for": "番 = number. あちら = over there. All exits are signposted — follow the kanji for your number."
+              "listen_for": "ばん (番) = number. あちら = over there. All exits are signposted — follow the kanji for your number.",
+              "kanji": "〜番出口があちらです"
             }
-          ]
+          ],
+          "kanji": "出口はどこですか？"
         },
         {
           "id": "tr-10",
-          "japanese": "Suicaはどこで買えますか？",
+          "japanese": "Suicaはどこでかえますか？",
           "romaji": "Suica wa doko de kaemasu ka?",
           "english": "Where can I buy a Suica card?",
           "difficulty": "core",
           "notes": "Get one at the airport.",
           "responses": [
             {
-              "japanese": "券売機でお買い求めいただけます",
+              "japanese": "けんばいきでおかいもとめいただけます",
               "romaji": "Kenbaiki de okaimotome itadakemasu",
               "english": "You can purchase one at the ticket machine",
-              "listen_for": "券売機 (kenbaiki) = ticket vending machine. They'll point you to it."
+              "listen_for": "けんばいき (券売機, kenbaiki) = ticket vending machine. They'll point you to it.",
+              "kanji": "券売機でお買い求めいただけます"
             }
-          ]
+          ],
+          "kanji": "Suicaはどこで買えますか？"
         },
         {
           "id": "tr-11",
-          "japanese": "切符を2枚ください",
+          "japanese": "きっぷをにまいください",
           "romaji": "Kippu o nimai kudasai",
           "english": "Two tickets please",
           "difficulty": "core",
-          "notes": "枚 (mai) counts flat thin objects like tickets and paper: 1枚 (ichimai), 2枚 (nimai), 3枚 (sanmai).",
+          "notes": "まい (枚, mai) counts flat thin objects like tickets and paper: 1いちまい (枚, ichimai), 2にまい (枚, nimai), 3さんまい (枚, sanmai).",
           "responses": [
             {
-              "japanese": "片道ですか、往復ですか？",
+              "japanese": "かたみちですか、おうふくですか？",
               "romaji": "Katamichi desu ka, oufuku desu ka?",
               "english": "One-way or round-trip?",
-              "listen_for": "片道 (katamichi) = one-way, 往復 (oufuku) = round-trip."
+              "listen_for": "かたみち (片道, katamichi) = one-way, おうふく (往復, oufuku) = round-trip.",
+              "kanji": "片道ですか、往復ですか？"
             }
-          ]
+          ],
+          "kanji": "切符を2枚ください"
         },
         {
           "id": "tr-12",
-          "japanese": "タクシーは3人乗れますか？",
+          "japanese": "タクシーはさんにんのれますか？",
           "romaji": "Takushii wa san-nin noremasu ka?",
           "english": "Can three people fit in this taxi?",
           "difficulty": "extra",
           "notes": "Standard Japanese taxis seat up to 4 passengers; larger groups need a ジャンボタクシー (jumbo taxi).",
           "responses": [
             {
-              "japanese": "はい、大丈夫です",
+              "japanese": "はい、だいじょうぶです",
               "romaji": "Hai, daijoubu desu",
               "english": "Yes, that's fine",
-              "listen_for": "Confirms your group fits."
+              "listen_for": "Confirms your group fits.",
+              "kanji": "はい、大丈夫です"
             },
             {
-              "japanese": "4人までです",
+              "japanese": "よにんまでです",
               "romaji": "Yo-nin made desu",
               "english": "Up to four people",
-              "listen_for": "4人まで (yonin made) = up to 4 people — standard taxi capacity."
+              "listen_for": "4よにんまで (人まで, yonin made) = up to 4 people — standard taxi capacity.",
+              "kanji": "4人までです"
             }
-          ]
+          ],
+          "kanji": "タクシーは3人乗れますか？"
         }
       ]
     },
@@ -1163,91 +1278,103 @@
       "phrases": [
         {
           "id": "ht-01",
-          "japanese": "チェックインをお願いします",
+          "japanese": "チェックインをおねがいします",
           "romaji": "Chekkuin wo onegaishimasu",
           "english": "I'd like to check in",
           "difficulty": "core",
           "notes": "They'll ask for your passport.",
           "responses": [
             {
-              "japanese": "パスポートをお願いします",
+              "japanese": "パスポートをおねがいします",
               "romaji": "Pasupooto wo onegaishimasu",
               "english": "Your passport please",
-              "listen_for": "Standard for all foreign guests. Hand it over."
+              "listen_for": "Standard for all foreign guests. Hand it over.",
+              "kanji": "パスポートをお願いします"
             },
             {
-              "japanese": "こちらにサインをお願いします",
+              "japanese": "こちらにサインをおねがいします",
               "romaji": "Kochira ni sain wo onegaishimasu",
               "english": "Please sign here",
-              "listen_for": "サイン (sain) = signature. They'll show you where."
+              "listen_for": "サイン (sain) = signature. They'll show you where.",
+              "kanji": "こちらにサインをお願いします"
             },
             {
-              "japanese": "お部屋は〜階です",
+              "japanese": "おへやは〜かいです",
               "romaji": "Oheya wa [X] kai desu",
               "english": "Your room is on floor [X]",
-              "listen_for": "階 (kai) = floor number. 1階 (ikkai) = 1F. They'll hand you the key card too."
+              "listen_for": "かい (階, kai) = floor number. 1いっかい (階, ikkai) = 1F. They'll hand you the key card too.",
+              "kanji": "お部屋は〜階です"
             }
-          ]
+          ],
+          "kanji": "チェックインをお願いします"
         },
         {
           "id": "ht-01b",
-          "japanese": "〇名で予約した〜です",
+          "japanese": "〇めいでよやくした〜です",
           "romaji": "[X]-mei de yoyaku shita [name] desu",
           "english": "I have a reservation for ___ people under [name]",
           "difficulty": "core",
-          "notes": "Combine the number of guests with your name when checking in as a group. 名 (mei) is the formal counter for people used in hotels and restaurants.",
+          "notes": "Combine the number of guests with your name when checking in as a group. めい (名, mei) is the formal counter for people used in hotels and restaurants.",
           "responses": [
             {
-              "japanese": "少々お待ちください、確認いたします",
+              "japanese": "しょうしょうおまちください、かくにんいたします",
               "romaji": "Shoushou omachi kudasai, kakunin itashimasu",
               "english": "Please wait a moment, I'll confirm",
-              "listen_for": "They're pulling up your reservation."
+              "listen_for": "They're pulling up your reservation.",
+              "kanji": "少々お待ちください、確認いたします"
             },
             {
-              "japanese": "はい、ご予約を確認いたしました",
+              "japanese": "はい、ごよやくをかくにんいたしました",
               "romaji": "Hai, go-yoyaku wo kakunin itashimashita",
               "english": "Yes, I've confirmed your reservation",
-              "listen_for": "確認 = confirmed. You're checked in."
+              "listen_for": "かくにん (確認) = confirmed. You're checked in.",
+              "kanji": "はい、ご予約を確認いたしました"
             }
-          ]
+          ],
+          "kanji": "〇名で予約した〜です"
         },
         {
           "id": "ht-02",
-          "japanese": "予約した〜です",
+          "japanese": "よやくした〜です",
           "romaji": "Yoyaku shita [name] desu",
           "english": "I have a reservation under [name]",
           "difficulty": "core",
           "notes": "Fill in your name.",
           "responses": [
             {
-              "japanese": "少々お待ちください、確認いたします",
+              "japanese": "しょうしょうおまちください、かくにんいたします",
               "romaji": "Shoushou omachi kudasai, kakunin itashimasu",
               "english": "Please wait a moment, I'll confirm",
-              "listen_for": "They're pulling up your reservation. Wait."
+              "listen_for": "They're pulling up your reservation. Wait.",
+              "kanji": "少々お待ちください、確認いたします"
             },
             {
-              "japanese": "はい、ご予約を確認いたしました",
+              "japanese": "はい、ごよやくをかくにんいたしました",
               "romaji": "Hai, go-yoyaku wo kakunin itashimashita",
               "english": "Yes, I've confirmed your reservation",
-              "listen_for": "確認 = confirmed. You're checked in."
+              "listen_for": "かくにん (確認) = confirmed. You're checked in.",
+              "kanji": "はい、ご予約を確認いたしました"
             }
-          ]
+          ],
+          "kanji": "予約した〜です"
         },
         {
           "id": "ht-03",
-          "japanese": "部屋の鍵をなくしました",
+          "japanese": "へやのかぎをなくしました",
           "romaji": "Heya no kagi wo nakushimashita",
           "english": "I lost my room key",
           "difficulty": "extra",
           "notes": "Hopefully not needed.",
           "responses": [
             {
-              "japanese": "部屋番号を教えていただけますか？",
+              "japanese": "へやばんごうをおしえていただけますか？",
               "romaji": "Heya bangou wo oshiete itadakemasu ka?",
               "english": "Could you tell me your room number?",
-              "listen_for": "部屋番号 (heya bangou) = room number. Tell them your floor and room."
+              "listen_for": "へやばんごう (部屋番号, heya bangou) = room number. Tell them your floor and room.",
+              "kanji": "部屋番号を教えていただけますか？"
             }
-          ]
+          ],
+          "kanji": "部屋の鍵をなくしました"
         },
         {
           "id": "ht-04",
@@ -1258,90 +1385,100 @@
           "notes": "Replace タオル (taoru) with pillow, blanket, etc.",
           "responses": [
             {
-              "japanese": "すくにお持ちいたします",
+              "japanese": "すぐにおもちいたします",
               "romaji": "Sugu ni omochi itashimasu",
               "english": "I'll bring them right away",
-              "listen_for": "すぐ = right away. They'll deliver to your room."
+              "listen_for": "すぐ = right away. They'll deliver to your room.",
+              "kanji": "すくにお持ちいたします"
             }
           ]
         },
         {
           "id": "ht-05",
-          "japanese": "Wi-Fiのパスワードは何ですか？",
+          "japanese": "Wi-Fiのパスワードはなんですか？",
           "romaji": "Wi-Fi no pasuwaado wa nan desu ka?",
           "english": "What is the Wi-Fi password?",
           "difficulty": "core",
           "notes": "Often on a card in the room.",
           "responses": [
             {
-              "japanese": "こちらのカードをご覧ください",
+              "japanese": "こちらのカードをごらんください",
               "romaji": "Kochira no kaado wo goran kudasai",
               "english": "Please see this card",
-              "listen_for": "They'll hand you a card or point to one in the room with the password printed on it."
+              "listen_for": "They'll hand you a card or point to one in the room with the password printed on it.",
+              "kanji": "こちらのカードをご覧ください"
             }
-          ]
+          ],
+          "kanji": "Wi-Fiのパスワードは何ですか？"
         },
         {
           "id": "ht-06",
-          "japanese": "チェックアウトは何時ですか？",
+          "japanese": "チェックアウトはなんじですか？",
           "romaji": "Chekku auto wa nanji desu ka?",
           "english": "What time is checkout?",
           "difficulty": "core",
           "notes": "Usually 11:00 or 12:00.",
           "responses": [
             {
-              "japanese": "チェックアウトは〜時でございます",
+              "japanese": "チェックアウトは〜じでございます",
               "romaji": "Chekku auto wa [X] ji de gozaimasu",
               "english": "Checkout is at [X] o'clock",
-              "listen_for": "時 (ji) = o'clock. Listen for the number before 時."
+              "listen_for": "じ (時, ji) = o'clock. Listen for the number before じ (時).",
+              "kanji": "チェックアウトは〜時でございます"
             },
             {
-              "japanese": "レイトチェックアウトをご希望ですか？",
+              "japanese": "レイトチェックアウトをごきぼうですか？",
               "romaji": "Reito chekku auto wo go-kibou desu ka?",
               "english": "Would you like a late checkout?",
-              "listen_for": "レイトチェックアウト = late checkout. 希望 (kibou) = wish/desire. There's usually a fee."
+              "listen_for": "レイトチェックアウト = late checkout. きぼう (希望, kibou) = wish/desire. There's usually a fee.",
+              "kanji": "レイトチェックアウトをご希望ですか？"
             }
-          ]
+          ],
+          "kanji": "チェックアウトは何時ですか？"
         },
         {
           "id": "ht-07",
-          "japanese": "荷物を預かってもらえますか？",
+          "japanese": "にもつをあずかってもらえますか？",
           "romaji": "Nimotsu wo azukatte moraemasu ka?",
           "english": "Can you hold my luggage?",
           "difficulty": "extra",
           "notes": "Japanese hotels excel at this.",
           "responses": [
             {
-              "japanese": "はい、何時までお預かりしますか？",
+              "japanese": "はい、なんじまでおあずかりしますか？",
               "romaji": "Hai, nanji made oazukari shimasu ka?",
               "english": "Yes, until what time shall we hold it?",
-              "listen_for": "何時まで (nanji made) = until what time. Tell them your pickup time."
+              "listen_for": "なんじまで (何時まで, nanji made) = until what time. Tell them your pickup time.",
+              "kanji": "はい、何時までお預かりしますか？"
             }
-          ]
+          ],
+          "kanji": "荷物を預かってもらえますか？"
         },
         {
           "id": "ht-08",
-          "japanese": "近くにおすすめのレストランはありますか？",
+          "japanese": "ちかくにおすすめのレストランはありますか？",
           "romaji": "Chikaku ni osusume no resutoran wa arimasu ka?",
           "english": "Are there any recommended restaurants nearby?",
           "difficulty": "extra",
           "notes": "Hotel staff recommendations are gold.",
           "responses": [
             {
-              "japanese": "〜がとても美味しいですよ",
+              "japanese": "〜がとてもおいしいですよ",
               "romaji": "[Place] ga totemo oishii desu yo",
               "english": "[Place] is very delicious",
-              "listen_for": "とても (totemo) = very. They'll name a place. Ask them to write it down: 書いてもらえますか？ (Kaite moraemasu ka?)"
+              "listen_for": "とても (totemo) = very. They'll name a place. Ask them to write it down: かいてもらえますか？ (書いてもらえますか？, Kaite moraemasu ka?)",
+              "kanji": "〜がとても美味しいですよ"
             }
-          ]
+          ],
+          "kanji": "近くにおすすめのレストランはありますか？"
         },
         {
           "id": "ht-09",
-          "japanese": "二人部屋をお願いします",
+          "japanese": "ふたりべやをおねがいします",
           "romaji": "Futari-beya o onegaishimasu",
           "english": "A room for two please",
           "difficulty": "core",
-          "notes": "二人部屋 (futari-beya) = twin/double room. 一人部屋 (hitori-beya) = single, 三人部屋 (san-nin-beya) = triple.",
+          "notes": "ふたりべや (二人部屋, futari-beya) = twin/double room. ひとりべや (一人部屋, hitori-beya) = single, さんにんべや (三人部屋, san-nin-beya) = triple.",
           "responses": [
             {
               "japanese": "ツインとダブル、どちらがよろしいですか？",
@@ -1349,29 +1486,33 @@
               "english": "Twin or double, which would you prefer?",
               "listen_for": "ツイン (tsuin) = two separate beds, ダブル (daburu) = one large shared bed."
             }
-          ]
+          ],
+          "kanji": "二人部屋をお願いします"
         },
         {
           "id": "ht-10",
-          "japanese": "三人部屋はありますか？",
+          "japanese": "さんにんべやはありますか？",
           "romaji": "San-nin-beya wa arimasu ka?",
           "english": "Do you have a room for three?",
           "difficulty": "extra",
           "notes": "Triple rooms are less common in Japan — many hotels max out at 2 per room, so you may need an extra bed or a separate room.",
           "responses": [
             {
-              "japanese": "申し訳ございませんが、満室です",
+              "japanese": "もうしわけございませんが、まんしつです",
               "romaji": "Moushiwake gozaimasen ga, manshitsu desu",
               "english": "I'm sorry, we're fully booked",
-              "listen_for": "満室 (manshitsu) = fully booked rooms — different from 満席 (manseki) = full seats."
+              "listen_for": "まんしつ (満室, manshitsu) = fully booked rooms — different from まんせき (満席, manseki) = full seats.",
+              "kanji": "申し訳ございませんが、満室です"
             },
             {
-              "japanese": "エキストラベッドをご用意できます",
+              "japanese": "エキストラベッドをごよういできます",
               "romaji": "Ekisutora beddo o goyoui dekimasu",
               "english": "We can provide an extra bed",
-              "listen_for": "エキストラベッド (ekisutora beddo) = extra bed, often a solution for a third guest."
+              "listen_for": "エキストラベッド (ekisutora beddo) = extra bed, often a solution for a third guest.",
+              "kanji": "エキストラベッドをご用意できます"
             }
-          ]
+          ],
+          "kanji": "三人部屋はありますか？"
         }
       ]
     },
@@ -1382,7 +1523,7 @@
       "phrases": [
         {
           "id": "ba-01",
-          "japanese": "カウンターに座ってもいいですか？",
+          "japanese": "カウンターにすわってもいいですか？",
           "romaji": "Kauntaa ni suwatte mo ii desu ka?",
           "english": "May I sit at the bar counter?",
           "difficulty": "core",
@@ -1395,16 +1536,18 @@
               "listen_for": "どうぞ = please go ahead. こちらへ = this way. You're in."
             },
             {
-              "japanese": "申し訳ありませんが、カウンターは満席です",
+              "japanese": "もうしわけありませんが、カウンターはまんせきです",
               "romaji": "Moushiwake arimasen ga, kauntaa wa manseki desu",
               "english": "Sorry, the counter is full",
-              "listen_for": "満席 (manseki) = full. Ask: テーブル席はありますか？ (Is there a table?)"
+              "listen_for": "まんせき (満席, manseki) = full. Ask: テーブルせきはありますか？ (テーブル席はありますか？) (Is there a table?)",
+              "kanji": "申し訳ありませんが、カウンターは満席です"
             }
-          ]
+          ],
+          "kanji": "カウンターに座ってもいいですか？"
         },
         {
           "id": "ba-01b",
-          "japanese": "〇人でテーブルに座れますか？",
+          "japanese": "〇にんでテーブルにすわれますか？",
           "romaji": "[X]-nin de teeburu ni suwaremasu ka?",
           "english": "Can ___ of us sit at a table?",
           "difficulty": "core",
@@ -1417,12 +1560,14 @@
               "listen_for": "Follow them to the table or counter."
             },
             {
-              "japanese": "テーブルは少々お待ちいただけますか？",
+              "japanese": "テーブルはしょうしょうおまちいただけますか？",
               "romaji": "Teeburu wa shoushou omachi itadakemasu ka?",
               "english": "Could you wait a moment for a table?",
-              "listen_for": "They're clearing a table. Say はい to wait."
+              "listen_for": "They're clearing a table. Say はい to wait.",
+              "kanji": "テーブルは少々お待ちいただけますか？"
             }
-          ]
+          ],
+          "kanji": "〇人でテーブルに座れますか？"
         },
         {
           "id": "ba-02",
@@ -1433,22 +1578,24 @@
           "notes": "This will get you the bartender's best work.",
           "responses": [
             {
-              "japanese": "今夜は〜がおすすめです",
+              "japanese": "こんやは〜がおすすめです",
               "romaji": "Konya wa [cocktail] ga osusume desu",
               "english": "Tonight I recommend [cocktail]",
-              "listen_for": "今夜 (konya) = tonight. They'll name the drink. Nod and say それをお願いします."
+              "listen_for": "こんや (今夜, konya) = tonight. They'll name the drink. Nod and say それをおねがいします (お願いします).",
+              "kanji": "今夜は〜がおすすめです"
             },
             {
-              "japanese": "どんなお酒がお好きですか？",
+              "japanese": "どんなおさけがおすきですか？",
               "romaji": "Donna osake ga osuki desu ka?",
               "english": "What kind of drinks do you like?",
-              "listen_for": "Great sign — they want to personalize. Describe: 甘くない (not sweet), フルーツィー (fruity), 強い (strong), 軽い (light)."
+              "listen_for": "Great sign — they want to personalize. Describe: のtすぇえt (甘くない, not sweet), フルーツィー (fruity), stろんg (強い, strong), ぃght (軽い, light).",
+              "kanji": "どんなお酒がお好きですか？"
             }
           ]
         },
         {
           "id": "ba-03",
-          "japanese": "ウイスキーのリストを見せてください",
+          "japanese": "ウイスキーのリストをみせてください",
           "romaji": "Uisukii no risuto wo misete kudasai",
           "english": "Can I see the whisky list?",
           "difficulty": "core",
@@ -1461,48 +1608,54 @@
               "listen_for": "They'll hand you the list. Take your time — these lists can be extensive."
             },
             {
-              "japanese": "国産と輸入、どちらがよろしいですか？",
+              "japanese": "こくさんとゆにゅう、どちらがよろしいですか？",
               "romaji": "Kokusan to yunyuu, dochira ga yoroshii desu ka?",
               "english": "Would you prefer domestic or imported?",
-              "listen_for": "国産 (kokusan) = domestic/Japanese. 輸入 (yunyuu) = imported. You're here for 国産."
+              "listen_for": "こくさん (国産, kokusan) = domestic/Japanese. ゆにゅう (輸入, yunyuu) = imported. You're here for こくさん (国産).",
+              "kanji": "国産と輸入、どちらがよろしいですか？"
             }
-          ]
+          ],
+          "kanji": "ウイスキーのリストを見せてください"
         },
         {
           "id": "ba-04",
-          "japanese": "これはどんな味ですか？",
+          "japanese": "これはどんなあじですか？",
           "romaji": "Kore wa donna aji desu ka?",
           "english": "What does this taste like?",
           "difficulty": "core",
-          "notes": "Key flavour words: 甘い (sweet), 辛口 (dry), 苦い (bitter), 酸っぱい (sour), フルーツィー (fruity).",
+          "notes": "Key flavour words: すぇえt (甘い, sweet), dry (辛口, dry), びってr (苦い, bitter), そうr (酸っぱい, sour), フルーツィー (fruity).",
           "responses": [
             {
-              "japanese": "甘くて、少しフルーツィーです",
+              "japanese": "あまくて、すこしフルーツィーです",
               "romaji": "Amakute, sukoshi furuutii desu",
               "english": "It's sweet and a little fruity",
-              "listen_for": "甘い = sweet, 少し = a little, フルーツィー = fruity. Combine these words to understand the profile."
+              "listen_for": "あまい (甘い) = sweet, すこし (少し) = a little, フルーツィー = fruity. Combine these words to understand the profile.",
+              "kanji": "甘くて、少しフルーツィーです"
             },
             {
-              "japanese": "辛口でスモーキーな味わいです",
+              "japanese": "からくちでスモーキーなあじわいです",
               "romaji": "Karakuchi de sumoookii na ajiwai desu",
               "english": "It has a dry, smoky flavor",
-              "listen_for": "辛口 (karakuchi) = dry. スモーキー = smoky. 味わい (ajiwai) = flavor/taste profile."
+              "listen_for": "からくち (辛口, karakuchi) = dry. スモーキー = smoky. あじわい (味わい, ajiwai) = flavor/taste profile.",
+              "kanji": "辛口でスモーキーな味わいです"
             },
             {
-              "japanese": "柑橘系の香りとハーブのような後味があります",
+              "japanese": "かんきつけいのかおりとハーブのようなあとあじがあります",
               "romaji": "Kankitsu-kei no kaori to haabu no you na ato-aji ga arimasu",
               "english": "It has a citrus aroma with an herbal finish",
-              "listen_for": "柑橘 (kankitsu) = citrus. 香り (kaori) = aroma. 後味 (atoaji) = finish/aftertaste. You're getting a real cocktail description."
+              "listen_for": "かんきつ (柑橘, kankitsu) = citrus. かおり (香り, kaori) = aroma. あとあじ (後味, atoaji) = finish/aftertaste. You're getting a real cocktail description.",
+              "kanji": "柑橘系の香りとハーブのような後味があります"
             }
-          ]
+          ],
+          "kanji": "これはどんな味ですか？"
         },
         {
           "id": "ba-05",
-          "japanese": "もう一杯お願いします",
+          "japanese": "もういっぱいおねがいします",
           "romaji": "Mou ippai onegaishimasu",
           "english": "One more please",
           "difficulty": "core",
-          "notes": "一杯 = one glass/drink.",
+          "notes": "いっぱい (一杯) = one glass/drink.",
           "responses": [
             {
               "japanese": "かしこまりました",
@@ -1511,16 +1664,18 @@
               "listen_for": "Order received. Same again is coming."
             },
             {
-              "japanese": "同じものでよろしいですか？",
+              "japanese": "おなじものでよろしいですか？",
               "romaji": "Onaji mono de yoroshii desu ka?",
               "english": "The same as before?",
-              "listen_for": "同じ (onaji) = same. They're confirming you want a repeat. Say はい or point to something new on the menu."
+              "listen_for": "おなじ (同じ, onaji) = same. They're confirming you want a repeat. Say はい or point to something new on the menu.",
+              "kanji": "同じものでよろしいですか？"
             }
-          ]
+          ],
+          "kanji": "もう一杯お願いします"
         },
         {
           "id": "ba-06",
-          "japanese": "甘くないものが好きです",
+          "japanese": "あまくないものがすきです",
           "romaji": "Amaku nai mono ga suki desu",
           "english": "I prefer something not sweet",
           "difficulty": "core",
@@ -1530,29 +1685,32 @@
               "japanese": "では、〜はいかがですか？",
               "romaji": "Dewa, [cocktail] wa ikaga desu ka?",
               "english": "Then, how about [cocktail]?",
-              "listen_for": "では (dewa) = then/in that case. いかが = how about? They're tailoring a recommendation. Say お願いします."
+              "listen_for": "では (dewa) = then/in that case. いかが = how about? They're tailoring a recommendation. Say おねがいします (お願いします)."
             }
-          ]
+          ],
+          "kanji": "甘くないものが好きです"
         },
         {
           "id": "ba-07",
-          "japanese": "これは何のベーススピリッツですか？",
+          "japanese": "これはなにのベーススピリッツですか？",
           "romaji": "Kore wa nani no beesu supirittsu desu ka?",
           "english": "What is the base spirit in this?",
           "difficulty": "extra",
           "notes": "Shows genuine cocktail knowledge.",
           "responses": [
             {
-              "japanese": "ベースは〜を使っています",
+              "japanese": "ベースは〜をつかっています",
               "romaji": "Beesu wa [spirit] wo tsukatte imasu",
               "english": "The base uses [spirit]",
-              "listen_for": "使っています (tsukatte imasu) = is using. They'll name the spirit. You might also hear 自家製 (jikasei) = house-made."
+              "listen_for": "つかっています (使っています, tsukatte imasu) = is using. They'll name the spirit. You might also hear じかせい (自家製, jikasei) = house-made.",
+              "kanji": "ベースは〜を使っています"
             }
-          ]
+          ],
+          "kanji": "これは何のベーススピリッツですか？"
         },
         {
           "id": "ba-08",
-          "japanese": "日本のウイスキーを試してみたいです",
+          "japanese": "にほんのウイスキーをためしてみたいです",
           "romaji": "Nihon no uisukii wo tameshite mitai desu",
           "english": "I'd like to try a Japanese whisky",
           "difficulty": "core",
@@ -1565,50 +1723,57 @@
               "listen_for": "シングルモルト = single malt. ブレンデッド = blended. A real whisky conversation just started."
             },
             {
-              "japanese": "ニッカとサントリー、どちらの方が好きですか？",
+              "japanese": "ニッカとサントリー、どちらのほうがすきですか？",
               "romaji": "Nikka to Santori, dochira no hou ga suki desu ka?",
               "english": "Do you prefer Nikka or Suntory?",
-              "listen_for": "The two big houses. If you don't know yet, say まだ分かりません (I don't know yet)."
+              "listen_for": "The two big houses. If you don't know yet, say まだいどんtkのwいぇt (わかりません (分かりません), I don't know yet).",
+              "kanji": "ニッカとサントリー、どちらの方が好きですか？"
             }
-          ]
+          ],
+          "kanji": "日本のウイスキーを試してみたいです"
         },
         {
           "id": "ba-09",
-          "japanese": "ハイボールをお願いします",
+          "japanese": "ハイボールをおねがいします",
           "romaji": "Haibooru wo onegaishimasu",
           "english": "A highball please",
           "difficulty": "core",
           "notes": "Japan's most popular bar drink. Ridiculously well-made.",
           "responses": [
             {
-              "japanese": "ウイスキーは何になさいますか？",
+              "japanese": "ウイスキーはなにになさいますか？",
               "romaji": "Uisukii wa nani ni nasaimasu ka?",
               "english": "Which whisky would you like?",
-              "listen_for": "何になさいますか = what will you have? They're asking which whisky for your highball."
+              "listen_for": "なにになさいますか (何になさいますか) = what will you have? They're asking which whisky for your highball.",
+              "kanji": "ウイスキーは何になさいますか？"
             },
             {
-              "japanese": "濃さはいかがしますか？",
+              "japanese": "こさはいかがしますか？",
               "romaji": "Kosa wa ikaga shimasu ka?",
               "english": "How strong would you like it?",
-              "listen_for": "濃さ (kosa) = strength/concentration. 濃いめ (koime) = stronger, 薄め (usume) = weaker, 普通 (futsuu) = standard."
+              "listen_for": "こさ (濃さ, kosa) = strength/concentration. こいめ (濃いめ, koime) = stronger, うすめ (薄め, usume) = weaker, ふつう (普通, futsuu) = standard.",
+              "kanji": "濃さはいかがしますか？"
             }
-          ]
+          ],
+          "kanji": "ハイボールをお願いします"
         },
         {
           "id": "ba-10",
-          "japanese": "乾杯！",
+          "japanese": "かんぱい！",
           "romaji": "Kanpai!",
           "english": "Cheers!",
           "difficulty": "core",
           "notes": "Make eye contact with each person as you clink.",
           "responses": [
             {
-              "japanese": "乾杯！",
+              "japanese": "かんぱい！",
               "romaji": "Kanpai!",
               "english": "Cheers!",
-              "listen_for": "They'll echo it back. Make eye contact — not doing so is considered rude."
+              "listen_for": "They'll echo it back. Make eye contact — not doing so is considered rude.",
+              "kanji": "乾杯！"
             }
-          ]
+          ],
+          "kanji": "乾杯！"
         },
         {
           "id": "ba-11",
@@ -1619,76 +1784,85 @@
           "notes": "Mocktail culture is growing in Japan.",
           "responses": [
             {
-              "japanese": "はい、モクテルをご用意しております",
+              "japanese": "はい、モクテルをごよういしております",
               "romaji": "Hai, mokuteru wo go-youi shite orimasu",
               "english": "Yes, we have mocktails available",
-              "listen_for": "モクテル = mocktail. ご用意 (go-youi) = prepared/available."
+              "listen_for": "モクテル = mocktail. ごようい (ご用意, go-youi) = prepared/available.",
+              "kanji": "はい、モクテルをご用意しております"
             },
             {
-              "japanese": "申し訳ありませんが、アルコールのみです",
+              "japanese": "もうしわけありませんが、アルコールのみです",
               "romaji": "Moushiwake arimasen ga, arukooru nomi desu",
               "english": "Sorry, we only serve alcohol",
-              "listen_for": "のみ = only. Not every bar does mocktails yet, especially traditional ones."
+              "listen_for": "のみ = only. Not every bar does mocktails yet, especially traditional ones.",
+              "kanji": "申し訳ありませんが、アルコールのみです"
             }
           ]
         },
         {
           "id": "ba-12",
-          "japanese": "バーテンダーさんはどれくらいこのバーで働いていますか？",
+          "japanese": "バーテンダーさんはどれくらいこのバーではたらいていますか？",
           "romaji": "Baatendaa-san wa dorekurai kono baa de hataraite imasu ka?",
           "english": "How long have you been working at this bar?",
           "difficulty": "extra",
           "notes": "Great conversation starter. Japanese bartenders train for years.",
           "responses": [
             {
-              "japanese": "〜年になります",
+              "japanese": "〜ねんになります",
               "romaji": "[X] nen ni narimasu",
               "english": "It's been [X] years",
-              "listen_for": "年 (nen) = years. A bartender saying 10年 (juunen/10 years) or more is not unusual."
+              "listen_for": "ねん (年, nen) = years. A bartender saying 10ねん (年, juunen) / 10 years or more is not unusual.",
+              "kanji": "〜年になります"
             },
             {
-              "japanese": "修行は〜年しました",
+              "japanese": "しゅぎょうは〜ねんしました",
               "romaji": "Shugyou wa [X] nen shimashita",
               "english": "I trained for [X] years",
-              "listen_for": "修行 (shugyou) = training/apprenticeship. This is the craft tradition — they apprenticed under a master."
+              "listen_for": "しゅぎょう (修行, shugyou) = training/apprenticeship. This is the craft tradition — they apprenticed under a master.",
+              "kanji": "修行は〜年しました"
             }
-          ]
+          ],
+          "kanji": "バーテンダーさんはどれくらいこのバーで働いていますか？"
         },
         {
           "id": "ba-13",
-          "japanese": "このカクテルの作り方を教えてもらえますか？",
+          "japanese": "このカクテルのつくりかたをおしえてもらえますか？",
           "romaji": "Kono kakuteru no tsukurikata wo oshiete moraemasu ka?",
           "english": "Could you tell me how this cocktail is made?",
           "difficulty": "extra",
           "notes": "Japanese bartenders will give you a thorough, proud answer.",
           "responses": [
             {
-              "japanese": "まず〜を使って、次に〜を加えます",
+              "japanese": "まず〜をつかって、つぎに〜をくわえます",
               "romaji": "Mazu [ingredient] wo tsukatte, tsugi ni [ingredient] wo kuwaemasu",
               "english": "First I use [ingredient], then I add [ingredient]",
-              "listen_for": "まず (mazu) = first. 次に (tsugi ni) = next. 加えます (kuwaemasu) = add."
+              "listen_for": "まず (mazu) = first. つぎに (次に, tsugi ni) = next. くわえます (加えます, kuwaemasu) = add.",
+              "kanji": "まず〜を使って、次に〜を加えます"
             }
-          ]
+          ],
+          "kanji": "このカクテルの作り方を教えてもらえますか？"
         },
         {
           "id": "ba-14",
-          "japanese": "今夜のスペシャルは何ですか？",
+          "japanese": "こんやのスペシャルはなんですか？",
           "romaji": "Konya no supesharu wa nan desu ka?",
           "english": "What's tonight's special?",
           "difficulty": "extra",
           "notes": "Seasonal and nightly specials are common.",
           "responses": [
             {
-              "japanese": "今夜は〜を使った季節のカクテルです",
+              "japanese": "こんやは〜をつかったきせつのカクテルです",
               "romaji": "Konya wa [ingredient] wo tsukatta kisetsu no kakuteru desu",
               "english": "Tonight it's a seasonal cocktail using [ingredient]",
-              "listen_for": "季節 (kisetsu) = seasonal. 救った/使った (tsukatta) = using. This is the bartender's creative pick."
+              "listen_for": "きせつ (季節, kisetsu) = seasonal. つかった (使った, tsukatta) = using. This is the bartender's creative pick.",
+              "kanji": "今夜は〜を使った季節のカクテルです"
             }
-          ]
+          ],
+          "kanji": "今夜のスペシャルは何ですか？"
         },
         {
           "id": "ba-15",
-          "japanese": "お水も一緒にいただけますか？",
+          "japanese": "おみずもいっしょにいただけますか？",
           "romaji": "Omizu mo issho ni itadakemasu ka?",
           "english": "Could I also have some water?",
           "difficulty": "core",
@@ -1700,15 +1874,16 @@
               "english": "Yes, of course",
               "listen_for": "もちろんです = of course. Completely normal to ask."
             }
-          ]
+          ],
+          "kanji": "お水も一緒にいただけますか？"
         },
         {
           "id": "ba-16",
-          "japanese": "二人分お願いします",
+          "japanese": "ふたりぶんおねがいします",
           "romaji": "Futari-bun onegaishimasu",
           "english": "Two servings please",
           "difficulty": "extra",
-          "notes": "〜人分 (-nin bun) = portions for X people. Useful for sharing plates: 二人分 (futari-bun), 三人分 (san-nin bun).",
+          "notes": "〜にんぶん (人分, -nin bun) = portions for X people. Useful for sharing plates: ふたりぶん (二人分, futari-bun), さんにんぶん (三人分, san-nin bun).",
           "responses": [
             {
               "japanese": "かしこまりました",
@@ -1716,29 +1891,33 @@
               "english": "Certainly",
               "listen_for": "Order received for the group."
             }
-          ]
+          ],
+          "kanji": "二人分お願いします"
         },
         {
           "id": "ba-17",
-          "japanese": "三人で来ました",
+          "japanese": "さんにんできました",
           "romaji": "San-nin de kimashita",
           "english": "There are three of us",
           "difficulty": "extra",
-          "notes": "〜人で来ました (-nin de kimashita) = we came as a group of X. Useful when a host asks your party size.",
+          "notes": "〜にんできました (人で来ました, -nin de kimashita) = we came as a group of X. Useful when a host asks your party size.",
           "responses": [
             {
-              "japanese": "何名様ですか？",
+              "japanese": "なんめいさまですか？",
               "romaji": "Nanmei-sama desu ka?",
               "english": "How many people?",
-              "listen_for": "Polite way to ask party size — answer with 一人/二人/三人 etc."
+              "listen_for": "Polite way to ask party size — answer with ひとり/ふたり/さんにん (一人/二人/三人) etc.",
+              "kanji": "何名様ですか？"
             },
             {
-              "japanese": "カウンター席になりますがよろしいですか？",
+              "japanese": "カウンターせきになりますがよろしいですか？",
               "romaji": "Kauntaa-seki ni narimasu ga yoroshii desu ka?",
               "english": "It will be counter seating, is that okay?",
-              "listen_for": "Common for small bars when tables don't fit your group size."
+              "listen_for": "Common for small bars when tables don't fit your group size.",
+              "kanji": "カウンター席になりますがよろしいですか？"
             }
-          ]
+          ],
+          "kanji": "三人で来ました"
         }
       ]
     },
@@ -1749,85 +1928,96 @@
       "phrases": [
         {
           "id": "di-01",
-          "japanese": "〜に行きたいんですが",
+          "japanese": "〜にいきたいんですが",
           "romaji": "[place] ni ikitain desu ga",
           "english": "I'd like to go to [place]",
           "difficulty": "core",
           "notes": "The んですが softens it into a request.",
           "responses": [
             {
-              "japanese": "ここから歩いて〜分ぐらいです",
+              "japanese": "ここからあるいて〜ぶんぐらいです",
               "romaji": "Koko kara aruite [X] fun gurai desu",
               "english": "It's about [X] minutes walk from here",
-              "listen_for": "歩いて (aruite) = walking. 分 = minutes. ぐらい = about/approximately."
+              "listen_for": "あるいて (歩いて, aruite) = walking. ふん (分) = minutes. ぐらい = about/approximately.",
+              "kanji": "ここから歩いて〜分ぐらいです"
             },
             {
-              "japanese": "電車で行った方がいいですよ",
+              "japanese": "でんしゃでいったほうがいいですよ",
               "romaji": "Densha de itta hou ga ii desu yo",
               "english": "It's better to go by train",
-              "listen_for": "電車 (densha) = train. 方がいい = better to. They're steering you to public transport."
+              "listen_for": "でんしゃ (電車, densha) = train. ほうがいい (方がいい) = better to. They're steering you to public transport.",
+              "kanji": "電車で行った方がいいですよ"
             }
-          ]
+          ],
+          "kanji": "〜に行きたいんですが"
         },
         {
           "id": "di-02",
-          "japanese": "まっすぐ行ってください",
+          "japanese": "まっすぐいってください",
           "romaji": "Massugu itte kudasai",
           "english": "Go straight",
           "difficulty": "core",
-          "notes": "Key direction words: まっすぐ/右/左.",
+          "notes": "Key direction words: まっすぐ/みぎ/ひだり (右/左).",
           "responses": [
             {
-              "japanese": "〜メートル先に〜があります",
+              "japanese": "〜メートルさきに〜があります",
               "romaji": "[X] meetoru saki ni [landmark] ga arimasu",
               "english": "[X] meters ahead there is [landmark]",
-              "listen_for": "メートル = meters. 先 (saki) = ahead. They're giving you a landmark to aim for."
+              "listen_for": "メートル = meters. さき (先, saki) = ahead. They're giving you a landmark to aim for.",
+              "kanji": "〜メートル先に〜があります"
             }
-          ]
+          ],
+          "kanji": "まっすぐ行ってください"
         },
         {
           "id": "di-03",
-          "japanese": "ここから遠いですか？",
+          "japanese": "ここからとおいですか？",
           "romaji": "Koko kara tooi desu ka?",
           "english": "Is it far from here?",
           "difficulty": "core",
-          "notes": "近いです (chikai desu) = it is close.",
+          "notes": "ちかいです (近いです, chikai desu) = it is close.",
           "responses": [
             {
-              "japanese": "いいえ、近いですよ。歩いて〜分です",
+              "japanese": "いいえ、ちかいですよ。あるいて〜ふんです",
               "romaji": "Iie, chikai desu yo. Aruite [X] fun desu",
               "english": "No, it's close. [X] minutes on foot",
-              "listen_for": "近い (chikai) = close/nearby. 歩いて = walking. The number before 分 is your walk time."
+              "listen_for": "ちかい (近い, chikai) = close/nearby. あるいて (歩いて) = walking. The number before ふん (分) is your walk time.",
+              "kanji": "いいえ、近いですよ。歩いて〜分です"
             },
             {
-              "japanese": "少し遠いです。バスか電車がいいですよ",
+              "japanese": "すこしとおいです。バスかでんしゃがいいですよ",
               "romaji": "Sukoshi tooi desu. Basu ka densha ga ii desu yo",
               "english": "It's a bit far. Bus or train would be better",
-              "listen_for": "少し遠い (sukoshi tooi) = a bit far. か = or. They're recommending transport."
+              "listen_for": "すこしとおい (少し遠い, sukoshi tooi) = a bit far. か = or. They're recommending transport.",
+              "kanji": "少し遠いです。バスか電車がいいですよ"
             }
-          ]
+          ],
+          "kanji": "ここから遠いですか？"
         },
         {
           "id": "di-04",
-          "japanese": "地図を描いてもらえますか？",
+          "japanese": "ちずをえがいてもらえますか？",
           "romaji": "Chizu wo kaite moraemasu ka?",
           "english": "Could you draw me a map?",
           "difficulty": "extra",
           "notes": "Japanese people are incredibly helpful — many will walk you there.",
           "responses": [
             {
-              "japanese": "はい、ちょっと待ってください",
+              "japanese": "はい、ちょっとまってください",
               "romaji": "Hai, chotto matte kudasai",
               "english": "Yes, please wait a moment",
-              "listen_for": "ちょっと待ってください = wait a moment. They're grabbing a pen or phone."
+              "listen_for": "ちょっとまってください (ちょっと待ってください) = wait a moment. They're grabbing a pen or phone.",
+              "kanji": "はい、ちょっと待ってください"
             },
             {
-              "japanese": "一緒に行きましょうか？",
+              "japanese": "いっしょにいきましょうか？",
               "romaji": "Issho ni ikimashou ka?",
               "english": "Shall we go together?",
-              "listen_for": "一緒に (issho ni) = together. 行きましょうか = shall we go? They're offering to escort you. Say ありがとうございます!"
+              "listen_for": "いっしょに (一緒に, issho ni) = together. いきましょうか (行きましょうか) = shall we go? They're offering to escort you. Say ありがとうございます!",
+              "kanji": "一緒に行きましょうか？"
             }
-          ]
+          ],
+          "kanji": "地図を描いてもらえますか？"
         },
         {
           "id": "di-05",
@@ -1844,10 +2034,11 @@
               "listen_for": "あちら = over there. They'll point. Follow the direction."
             },
             {
-              "japanese": "〜階にございます",
+              "japanese": "〜かいにございます",
               "romaji": "[X] kai ni gozaimasu",
               "english": "It's on floor [X]",
-              "listen_for": "階 (kai) = floor. In department stores toilets are often on a specific floor."
+              "listen_for": "かい (階, kai) = floor. In department stores toilets are often on a specific floor.",
+              "kanji": "〜階にございます"
             }
           ]
         }
@@ -1860,7 +2051,7 @@
       "phrases": [
         {
           "id": "em-01",
-          "japanese": "助けてください！",
+          "japanese": "たすけてください！",
           "romaji": "Tasukete kudasai!",
           "english": "Please help me!",
           "difficulty": "core",
@@ -1872,23 +2063,26 @@
               "english": "What happened?",
               "listen_for": "どうしましたか = what's wrong / what happened? Be ready to point or show a translation."
             }
-          ]
+          ],
+          "kanji": "助けてください！"
         },
         {
           "id": "em-02",
-          "japanese": "救急車を呼んでください",
+          "japanese": "きゅうきゅうしゃをよんでください",
           "romaji": "Kyuukyuusha wo yonde kudasai",
           "english": "Please call an ambulance",
           "difficulty": "core",
           "notes": "Emergency numbers: 119 (ambulance/fire), 110 (police).",
           "responses": [
             {
-              "japanese": "すぐに呼びます",
+              "japanese": "すぐによびます",
               "romaji": "Sugu ni yobimasu",
               "english": "I'll call right away",
-              "listen_for": "すぐ = immediately. Help is being called."
+              "listen_for": "すぐ = immediately. Help is being called.",
+              "kanji": "すぐに呼びます"
             }
-          ]
+          ],
+          "kanji": "救急車を呼んでください"
         },
         {
           "id": "em-03",
@@ -1896,13 +2090,14 @@
           "romaji": "Pasupooto wo nakushimashita",
           "english": "I lost my passport",
           "difficulty": "core",
-          "notes": "Go to the nearest 交番 (koban / police box) first.",
+          "notes": "Go to the nearest こうばん (交番, koban) / police box first.",
           "responses": [
             {
-              "japanese": "交番に行ってください",
+              "japanese": "こうばんにいってください",
               "romaji": "Kouban ni itte kudasai",
               "english": "Please go to the police box",
-              "listen_for": "交番 (kouban) = small police box/koban. These are everywhere in Japan and very helpful."
+              "listen_for": "こうばん (交番, kouban) = small police box/koban. These are everywhere in Japan and very helpful.",
+              "kanji": "交番に行ってください"
             },
             {
               "japanese": "いつ、どこでなくしましたか？",
@@ -1914,41 +2109,46 @@
         },
         {
           "id": "em-04",
-          "japanese": "具合が悪いです",
+          "japanese": "ぐあいがわるいです",
           "romaji": "Guai ga warui desu",
           "english": "I'm feeling sick / unwell",
           "difficulty": "core",
-          "notes": "痛い (itai) = it hurts. Point at where.",
+          "notes": "いたい (痛い, itai) = it hurts. Point at where.",
           "responses": [
             {
-              "japanese": "どこが痛いですか？",
+              "japanese": "どこがいたいですか？",
               "romaji": "Doko ga itai desu ka?",
               "english": "Where does it hurt?",
-              "listen_for": "どこ = where. 痛い = hurt/pain. Point at the affected area."
+              "listen_for": "どこ = where. いたい (痛い) = hurt/pain. Point at the affected area.",
+              "kanji": "どこが痛いですか？"
             },
             {
-              "japanese": "病院に行った方がいいです",
+              "japanese": "びょういんにいったほうがいいです",
               "romaji": "Byouin ni itta hou ga ii desu",
               "english": "You should go to a hospital",
-              "listen_for": "病院 (byouin) = hospital. 方がいい = should/better to."
+              "listen_for": "びょういん (病院, byouin) = hospital. ほうがいい (方がいい) = should/better to.",
+              "kanji": "病院に行った方がいいです"
             }
-          ]
+          ],
+          "kanji": "具合が悪いです"
         },
         {
           "id": "em-05",
-          "japanese": "大使館に電話してください",
+          "japanese": "たいしかんにでんわしてください",
           "romaji": "Taishikan ni denwa shite kudasai",
           "english": "Please call the embassy",
           "difficulty": "extra",
           "notes": "Know your country's embassy number before you go.",
           "responses": [
             {
-              "japanese": "分かりました。どこの国ですか？",
+              "japanese": "わかりました。どこのくにですか？",
               "romaji": "Wakarimashita. Doko no kuni desu ka?",
               "english": "Understood. Which country?",
-              "listen_for": "どこの国 (doko no kuni) = which country. State your country clearly."
+              "listen_for": "どこのどこのくに (国, doko no kuni) = which country. State your country clearly.",
+              "kanji": "分かりました。どこの国ですか？"
             }
-          ]
+          ],
+          "kanji": "大使館に電話してください"
         }
       ]
     },
@@ -1959,105 +2159,117 @@
       "phrases": [
         {
           "id": "nu-01",
-          "japanese": "一、二、三、四、五、六、七、八、九、十",
+          "japanese": "いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう",
           "romaji": "Ichi, ni, san, shi, go, roku, nana, hachi, kyuu, juu",
           "english": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
           "difficulty": "core",
-          "notes": "100 = 百 (hyaku), 1000 = 千 (sen), 10000 = 万 (man).",
+          "notes": "100 = ひゃく (百, hyaku), 1000 = せん (千, sen), 10000 = まん (万, man).",
           "responses": [
             {
-              "japanese": "〜円です",
+              "japanese": "〜えんです",
               "romaji": "[amount] en desu",
               "english": "[amount] yen",
-              "listen_for": "Numbers you need most: 百 (100), 千 (1000), 万 (10,000). Most prices fall between 500–5000."
+              "listen_for": "Numbers you need most: ひゃく (百, 100), せん (千, 1000), まん (万, 10,000). Most prices fall between 500–5000.",
+              "kanji": "〜円です"
             }
-          ]
+          ],
+          "kanji": "一、二、三、四、五、六、七、八、九、十"
         },
         {
           "id": "nu-01b",
-          "japanese": "人数の数え方",
+          "japanese": "にんずうのかぞえかた",
           "romaji": "Ninzuu no kazoekata",
           "english": "How to count people — the essential counters",
           "difficulty": "core",
-          "notes": "Japanese uses special words for counting people. 1 and 2 are irregular; from 3 onward, use number + 人 (nin). Formal contexts (hotels, restaurants) use 名 (mei) instead of 人. 一人/一名 (hitori/ichimei) = one, 二人/二名 (futari/nimei) = two, 三人/三名 (san-nin/sanmei) = three — 人 is everyday, 名 is formal (hotel/restaurant).",
+          "notes": "Japanese uses special words for counting people. 1 and 2 are irregular; from 3 onward, use number + にん (人, nin). Formal contexts (hotels, restaurants) use めい (名, mei) instead of にん (人). ひとり/いちめい (一人/一名, hitori/ichimei) = one, ふたり/にめい (二人/二名, futari/nimei) = two, さんにん/さんめい (三人/三名, san-nin/sanmei) = three — にん (人) is everyday, めい (名) is formal (hotel/restaurant).",
           "responses": [
             {
-              "japanese": "何名様ですか？",
+              "japanese": "なんめいさまですか？",
               "romaji": "Nanmei-sama desu ka?",
               "english": "How many people? (polite — what staff will ask)",
-              "listen_for": "何名様 (nanmei-sama) is the question that prompts you to answer with one of these counters. Hold up fingers as you answer."
+              "listen_for": "なんめいさま (何名様, nanmei-sama) is the question that prompts you to answer with one of these counters. Hold up fingers as you answer.",
+              "kanji": "何名様ですか？"
             },
             {
-              "japanese": "何人ですか？",
+              "japanese": "なんにんですか？",
               "romaji": "Nan-nin desu ka?",
               "english": "How many people? (casual)",
-              "listen_for": "The everyday version of the same question, using 人 instead of the formal 名."
+              "listen_for": "The everyday version of the same question, using にん (人) instead of the formal めい (名).",
+              "kanji": "何人ですか？"
             }
-          ]
+          ],
+          "kanji": "人数の数え方"
         },
         {
           "id": "nu-02",
-          "japanese": "何時ですか？",
+          "japanese": "なんじですか？",
           "romaji": "Nanji desu ka?",
           "english": "What time is it?",
           "difficulty": "core",
-          "notes": "時 (ji) = o'clock, 分 (fun) = minutes.",
+          "notes": "じ (時, ji) = o'clock, ふん (分, fun) = minutes.",
           "responses": [
             {
-              "japanese": "〜時〜分です",
+              "japanese": "〜じ〜ふんです",
               "romaji": "[hour] ji [minutes] fun desu",
               "english": "It is [hour]:[minutes]",
-              "listen_for": "Listen for the number before 時 (hour) and before 分 (minutes). E.g., 3時半 (sanji han) = 3:30."
+              "listen_for": "Listen for the number before ほうr (時, hour) and before みぬてs (分, minutes). E.g., 3さんじはん (時半, sanji han) = 3:30.",
+              "kanji": "〜時〜分です"
             }
-          ]
+          ],
+          "kanji": "何時ですか？"
         },
         {
           "id": "nu-03",
-          "japanese": "〜時に予約があります",
+          "japanese": "〜じによやくがあります",
           "romaji": "[time] ji ni yoyaku ga arimasu",
           "english": "I have a reservation at [time]",
           "difficulty": "extra",
           "notes": "Useful when arriving at a restaurant or hotel.",
           "responses": [
             {
-              "japanese": "お名前をお願いします",
+              "japanese": "おなまえをおねがいします",
               "romaji": "Onamae wo onegaishimasu",
               "english": "Your name please",
-              "listen_for": "お名前 (onamae) = name. Say your name clearly or show it written."
+              "listen_for": "おなまえ (お名前, onamae) = name. Say your name clearly or show it written.",
+              "kanji": "お名前をお願いします"
             }
-          ]
+          ],
+          "kanji": "〜時に予約があります"
         },
         {
           "id": "nu-04",
-          "japanese": "一人、二人、三人",
+          "japanese": "ひとり、ふたり、さんにん",
           "romaji": "Hitori, futari, san-nin",
           "english": "One person, two people, three people",
           "difficulty": "core",
-          "notes": "The people-counter 人 (nin) is irregular for 1 and 2: 一人 (hitori), 二人 (futari). From three onward it's regular: 三人 (san-nin), 四人 (yo-nin), 五人 (go-nin). Staff use the polite form 〜名様 (-mei-sama) instead, e.g. お一人様 (o-hitori-sama).",
+          "notes": "The people-counter にん (人, nin) is irregular for 1 and 2: ひとり (一人, hitori), ふたり (二人, futari). From three onward it's regular: さんにん (三人, san-nin), よにん (四人, yo-nin), ごにん (五人, go-nin). Staff use the polite form 〜めいさま (名様, -mei-sama) instead, e.g. おひとりさま (お一人様, o-hitori-sama).",
           "responses": [
             {
-              "japanese": "何名様ですか？",
+              "japanese": "なんめいさまですか？",
               "romaji": "Nanmei-sama desu ka?",
               "english": "How many people (polite)?",
-              "listen_for": "Answer with 一人/二人/三人 etc., or just hold up fingers."
+              "listen_for": "Answer with ひとり/ふたり/さんにん (一人/二人/三人) etc., or just hold up fingers.",
+              "kanji": "何名様ですか？"
             }
-          ]
+          ],
+          "kanji": "一人、二人、三人"
         },
         {
           "id": "nu-05",
-          "japanese": "一つ、二つ、三つ",
+          "japanese": "ひとつ、ふたつ、みっつ",
           "romaji": "Hitotsu, futatsu, mittsu",
           "english": "One, two, three (items)",
           "difficulty": "core",
-          "notes": "The generic item-counter つ (tsu) is used for food orders, souvenirs, and other countable objects when you don't know the specific counter: 一つ, 二つ, 三つ, 四つ, 五つ... It stops being used after 十 (too) = 10.",
+          "notes": "The generic item-counter つ (tsu) is used for food orders, souvenirs, and other countable objects when you don't know the specific counter: ひとつ, ふたつ, みっつ, よっつ, いつつ (一つ, 二つ, 三つ, 四つ, 五つ)... It stops being used after とお (十, too) = 10.",
           "responses": [
             {
               "japanese": "いくつになさいますか？",
               "romaji": "Ikutsu ni nasaimasu ka?",
               "english": "How many would you like?",
-              "listen_for": "いくつ (ikutsu) = how many — answer with 一つ/二つ/三つ."
+              "listen_for": "いくつ (ikutsu) = how many — answer with ひとつ/ふたつ/みっつ (一つ/二つ/三つ)."
             }
-          ]
+          ],
+          "kanji": "一つ、二つ、三つ"
         }
       ]
     },
@@ -2068,67 +2280,75 @@
       "phrases": [
         {
           "id": "st-01",
-          "japanese": "〜から来ました",
+          "japanese": "〜からきました",
           "romaji": "[country] kara kimashita",
           "english": "I came from [country]",
           "difficulty": "core",
           "notes": "Standard reply when asked where you are from.",
           "responses": [
             {
-              "japanese": "〜からですか！遠いですね！",
+              "japanese": "〜からですか！とおいですね！",
               "romaji": "[country] kara desu ka! Tooi desu ne!",
               "english": "From [country]! That's far!",
-              "listen_for": "遠い (tooi) = far. Japanese locals appreciate knowing where visitors are visiting from."
+              "listen_for": "とおい (遠い, tooi) = far. Japanese locals appreciate knowing where visitors are visiting from.",
+              "kanji": "〜からですか！遠いですね！"
             }
-          ]
+          ],
+          "kanji": "〜から来ました"
         },
         {
           "id": "st-02",
-          "japanese": "日本は初めてです",
+          "japanese": "にほんははじめてです",
           "romaji": "Nihon wa hajimete desu",
           "english": "This is my first time in Japan",
           "difficulty": "core",
-          "notes": "If it's your second time, say: 2回目です (Nikaime desu).",
+          "notes": "If it's your second time, say: 2にかいめです (回目です, Nikaime desu).",
           "responses": [
             {
-              "japanese": "ようこそ日本へ！楽しんでくださいね",
+              "japanese": "ようこそにほんへ！たのしんでくださいね",
               "romaji": "Youkoso Nihon e! Tanoshinde kudasai ne",
               "english": "Welcome to Japan! Please enjoy your stay",
-              "listen_for": "ようこそ (youkoso) = welcome. 楽しんで (tanoshinde) = enjoy."
+              "listen_for": "ようこそ (youkoso) = welcome. たのしんで (楽しんで, tanoshinde) = enjoy.",
+              "kanji": "ようこそ日本へ！楽しんでくださいね"
             }
-          ]
+          ],
+          "kanji": "日本は初めてです"
         },
         {
           "id": "st-03",
-          "japanese": "日本のご飯はとても美味しいです",
+          "japanese": "にほんのごはんはとてもおいしいです",
           "romaji": "Nihon no gohan wa totemo oishii desu",
           "english": "Japanese food is very delicious",
           "difficulty": "core",
           "notes": "Guaranteed warm smile from locals.",
           "responses": [
             {
-              "japanese": "本当ですか？何が一番好きですか？",
+              "japanese": "ほんとうですか？なにがいちばんすきですか？",
               "romaji": "Hontou desu ka? Nani ga ichiban suki desu ka?",
               "english": "Really? What do you like the most?",
-              "listen_for": "一番好き (ichiban suki) = favorite/like the most. Name a dish like ラーメン or 寿司!"
+              "listen_for": "いちばんすき (一番好き, ichiban suki) = favorite/like the most. Name a dish like ラーメン or すし (寿司)!",
+              "kanji": "本当ですか？何が一番好きですか？"
             }
-          ]
+          ],
+          "kanji": "日本のご飯はとても美味しいです"
         },
         {
           "id": "st-04",
-          "japanese": "今日は寒いですね",
+          "japanese": "きょうはさむいですね",
           "romaji": "Kyou wa samui desu ne",
           "english": "It's cold today, isn't it?",
           "difficulty": "extra",
           "notes": "Great winter icebreaker in December.",
           "responses": [
             {
-              "japanese": "そうですね、風邪を引かないようにしてくださいね",
+              "japanese": "そうですね、かぜをひかないようにしてくださいね",
               "romaji": "Sou desu ne, kaze wo hikanai you ni shite kudasai ne",
               "english": "Indeed, make sure you stay warm and don't catch a cold",
-              "listen_for": "そうですね = 'I agree / indeed'. A universal casual agreement phrase."
+              "listen_for": "そうですね = 'I agree / indeed'. A universal casual agreement phrase.",
+              "kanji": "そうですね、風邪を引かないようにしてくださいね"
             }
-          ]
+          ],
+          "kanji": "今日は寒いですね"
         }
       ]
     },
@@ -2139,7 +2359,7 @@
       "phrases": [
         {
           "id": "sg-01",
-          "japanese": "写真を撮ってもらえますか？",
+          "japanese": "しゃしんをとってもらえますか？",
           "romaji": "Shashin wo totte moraemasu ka?",
           "english": "Could you take a photo for me?",
           "difficulty": "core",
@@ -2151,23 +2371,26 @@
               "english": "Yes, sure! Say cheese!",
               "listen_for": "チーズ (chiizu) = cheese! Smile for the shutter."
             }
-          ]
+          ],
+          "kanji": "写真を撮ってもらえますか？"
         },
         {
           "id": "sg-02",
-          "japanese": "ここで写真を撮ってもいいですか？",
+          "japanese": "ここでしゃしんをとってもいいですか？",
           "romaji": "Koko de shashin wo totte mo ii desu ka?",
           "english": "May I take a photo here?",
           "difficulty": "core",
           "notes": "Crucial at temples, shrines, or private collections.",
           "responses": [
             {
-              "japanese": "すみません、撮影禁止です",
+              "japanese": "すみません、さつえいきんしです",
               "romaji": "Sumimasen, satsuei kinshi desu",
               "english": "Sorry, photography is prohibited",
-              "listen_for": "撮影禁止 (satsuei kinshi) = no photography allowed."
+              "listen_for": "さつえいきんし (撮影禁止, satsuei kinshi) = no photography allowed.",
+              "kanji": "すみません、撮影禁止です"
             }
-          ]
+          ],
+          "kanji": "ここで写真を撮ってもいいですか？"
         }
       ]
     },
@@ -2178,129 +2401,146 @@
       "phrases": [
         {
           "id": "on-01",
-          "japanese": "タトゥーは大丈夫ですか？",
+          "japanese": "タトゥーはだいじょうぶですか？",
           "romaji": "Tatou wa daijoubu desu ka?",
           "english": "Are tattoos okay?",
           "difficulty": "core",
           "notes": "Check policies beforehand if you have visible ink.",
           "responses": [
             {
-              "japanese": "シールで隠せば大丈夫です",
+              "japanese": "シールでかくせばだいじょうぶです",
               "romaji": "Shiiru de kakuseba daijoubu desu",
               "english": "It's fine if you cover them with a sticker",
-              "listen_for": "隠せば (kakuseba) = if covered. They may offer cover-up patches."
+              "listen_for": "かくせば (隠せば, kakuseba) = if covered. They may offer cover-up patches.",
+              "kanji": "シールで隠せば大丈夫です"
             },
             {
-              "japanese": "申し訳ありませんが、お断りしております",
+              "japanese": "もうしわけありませんが、おことわりしております",
               "romaji": "Moushiwake arimasen ga, okotowari shite orimasu",
               "english": "I'm sorry, but tattoos are not permitted",
-              "listen_for": "お断り (okotowari) = refusal / not permitted."
+              "listen_for": "おことわり (お断り, okotowari) = refusal / not permitted.",
+              "kanji": "申し訳ありませんが、お断りしております"
             }
-          ]
+          ],
+          "kanji": "タトゥーは大丈夫ですか？"
         },
         {
           "id": "on-02",
-          "japanese": "露天風呂はどこですか？",
+          "japanese": "ろてんぶろはどこですか？",
           "romaji": "Rotenburo wa doko desu ka?",
           "english": "Where is the outdoor bath?",
           "difficulty": "extra",
-          "notes": "露天風呂 (rotenburo) = outdoor open-air bath.",
+          "notes": "ろてんぶろ (露天風呂, rotenburo) = outdoor open-air bath.",
           "responses": [
             {
-              "japanese": "奥の階段を下りたところにございます",
+              "japanese": "おくのかいだんをおりたところにございます",
               "romaji": "Oku no kaidan wo orita tokoro ni gozaimasu",
               "english": "It is located down the stairs at the back",
-              "listen_for": "奥 (oku) = back/inner part, 階段 (kaidan) = stairs."
+              "listen_for": "おく (奥, oku) = back/inner part, かいだん (階段, kaidan) = stairs.",
+              "kanji": "奥の階段を下りたところにございます"
             }
-          ]
+          ],
+          "kanji": "露天風呂はどこですか？"
         },
         {
           "id": "on-03",
-          "japanese": "タトゥーがあっても入れますか？",
+          "japanese": "タトゥーがあってもいれますか？",
           "romaji": "Tatoo ga atte mo hairemasu ka?",
           "english": "Can I enter even if I have a tattoo?",
           "difficulty": "core",
           "notes": "More direct than a general check — useful when you already know you have visible ink. Many public onsen still ban tattoos due to their old association with the yakuza, though this is slowly changing, especially in tourist areas.",
           "responses": [
             {
-              "japanese": "小さいタトゥーなら大丈夫です",
+              "japanese": "ちいさいタトゥーならだいじょうぶです",
               "romaji": "Chiisai tatoo nara daijoubu desu",
               "english": "It's fine if the tattoo is small",
-              "listen_for": "小さい (chiisai) = small. Size-based policies are common."
+              "listen_for": "ちいさい (小さい, chiisai) = small. Size-based policies are common.",
+              "kanji": "小さいタトゥーなら大丈夫です"
             },
             {
-              "japanese": "申し訳ございませんが、タトゥーのある方はご遠慮いただいております",
+              "japanese": "もうしわけございませんが、タトゥーのあるほうはごえんりょいただいております",
               "romaji": "Moushiwake gozaimasen ga, tatoo no aru kata wa goenryo itadaite orimasu",
               "english": "I'm very sorry, but guests with tattoos are kindly asked not to enter",
-              "listen_for": "ご遠慮 (goenryo) = a polite way of saying 'please refrain'. A firm but courteous no."
+              "listen_for": "ごえんりょ (ご遠慮, goenryo) = a polite way of saying 'please refrain'. A firm but courteous no.",
+              "kanji": "申し訳ございませんが、タトゥーのある方はご遠慮いただいております"
             }
-          ]
+          ],
+          "kanji": "タトゥーがあっても入れますか？"
         },
         {
           "id": "on-04",
-          "japanese": "タトゥーを隠すシールはありますか？",
+          "japanese": "タトゥーをかくすシールはありますか？",
           "romaji": "Tatoo wo kakusu shiiru wa arimasu ka?",
           "english": "Do you have stickers to cover tattoos?",
           "difficulty": "extra",
           "notes": "Many tattoo-friendly onsen and sento sell or lend cover-up patches (シール/パッチ) at the front desk for guests with small tattoos.",
           "responses": [
             {
-              "japanese": "はい、フロントでお買い求めいただけます",
+              "japanese": "はい、フロントでおかいもとめいただけます",
               "romaji": "Hai, furonto de okaimotome itadakemasu",
               "english": "Yes, you can purchase them at the front desk",
-              "listen_for": "フロント (furonto) = front desk. お買い求め (okaimotome) = a polite 'to purchase'."
+              "listen_for": "フロント (furonto) = front desk. おかいもとめ (お買い求め, okaimotome) = a polite 'to purchase'.",
+              "kanji": "はい、フロントでお買い求めいただけます"
             },
             {
-              "japanese": "申し訳ありませんが、ご用意がございません",
+              "japanese": "もうしわけありませんが、ごよういがございません",
               "romaji": "Moushiwake arimasen ga, goyoui ga gozaimasen",
               "english": "I'm sorry, we don't have any available",
-              "listen_for": "ご用意 (goyoui) = preparation/availability. A polite way to say 'we don't have that'."
+              "listen_for": "ごようい (ご用意, goyoui) = preparation/availability. A polite way to say 'we don't have that'.",
+              "kanji": "申し訳ありませんが、ご用意がございません"
             }
-          ]
+          ],
+          "kanji": "タトゥーを隠すシールはありますか？"
         },
         {
           "id": "on-05",
-          "japanese": "貸切風呂はありますか？",
+          "japanese": "かしきりふろはありますか？",
           "romaji": "Kashikiri-buro wa arimasu ka?",
           "english": "Do you have a private bath?",
           "difficulty": "core",
-          "notes": "貸切風呂 (kashikiri-buro) = a private/reservable bath, often booked by the hour — the easiest workaround if a facility doesn't allow visible tattoos in the shared baths.",
+          "notes": "かしきりぶろ (貸切風呂, kashikiri-buro) = a private/reservable bath, often booked by the hour — the easiest workaround if a facility doesn't allow visible tattoos in the shared baths.",
           "responses": [
             {
-              "japanese": "はい、ご予約制になっております",
+              "japanese": "はい、ごよやくせいになっております",
               "romaji": "Hai, goyoyaku-sei ni natte orimasu",
               "english": "Yes, it works on a reservation basis",
-              "listen_for": "ご予約制 (goyoyaku-sei) = reservation system. Ask 何時から (nanji kara) for available times."
+              "listen_for": "ごよやくせい (ご予約制, goyoyaku-sei) = reservation system. Ask なんじから (何時から, nanji kara) for available times.",
+              "kanji": "はい、ご予約制になっております"
             },
             {
-              "japanese": "申し訳ございませんが、貸切風呂はございません",
+              "japanese": "もうしわけございませんが、かしきりふろはございません",
               "romaji": "Moushiwake gozaimasen ga, kashikiri-buro wa gozaimasen",
               "english": "I'm sorry, we don't have a private bath",
-              "listen_for": "A polite no — you may need to look for a different facility."
+              "listen_for": "A polite no — you may need to look for a different facility.",
+              "kanji": "申し訳ございませんが、貸切風呂はございません"
             }
-          ]
+          ],
+          "kanji": "貸切風呂はありますか？"
         },
         {
           "id": "on-06",
-          "japanese": "貸切風呂は何人まで入れますか？",
+          "japanese": "かしきりふろはなんにんまでいれますか？",
           "romaji": "Kashikiri-buro wa nan-nin made hairemasu ka?",
           "english": "How many people can use the private bath?",
           "difficulty": "extra",
           "notes": "Private baths (貸切風呂/家族風呂) are often capped at 2–4 people and booked in time slots — ask at check-in.",
           "responses": [
             {
-              "japanese": "二人までです",
+              "japanese": "ふたりまでです",
               "romaji": "Futari made desu",
               "english": "Up to two people",
-              "listen_for": "まで (made) = up to/until — listen for the number right before it."
+              "listen_for": "まで (made) = up to/until — listen for the number right before it.",
+              "kanji": "二人までです"
             },
             {
-              "japanese": "最大4名様までご利用いただけます",
+              "japanese": "さいだいよんめいさままでごりよういただけます",
               "romaji": "Saidai yon-mei-sama made goriyou itadakemasu",
               "english": "Up to a maximum of 4 people",
-              "listen_for": "名様 (mei-sama) is the polite counter for people, used by staff."
+              "listen_for": "めいさま (名様, mei-sama) is the polite counter for people, used by staff.",
+              "kanji": "最大4名様までご利用いただけます"
             }
-          ]
+          ],
+          "kanji": "貸切風呂は何人まで入れますか？"
         }
       ]
     },
@@ -2311,131 +2551,147 @@
       "phrases": [
         {
           "id": "ph-01",
-          "japanese": "薬局はどこですか？",
+          "japanese": "やっきょくはどこですか？",
           "romaji": "Yakkyoku wa doko desu ka?",
           "english": "Where is the pharmacy?",
           "difficulty": "core",
-          "notes": "薬局 (yakkyoku) = pharmacy/drugstore. Look for ドラッグストア (doraggu sutoa) signs too — those also sell over-the-counter medicine.",
+          "notes": "やっきょく (薬局, yakkyoku) = pharmacy/drugstore. Look for ドラッグストア (doraggu sutoa) signs too — those also sell over-the-counter medicine.",
           "responses": [
             {
-              "japanese": "次の角を右に曲がったところにあります",
+              "japanese": "つぎのかくをみぎにまがったところにあります",
               "romaji": "Tsugi no kado wo migi ni magatta tokoro ni arimasu",
               "english": "It's just after you turn right at the next corner",
-              "listen_for": "次の角 (tsugi no kado) = next corner. 右/左 (migi/hidari) = right/left."
+              "listen_for": "つぎのかど (次の角, tsugi no kado) = next corner. みぎ/ひだり (右/左, migi/hidari) = right/left.",
+              "kanji": "次の角を右に曲がったところにあります"
             }
-          ]
+          ],
+          "kanji": "薬局はどこですか？"
         },
         {
           "id": "ph-02",
-          "japanese": "具合が悪いです",
+          "japanese": "ぐあいがわるいです",
           "romaji": "Guai ga warui desu",
           "english": "I feel unwell",
           "difficulty": "core",
           "notes": "A general catch-all for 'I don't feel well' — use it first, then get more specific if asked.",
           "responses": [
             {
-              "japanese": "大丈夫ですか？どこが痛いですか？",
+              "japanese": "だいじょうぶですか？どこがいたいですか？",
               "romaji": "Daijoubu desu ka? Doko ga itai desu ka?",
               "english": "Are you okay? Where does it hurt?",
-              "listen_for": "どこが痛い (doko ga itai) = where does it hurt. Point to the area if you don't know the word."
+              "listen_for": "どこがどこがいたい (痛い, doko ga itai) = where does it hurt. Point to the area if you don't know the word.",
+              "kanji": "大丈夫ですか？どこが痛いですか？"
             }
-          ]
+          ],
+          "kanji": "具合が悪いです"
         },
         {
           "id": "ph-03",
-          "japanese": "頭が痛いです",
+          "japanese": "あたまがいたいです",
           "romaji": "Atama ga itai desu",
           "english": "I have a headache",
           "difficulty": "core",
-          "notes": "Swap 頭 (atama/head) for another body part + が痛いです to describe other pain, e.g. 喉 (nodo/throat), お腹 (onaka/stomach).",
+          "notes": "Swap あたま (頭, atama) / head for another body part + がいたいです (痛いです) to describe other pain, e.g. のど (喉, nodo) / throat, おなか (お腹, onaka) / stomach.",
           "responses": [
             {
-              "japanese": "頭痛薬を飲みましたか？",
+              "japanese": "ずつうやくをのみましたか？",
               "romaji": "Zutsuuyaku wo nomimashita ka?",
               "english": "Have you taken any headache medicine?",
-              "listen_for": "飲みました (nomimashita) = took/drank. Medicine is 'drunk' (飲む) in Japanese, not 'taken'."
+              "listen_for": "のみました (飲みました, nomimashita) = took/drank. Medicine is 'drunk' (飲む) in Japanese, not 'taken'.",
+              "kanji": "頭痛薬を飲みましたか？"
             }
-          ]
+          ],
+          "kanji": "頭が痛いです"
         },
         {
           "id": "ph-04",
-          "japanese": "お腹が痛いです",
+          "japanese": "おなかがいたいです",
           "romaji": "Onaka ga itai desu",
           "english": "My stomach hurts",
           "difficulty": "core",
           "notes": "Very common after trying unfamiliar food or drinking too much.",
           "responses": [
             {
-              "japanese": "食べ過ぎましたか？それとも飲み過ぎましたか？",
+              "japanese": "たべすぎましたか？それとものみすぎましたか？",
               "romaji": "Tabesugimashita ka? Soretomo nomisugimashita ka?",
               "english": "Did you eat too much? Or drink too much?",
-              "listen_for": "過ぎました (sugimashita) = did too much of something. 食べ (tabe) = eat, 飲み (nomi) = drink."
+              "listen_for": "すぎました (過ぎました, sugimashita) = did too much of something. たべ (食べ, tabe) = eat, のみ (飲み, nomi) = drink.",
+              "kanji": "食べ過ぎましたか？それとも飲み過ぎましたか？"
             }
-          ]
+          ],
+          "kanji": "お腹が痛いです"
         },
         {
           "id": "ph-05",
-          "japanese": "熱があります",
+          "japanese": "ねつがあります",
           "romaji": "Netsu ga arimasu",
           "english": "I have a fever",
           "difficulty": "extra",
-          "notes": "熱 (netsu) = fever/heat. Worth mentioning early since it signals something more serious than a minor ache.",
+          "notes": "ねつ (熱, netsu) = fever/heat. Worth mentioning early since it signals something more serious than a minor ache.",
           "responses": [
             {
-              "japanese": "何度くらいありますか？",
+              "japanese": "なんどくらいありますか？",
               "romaji": "Nando kurai arimasu ka?",
               "english": "About how many degrees is it?",
-              "listen_for": "何度 (nando) = how many degrees. Japan uses Celsius — 38度 (sanjuu-hachi do) = 38°C."
+              "listen_for": "なんど (何度, nando) = how many degrees. Japan uses Celsius — 38さんじゅうはちど (度, sanjuu-hachi do) = 38°C.",
+              "kanji": "何度くらいありますか？"
             }
-          ]
+          ],
+          "kanji": "熱があります"
         },
         {
           "id": "ph-06",
-          "japanese": "風邪をひきました",
+          "japanese": "かぜをひきました",
           "romaji": "Kaze wo hikimashita",
           "english": "I caught a cold",
           "difficulty": "extra",
-          "notes": "風邪 (kaze) = cold (illness) — note it's a different word from 風 (kaze, 'wind') despite similar spelling.",
+          "notes": "かぜ (風邪, kaze) = cold (illness) — note it's a different word from かぜ (風, kaze) / 'wind' despite similar spelling.",
           "responses": [
             {
-              "japanese": "お大事に。ゆっくり休んでくださいね",
+              "japanese": "おだいじに。ゆっくりやすんでくださいね",
               "romaji": "Odaiji ni. Yukkuri yasunde kudasai ne",
               "english": "Take care. Please get plenty of rest",
-              "listen_for": "お大事に (odaiji ni) = 'get well soon' — the standard thing to say to someone who's sick."
+              "listen_for": "おだいじに (お大事に, odaiji ni) = 'get well soon' — the standard thing to say to someone who's sick.",
+              "kanji": "お大事に。ゆっくり休んでくださいね"
             }
-          ]
+          ],
+          "kanji": "風邪をひきました"
         },
         {
           "id": "ph-07",
-          "japanese": "頭痛薬はありますか？",
+          "japanese": "ずつうやくはありますか？",
           "romaji": "Zutsuuyaku wa arimasu ka?",
           "english": "Do you have painkillers / headache medicine?",
           "difficulty": "core",
-          "notes": "頭痛薬 (zutsuuyaku) = headache medicine. For general pain relief ask for 痛み止め (itamidome) instead.",
+          "notes": "ずつうやく (頭痛薬, zutsuuyaku) = headache medicine. For general pain relief ask for いたみどめ (痛み止め, itamidome) instead.",
           "responses": [
             {
-              "japanese": "はい、こちらの棚にございます",
+              "japanese": "はい、こちらのたなにございます",
               "romaji": "Hai, kochira no tana ni gozaimasu",
               "english": "Yes, they're on this shelf",
-              "listen_for": "棚 (tana) = shelf. They'll likely point or walk you over."
+              "listen_for": "たな (棚, tana) = shelf. They'll likely point or walk you over.",
+              "kanji": "はい、こちらの棚にございます"
             }
-          ]
+          ],
+          "kanji": "頭痛薬はありますか？"
         },
         {
           "id": "ph-08",
-          "japanese": "絆創膏はありますか？",
+          "japanese": "ばんそうこうはありますか？",
           "romaji": "Bansoukou wa arimasu ka?",
           "english": "Do you have band-aids?",
           "difficulty": "extra",
-          "notes": "絆創膏 (bansoukou) = adhesive bandage/band-aid. Handy after a long day of walking in new shoes.",
+          "notes": "ばんそうこう (絆創膏, bansoukou) = adhesive bandage/band-aid. Handy after a long day of walking in new shoes.",
           "responses": [
             {
-              "japanese": "はい、レジの近くにあります",
+              "japanese": "はい、レジのちかくにあります",
               "romaji": "Hai, reji no chikaku ni arimasu",
               "english": "Yes, they're near the register",
-              "listen_for": "レジ (reji) = cash register/checkout counter."
+              "listen_for": "レジ (reji) = cash register/checkout counter.",
+              "kanji": "はい、レジの近くにあります"
             }
-          ]
+          ],
+          "kanji": "絆創膏はありますか？"
         },
         {
           "id": "ph-09",
@@ -2443,31 +2699,34 @@
           "romaji": "[thing] ni arerugii ga arimasu",
           "english": "I'm allergic to ___",
           "difficulty": "extra",
-          "notes": "Useful for both pharmacies and restaurants. Common fillers: ピーナッツ (peanuts), 卵 (tamago/eggs), 小麦 (komugi/wheat), 甲殻類 (koukakurui/shellfish).",
+          "notes": "Useful for both pharmacies and restaurants. Common fillers: ピーナッツ (peanuts), たまご (卵, tamago) / eggs, こむぎ (小麦, komugi) / wheat, こうかくるい (甲殻類, koukakurui) / shellfish.",
           "responses": [
             {
-              "japanese": "分かりました、確認いたします",
+              "japanese": "わかりました、かくにんいたします",
               "romaji": "Wakarimashita, kakunin itashimasu",
               "english": "Understood, I'll check for you",
-              "listen_for": "確認 (kakunin) = confirm/check. They're taking your allergy seriously."
+              "listen_for": "かくにん (確認, kakunin) = confirm/check. They're taking your allergy seriously.",
+              "kanji": "分かりました、確認いたします"
             }
           ]
         },
         {
           "id": "ph-10",
-          "japanese": "病院に行きたいです",
+          "japanese": "びょういんにいきたいです",
           "romaji": "Byouin ni ikitai desu",
           "english": "I want to go to a hospital/clinic",
           "difficulty": "core",
-          "notes": "病院 (byouin) covers both hospitals and small clinics in everyday use. For something urgent, see the Emergencies scenario instead.",
+          "notes": "びょういん (病院, byouin) covers both hospitals and small clinics in everyday use. For something urgent, see the Emergencies scenario instead.",
           "responses": [
             {
-              "japanese": "近くに病院があります。ご案内しましょうか？",
+              "japanese": "ちかくにびょういんがあります。ごあんないしましょうか？",
               "romaji": "Chikaku ni byouin ga arimasu. Goannai shimashou ka?",
               "english": "There's a hospital nearby. Shall I show you the way?",
-              "listen_for": "ご案内 (goannai) = guide/show the way. A kind offer — say はい、お願いします if you want help."
+              "listen_for": "ごあんない (ご案内, goannai) = guide/show the way. A kind offer — say はい、おねがいします (お願いします) if you want help.",
+              "kanji": "近くに病院があります。ご案内しましょうか？"
             }
-          ]
+          ],
+          "kanji": "病院に行きたいです"
         }
       ]
     },
@@ -2478,91 +2737,101 @@
       "phrases": [
         {
           "id": "am-01",
-          "japanese": "はじめまして、私の名前は〇〇です",
+          "japanese": "はじめまして、わたしのなまえは〇〇です",
           "romaji": "Hajimemashite, watashi no namae wa [name] desu",
           "english": "Nice to meet you, my name is ___",
           "difficulty": "core",
           "notes": "Swap 〇〇 for your name. Standard way to open a self-introduction.",
           "responses": [
             {
-              "japanese": "はじめまして、〇〇です。よろしくお願いします",
+              "japanese": "はじめまして、〇〇です。よろしくおねがいします",
               "romaji": "Hajimemashite, [name] desu. Yoroshiku onegaishimasu",
               "english": "Nice to meet you too, I'm ___. Pleased to meet you",
-              "listen_for": "They'll introduce themselves back — remember their name if you can."
+              "listen_for": "They'll introduce themselves back — remember their name if you can.",
+              "kanji": "はじめまして、〇〇です。よろしくお願いします"
             }
-          ]
+          ],
+          "kanji": "はじめまして、私の名前は〇〇です"
         },
         {
           "id": "am-02",
-          "japanese": "私は〇〇人です",
+          "japanese": "わたしは〇〇じんです",
           "romaji": "Watashi wa [nationality]-jin desu",
           "english": "I am ___ (nationality)",
           "difficulty": "core",
-          "notes": "Add 人 (jin) after your country's adjective form, e.g. アメリカ人 (American), イギリス人 (British), フランス人 (French), カナダ人 (Canadian).",
+          "notes": "Add じん (人, jin) after your country's adjective form, e.g. アメリカあめりかん (人, American), イギリスbりちsh (人, British), フランスfれんch (人, French), カナダかなぢあん (人, Canadian).",
           "responses": [
             {
-              "japanese": "そうですか、〇〇から来たんですね！",
+              "japanese": "そうですか、〇〇からきたんですね！",
               "romaji": "Sou desu ka, [country] kara kitan desu ne!",
               "english": "Oh I see, so you came from ___!",
-              "listen_for": "から来た (kara kita) = came from. They're confirming your home country."
+              "listen_for": "からからきた (来た, kara kita) = came from. They're confirming your home country.",
+              "kanji": "そうですか、〇〇から来たんですね！"
             }
-          ]
+          ],
+          "kanji": "私は〇〇人です"
         },
         {
           "id": "am-03",
-          "japanese": "仕事は〇〇です",
+          "japanese": "しごとは〇〇です",
           "romaji": "Shigoto wa [job] desu",
           "english": "My job is ___",
           "difficulty": "core",
-          "notes": "Common jobs: エンジニア (engineer), デザイナー (designer), 先生 (teacher), 会社員 (office worker), 学生 (student).",
+          "notes": "Common jobs: エンジニア (engineer), デザイナー (designer), てあちぇr (先生, teacher), おっふぃけをrけr (会社員, office worker), sつでんt (学生, student).",
           "responses": [
             {
-              "japanese": "〇〇のお仕事ですか、すごいですね！",
+              "japanese": "〇〇のおしごとですか、すごいですね！",
               "romaji": "[job] no oshigoto desu ka, sugoi desu ne!",
               "english": "Oh, you work as ___? That's great!",
-              "listen_for": "すごい (sugoi) = amazing/impressive. A common polite compliment."
+              "listen_for": "すごい (sugoi) = amazing/impressive. A common polite compliment.",
+              "kanji": "〇〇のお仕事ですか、すごいですね！"
             }
-          ]
+          ],
+          "kanji": "仕事は〇〇です"
         },
         {
           "id": "am-04",
-          "japanese": "〇〇で働いています",
+          "japanese": "〇〇ではたらいています",
           "romaji": "[company/field] de hataraite imasu",
           "english": "I work at/in ___",
           "difficulty": "extra",
-          "notes": "Use for a company name or industry, e.g. IT企業 (IT company), 病院 (hospital).",
+          "notes": "Use for a company name or industry, e.g. ITいtこmぱんy (企業, IT company), ほsぴたl (病院, hospital).",
           "responses": [
             {
-              "japanese": "へえ、面白いお仕事ですね",
+              "japanese": "へえ、おもしろいおしごとですね",
               "romaji": "Hee, omoshiroi oshigoto desu ne",
               "english": "Oh wow, that sounds like an interesting job",
-              "listen_for": "へえ (hee) = a casual 'oh wow' / interested reaction."
+              "listen_for": "へえ (hee) = a casual 'oh wow' / interested reaction.",
+              "kanji": "へえ、面白いお仕事ですね"
             }
-          ]
+          ],
+          "kanji": "〇〇で働いています"
         },
         {
           "id": "am-05",
-          "japanese": "結婚しています",
+          "japanese": "けっこんしています",
           "romaji": "Kekkon shite imasu",
           "english": "I'm married",
           "difficulty": "extra",
-          "notes": "If single, say 独身です (Dokushin desu) instead.",
+          "notes": "If single, say どくしんです (独身です, Dokushin desu) instead.",
           "responses": [
             {
-              "japanese": "そうなんですね！お子さんはいますか？",
+              "japanese": "そうなんですね！おこさんはいますか？",
               "romaji": "Sou nan desu ne! Okosan wa imasu ka?",
               "english": "I see! Do you have kids?",
-              "listen_for": "お子さん (okosan) = a polite way to say 'your child(ren)'."
+              "listen_for": "おこさん (お子さん, okosan) = a polite way to say 'your child(ren)'.",
+              "kanji": "そうなんですね！お子さんはいますか？"
             }
-          ]
+          ],
+          "kanji": "結婚しています"
         },
         {
           "id": "am-06",
-          "japanese": "子供が〇人います",
+          "japanese": "こどもが〇にんいます",
           "romaji": "Kodomo ga [number] nin imasu",
           "english": "I have ___ children",
           "difficulty": "extra",
-          "notes": "No kids? Say 子供はいません (Kodomo wa imasen). 一人 (hitori)=1, 二人 (futari)=2, 三人 (san-nin)=3.",
+          "notes": "No kids? Say こどもわいません (子供はいません, Kodomo wa imasen). ひとり (一人, hitori)=1, ふたり (二人, futari)=2, さんにん (三人, san-nin)=3.",
           "responses": [
             {
               "japanese": "かわいいでしょうね！",
@@ -2570,23 +2839,26 @@
               "english": "They must be adorable!",
               "listen_for": "A warm, common reaction — no response needed beyond a smile and ありがとうございます."
             }
-          ]
+          ],
+          "kanji": "子供が〇人います"
         },
         {
           "id": "am-07",
-          "japanese": "日本の〇〇が大好きです",
+          "japanese": "にほんの〇〇がだいすきです",
           "romaji": "Nihon no [thing] ga daisuki desu",
           "english": "I love Japan's ___",
           "difficulty": "core",
-          "notes": "Great compliment and conversation starter. Fill in 食べ物 (tabemono/food), 文化 (bunka/culture), 自然 (shizen/nature), 人 (hito/people).",
+          "notes": "Great compliment and conversation starter. Fill in たべもの (食べ物, tabemono) / food, ぶんか (文化, bunka) / culture, しぜん (自然, shizen) / nature, ひと (人, hito) / people.",
           "responses": [
             {
-              "japanese": "ありがとうございます！日本に来てよかったですね",
+              "japanese": "ありがとうございます！にほんにきてよかったですね",
               "romaji": "Arigatou gozaimasu! Nihon ni kite yokatta desu ne",
               "english": "Thank you! I'm glad you came to Japan",
-              "listen_for": "来てよかった (kite yokatta) = glad you came. A warm, proud response."
+              "listen_for": "きてよかった (来てよかった, kite yokatta) = glad you came. A warm, proud response.",
+              "kanji": "ありがとうございます！日本に来てよかったですね"
             }
-          ]
+          ],
+          "kanji": "日本の〇〇が大好きです"
         },
         {
           "id": "am-08",
@@ -2597,10 +2869,11 @@
           "notes": "The easiest way to turn any statement about yourself back into a question — keeps the conversation natural.",
           "responses": [
             {
-              "japanese": "私も同じです！",
+              "japanese": "わたしもおなじです！",
               "romaji": "Watashi mo onaji desu!",
               "english": "Same here for me too!",
-              "listen_for": "同じ (onaji) = same. A friendly sign you have something in common."
+              "listen_for": "おなじ (同じ, onaji) = same. A friendly sign you have something in common.",
+              "kanji": "私も同じです！"
             }
           ]
         }

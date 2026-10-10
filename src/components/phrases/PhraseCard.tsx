@@ -30,9 +30,19 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
               {phrase.japanese}
             </p>
             {romajiMode !== 'never' && (
-              <p className={cn('text-sm text-muted-foreground', !showRomaji && 'opacity-0 select-none')}>
-                {phrase.romaji}
-              </p>
+              <>
+                {phrase.kanji && (
+                  <p
+                    lang="ja"
+                    className={cn('text-sm text-muted-foreground', !showRomaji && 'opacity-0 select-none')}
+                  >
+                    {phrase.kanji}
+                  </p>
+                )}
+                <p className={cn('text-sm text-muted-foreground', !showRomaji && 'opacity-0 select-none')}>
+                  {phrase.romaji}
+                </p>
+              </>
             )}
             <p className="mt-1 text-sm text-muted-foreground">{phrase.english}</p>
           </div>
@@ -70,6 +80,11 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
                       </p>
                       <AudioButton text={r.japanese} className="h-8 w-8 shrink-0" />
                     </div>
+                    {showRomaji && r.kanji && (
+                      <p lang="ja" className="text-xs text-muted-foreground">
+                        {r.kanji}
+                      </p>
+                    )}
                     {showRomaji && <p className="text-xs text-muted-foreground">{r.romaji}</p>}
                     <p className="text-xs text-muted-foreground">{r.english}</p>
                     <p className="text-xs italic text-muted-foreground">{r.listen_for}</p>
