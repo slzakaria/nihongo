@@ -30,6 +30,7 @@ export default async function QuickRefPage({
             <tr key={p.id} className="border-b border-border">
               <td className="py-2 pr-3 align-top" lang="ja">
                 {p.japanese}
+                {p.kanji && <div className="text-muted-foreground">{p.kanji}</div>}
               </td>
               <td className="py-2 pr-3 align-top text-muted-foreground">{p.romaji}</td>
               <td className="py-2 align-top">{p.english}</td>

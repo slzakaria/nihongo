@@ -19,6 +19,7 @@ export default function SearchPage() {
     return allEntries.filter(
       ({ phrase }) =>
         phrase.japanese.toLowerCase().includes(q) ||
+        phrase.kanji?.toLowerCase().includes(q) ||
         phrase.romaji.toLowerCase().includes(q) ||
         phrase.english.toLowerCase().includes(q)
     )
