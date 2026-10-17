@@ -30,14 +30,14 @@ export default function Home() {
           Phrases organized by situation, spaced-repetition drills, and a live chat simulator —
           everything you need for bars, shops, and small talk in Japan.
         </p>
-        <div className="mt-2 flex flex-wrap gap-3">
-          <Button asChild size="lg">
+        <div className="mt-2 flex w-full justify-center md:justify-start align-middle gap-3">
+          <Button asChild size="default">
             <Link href="/flashcards">Start Flashcards</Link>
           </Button>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="default" variant="secondary">
             <Link href="/scenarios">Browse Scenarios</Link>
           </Button>
-          <Button asChild size="lg" variant="outline">
+          <Button asChild className="hidden md:block" size="default" variant="outline">
             <Link href="/simulator">Try Simulator</Link>
           </Button>
         </div>
