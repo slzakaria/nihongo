@@ -1,14 +1,13 @@
-import raw from './phrases.json'
 import type { Phrase, Scenario } from '@/types'
+import { getContent } from './content'
 
-export const scenarios: Scenario[] = raw.scenarios as Scenario[]
-
+// Synchronous helpers over the current content. Client code reads the database copy once it has loaded.
 export function getAllScenarios(): Scenario[] {
-  return scenarios
+  return getContent().phrases
 }
 
 export function getScenarioBySlug(slug: string): Scenario | undefined {
-  return scenarios.find(s => s.slug === slug)
+  return getAllScenarios().find(s => s.slug === slug)
 }
 
 export function getPhrasesBySlug(slug: string): Phrase[] {
@@ -16,7 +15,7 @@ export function getPhrasesBySlug(slug: string): Phrase[] {
 }
 
 export function getAllPhrases(): Phrase[] {
-  return scenarios.flatMap(s => s.phrases)
+  return getAllScenarios().flatMap(s => s.phrases)
 }
 
 export function getPhraseById(id: string): Phrase | undefined {
@@ -25,5 +24,5 @@ export function getPhraseById(id: string): Phrase | undefined {
 
 // Which scenario a phrase belongs to, used when initializing SRS cards
 export function getScenarioSlugForPhrase(phraseId: string): string | undefined {
-  return scenarios.find(s => s.phrases.some(p => p.id === phraseId))?.slug
+  return getAllScenarios().find(s => s.phrases.some(p => p.id === phraseId))?.slug
 }

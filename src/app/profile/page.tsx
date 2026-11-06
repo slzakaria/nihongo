@@ -5,7 +5,8 @@ import { useMemo, useState } from 'react'
 import { useAuthStore } from '@/store/auth'
 import { useOnboardingStore } from '@/store/onboarding'
 import { useProgressStore } from '@/store/progress'
-import { getAllScenarios, getAllPhrases } from '@/lib/data/phrases'
+import { getAllPhrases } from '@/lib/data/phrases'
+import { useContentStore } from '@/lib/data/content'
 import { computeStreak } from '@/lib/srs/streak'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
@@ -18,7 +19,7 @@ export default function ProfilePage() {
   const user = useAuthStore(s => s.user)
   const userName = useOnboardingStore(s => s.userName)
   const cards = useProgressStore(s => s.cards)
-  const scenarios = useMemo(() => getAllScenarios(), [])
+  const scenarios = useContentStore(s => s.content.phrases)
   const [now] = useState(() => Date.now())
   const [tab, setTab] = useState<Tab>('scenarios')
 
@@ -77,7 +78,7 @@ export default function ProfilePage() {
                 aria-selected={tab === t}
                 onClick={() => setTab(t)}
                 className={cn(
-                  'rounded px-3 py-1 text-xs font-medium capitalize transition-colors',
+                  'rounded px-3 py-1 text-xs font-medium capitalize transition-colors cursor-pointer',
                   tab === t ? 'bg-secondary text-secondary-foreground' : 'text-muted-foreground hover:bg-muted'
                 )}
               >

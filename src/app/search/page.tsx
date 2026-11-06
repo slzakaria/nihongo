@@ -2,12 +2,12 @@
 
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { getAllScenarios } from '@/lib/data/phrases'
+import { useContentStore } from '@/lib/data/content'
 import { PhraseCard } from '@/components/phrases/PhraseCard'
 
 export default function SearchPage() {
   const [query, setQuery] = useState('')
-  const scenarios = useMemo(() => getAllScenarios(), [])
+  const scenarios = useContentStore(s => s.content.phrases)
   const allEntries = useMemo(
     () => scenarios.flatMap(s => s.phrases.map(p => ({ phrase: p, scenario: s }))),
     [scenarios]

@@ -25,7 +25,7 @@ export function FlashcardDeck({ slug }: { slug: string }) {
         <p className="text-sm text-muted-foreground">
           Cards come back for review as their interval elapses — or practice them all now.
         </p>
-        <Button variant="secondary" onClick={() => setForce(true)}>
+        <Button className='cursor-pointer' variant="secondary" onClick={() => setForce(true)}>
           Practice anyway
         </Button>
       </div>
@@ -49,16 +49,16 @@ export function FlashcardDeck({ slug }: { slug: string }) {
 
       {showBack && (
         <div className="grid grid-cols-4 gap-2">
-          <Button variant="outline" onClick={() => grade(0)}>
+          <Button className='cursor-pointer' variant="outline" onClick={() => grade(0)}>
             Again
           </Button>
-          <Button variant="outline" onClick={() => grade(3)}>
+          <Button className='cursor-pointer' variant="outline" onClick={() => grade(3)}>
             Hard
           </Button>
-          <Button variant="secondary" onClick={() => grade(4)}>
+          <Button className='cursor-pointer' variant="secondary" onClick={() => grade(4)}>
             Good
           </Button>
-          <Button onClick={() => grade(5)}>Easy</Button>
+          <Button className='cursor-pointer' onClick={() => grade(5)}>Easy</Button>
         </div>
       )}
     </div>

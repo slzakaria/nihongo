@@ -1,0 +1,400 @@
+{
+  "scenarios": [
+    {
+      "slug": "a-row",
+      "label": "あ行 (a-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-001", "japanese": "あ", "romaji": "a", "english": "Sounds like 'a' in 'father'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "あめ", "romaji": "ame", "english": "rain", "listen_for": "あ (a) + め (me)" },
+          { "japanese": "あさ", "romaji": "asa", "english": "morning", "listen_for": "あ (a) + さ (sa)" }
+        ] },
+        { "id": "hira-002", "japanese": "い", "romaji": "i", "english": "Sounds like 'ee' in 'see' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "いぬ", "romaji": "inu", "english": "dog", "listen_for": "い (i) + ぬ (nu)" },
+          { "japanese": "いえ", "romaji": "ie", "english": "house", "listen_for": "い (i) + え (e)" }
+        ] },
+        { "id": "hira-003", "japanese": "う", "romaji": "u", "english": "Sounds like 'oo' in 'food' (lips not rounded)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "うみ", "romaji": "umi", "english": "sea", "listen_for": "う (u) + み (mi)" },
+          { "japanese": "うた", "romaji": "uta", "english": "song", "listen_for": "う (u) + た (ta)" }
+        ] },
+        { "id": "hira-004", "japanese": "え", "romaji": "e", "english": "Sounds like 'e' in 'bed'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "えき", "romaji": "eki", "english": "station", "listen_for": "え (e) + き (ki)" },
+          { "japanese": "えいが", "romaji": "eiga", "english": "movie", "listen_for": "え (e) + い (i) + が (ga)" }
+        ] },
+        { "id": "hira-005", "japanese": "お", "romaji": "o", "english": "Sounds like 'o' in 'go' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "おちゃ", "romaji": "ocha", "english": "tea", "listen_for": "お (o) + ちゃ (cha)" },
+          { "japanese": "おかね", "romaji": "okane", "english": "money", "listen_for": "お (o) + か (ka) + ね (ne)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ka-row",
+      "label": "か行 (ka-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-006", "japanese": "か", "romaji": "ka", "english": "Sounds like 'ka' in 'car'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "かさ", "romaji": "kasa", "english": "umbrella", "listen_for": "か (ka) + さ (sa)" },
+          { "japanese": "かばん", "romaji": "kaban", "english": "bag", "listen_for": "か (ka) + ば (ba) + ん (n)" }
+        ] },
+        { "id": "hira-007", "japanese": "き", "romaji": "ki", "english": "Sounds like 'key'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "きいろ", "romaji": "kiiro", "english": "yellow", "listen_for": "き (ki) + い (i) + ろ (ro)" },
+          { "japanese": "きもの", "romaji": "kimono", "english": "kimono", "listen_for": "き (ki) + も (mo) + の (no)" }
+        ] },
+        { "id": "hira-008", "japanese": "く", "romaji": "ku", "english": "Sounds like 'coo' (lips not rounded)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "くるま", "romaji": "kuruma", "english": "car", "listen_for": "く (ku) + る (ru) + ま (ma)" },
+          { "japanese": "くつ", "romaji": "kutsu", "english": "shoes", "listen_for": "く (ku) + つ (tsu)" }
+        ] },
+        { "id": "hira-009", "japanese": "け", "romaji": "ke", "english": "Sounds like 'ke' in 'kettle'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "けさ", "romaji": "kesa", "english": "this morning", "listen_for": "け (ke) + さ (sa)" },
+          { "japanese": "けいたい", "romaji": "keitai", "english": "mobile phone", "listen_for": "け (ke) + い (i) + た (ta) + い (i)" }
+        ] },
+        { "id": "hira-010", "japanese": "こ", "romaji": "ko", "english": "Sounds like 'co' in 'cold' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "こども", "romaji": "kodomo", "english": "child", "listen_for": "こ (ko) + ど (do) + も (mo)" },
+          { "japanese": "ここ", "romaji": "koko", "english": "here", "listen_for": "こ (ko) + こ (ko)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ga-row",
+      "label": "が行 (ga-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-011", "japanese": "が", "romaji": "ga", "english": "Sounds like 'ga' in 'garden'", "difficulty": "extra", "notes": "Dakuten (゛) turns か into が.", "responses": [
+          { "japanese": "がくせい", "romaji": "gakusei", "english": "student", "listen_for": "が (ga) + く (ku) + せ (se) + い (i)" },
+          { "japanese": "めがね", "romaji": "megane", "english": "glasses", "listen_for": "め (me) + が (ga) + ね (ne)" }
+        ] },
+        { "id": "hira-012", "japanese": "ぎ", "romaji": "gi", "english": "Sounds like 'gee' in 'geek'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぎんこう", "romaji": "ginkou", "english": "bank", "listen_for": "ぎ (gi) + ん (n) + こ (ko) + う (u)" },
+          { "japanese": "ぎんざ", "romaji": "ginza", "english": "Ginza (district in Tokyo)", "listen_for": "ぎ (gi) + ん (n) + ざ (za)" }
+        ] },
+        { "id": "hira-013", "japanese": "ぐ", "romaji": "gu", "english": "Sounds like 'goo' (lips not rounded)", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "かぐ", "romaji": "kagu", "english": "furniture", "listen_for": "か (ka) + ぐ (gu)" },
+          { "japanese": "ぐんま", "romaji": "gunma", "english": "Gunma (prefecture)", "listen_for": "ぐ (gu) + ん (n) + ま (ma)" }
+        ] },
+        { "id": "hira-014", "japanese": "げ", "romaji": "ge", "english": "Sounds like 'ge' in 'get'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "げんき", "romaji": "genki", "english": "healthy / energetic", "listen_for": "げ (ge) + ん (n) + き (ki)" },
+          { "japanese": "げつようび", "romaji": "getsuyoubi", "english": "Monday", "listen_for": "げ (ge) + つ (tsu) + よ (yo) + う (u) + び (bi)" }
+        ] },
+        { "id": "hira-015", "japanese": "ご", "romaji": "go", "english": "Sounds like 'go' in 'gold'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ごはん", "romaji": "gohan", "english": "rice / meal", "listen_for": "ご (go) + は (ha) + ん (n)" },
+          { "japanese": "ごめん", "romaji": "gomen", "english": "sorry", "listen_for": "ご (go) + め (me) + ん (n)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "sa-row",
+      "label": "さ行 (sa-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-016", "japanese": "さ", "romaji": "sa", "english": "Sounds like 'sa' in 'sand'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "さかな", "romaji": "sakana", "english": "fish", "listen_for": "さ (sa) + か (ka) + な (na)" },
+          { "japanese": "さくら", "romaji": "sakura", "english": "cherry blossom", "listen_for": "さ (sa) + く (ku) + ら (ra)" }
+        ] },
+        { "id": "hira-017", "japanese": "し", "romaji": "shi", "english": "Sounds like 'she' in 'shy'", "difficulty": "core", "notes": "Irregular: 'shi', not 'si'.", "responses": [
+          { "japanese": "しろ", "romaji": "shiro", "english": "white", "listen_for": "し (shi) + ろ (ro)" },
+          { "japanese": "しごと", "romaji": "shigoto", "english": "work / job", "listen_for": "し (shi) + ご (go) + と (to)" }
+        ] },
+        { "id": "hira-018", "japanese": "す", "romaji": "su", "english": "Sounds like 'su' in 'sun' (lips not rounded)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "すし", "romaji": "sushi", "english": "sushi", "listen_for": "す (su) + し (shi)" },
+          { "japanese": "すいか", "romaji": "suika", "english": "watermelon", "listen_for": "す (su) + い (i) + か (ka)" }
+        ] },
+        { "id": "hira-019", "japanese": "せ", "romaji": "se", "english": "Sounds like 'se' in 'set'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "せんせい", "romaji": "sensei", "english": "teacher", "listen_for": "せ (se) + ん (n) + せ (se) + い (i)" },
+          { "japanese": "せかい", "romaji": "sekai", "english": "world", "listen_for": "せ (se) + か (ka) + い (i)" }
+        ] },
+        { "id": "hira-020", "japanese": "そ", "romaji": "so", "english": "Sounds like 'so' in 'song' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "そら", "romaji": "sora", "english": "sky", "listen_for": "そ (so) + ら (ra)" },
+          { "japanese": "そと", "romaji": "soto", "english": "outside", "listen_for": "そ (so) + と (to)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "za-row",
+      "label": "ざ行 (za-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-021", "japanese": "ざ", "romaji": "za", "english": "Sounds like 'za' in 'zap'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ざっし", "romaji": "zasshi", "english": "magazine", "listen_for": "ざ (za) + っ (short pause) + し (shi)" },
+          { "japanese": "ざんねん", "romaji": "zannen", "english": "too bad / unfortunate", "listen_for": "ざ (za) + ん (n) + ね (ne) + ん (n)" }
+        ] },
+        { "id": "hira-022", "japanese": "じ", "romaji": "ji", "english": "Sounds like 'j' in 'jam'", "difficulty": "extra", "notes": "Same sound as ぢ. Usually written じ.", "responses": [
+          { "japanese": "じかん", "romaji": "jikan", "english": "time", "listen_for": "じ (ji) + か (ka) + ん (n)" },
+          { "japanese": "じてんしゃ", "romaji": "jitensha", "english": "bicycle", "listen_for": "じ (ji) + て (te) + ん (n) + しゃ (sha)" }
+        ] },
+        { "id": "hira-023", "japanese": "ず", "romaji": "zu", "english": "Sounds like 'zoo' (lips not rounded)", "difficulty": "extra", "notes": "Same sound as づ. Usually written ず.", "responses": [
+          { "japanese": "みず", "romaji": "mizu", "english": "water", "listen_for": "み (mi) + ず (zu)" },
+          { "japanese": "ずっと", "romaji": "zutto", "english": "all along / for a long time", "listen_for": "ず (zu) + っ (short pause) + と (to)" }
+        ] },
+        { "id": "hira-024", "japanese": "ぜ", "romaji": "ze", "english": "Sounds like 'ze' in 'zebra'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぜんぶ", "romaji": "zenbu", "english": "all / everything", "listen_for": "ぜ (ze) + ん (n) + ぶ (bu)" },
+          { "japanese": "かぜ", "romaji": "kaze", "english": "wind / a cold", "listen_for": "か (ka) + ぜ (ze)" }
+        ] },
+        { "id": "hira-025", "japanese": "ぞ", "romaji": "zo", "english": "Sounds like 'zo' in 'zone'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "かぞく", "romaji": "kazoku", "english": "family", "listen_for": "か (ka) + ぞ (zo) + く (ku)" },
+          { "japanese": "ぞう", "romaji": "zou", "english": "elephant", "listen_for": "ぞ (zo) + う (u)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ta-row",
+      "label": "た行 (ta-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-026", "japanese": "た", "romaji": "ta", "english": "Sounds like 'ta' in 'tap'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "たまご", "romaji": "tamago", "english": "egg", "listen_for": "た (ta) + ま (ma) + ご (go)" },
+          { "japanese": "たべる", "romaji": "taberu", "english": "to eat", "listen_for": "た (ta) + べ (be) + る (ru)" }
+        ] },
+        { "id": "hira-027", "japanese": "ち", "romaji": "chi", "english": "Sounds like 'ch' in 'cheese'", "difficulty": "core", "notes": "Irregular: 'chi', not 'ti'.", "responses": [
+          { "japanese": "ちかてつ", "romaji": "chikatetsu", "english": "subway", "listen_for": "ち (chi) + か (ka) + て (te) + つ (tsu)" },
+          { "japanese": "ちず", "romaji": "chizu", "english": "map", "listen_for": "ち (chi) + ず (zu)" }
+        ] },
+        { "id": "hira-028", "japanese": "つ", "romaji": "tsu", "english": "Sounds like 'ts' in 'cats' + 'oo'", "difficulty": "core", "notes": "Irregular: 'tsu', not 'tu'.", "responses": [
+          { "japanese": "つくえ", "romaji": "tsukue", "english": "desk", "listen_for": "つ (tsu) + く (ku) + え (e)" },
+          { "japanese": "つき", "romaji": "tsuki", "english": "moon", "listen_for": "つ (tsu) + き (ki)" }
+        ] },
+        { "id": "hira-029", "japanese": "て", "romaji": "te", "english": "Sounds like 'te' in 'ten'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "てがみ", "romaji": "tegami", "english": "letter", "listen_for": "て (te) + が (ga) + み (mi)" },
+          { "japanese": "てんき", "romaji": "tenki", "english": "weather", "listen_for": "て (te) + ん (n) + き (ki)" }
+        ] },
+        { "id": "hira-030", "japanese": "と", "romaji": "to", "english": "Sounds like 'to' in 'top' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "とけい", "romaji": "tokei", "english": "clock / watch", "listen_for": "と (to) + け (ke) + い (i)" },
+          { "japanese": "とり", "romaji": "tori", "english": "bird / chicken", "listen_for": "と (to) + り (ri)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "da-row",
+      "label": "だ行 (da-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-031", "japanese": "だ", "romaji": "da", "english": "Sounds like 'da' in 'dad'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "だいがく", "romaji": "daigaku", "english": "university", "listen_for": "だ (da) + い (i) + が (ga) + く (ku)" },
+          { "japanese": "だれ", "romaji": "dare", "english": "who", "listen_for": "だ (da) + れ (re)" }
+        ] },
+        { "id": "hira-032", "japanese": "ぢ", "romaji": "ji", "english": "Sounds like 'j' in 'jam'", "difficulty": "extra", "notes": "Same sound as じ. Rare; mostly in compound words like はなぢ.", "responses": [
+          { "japanese": "はなぢ", "romaji": "hanaji", "english": "nosebleed", "listen_for": "は (ha) + な (na) + ぢ (ji)" },
+          { "japanese": "ちぢむ", "romaji": "chijimu", "english": "to shrink", "listen_for": "ち (chi) + ぢ (ji) + む (mu)" }
+        ] },
+        { "id": "hira-033", "japanese": "づ", "romaji": "zu", "english": "Sounds like 'zoo' (lips not rounded)", "difficulty": "extra", "notes": "Same sound as ず. Rare; mostly when a 'zu' sound repeats.", "responses": [
+          { "japanese": "つづく", "romaji": "tsuzuku", "english": "to continue", "listen_for": "つ (tsu) + づ (zu) + く (ku)" },
+          { "japanese": "みかづき", "romaji": "mikazuki", "english": "crescent moon", "listen_for": "み (mi) + か (ka) + づ (zu) + き (ki)" }
+        ] },
+        { "id": "hira-034", "japanese": "で", "romaji": "de", "english": "Sounds like 'de' in 'desk'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "でんわ", "romaji": "denwa", "english": "telephone", "listen_for": "で (de) + ん (n) + わ (wa)" },
+          { "japanese": "でぐち", "romaji": "deguchi", "english": "exit", "listen_for": "で (de) + ぐ (gu) + ち (chi)" }
+        ] },
+        { "id": "hira-035", "japanese": "ど", "romaji": "do", "english": "Sounds like 'do' in 'dog'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "どうぞ", "romaji": "douzo", "english": "please, go ahead", "listen_for": "ど (do) + う (u) + ぞ (zo)" },
+          { "japanese": "どこ", "romaji": "doko", "english": "where", "listen_for": "ど (do) + こ (ko)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "na-row",
+      "label": "な行 (na-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-036", "japanese": "な", "romaji": "na", "english": "Sounds like 'na' in 'nap'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "なまえ", "romaji": "namae", "english": "name", "listen_for": "な (na) + ま (ma) + え (e)" },
+          { "japanese": "なつ", "romaji": "natsu", "english": "summer", "listen_for": "な (na) + つ (tsu)" }
+        ] },
+        { "id": "hira-037", "japanese": "に", "romaji": "ni", "english": "Sounds like 'knee'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "にほん", "romaji": "nihon", "english": "Japan", "listen_for": "に (ni) + ほ (ho) + ん (n)" },
+          { "japanese": "にく", "romaji": "niku", "english": "meat", "listen_for": "に (ni) + く (ku)" }
+        ] },
+        { "id": "hira-038", "japanese": "ぬ", "romaji": "nu", "english": "Sounds like 'noo' (lips not rounded)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "ぬの", "romaji": "nuno", "english": "cloth", "listen_for": "ぬ (nu) + の (no)" },
+          { "japanese": "ぬいぐるみ", "romaji": "nuigurumi", "english": "stuffed toy", "listen_for": "ぬ (nu) + い (i) + ぐ (gu) + る (ru) + み (mi)" }
+        ] },
+        { "id": "hira-039", "japanese": "ね", "romaji": "ne", "english": "Sounds like 'ne' in 'net'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "ねこ", "romaji": "neko", "english": "cat", "listen_for": "ね (ne) + こ (ko)" },
+          { "japanese": "ねつ", "romaji": "netsu", "english": "fever", "listen_for": "ね (ne) + つ (tsu)" }
+        ] },
+        { "id": "hira-040", "japanese": "の", "romaji": "no", "english": "Sounds like 'no' in 'note' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "のみもの", "romaji": "nomimono", "english": "drink", "listen_for": "の (no) + み (mi) + も (mo) + の (no)" },
+          { "japanese": "のど", "romaji": "nodo", "english": "throat", "listen_for": "の (no) + ど (do)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ha-row",
+      "label": "は行 (ha-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-041", "japanese": "は", "romaji": "ha", "english": "Sounds like 'ha' in 'hat'", "difficulty": "core", "notes": "Written は, but read 'wa' when used as the topic particle.", "responses": [
+          { "japanese": "はし", "romaji": "hashi", "english": "chopsticks / bridge", "listen_for": "は (ha) + し (shi)" },
+          { "japanese": "はな", "romaji": "hana", "english": "flower / nose", "listen_for": "は (ha) + な (na)" }
+        ] },
+        { "id": "hira-042", "japanese": "ひ", "romaji": "hi", "english": "Sounds like 'hee' in 'heed'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "ひと", "romaji": "hito", "english": "person", "listen_for": "ひ (hi) + と (to)" },
+          { "japanese": "ひこうき", "romaji": "hikouki", "english": "airplane", "listen_for": "ひ (hi) + こ (ko) + う (u) + き (ki)" }
+        ] },
+        { "id": "hira-043", "japanese": "ふ", "romaji": "fu", "english": "Sounds like 'fu' (lips barely touch)", "difficulty": "core", "notes": "Irregular: 'fu', not 'hu'.", "responses": [
+          { "japanese": "ふね", "romaji": "fune", "english": "ship / boat", "listen_for": "ふ (fu) + ね (ne)" },
+          { "japanese": "ふゆ", "romaji": "fuyu", "english": "winter", "listen_for": "ふ (fu) + ゆ (yu)" }
+        ] },
+        { "id": "hira-044", "japanese": "へ", "romaji": "he", "english": "Sounds like 'he' in 'help'", "difficulty": "core", "notes": "Written へ, but read 'e' when used as the direction particle.", "responses": [
+          { "japanese": "へや", "romaji": "heya", "english": "room", "listen_for": "へ (he) + や (ya)" },
+          { "japanese": "へいわ", "romaji": "heiwa", "english": "peace", "listen_for": "へ (he) + い (i) + わ (wa)" }
+        ] },
+        { "id": "hira-045", "japanese": "ほ", "romaji": "ho", "english": "Sounds like 'ho' in 'home' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "ほん", "romaji": "hon", "english": "book", "listen_for": "ほ (ho) + ん (n)" },
+          { "japanese": "ほし", "romaji": "hoshi", "english": "star", "listen_for": "ほ (ho) + し (shi)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ba-row",
+      "label": "ば行 (ba-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-046", "japanese": "ば", "romaji": "ba", "english": "Sounds like 'ba' in 'bath'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ばしょ", "romaji": "basho", "english": "place", "listen_for": "ば (ba) + しょ (sho)" },
+          { "japanese": "ばん", "romaji": "ban", "english": "evening", "listen_for": "ば (ba) + ん (n)" }
+        ] },
+        { "id": "hira-047", "japanese": "び", "romaji": "bi", "english": "Sounds like 'bee'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "びる", "romaji": "biru", "english": "building", "listen_for": "び (bi) + る (ru)" },
+          { "japanese": "びじゅつかん", "romaji": "bijutsukan", "english": "art museum", "listen_for": "び (bi) + じゅ (ju) + つ (tsu) + か (ka) + ん (n)" }
+        ] },
+        { "id": "hira-048", "japanese": "ぶ", "romaji": "bu", "english": "Sounds like 'boo' (lips not rounded)", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぶた", "romaji": "buta", "english": "pig", "listen_for": "ぶ (bu) + た (ta)" },
+          { "japanese": "ぶどう", "romaji": "budou", "english": "grapes", "listen_for": "ぶ (bu) + ど (do) + う (u)" }
+        ] },
+        { "id": "hira-049", "japanese": "べ", "romaji": "be", "english": "Sounds like 'be' in 'bed'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "べんきょう", "romaji": "benkyou", "english": "study", "listen_for": "べ (be) + ん (n) + きょ (kyo) + う (u)" },
+          { "japanese": "べつ", "romaji": "betsu", "english": "different / separate", "listen_for": "べ (be) + つ (tsu)" }
+        ] },
+        { "id": "hira-050", "japanese": "ぼ", "romaji": "bo", "english": "Sounds like 'bo' in 'boat' (short)", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぼうし", "romaji": "boushi", "english": "hat", "listen_for": "ぼ (bo) + う (u) + し (shi)" },
+          { "japanese": "ぼく", "romaji": "boku", "english": "I (casual, male)", "listen_for": "ぼ (bo) + く (ku)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "pa-row",
+      "label": "ぱ行 (pa-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-051", "japanese": "ぱ", "romaji": "pa", "english": "Sounds like 'pa' in 'park'", "difficulty": "extra", "notes": "Handakuten (゜) turns は into ぱ.", "responses": [
+          { "japanese": "ぱん", "romaji": "pan", "english": "bread", "listen_for": "ぱ (pa) + ん (n)" },
+          { "japanese": "ぱそこん", "romaji": "pasokon", "english": "personal computer", "listen_for": "ぱ (pa) + そ (so) + こ (ko) + ん (n)" }
+        ] },
+        { "id": "hira-052", "japanese": "ぴ", "romaji": "pi", "english": "Sounds like 'pee' (short)", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぴざ", "romaji": "piza", "english": "pizza", "listen_for": "ぴ (pi) + ざ (za)" },
+          { "japanese": "ぴかぴか", "romaji": "pikapika", "english": "sparkling / shiny", "listen_for": "ぴ (pi) + か (ka) + ぴ (pi) + か (ka)" }
+        ] },
+        { "id": "hira-053", "japanese": "ぷ", "romaji": "pu", "english": "Sounds like 'poo' (lips not rounded)", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぷりん", "romaji": "purin", "english": "pudding", "listen_for": "ぷ (pu) + り (ri) + ん (n)" },
+          { "japanese": "ぷーる", "romaji": "puuru", "english": "pool", "listen_for": "ぷ (pu) + ー (lengthens the vowel) + る (ru)" }
+        ] },
+        { "id": "hira-054", "japanese": "ぺ", "romaji": "pe", "english": "Sounds like 'pe' in 'pen'", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぺん", "romaji": "pen", "english": "pen", "listen_for": "ぺ (pe) + ん (n)" },
+          { "japanese": "ぺこぺこ", "romaji": "pekopeko", "english": "starving (very hungry)", "listen_for": "ぺ (pe) + こ (ko) + ぺ (pe) + こ (ko)" }
+        ] },
+        { "id": "hira-055", "japanese": "ぽ", "romaji": "po", "english": "Sounds like 'po' in 'pot' (short)", "difficulty": "extra", "notes": "", "responses": [
+          { "japanese": "ぽすと", "romaji": "posuto", "english": "mailbox / post box", "listen_for": "ぽ (po) + す (su) + と (to)" },
+          { "japanese": "ぽかぽか", "romaji": "pokapoka", "english": "warm and cozy", "listen_for": "ぽ (po) + か (ka) + ぽ (po) + か (ka)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ma-row",
+      "label": "ま行 (ma-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-056", "japanese": "ま", "romaji": "ma", "english": "Sounds like 'ma' in 'mat'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "まど", "romaji": "mado", "english": "window", "listen_for": "ま (ma) + ど (do)" },
+          { "japanese": "まいにち", "romaji": "mainichi", "english": "every day", "listen_for": "ま (ma) + い (i) + に (ni) + ち (chi)" }
+        ] },
+        { "id": "hira-057", "japanese": "み", "romaji": "mi", "english": "Sounds like 'mee' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "みせ", "romaji": "mise", "english": "shop", "listen_for": "み (mi) + せ (se)" },
+          { "japanese": "みかん", "romaji": "mikan", "english": "mandarin orange", "listen_for": "み (mi) + か (ka) + ん (n)" }
+        ] },
+        { "id": "hira-058", "japanese": "む", "romaji": "mu", "english": "Sounds like 'moo' (lips not rounded)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "むし", "romaji": "mushi", "english": "insect", "listen_for": "む (mu) + し (shi)" },
+          { "japanese": "むらさき", "romaji": "murasaki", "english": "purple", "listen_for": "む (mu) + ら (ra) + さ (sa) + き (ki)" }
+        ] },
+        { "id": "hira-059", "japanese": "め", "romaji": "me", "english": "Sounds like 'me' in 'met'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "め", "romaji": "me", "english": "eye", "listen_for": "め (me) on its own" },
+          { "japanese": "めいし", "romaji": "meishi", "english": "business card", "listen_for": "め (me) + い (i) + し (shi)" }
+        ] },
+        { "id": "hira-060", "japanese": "も", "romaji": "mo", "english": "Sounds like 'mo' in 'more' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "もも", "romaji": "momo", "english": "peach / thigh", "listen_for": "も (mo) + も (mo)" },
+          { "japanese": "もの", "romaji": "mono", "english": "thing", "listen_for": "も (mo) + の (no)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ya-row",
+      "label": "や行 (ya-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-061", "japanese": "や", "romaji": "ya", "english": "Sounds like 'ya' in 'yacht'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "やま", "romaji": "yama", "english": "mountain", "listen_for": "や (ya) + ま (ma)" },
+          { "japanese": "やさい", "romaji": "yasai", "english": "vegetables", "listen_for": "や (ya) + さ (sa) + い (i)" }
+        ] },
+        { "id": "hira-062", "japanese": "ゆ", "romaji": "yu", "english": "Sounds like 'you' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "ゆき", "romaji": "yuki", "english": "snow", "listen_for": "ゆ (yu) + き (ki)" },
+          { "japanese": "ゆめ", "romaji": "yume", "english": "dream", "listen_for": "ゆ (yu) + め (me)" }
+        ] },
+        { "id": "hira-063", "japanese": "よ", "romaji": "yo", "english": "Sounds like 'yo' in 'yoga'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "よる", "romaji": "yoru", "english": "night", "listen_for": "よ (yo) + る (ru)" },
+          { "japanese": "よろしく", "romaji": "yoroshiku", "english": "pleased to meet you / please treat me well", "listen_for": "よ (yo) + ろ (ro) + し (shi) + く (ku)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "ra-row",
+      "label": "ら行 (ra-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-064", "japanese": "ら", "romaji": "ra", "english": "Quick tap 'r', like 'ra' in 'ladder'", "difficulty": "core", "notes": "The Japanese r is a quick tap, between English 'r' and 'd'.", "responses": [
+          { "japanese": "らいねん", "romaji": "rainen", "english": "next year", "listen_for": "ら (ra) + い (i) + ね (ne) + ん (n)" },
+          { "japanese": "らーめん", "romaji": "raamen", "english": "ramen", "listen_for": "ら (ra) + ー (lengthens the vowel) + め (me) + ん (n)" }
+        ] },
+        { "id": "hira-065", "japanese": "り", "romaji": "ri", "english": "Quick tap 'ree' (light tap)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "りんご", "romaji": "ringo", "english": "apple", "listen_for": "り (ri) + ん (n) + ご (go)" },
+          { "japanese": "りょこう", "romaji": "ryokou", "english": "travel", "listen_for": "り (ri) + ょ (small yo) + こ (ko) + う (u)" }
+        ] },
+        { "id": "hira-066", "japanese": "る", "romaji": "ru", "english": "Quick tap 'roo' (lips not rounded)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "いる", "romaji": "iru", "english": "to exist / to be (living things)", "listen_for": "い (i) + る (ru)" },
+          { "japanese": "くる", "romaji": "kuru", "english": "to come", "listen_for": "く (ku) + る (ru)" }
+        ] },
+        { "id": "hira-067", "japanese": "れ", "romaji": "re", "english": "Quick tap 're' (light tap)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "れんしゅう", "romaji": "renshuu", "english": "practice", "listen_for": "れ (re) + ん (n) + しゅ (shu) + う (u)" },
+          { "japanese": "れきし", "romaji": "rekishi", "english": "history", "listen_for": "れ (re) + き (ki) + し (shi)" }
+        ] },
+        { "id": "hira-068", "japanese": "ろ", "romaji": "ro", "english": "Quick tap 'ro', like 'ro' in 'rope' (short)", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "ろく", "romaji": "roku", "english": "six", "listen_for": "ろ (ro) + く (ku)" },
+          { "japanese": "ろうそく", "romaji": "rousoku", "english": "candle", "listen_for": "ろ (ro) + う (u) + そ (so) + く (ku)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "wa-row",
+      "label": "わ行 (wa-row)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-069", "japanese": "わ", "romaji": "wa", "english": "Sounds like 'wa' in 'water'", "difficulty": "core", "notes": "", "responses": [
+          { "japanese": "わたし", "romaji": "watashi", "english": "I / me", "listen_for": "わ (wa) + た (ta) + し (shi)" },
+          { "japanese": "わかる", "romaji": "wakaru", "english": "to understand", "listen_for": "わ (wa) + か (ka) + る (ru)" }
+        ] },
+        { "id": "hira-070", "japanese": "を", "romaji": "wo", "english": "Sounds like 'o' in 'go' (used as a particle)", "difficulty": "core", "notes": "Only used as the object particle (read 'o'), never at the start of a word.", "responses": [
+          { "japanese": "ほんをよむ", "romaji": "hon wo yomu", "english": "to read a book", "listen_for": "ほ (ho) + ん (n) + を (wo) + よ (yo) + む (mu)" },
+          { "japanese": "みずをのむ", "romaji": "mizu wo nomu", "english": "to drink water", "listen_for": "み (mi) + ず (zu) + を (wo) + の (no) + む (mu)" }
+        ] }
+      ]
+    },
+    {
+      "slug": "n-row",
+      "label": "ん (n)",
+      "icon": "",
+      "phrases": [
+        { "id": "hira-071", "japanese": "ん", "romaji": "n", "english": "Nasal 'n', like the 'n' in 'song'", "difficulty": "core", "notes": "Never starts a word. Sounds like 'n' at the end of a syllable.", "responses": [
+          { "japanese": "ほん", "romaji": "hon", "english": "book", "listen_for": "ほ (ho) + ん (n) at the end" },
+          { "japanese": "えん", "romaji": "en", "english": "yen", "listen_for": "え (e) + ん (n) at the end" }
+        ] }
+      ]
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
-import { getScenarioBySlug, getAllScenarios } from '@/lib/data/phrases'
+import { loadContent } from '@/lib/data/content'
 import { SimulatorChat } from '@/components/simulator/SimulatorChat'
 import { ScenarioPrompt } from '@/components/simulator/ScenarioPrompt'
 
-export function generateStaticParams() {
-  return getAllScenarios().map(s => ({ slug: s.slug }))
+export async function generateStaticParams() {
+  const { phrases } = await loadContent()
+  return phrases.map(s => ({ slug: s.slug }))
 }
 
 export default async function SimulatorSessionPage({
@@ -15,7 +16,8 @@ export default async function SimulatorSessionPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const scenario = getScenarioBySlug(slug)
+  const { phrases } = await loadContent()
+  const scenario = phrases.find(s => s.slug === slug)
   if (!scenario) notFound()
 
   return (

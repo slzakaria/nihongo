@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest } from 'next/server'
-import { getScenarioBySlug } from '@/lib/data/phrases'
+import { loadContent } from '@/lib/data/content'
 import { getSimulatorPrompt } from '@/lib/simulator/prompts'
 import { createClient } from '@/lib/supabase/server'
 import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     scenarioSlug: string
   }
 
-  const scenario = getScenarioBySlug(scenarioSlug)
+  const scenario = (await loadContent()).phrases.find(s => s.slug === scenarioSlug)
   if (!scenario) {
     return Response.json({ error: 'Unknown scenario' }, { status: 400 })
   }
