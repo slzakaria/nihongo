@@ -41,6 +41,8 @@ export type SRSGrade = 0 | 1 | 2 | 3 | 4 | 5
 
 export type RomajiMode = 'always' | 'reveal' | 'never'
 
+export type TtsSpeed = 1 | 0.75 | 0.5
+
 export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string

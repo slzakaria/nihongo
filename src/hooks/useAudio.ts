@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react'
 import { loadAudio } from '@/lib/tts/speak'
+import { useSettingsStore } from '@/store/settings'
 
 export function useAudio() {
   const [isLoading, setIsLoading] = useState(false)
@@ -16,6 +17,7 @@ export function useAudio() {
     try {
       const url = await loadAudio(text)
       const audio = new Audio(url)
+      audio.playbackRate = useSettingsStore.getState().ttsSpeed
       audioRef.current = audio
       audio.onended = audio.onerror = () => setIsPlaying(false)
       setIsLoading(false)

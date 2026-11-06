@@ -6,7 +6,7 @@ import { useSettingsStore } from '@/store/settings'
 import { useThemeStore, type Theme } from '@/store/theme'
 import { useAuthStore } from '@/store/auth'
 import { usePushSubscription } from '@/hooks/usePushSubscription'
-import { RomajiMode } from '@/types'
+import { RomajiMode, TtsSpeed } from '@/types'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -14,6 +14,12 @@ const modes: { value: RomajiMode; label: string; hint: string }[] = [
   { value: 'always', label: 'Always show', hint: 'Romaji visible at all times' },
   { value: 'reveal', label: 'Reveal on tap', hint: 'Tap a phrase to show romaji' },
   { value: 'never', label: 'Never show', hint: 'Kana/kanji only' },
+]
+
+const speeds: { value: TtsSpeed; label: string }[] = [
+  { value: 1, label: '1×' },
+  { value: 0.75, label: '0.75×' },
+  { value: 0.5, label: '0.50×' },
 ]
 
 const themes: { value: Theme; label: string; icon: typeof Sun }[] = [
@@ -26,6 +32,8 @@ export function SettingsMenu() {
   const [open, setOpen] = useState(false)
   const romajiMode = useSettingsStore(s => s.romajiMode)
   const setRomajiMode = useSettingsStore(s => s.setRomajiMode)
+  const ttsSpeed = useSettingsStore(s => s.ttsSpeed)
+  const setTtsSpeed = useSettingsStore(s => s.setTtsSpeed)
   const theme = useThemeStore(s => s.theme)
   const setTheme = useThemeStore(s => s.setTheme)
   const user = useAuthStore(s => s.user)
@@ -96,6 +104,25 @@ export function SettingsMenu() {
               <span className="text-xs opacity-70">{m.hint}</span>
             </button>
           ))}
+
+          <div className="my-1 h-px bg-border" />
+
+          <p className="px-2 py-1 text-xs font-medium text-muted-foreground">Speech speed</p>
+          <div className="flex gap-1 px-1 pb-1">
+            {speeds.map(s => (
+              <button
+                key={s.value}
+                type="button"
+                onClick={() => setTtsSpeed(s.value)}
+                className={cn(
+                  'flex-1 rounded-md py-1.5 text-xs hover:bg-muted',
+                  ttsSpeed === s.value && 'bg-secondary text-secondary-foreground hover:bg-secondary'
+                )}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
 
           {user && pushSupported && (
             <>
