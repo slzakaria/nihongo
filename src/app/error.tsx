@@ -25,8 +25,8 @@ export default function Error({
         An unexpected error occurred. You can try again, or head back home.
       </p>
       <div className="flex gap-2">
-        <Button onClick={reset}>Try again</Button>
-        <Button variant="outline" onClick={() => router.push('/')}>
+        <Button className='cursor-pointer' onClick={reset}>Try again</Button>
+        <Button className='cursor-pointer' variant="outline" onClick={() => router.push('/')}>
           Go home
         </Button>
       </div>

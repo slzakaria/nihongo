@@ -3,10 +3,11 @@
 import { useMemo, useState } from 'react'
 import { Phrase, SRSGrade } from '@/types'
 import { useProgressStore } from '@/store/progress'
-import { getPhrasesBySlug } from '@/lib/data/phrases'
+import { useContentStore } from '@/lib/data/content'
 
 export function useFlashcardSession(slug: string, force = false) {
-  const phrases = useMemo(() => getPhrasesBySlug(slug), [slug])
+  const scenario = useContentStore(s => s.content.phrases.find(x => x.slug === slug))
+  const phrases = useMemo(() => scenario?.phrases ?? [], [scenario])
   const cards = useProgressStore(s => s.cards)
   const gradeCard = useProgressStore(s => s.gradeCard)
 

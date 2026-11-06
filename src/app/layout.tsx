@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { WelcomeDialog } from "@/components/layout/WelcomeDialog";
 import { ThemeSync } from "@/components/layout/ThemeSync";
 import { AuthSync } from "@/components/layout/AuthSync";
+import { ContentSync } from "@/components/layout/ContentSync";
 import { ServiceWorkerRegister } from "@/components/layout/ServiceWorkerRegister";
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <WelcomeDialog />
         <ThemeSync />
         <AuthSync />
+        <ContentSync />
         <ServiceWorkerRegister />
         <Analytics />
       </body>

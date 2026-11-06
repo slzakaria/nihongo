@@ -48,6 +48,7 @@ export function SettingsMenu() {
         size="icon"
         aria-label="Settings"
         onClick={() => setOpen(o => !o)}
+				className='cursor-pointer'
       >
         <Settings className="h-4 w-4" />
       </Button>

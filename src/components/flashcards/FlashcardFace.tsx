@@ -30,7 +30,7 @@ export function FlashcardFace({
             <p lang="ja" className="text-2xl font-medium">
               {phrase.japanese}
             </p>
-            <span onClick={e => e.stopPropagation()}>
+            <span className='cursor-pointer' onClick={e => e.stopPropagation()}>
               <AudioButton text={phrase.japanese} />
             </span>
           </div>

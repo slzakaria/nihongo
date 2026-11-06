@@ -12,6 +12,7 @@ import { useProgressStore } from "@/store/progress";
 
 const links = [
   { href: "/scenarios", label: "Scenarios" },
+  { href: "/kana", label: "Kana (Alphabet)" },
   { href: "/flashcards", label: "Flashcards" },
   { href: "/simulator", label: "Simulator" },
   { href: "/search", label: "Search" }

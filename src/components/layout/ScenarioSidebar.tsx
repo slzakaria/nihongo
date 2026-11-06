@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo } from 'react'
-import { getAllScenarios } from '@/lib/data/phrases'
+import { useContentStore } from '@/lib/data/content'
 import { useProgressStore } from '@/store/progress'
 import { cn } from '@/lib/utils'
 
@@ -13,7 +12,7 @@ export function ScenarioSidebar({
   currentSlug: string
   basePath: string
 }) {
-  const scenarios = useMemo(() => getAllScenarios(), [])
+  const scenarios = useContentStore(s => s.content.phrases)
   const cards = useProgressStore(s => s.cards)
 
   return (

@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { useProgressStore } from '@/store/progress'
-import { getAllScenarios } from '@/lib/data/phrases'
+import { useContentStore } from '@/lib/data/content'
 
 export default function Home() {
   const cards = useProgressStore(s => s.cards)
-  const scenarios = useMemo(() => getAllScenarios(), [])
+  const scenarios = useContentStore(s => s.content.phrases)
 
   const totalPhrases = useMemo(
     () => scenarios.reduce((sum, s) => sum + s.phrases.length, 0),
@@ -31,13 +31,13 @@ export default function Home() {
           everything you need for bars, shops, and small talk in Japan.
         </p>
         <div className="mt-2 flex w-full justify-center md:justify-start align-middle gap-3">
-          <Button asChild size="default">
+          <Button className='cursor-pointer' asChild size="default">
             <Link href="/flashcards">Start Flashcards</Link>
           </Button>
-          <Button asChild size="default" variant="secondary">
+          <Button  className='cursor-pointer' asChild size="default" variant="secondary">
             <Link href="/scenarios">Browse Scenarios</Link>
           </Button>
-          <Button asChild className="hidden md:block" size="default" variant="outline">
+          <Button  asChild className="hidden md:block cursor-pointer" size="default" variant="outline">
             <Link href="/simulator">Try Simulator</Link>
           </Button>
         </div>

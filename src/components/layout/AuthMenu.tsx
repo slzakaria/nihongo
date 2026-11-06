@@ -73,6 +73,7 @@ export function AuthMenu() {
         size="icon"
         aria-label="Account"
         onClick={() => setOpen(o => !o)}
+				className='cursor-pointer'
       >
         <User className="h-4 w-4" />
       </Button>
@@ -108,7 +109,7 @@ export function AuthMenu() {
                 className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
               />
               {error && <p className="px-1 text-xs text-red-500">{error}</p>}
-              <Button type="submit" size="sm" className="w-full gap-2" disabled={loading}>
+              <Button type="submit" size="sm" className="w-full gap-2 cursor-pointer" disabled={loading}>
                 {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Mail className="h-3.5 w-3.5" />}
                 Send code
               </Button>

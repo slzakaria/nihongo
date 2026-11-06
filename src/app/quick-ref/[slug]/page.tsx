@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation'
-import { getScenarioBySlug, getAllScenarios } from '@/lib/data/phrases'
+import { loadContent } from '@/lib/data/content'
 import { PrintButton } from '@/components/layout/PrintButton'
 
-export function generateStaticParams() {
-  return getAllScenarios().map(s => ({ slug: s.slug }))
+export async function generateStaticParams() {
+  const { phrases } = await loadContent()
+  return phrases.map(s => ({ slug: s.slug }))
 }
 
 export default async function QuickRefPage({
@@ -12,7 +13,8 @@ export default async function QuickRefPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const scenario = getScenarioBySlug(slug)
+  const { phrases } = await loadContent()
+  const scenario = phrases.find(s => s.slug === slug)
   if (!scenario) notFound()
 
   return (
