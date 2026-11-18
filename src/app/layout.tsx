@@ -7,7 +7,6 @@ import { NavigationProgress } from "@/components/layout/NavigationProgress";
 import { LoadingOverlay } from "@/components/layout/LoadingOverlay";
 import { ThemeSync } from "@/components/layout/ThemeSync";
 import { AuthSync } from "@/components/auth/AuthSync";
-import { ServiceWorkerRegister } from "@/components/layout/ServiceWorkerRegister";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { SignInInvite } from "@/components/layout/SignInInvite";
 import { Footer } from "@/components/layout/Footer";
@@ -79,7 +78,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <SignInInvite />
           <ThemeSync />
           <AuthSync />
-          <ServiceWorkerRegister />
         </ClerkProvider>
       </body>
     </html>
