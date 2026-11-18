@@ -13056,6 +13056,7 @@
 						},
 						{
 							"japanese": "こちらでよろしいですか？",
+							"kanji": "こちらで宜しいですか？",
 							"romaji": "Kochira de yoroshii desu ka?",
 							"english": "Is this one all right?",
 							"listen_for": "よろしい = acceptable / OK. Answer はい to confirm."
@@ -13081,7 +13082,7 @@
 				},
 				{
 					"id": "gx-03",
-					"japanese": "ラーメンを一つと、ぎょうざを二つください。",
+					"japanese": "ラーメンをひとつと、ぎょうざをふたつください。",
 					"romaji": "Raamen wo hitotsu to, gyouza wo futatsu kudasai.",
 					"english": "One ramen and two gyoza, please.",
 					"difficulty": "core",
@@ -13099,14 +13100,14 @@
 				},
 				{
 					"id": "gx-04",
-					"japanese": "ビールを二杯と、ウーロン茶を一杯ください。",
+					"japanese": "ビールをにはいと、ウーロンちゃをいっぱいください。",
 					"romaji": "Biiru wo nihai to, uuron-cha wo ippai kudasai.",
 					"english": "Two beers and one oolong tea, please.",
 					"difficulty": "core",
 					"notes": "杯 (hai) counts cups, glasses and bowls of drink. Watch the sound changes: 一杯 (ippai), 二杯 (nihai), 三杯 (sanbai).",
 					"responses": [
 						{
-							"japanese": "生ビールがふたつ、ウーロン茶がひとつですね。",
+							"japanese": "なまビールがふたつ、ウーロンちゃがひとつですね。",
 							"romaji": "Nama biiru ga futatsu, uuron-cha ga hitotsu desu ne.",
 							"english": "Two draft beers, one oolong tea, right?",
 							"listen_for": "生ビール (nama biiru) = draft beer. Staff often drop the counter for drinks and just say ふたつ / ひとつ.",
@@ -13117,14 +13118,14 @@
 				},
 				{
 					"id": "gx-05",
-					"japanese": "瓶ビールを二本ください。",
+					"japanese": "びんビールをにほんください。",
 					"romaji": "Bin biiru wo nihon kudasai.",
 					"english": "Two bottles of beer, please.",
 					"difficulty": "extra",
 					"notes": "本 (hon) counts long, cylindrical things, including bottles. 一本 (ippon), 二本 (nihon), 三本 (sanbon). Compare with 杯 for drinks poured into a glass.",
 					"responses": [
 						{
-							"japanese": "はい、瓶ビールが二本ですね。",
+							"japanese": "はい、びんビールがにほんですね。",
 							"romaji": "Hai, bin biiru ga nihon desu ne.",
 							"english": "Yes, two bottles of beer, right?",
 							"listen_for": "瓶ビール (bin biiru) = bottled beer.",
@@ -13135,14 +13136,14 @@
 				},
 				{
 					"id": "gx-06",
-					"japanese": "焼きそばを二人前ください。",
+					"japanese": "やきそばをににんまえください。",
 					"romaji": "Yakisoba wo futari-mae kudasai.",
 					"english": "Two servings of yakisoba, please.",
 					"difficulty": "extra",
 					"notes": "〜人前 (-nin-mae) = one serving for that many people. Used for shared dishes like yakisoba, gyudon, and sushi sets. Ordering 二人前 means two portions, not two people.",
 					"responses": [
 						{
-							"japanese": "はい、焼きそばの二人前ですね。",
+							"japanese": "はい、やきそばのににんまえですね。",
 							"romaji": "Hai, yakisoba no futari-mae desu ne.",
 							"english": "Yes, two servings of yakisoba, right?",
 							"listen_for": "の marks a noun phrase: 焼きそばの二人前 = 'two servings of yakisoba'.",
@@ -13153,14 +13154,14 @@
 				},
 				{
 					"id": "gx-07",
-					"japanese": "からあげと枝豆、それからサラダもお願いします。",
+					"japanese": "からあげとえだまめ、それからサラダもおねがいします。",
 					"romaji": "Karaage to edamame, sorekara sarada mo onegaishimasu.",
 					"english": "Fried chicken and edamame, and then a salad too, please.",
 					"difficulty": "extra",
 					"notes": "と joins items in a list. それから (sorekara) = 'and then / after that', used to add the next item. も (mo) = 'also / too', added after the last item to mean 'and this as well'.",
 					"responses": [
 						{
-							"japanese": "かしこまりました、からあげと枝豆とサラダですね。",
+							"japanese": "かしこまりました、からあげとえだまめとサラダですね。",
 							"romaji": "Kashikomarimashita, karaage to edamame to sarada desu ne.",
 							"english": "Certainly, fried chicken, edamame and salad, right?",
 							"listen_for": "Staff repeat your whole order back. Nod and say はい if it's correct.",
@@ -13172,13 +13173,14 @@
 				{
 					"id": "gx-08",
 					"japanese": "どれがおすすめですか？",
+					"kanji": "どれがお勧めですか？",
 					"romaji": "Dore ga osusume desu ka?",
 					"english": "Which one do you recommend?",
 					"difficulty": "core",
 					"notes": "どれ (dore) = 'which one' when there are three or more options. For two options, use どちら (dochira). おすすめ (osusume) = recommendation.",
 					"responses": [
 						{
-							"japanese": "こちらのセットが人気ですよ。",
+							"japanese": "こちらのセットがにんきですよ。",
 							"romaji": "Kochira no setto ga ninki desu yo.",
 							"english": "This set is popular.",
 							"listen_for": "人気 (ninki) = popular. こちら = 'this one', said politely.",
@@ -13186,6 +13188,7 @@
 						},
 						{
 							"japanese": "からあげは、おすすめです。",
+							"kanji": "唐揚げは、お勧めです。",
 							"romaji": "Karaage wa, osusume desu.",
 							"english": "The fried chicken is recommended.",
 							"listen_for": "は marks the topic. [X は Y です] = 'X is Y'."
@@ -13194,7 +13197,7 @@
 				},
 				{
 					"id": "gx-09",
-					"japanese": "どちらが辛くないですか？",
+					"japanese": "どちらがからくないですか？",
 					"romaji": "Dochira ga karakunai desu ka?",
 					"english": "Which of the two is less spicy?",
 					"difficulty": "extra",
@@ -13212,14 +13215,15 @@
 				},
 				{
 					"id": "gx-10",
-					"japanese": "この中で一番辛くないものはどれですか？",
+					"japanese": "このなかでいちばんからくないものはどれですか？",
+					"kanji": "この中で一番辛くない物はどれですか？",
 					"romaji": "Kono naka de ichiban karakunai mono wa dore desu ka?",
 					"english": "Which one is the least spicy of these?",
 					"difficulty": "extra",
 					"notes": "この中で (kono naka de) = 'among these'. 一番 (ichiban) = 'the most'; combined with 辛くない it means 'the least spicy'. ものは marks the item you're asking about.",
 					"responses": [
 						{
-							"japanese": "一番やさしいのは、この味噌ラーメンです。",
+							"japanese": "いちばんやさしいのは、このみそラーメンです。",
 							"romaji": "Ichiban yasashii no wa, kono miso raamen desu.",
 							"english": "The mildest one is this miso ramen.",
 							"listen_for": "やさしい (優しい) = mild, gentle (used for food). の replaces the noun 'one'.",
@@ -13229,14 +13233,14 @@
 				},
 				{
 					"id": "gx-11",
-					"japanese": "辛くないのがいいです。",
+					"japanese": "からくないのがいいです。",
 					"romaji": "Karakunai no ga ii desu.",
 					"english": "I'd prefer one that's not spicy.",
 					"difficulty": "extra",
 					"notes": "の stands in for a noun: 'the one (that is)'. 〜がいいです = 'I'd prefer / I'd like ~'. Use it to choose between options staff describe.",
 					"responses": [
 						{
-							"japanese": "かしこまりました、辛さは控えめにしますね。",
+							"japanese": "かしこまりました、からさはひかえめにしますね。",
 							"romaji": "Kashikomarimashita, karasa wa hikaeme ni shimasu ne.",
 							"english": "Certainly, I'll keep the spiciness mild.",
 							"listen_for": "控えめ (hikaeme) = restrained, mild. 辛さ (karasa) = spiciness.",
@@ -13247,14 +13251,15 @@
 				},
 				{
 					"id": "gx-12",
-					"japanese": "もう少し辛くしてもいいですか？",
+					"japanese": "もうすこしからくしてもいいですか？",
+					"kanji": "もう少し辛くしてもいいですか？",
 					"romaji": "Mou sukoshi karaku shite mo ii desu ka?",
 					"english": "Could it be a little spicier?",
 					"difficulty": "extra",
 					"notes": "もう少し (mou sukoshi) = 'a little more'. 〜くする (-ku suru) = 'make it (adjective)': 辛い → 辛くする. 〜てもいいですか = 'is it okay if / may I?'.",
 					"responses": [
 						{
-							"japanese": "はい、もちろんです。ちょっと辛くしておきますね。",
+							"japanese": "はい、もちろんです。ちょっとからくしておきますね。",
 							"romaji": "Hai, mochiron desu. Chotto karaku shite okimasu ne.",
 							"english": "Of course. I'll make it a bit spicier.",
 							"listen_for": "〜ておきます = 'do something in advance'. ちょっと = a little.",
@@ -13264,14 +13269,15 @@
 				},
 				{
 					"id": "gx-13",
-					"japanese": "もう少し少なめにしてください。",
+					"japanese": "もうすこしすくなめにしてください。",
+					"kanji": "もう少し少な目にしてください。",
 					"romaji": "Mou sukoshi sukuname ni shite kudasai.",
 					"english": "Could you make it a little less, please?",
 					"difficulty": "extra",
 					"notes": "少なめ (sukuname) = 'somewhat less'. 〜め (-me) softens an adjective: 多め (more), 大きめ (a bit bigger), 少なめ (a bit less). Works for portions, sauce, oil, salt, and sugar.",
 					"responses": [
 						{
-							"japanese": "はい、少なめですね。",
+							"japanese": "はい、すくなめですね。",
 							"romaji": "Hai, sukuname desu ne.",
 							"english": "Yes, a smaller amount, right?",
 							"listen_for": "少なめ (sukuname) = a smaller amount, lighter than normal.",
@@ -13281,21 +13287,22 @@
 				},
 				{
 					"id": "gx-14",
-					"japanese": "大盛りと普通盛り、どちらにしますか？",
+					"japanese": "おおもりとふつうもり、どちらにしますか？",
+					"kanji": "大盛りと普通盛り、どちらにしますか？",
 					"romaji": "Oomori to futsuu-mori, dochira ni shimasu ka?",
 					"english": "Large or regular portion, which will you have?",
 					"difficulty": "extra",
 					"notes": "You'll hear this at ramen and gyudon shops. 〜にしますか = 'will you go with ~?'. 大盛り (oomori) = large, 普通盛り (futsuu-mori) = regular. Answer with the option you want.",
 					"responses": [
 						{
-							"japanese": "大盛りでお願いします。",
+							"japanese": "おおもりでおねがいします。",
 							"romaji": "Oomori de onegaishimasu.",
 							"english": "Large, please.",
 							"listen_for": "で marks the choice you're making.",
 							"kanji": "大盛りでお願いします。"
 						},
 						{
-							"japanese": "普通盛りでいいです。",
+							"japanese": "ふつうもりでいいです。",
 							"romaji": "Futsuu-mori de ii desu.",
 							"english": "Regular is fine.",
 							"listen_for": "でいいです = 'that's fine / that will do'.",
@@ -13305,14 +13312,15 @@
 				},
 				{
 					"id": "gx-15",
-					"japanese": "ネギ抜きでお願いします。",
+					"japanese": "ネギぬきでおねがいします。",
+					"kanji": "葱抜きでお願いします。",
 					"romaji": "Negi nuki de onegaishimasu.",
 					"english": "Without green onion, please.",
 					"difficulty": "extra",
 					"notes": "〜抜き (-nuki) = 'without ~'. Use it for ingredients you want removed. ネギ (negi) = green onion, a common one to ask about.",
 					"responses": [
 						{
-							"japanese": "はい、ネギ抜きですね。",
+							"japanese": "はい、ネギぬきですね。",
 							"romaji": "Hai, negi nuki desu ne.",
 							"english": "Yes, no green onion, right?",
 							"listen_for": "抜き (nuki) = 'with that removed'.",
@@ -13322,14 +13330,14 @@
 				},
 				{
 					"id": "gx-16",
-					"japanese": "ビールではなく、お茶をください。",
+					"japanese": "ビールではなく、おちゃをください。",
 					"romaji": "Biiru de wa naku, ocha wo kudasai.",
 					"english": "Tea instead of beer, please.",
 					"difficulty": "extra",
 					"notes": "〜ではなく (de wa naku) = 'not ~ but ~ / instead of ~'. Use it to swap a choice: [A ではなく B をください] = 'B, not A, please.'",
 					"responses": [
 						{
-							"japanese": "かしこまりました、お茶ですね。",
+							"japanese": "かしこまりました、おちゃですね。",
 							"romaji": "Kashikomarimashita, ocha desu ne.",
 							"english": "Certainly, tea, right?",
 							"listen_for": "お茶 (ocha) = tea, usually green tea unless you say otherwise.",
@@ -13340,14 +13348,15 @@
 				},
 				{
 					"id": "gx-17",
-					"japanese": "これより少し小さいサイズはありますか？",
+					"japanese": "これよりすこしちいさいサイズはありますか？",
+					"kanji": "これより少し小さいサイズはありますか？",
 					"romaji": "Kore yori sukoshi chiisai saizu wa arimasu ka?",
 					"english": "Is there a slightly smaller size than this?",
 					"difficulty": "extra",
 					"notes": "より (yori) = 'than', used for comparison: [A より B] = 'B than A'. 少し小さい = 'a bit smaller'. ありますか = 'do you have?'",
 					"responses": [
 						{
-							"japanese": "はい、小のサイズがございます。",
+							"japanese": "はい、しょうのサイズがございます。",
 							"romaji": "Hai, shou no saizu ga gozaimasu.",
 							"english": "Yes, we have a small size.",
 							"listen_for": "小 (shou) = small, 中 (chuu) = medium, 大 (dai) = large.",
@@ -13357,14 +13366,14 @@
 				},
 				{
 					"id": "gx-18",
-					"japanese": "もう一つ、同じものをください。",
+					"japanese": "もうひとつ、おなじものをください。",
 					"romaji": "Mou hitotsu, onaji mono wo kudasai.",
 					"english": "One more of the same, please.",
 					"difficulty": "core",
 					"notes": "もう一つ (mou hitotsu) = 'one more'. 同じもの (onaji mono) = 'the same thing'. Handy for reordering a drink or dish you already like.",
 					"responses": [
 						{
-							"japanese": "はい、同じものを一つですね。",
+							"japanese": "はい、おなじものをひとつですね。",
 							"romaji": "Hai, onaji mono wo hitotsu desu ne.",
 							"english": "Yes, one more of the same, right?",
 							"listen_for": "同じもの = the same thing. Staff may just say 'おかわり'.",
@@ -13375,14 +13384,14 @@
 				},
 				{
 					"id": "gx-19",
-					"japanese": "お箸を三人分ください。",
+					"japanese": "おはしをさんにんぶんください。",
 					"romaji": "Ohashi wo sannin-bun kudasai.",
 					"english": "Chopsticks for three people, please.",
 					"difficulty": "core",
 					"notes": "〜人分 (-nin-bun) = 'enough for that many people'. Use it for chopsticks, plates, and cups. 三人 (sannin) = three people.",
 					"responses": [
 						{
-							"japanese": "はい、少々お待ちください。",
+							"japanese": "はい、しょうしょうおまちください。",
 							"romaji": "Hai, shoushou omachi kudasai.",
 							"english": "Yes, please wait a moment.",
 							"listen_for": "少々 (shoushou) = a moment, a little while.",
@@ -13393,14 +13402,14 @@
 				},
 				{
 					"id": "gx-20",
-					"japanese": "お酒はビールやワインなど、どんなものがありますか？",
+					"japanese": "おさけはビールやワインなど、どんなものがありますか？",
 					"romaji": "Osake wa biiru ya wain nado, donna mono ga arimasu ka?",
 					"english": "What kinds of drinks do you have, like beer and wine?",
 					"difficulty": "extra",
 					"notes": "や (ya) = 'and' in a partial list, implying there are more. など (nado) = 'and so on / things like'. Together: [A や B など] = 'things like A and B'. どんな = 'what kind of'.",
 					"responses": [
 						{
-							"japanese": "生ビールや日本酒がおすすめです。",
+							"japanese": "なまビールやにほんしゅがおすすめです。",
 							"romaji": "Nama biiru ya nihonshu ga osusume desu.",
 							"english": "Draft beer and sake are recommended.",
 							"listen_for": "日本酒 (nihonshu) = sake. や again means 'and' in a partial list.",
@@ -13411,14 +13420,15 @@
 				},
 				{
 					"id": "gx-21",
-					"japanese": "これは何ですか？",
+					"japanese": "これはなんですか？",
 					"romaji": "Kore wa nan desu ka?",
 					"english": "What is this?",
+					"kanji": "これは何ですか？",
 					"difficulty": "core",
 					"notes": "Core question pattern: [これ / それ / あれ] は [何 / どれ] です か. は (wa) marks the topic, です (desu) = 'is', か (ka) makes it a question. Point at the item while asking.",
 					"responses": [
 						{
-							"japanese": "それは豚の角煮です。",
+							"japanese": "それはぶたのかくにです。",
 							"romaji": "Sore wa buta no kakuni desu.",
 							"english": "That is braised pork belly.",
 							"listen_for": "豚の角煮 (buta no kakuni) = braised pork belly. の links 'pork' to 'belly'.",
@@ -13428,14 +13438,15 @@
 				},
 				{
 					"id": "gx-22",
-					"japanese": "これは辛いですか？",
+					"japanese": "これはからいですか？",
+					"kanji": "これは辛いですか？",
 					"romaji": "Kore wa karai desu ka?",
 					"english": "Is this spicy?",
 					"difficulty": "core",
 					"notes": "Same pattern as above, with an adjective instead of a noun: [これ は 辛い です か]. Ask about any quality the same way: 甘い (sweet), 冷たい (cold), 熱い (hot).",
 					"responses": [
 						{
-							"japanese": "少しからいですが、大丈夫ですよ。",
+							"japanese": "すこしからいですが、だいじょうぶですよ。",
 							"romaji": "Sukoshi karai desu ga, daijoubu desu yo.",
 							"english": "It's a little spicy, but it's fine.",
 							"listen_for": "が (ga) = 'but' here. 大丈夫 (daijoubu) = okay / fine.",
@@ -13445,14 +13456,14 @@
 				},
 				{
 					"id": "gx-23",
-					"japanese": "それは何という料理ですか？",
+					"japanese": "それはなんというりょうりですか？",
 					"romaji": "Sore wa nan to iu ryouri desu ka?",
 					"english": "What is that dish called?",
 					"difficulty": "extra",
 					"notes": "〜という (to iu) = 'called ~ / that is called'. 料理 (ryouri) = dish or cooking. Useful when you want to remember a dish's name to look up later.",
 					"responses": [
 						{
-							"japanese": "これは、だし巻き卵という料理です。",
+							"japanese": "これは、だしまきたまごというりょうりです。",
 							"romaji": "Kore wa, dashi maki tamago to iu ryouri desu.",
 							"english": "This is a dish called dashi-maki tamago.",
 							"listen_for": "だし巻き卵 (dashi maki tamago) = rolled Japanese omelette.",
@@ -13463,14 +13474,15 @@
 				},
 				{
 					"id": "gx-24",
-					"japanese": "ビールは一杯だけで、あとはお水でいいです。",
+					"japanese": "ビールはいっぱいだけで、あとはおみずでいいです。",
+					"kanji": "ビールは一杯だけで、後はお水でいいです。",
 					"romaji": "Biiru wa ippai dake de, ato wa omizu de ii desu.",
 					"english": "Just one beer, and water for the rest.",
 					"difficulty": "extra",
 					"notes": "だけ (dake) = 'only'. あとは (ato wa) = 'for the rest / as for the others'. で いいです = 'that's fine'. Use it to limit a round while keeping others.",
 					"responses": [
 						{
-							"japanese": "はい、ビールが一杯、お水がふたつですね。",
+							"japanese": "はい、ビールがいっぱい、おみずがふたつですね。",
 							"romaji": "Hai, biiru ga ippai, omizu ga futatsu desu ne.",
 							"english": "Yes, one beer and two waters, right?",
 							"listen_for": "Staff repeat the count back. Correct them with ちがいます (not quite) if needed.",
@@ -13480,14 +13492,14 @@
 				},
 				{
 					"id": "gx-25",
-					"japanese": "これとそれ、別々にお会計できますか？",
+					"japanese": "これとそれ、べつべつにおかいけいできますか？",
 					"romaji": "Kore to sore, betsubetsu ni okaikei dekimasu ka?",
 					"english": "Can we pay for this and that separately?",
 					"difficulty": "extra",
 					"notes": "別々 (betsubetsu) = separately. お会計 (okaikei) = the bill / checkout. 〜できますか = 'can you ~?' Useful when splitting the bill with friends.",
 					"responses": [
 						{
-							"japanese": "はい、別々にお会計いたします。",
+							"japanese": "はい、べつべつにおかいけいいたします。",
 							"romaji": "Hai, betsubetsu ni okaikei itashimasu.",
 							"english": "Yes, we can take separate payments.",
 							"listen_for": "いたします = a humble form of する, used by staff for their own actions.",
@@ -13498,14 +13510,15 @@
 				},
 				{
 					"id": "gx-26",
-					"japanese": "注文はこれで全部です。",
+					"japanese": "ちゅうもんはこれでぜんぶです。",
+					"kanji": "注文はこれで全部です。",
 					"romaji": "Chuumon wa kore de zenbu desu.",
 					"english": "That's everything for my order.",
 					"difficulty": "core",
 					"notes": "これで (kore de) = 'with this, that's it'. 全部 (zenbu) = 'all / everything'. Say it when you've finished ordering so staff know not to wait for more.",
 					"responses": [
 						{
-							"japanese": "かしこまりました。少々お待ちください。",
+							"japanese": "かしこまりました。しょうしょうおまちください。",
 							"romaji": "Kashikomarimashita. Shoushou omachi kudasai.",
 							"english": "Certainly. Please wait a moment.",
 							"listen_for": "Your order is in. Expect your food soon.",
@@ -13516,13 +13529,14 @@
 				{
 					"id": "gx-27",
 					"japanese": "おかわりはできますか？",
+					"kanji": "お代わりはできますか？",
 					"romaji": "Okawari wa dekimasu ka?",
 					"english": "Can I have a refill / second helping?",
 					"difficulty": "core",
 					"notes": "おかわり (okawari) = a second helping or refill, for food, tea, or rice. Free-refill places are common for tea and rice.",
 					"responses": [
 						{
-							"japanese": "はい、お茶はおかわり自由です。",
+							"japanese": "はい、おちゃはおかわりじゆうです。",
 							"romaji": "Hai, ocha wa okawari jiyuu desu.",
 							"english": "Yes, tea refills are free.",
 							"listen_for": "自由 (jiyuu) = free / unlimited.",
@@ -13532,21 +13546,22 @@
 				},
 				{
 					"id": "gx-28",
-					"japanese": "注文はこれで全部ですか？",
+					"japanese": "ちゅうもんはこれでぜんぶですか？",
+					"kanji": "注文はこれで全部ですか？",
 					"romaji": "Chuumon wa kore de zenbu desu ka?",
 					"english": "Is that everything for your order?",
 					"difficulty": "core",
 					"notes": "Staff ask this before they finish taking your order. Answer はい, or add もう一つ、〜をください to keep ordering.",
 					"responses": [
 						{
-							"japanese": "はい、これで大丈夫です。",
+							"japanese": "はい、これでだいじょうぶです。",
 							"romaji": "Hai, kore de daijoubu desu.",
 							"english": "Yes, that's all, thank you.",
 							"listen_for": "これで大丈夫 (kore de daijoubu) = 'that's fine like this'.",
 							"kanji": "はい、これで大丈夫です。"
 						},
 						{
-							"japanese": "あと、もう一つお願いします。",
+							"japanese": "あと、もうひとつおねがいします。",
 							"romaji": "Ato, mou hitotsu onegaishimasu.",
 							"english": "And one more, please.",
 							"listen_for": "あと (ato) = 'and also / one more thing'.",

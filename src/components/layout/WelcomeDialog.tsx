@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import confetti from 'canvas-confetti'
 import { useOnboardingStore } from '@/store/onboarding'
 import { useAuthStore } from '@/store/auth'
 import { useAudio } from '@/hooks/useAudio'
@@ -24,7 +23,9 @@ function greetSpecialUser(name: string, signedInAt: string | null, play: (text: 
   if (!signedInAt || localStorage.getItem(GREETED_KEY) === signedInAt) return
   localStorage.setItem(GREETED_KEY, signedInAt)
   void play(SPECIAL_VOICE_MESSAGE(name))
-  confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } })
+  void import('canvas-confetti').then(({ default: confetti }) =>
+    confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } })
+  )
 }
 
 export function WelcomeDialog() {

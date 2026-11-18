@@ -5,7 +5,6 @@ import { Phrase } from '@/types'
 import { PhraseCard } from '@/components/phrases/PhraseCard'
 import { Button } from '@/components/ui/button'
 import { useProgressStore } from '@/store/progress'
-import { preloadScenarioPhrases } from '@/lib/tts/speak'
 import { cn } from '@/lib/utils'
 
 type Filter = 'all' | 'core' | 'extra'
@@ -16,10 +15,7 @@ export function PhraseList({ phrases, scenarioSlug }: { phrases: Phrase[]; scena
 
   useEffect(() => {
     initScenario(scenarioSlug)
-    preloadScenarioPhrases(
-      phrases.filter(p => p.difficulty === 'core').map(p => p.japanese)
-    )
-  }, [scenarioSlug, initScenario, phrases])
+  }, [scenarioSlug, initScenario])
 
   const filtered = useMemo(
     () => (filter === 'all' ? phrases : phrases.filter(p => p.difficulty === filter)),

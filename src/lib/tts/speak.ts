@@ -49,14 +49,3 @@ async function fetchAudioUrl(text: string): Promise<string> {
 export function loadAudio(text: string): Promise<string> {
   return fetchAudioUrl(text)
 }
-
-// Fire-and-forget warm-up for a batch of phrases (e.g. core phrases on scenario mount)
-export function preloadScenarioPhrases(texts: string[]) {
-  for (const text of texts) {
-    if (!blobUrlCache.has(text) && !inFlight.has(text)) {
-      fetchAudioUrl(text).catch(() => {
-        // silent — AudioButton will retry the request on click
-      })
-    }
-  }
-}

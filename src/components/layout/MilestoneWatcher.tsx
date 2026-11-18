@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import confetti from 'canvas-confetti'
 import { useProgressStore } from '@/store/progress'
 import { useGoalsStore } from '@/store/goals'
 import { countReviewedPhrases, newMilestone } from '@/lib/srs/milestones'
@@ -19,7 +18,9 @@ export function MilestoneWatcher() {
     markCelebrated(milestone)
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMessage(`🎉 ${milestone} phrases reviewed!`)
-    confetti({ particleCount: 300, spread: 120, origin: { y: 0.6 } })
+    void import('canvas-confetti').then(({ default: confetti }) =>
+      confetti({ particleCount: 300, spread: 120, origin: { y: 0.6 } })
+    )
   }, [cards, celebrated, markCelebrated])
 
   useEffect(() => {

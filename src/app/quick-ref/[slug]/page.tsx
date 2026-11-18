@@ -19,8 +19,8 @@ export default async function QuickRefPage({
 
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-6 py-8 print:py-0">
-      <div className="mb-6 flex items-center justify-between print:hidden">
-        <h1 className="text-xl font-semibold">{scenario.label} — Quick Reference</h1>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
+        <h1 className="min-w-0 text-xl font-semibold break-words">{scenario.label} — Quick Reference</h1>
         <PrintButton />
       </div>
       <h1 className="mb-4 hidden text-xl font-semibold print:block">{scenario.label}</h1>

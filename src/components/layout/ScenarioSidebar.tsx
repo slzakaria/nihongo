@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import Link from 'next/link'
 import { useContentStore } from '@/lib/data/content'
 import { useProgressStore } from '@/store/progress'
@@ -15,12 +16,20 @@ export function ScenarioSidebar({
   const scenarios = useContentStore(s => s.content.phrases)
   const cards = useProgressStore(s => s.cards)
 
+  // One pass over the cards, instead of one scan per scenario
+  const reviewedByScenario = useMemo(() => {
+    const counts = new Map<string, number>()
+    for (const c of Object.values(cards)) {
+      if (c.lastReview === null) continue
+      counts.set(c.scenarioSlug, (counts.get(c.scenarioSlug) ?? 0) + 1)
+    }
+    return counts
+  }, [cards])
+
   return (
     <nav className="hidden w-48 shrink-0 flex-col gap-1 md:flex">
       {scenarios.map(s => {
-        const reviewed = Object.values(cards).filter(
-          c => c.scenarioSlug === s.slug && c.lastReview !== null
-        ).length
+        const reviewed = reviewedByScenario.get(s.slug) ?? 0
         const pct = s.phrases.length === 0 ? 0 : Math.round((reviewed / s.phrases.length) * 100)
         const active = s.slug === currentSlug
         return (

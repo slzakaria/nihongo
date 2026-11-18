@@ -22,7 +22,7 @@ export function BackToTop() {
     <Button
       size="icon"
       variant="secondary"
-      className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full shadow-lg"
+      className="fixed bottom-24 right-6 z-40 h-11 w-11 rounded-full shadow-lg"
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >

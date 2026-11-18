@@ -27,8 +27,8 @@ export default async function ScenarioDetailPage({
       <ScenarioSidebar currentSlug={scenario.slug} basePath="/scenarios" />
 
       <div className="flex flex-1 flex-col gap-6">
-        <div className="flex items-start justify-between gap-4">
-          <div>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+          <div className="min-w-0">
             <Link
               href="/scenarios"
               className="mb-2 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
@@ -36,10 +36,10 @@ export default async function ScenarioDetailPage({
               <ArrowLeft className="h-3.5 w-3.5" />
               Scenarios
             </Link>
-            <h1 className="text-2xl font-semibold tracking-tight">{scenario.label}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight break-words">{scenario.label}</h1>
             <p className="text-muted-foreground">{scenario.phrases.length} phrases</p>
           </div>
-          <div className="flex shrink-0 flex-wrap justify-end gap-2">
+          <div className="flex flex-wrap gap-2 sm:shrink-0 sm:justify-end">
             <Link
               href={`/speaking/${scenario.slug}`}
               className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted"

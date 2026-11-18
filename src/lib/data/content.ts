@@ -39,9 +39,11 @@ const TABLES: Record<keyof ContentSet, string> = {
 
 // Reads the content tables through PostgREST with plain fetch. A supabase-js client here would create
 // a second GoTrueClient in the browser, which shares the auth storage key with the app's auth client.
+// The one-hour revalidate lets server renders reuse the cached response instead of querying on every request.
 async function fetchTable(table: string, url: string, key: string): Promise<Scenario[]> {
   const res = await fetch(`${url}/rest/v1/${table}?select=slug,label,icon,phrases&order=sort_order.asc`, {
     headers: { apikey: key, Authorization: `Bearer ${key}` },
+    next: { revalidate: 3600 },
   })
   if (!res.ok) throw new Error(`${table} unavailable`)
   const rows = (await res.json()) as Scenario[]
@@ -68,7 +70,9 @@ export async function fetchContent(): Promise<ContentSet | null> {
   }
 }
 
-// For server components and route handlers: database first, bundled JSON as fallback.
+// Bundled JSON is the primary source, so pages render with no network call. Supabase is only used if the
+// bundled content is empty.
 export async function loadContent(): Promise<ContentSet> {
+  if (FALLBACK_CONTENT.phrases.length > 0) return FALLBACK_CONTENT
   return (await fetchContent()) ?? FALLBACK_CONTENT
 }
