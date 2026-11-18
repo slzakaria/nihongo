@@ -1,22 +1,21 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { LogOut, Loader2, Mail, User } from 'lucide-react'
+import { LogOut, User, UserRound } from 'lucide-react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useAuthStore } from '@/store/auth'
+import { useOnboardingStore } from '@/store/onboarding'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-
-type Step = 'email' | 'code'
+import { useSignInDialogStore } from '@/store/signInDialog'
+import { Avatar } from '@/components/ui/avatar'
 
 export function AuthMenu() {
   const user = useAuthStore(s => s.user)
+  const userName = useOnboardingStore(s => s.userName)
+  const avatarUrl = useOnboardingStore(s => s.avatarUrl)
+  const showSignIn = useSignInDialogStore(s => s.show)
   const [open, setOpen] = useState(false)
-  const [step, setStep] = useState<Step>('email')
-  const [email, setEmail] = useState('')
-  const [code, setCode] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const ref = useRef<HTMLDivElement>(null)
   const supabase = createClient()
 
@@ -27,38 +26,6 @@ export function AuthMenu() {
     document.addEventListener('mousedown', onClickOutside)
     return () => document.removeEventListener('mousedown', onClickOutside)
   }, [])
-
-  async function sendCode(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: true },
-    })
-    setLoading(false)
-    if (error) {
-      setError(error.message)
-      return
-    }
-    setStep('code')
-  }
-
-  async function verifyCode(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    const { error } = await supabase.auth.verifyOtp({ email, token: code, type: 'email' })
-    setLoading(false)
-    if (error) {
-      setError(error.message)
-      return
-    }
-    setOpen(false)
-    setStep('email')
-    setEmail('')
-    setCode('')
-  }
 
   async function signOut() {
     await supabase.auth.signOut()
@@ -72,10 +39,14 @@ export function AuthMenu() {
         variant="ghost"
         size="icon"
         aria-label="Account"
-        onClick={() => setOpen(o => !o)}
+        onClick={() => (user ? setOpen(o => !o) : showSignIn())}
 				className='cursor-pointer'
       >
-        <User className="h-4 w-4" />
+        {user ? (
+          <Avatar url={avatarUrl} label={userName || user.email || user.phone || '?'} className="h-7 w-7 text-xs" />
+        ) : (
+          <User className="h-4 w-4" />
+        )}
       </Button>
 
       {open && (
@@ -83,7 +54,13 @@ export function AuthMenu() {
           {user ? (
             <div className="space-y-2">
               <p className="px-1 text-xs font-medium text-muted-foreground">Signed in as</p>
-              <p className="truncate px-1 text-sm">{user.email}</p>
+              <p className="truncate px-1 text-sm">{user.email ?? user.phone}</p>
+              <Button asChild type="button" variant="ghost" size="sm" className="w-full justify-start gap-2 cursor-pointer" onClick={() => setOpen(false)}>
+                <Link href="/profile">
+                  <UserRound className="h-3.5 w-3.5" />
+                  View profile
+                </Link>
+              </Button>
               <Button
                 type="button"
                 variant="ghost"
@@ -95,55 +72,7 @@ export function AuthMenu() {
                 Sign out
               </Button>
             </div>
-          ) : step === 'email' ? (
-            <form onSubmit={sendCode} className="space-y-2">
-              <p className="px-1 text-xs font-medium text-muted-foreground">
-                Sign in to sync progress
-              </p>
-              <input
-                type="email"
-                required
-                placeholder="you@example.com"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
-              />
-              {error && <p className="px-1 text-xs text-red-500">{error}</p>}
-              <Button type="submit" size="sm" className="w-full gap-2 cursor-pointer" disabled={loading}>
-                {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Mail className="h-3.5 w-3.5" />}
-                Send code
-              </Button>
-            </form>
-          ) : (
-            <form onSubmit={verifyCode} className="space-y-2">
-              <p className="px-1 text-xs font-medium text-muted-foreground">
-                Enter the 6-digit code sent to {email}
-              </p>
-              <input
-                type="text"
-                inputMode="numeric"
-                required
-                placeholder="123456"
-                value={code}
-                onChange={e => setCode(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm tracking-widest"
-              />
-              {error && <p className="px-1 text-xs text-red-500">{error}</p>}
-              <Button type="submit" size="sm" className="w-full" disabled={loading}>
-                {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Verify'}
-              </Button>
-              <button
-                type="button"
-                onClick={() => {
-                  setStep('email')
-                  setError(null)
-                }}
-                className={cn('w-full text-center text-xs text-muted-foreground hover:underline')}
-              >
-                Use a different email
-              </button>
-            </form>
-          )}
+          ) : null}
         </div>
       )}
     </div>

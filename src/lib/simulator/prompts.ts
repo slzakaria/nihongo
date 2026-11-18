@@ -44,8 +44,117 @@ export function getScenarioStarter(slug: string): string | undefined {
   return starters[slug]
 }
 
+// Ordered steps the AI walks through, so each conversation has a shape instead of only reacting
+const flows: Record<string, string[]> = {
+  restaurant: [
+    'Greet and ask how many people are in the party',
+    'Seat them and offer water or a drink',
+    'Take the food order, asking about dishes and drinks',
+    'Confirm the order back and ask about spice level or allergies',
+    'Ask if anything else is needed, then bring the bill and ask how they want to pay',
+  ],
+  'bar-cocktails': [
+    'Welcome them and ask what they would like to drink',
+    'Recommend a drink and ask about taste preferences',
+    'Ask whether they want it strong, sweet, or light',
+    'Take the order and confirm it',
+    'Ask if they want another round, then mention the bill',
+  ],
+  shopping: [
+    'Greet them and ask what they are looking for',
+    'Ask about size, colour, and style',
+    'Show an option and recommend one',
+    'Offer a fitting room and ask them to try it on',
+    'Ask whether they want a bag and how they will pay',
+  ],
+  transport: [
+    'Greet them and ask where they are headed',
+    'Explain the line and the platform to take',
+    'Ask whether they need a ticket or a pass',
+    'Confirm the next train and the time',
+    'Wish them a good trip',
+  ],
+  hotel: [
+    'Greet them and ask whether they have a reservation',
+    'Confirm the name and the dates',
+    'Explain check-in and hand over the room key',
+    'Ask about breakfast or any other requests',
+    'Share the Wi-Fi and elevator details and say goodnight',
+  ],
+  directions: [
+    'Ask if they need help and where they want to go',
+    'Give directions using landmarks',
+    'Ask if they understood or need it repeated',
+    'Suggest the nearest station or a landmark to find their way',
+    'Wish them a good day',
+  ],
+  greetings: [
+    'Greet them and ask how they are doing',
+    'Ask where they are from',
+    'Ask how long they are staying in Japan',
+    'Ask what they like to do here',
+    'Say goodbye and invite them to chat again',
+  ],
+  emergencies: [
+    'Check whether they are okay and ask what happened',
+    'Ask where they are and whether they are hurt',
+    'Ask whether they need the police or an ambulance',
+    'Ask whether someone can be contacted for them',
+    'Reassure them and stay with them until help arrives',
+  ],
+  numbers: [
+    'Greet them and ask what they would like',
+    'Ask how many or what size',
+    'Tell them the price',
+    'Ask whether they want a bag or have a point card',
+    'Take the payment and thank them',
+  ],
+  'small-talk': [
+    'Open with a friendly comment about the weather or the place',
+    'Ask about their day',
+    'Ask about their hobbies or plans',
+    'Share a short opinion and ask a follow-up question',
+    'Close warmly and suggest meeting again',
+  ],
+  sightseeing: [
+    'Greet them and offer to help at the landmark',
+    'Ask what they most want to see',
+    'Explain the highlights',
+    'Ask how much time they have',
+    'Offer to take a photo and wish them a good visit',
+  ],
+  onsen: [
+    'Greet them and hand over a towel and locker key',
+    'Explain the bathing etiquette',
+    'Ask whether they want a room or dinner',
+    'Ask whether they need a yukata',
+    'Wish them a relaxing bath',
+  ],
+  'about-me': [
+    'Ask their name and where they are from',
+    'Ask how they are finding Japan',
+    'Ask what they do for work or study',
+    'Ask what they enjoy doing for fun',
+    'Ask for a way to contact them and suggest meeting again',
+  ],
+  'pharmacy-health': [
+    'Ask what the problem is',
+    'Ask how long it has lasted and where it hurts',
+    'Ask about allergies or medicines they already take',
+    'Recommend a medicine and explain how to take it',
+    'Explain side effects and when to see a doctor',
+  ],
+}
+
+export function getScenarioFlow(slug: string): string[] {
+  return flows[slug] ?? ['Keep the conversation natural and move it forward with a question']
+}
+
 export function getSimulatorPrompt(scenario: Scenario): string {
   const phraseList = scenario.phrases.map(p => `- ${p.japanese} (${p.english})`).join('\n')
+  const steps = getScenarioFlow(scenario.slug)
+    .map((step, i) => `${i + 1}. ${step}`)
+    .join('\n')
 
   return `You are a native Japanese ${getRoleForScenario(scenario.slug)} in Japan.
 You are having a real conversation with a tourist who is learning Japanese.
@@ -58,10 +167,19 @@ RULES:
 - React naturally to what they say — you are a real person, not a teacher.
 - After every response, add a new line with: [HINT: English translation of what you just said]
 
+LEADING THE CONVERSATION:
+- You drive the conversation. Every reply moves to the next step below and ends with one clear question the tourist can answer.
+- Follow the steps in order. Stay on the current step until the tourist has answered it, then move on.
+- If the tourist goes off-topic or asks something unrelated, answer briefly, then bring it back to the current step.
+- Use the phrases below naturally, so the tourist hears them in context.
+
 SCENARIO: ${scenario.label}
+
+STEPS:
+${steps}
 
 PHRASES THE USER IS PRACTICING:
 ${phraseList}
 
-Stay in character. Begin the interaction naturally when the user speaks.`
+Stay in character. Begin with the first step.`
 }

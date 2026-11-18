@@ -7,22 +7,44 @@ import { useAuthStore } from '@/store/auth'
 import { useAudio } from '@/hooks/useAudio'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { readSignedInAt } from '@/lib/auth/session'
 
 // Case-insensitive, trimmed match against our small VIP list
-const SPECIAL_NAMES = ['rimane', 'riri', 'youssra', 'youyou', 'narimane', 'youss' , 'yous']
+const SPECIAL_NAMES = ['rimane', 'riri', 'youssra', 'youyou', 'narimane', 'youss' , 'yous','zackari','zachari']
 
 // NOTE: the specific message requested for the VIP list contained profanity
 const SPECIAL_MESSAGE = "SEYEBT LIKOM ZBEL DEBRO KRRKOM TEMA, KOLA YNECH ALA KBALTO. 👋"
 const SPECIAL_VOICE_MESSAGE = (name: string) => `ようこそ、${name}さん！日本語の勉強、頑張ってね！`
 const DEFAULT_MESSAGE = (name: string) => `Happy learning${name ? `, ${name}` : ''}! 頑張って 🎌`
 
+const GREETED_KEY = 'nihongo-greeted-at'
+
+// Plays the VIP greeting once per sign-in. The sign-in timestamp is the key, so reloads don't replay it
+// but the next sign-in does.
+function greetSpecialUser(name: string, play: (text: string) => Promise<void>) {
+  const signedInAt = readSignedInAt()
+  if (!signedInAt || localStorage.getItem(GREETED_KEY) === signedInAt) return
+  localStorage.setItem(GREETED_KEY, signedInAt)
+  void play(SPECIAL_VOICE_MESSAGE(name))
+  confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } })
+}
+
 export function WelcomeDialog() {
   const user = useAuthStore(s => s.user)
   const hasOnboarded = useOnboardingStore(s => s.hasOnboarded)
+  const userName = useOnboardingStore(s => s.userName)
+  const synced = useOnboardingStore(s => s.synced)
   const completeOnboarding = useOnboardingStore(s => s.completeOnboarding)
   const { play } = useAudio()
   const [name, setName] = useState('')
   const [toastMessage, setToastMessage] = useState<string | null>(null)
+
+  // Returning users: greet once the saved profile has loaded, so the name is the server copy
+  useEffect(() => {
+    if (!user || !synced || !hasOnboarded) return
+    const trimmed = userName.trim()
+    if (SPECIAL_NAMES.includes(trimmed.toLowerCase())) greetSpecialUser(trimmed, play)
+  }, [user, synced, hasOnboarded, userName, play])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -30,21 +52,21 @@ export function WelcomeDialog() {
     const isSpecial = SPECIAL_NAMES.includes(trimmed.toLowerCase())
     completeOnboarding(trimmed)
     setToastMessage(isSpecial ? SPECIAL_MESSAGE : DEFAULT_MESSAGE(trimmed))
-    if (isSpecial) {
-      void play(SPECIAL_VOICE_MESSAGE(trimmed))
-      confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } })
-    }
+    if (isSpecial) greetSpecialUser(trimmed, play)
   }
 
   // Name capture only happens once signed in, so it always has a user to persist against
   if (!user) return null
 
+  // Wait for the saved profile first, so a late server copy can't overwrite what the user types
   if (!hasOnboarded) {
+    if (!synced) return null
+
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
         <form
           onSubmit={handleSubmit}
-          className="flex w-full max-w-sm flex-col gap-4 rounded-lg border border-border bg-card p-6 shadow-lg"
+          className="animate-scale-in flex w-full max-w-sm flex-col gap-4 rounded-lg border border-border bg-card p-6 shadow-lg"
         >
           <div>
             <h2 className="text-lg font-semibold">ようこそ！ Welcome</h2>
@@ -52,12 +74,15 @@ export function WelcomeDialog() {
           </div>
           <input
             autoFocus
+            required
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Your name"
             className="h-10 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
-          <Button type="submit">Start learning</Button>
+          <Button type="submit" disabled={!name.trim()}>
+            Start learning
+          </Button>
         </form>
       </div>
     )

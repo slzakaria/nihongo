@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { useContentStore } from '@/lib/data/content'
 import { PhraseCard } from '@/components/phrases/PhraseCard'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 export default function SearchPage() {
   const [query, setQuery] = useState('')
@@ -27,10 +28,10 @@ export default function SearchPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 px-4 py-10 sm:px-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Search phrases</h1>
-        <p className="text-muted-foreground">Search by English, romaji, or Japanese across every scenario.</p>
-      </div>
+      <PageHeader
+        title="Search phrases"
+        description="Search by English, romaji, or Japanese across every scenario."
+      />
       <input
         autoFocus
         value={query}

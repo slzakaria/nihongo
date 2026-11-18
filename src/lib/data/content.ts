@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { createClient } from '@supabase/supabase-js'
 import type { Scenario } from '@/types'
 import phrasesRaw from './phrases.json'
 import hiraganaRaw from './hiragana.json'
@@ -38,6 +37,18 @@ const TABLES: Record<keyof ContentSet, string> = {
   katakana: 'katakana_rows',
 }
 
+// Reads the content tables through PostgREST with plain fetch. A supabase-js client here would create
+// a second GoTrueClient in the browser, which shares the auth storage key with the app's auth client.
+async function fetchTable(table: string, url: string, key: string): Promise<Scenario[]> {
+  const res = await fetch(`${url}/rest/v1/${table}?select=slug,label,icon,phrases&order=sort_order.asc`, {
+    headers: { apikey: key, Authorization: `Bearer ${key}` },
+  })
+  if (!res.ok) throw new Error(`${table} unavailable`)
+  const rows = (await res.json()) as Scenario[]
+  if (rows.length === 0) throw new Error(`${table} is empty`)
+  return rows.map(({ slug, label, icon, phrases }) => ({ slug, label, icon, phrases }))
+}
+
 // Reads all three tables with the public key. Returns null if any table fails or is empty,
 // so callers can fall back to the bundled JSON.
 export async function fetchContent(): Promise<ContentSet | null> {
@@ -45,24 +56,11 @@ export async function fetchContent(): Promise<ContentSet | null> {
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   if (!url || !key) return null
 
-  const supabase = createClient(url, key, { auth: { persistSession: false } })
-
   try {
     const entries = await Promise.all(
-      (Object.keys(TABLES) as (keyof ContentSet)[]).map(async name => {
-        const { data, error } = await supabase
-          .from(TABLES[name])
-          .select('slug, label, icon, phrases')
-          .order('sort_order')
-        if (error || !data || data.length === 0) throw new Error(`${TABLES[name]} unavailable`)
-        const scenarios: Scenario[] = data.map(row => ({
-          slug: row.slug,
-          label: row.label,
-          icon: row.icon,
-          phrases: row.phrases,
-        }))
-        return [name, scenarios] as const
-      })
+      (Object.keys(TABLES) as (keyof ContentSet)[]).map(
+        async name => [name, await fetchTable(TABLES[name], url, key)] as const
+      )
     )
     return Object.fromEntries(entries) as unknown as ContentSet
   } catch {

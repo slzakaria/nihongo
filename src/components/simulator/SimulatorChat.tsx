@@ -9,6 +9,7 @@ import { getScenarioStarter } from '@/lib/simulator/prompts'
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition'
 import { useAuthStore } from '@/store/auth'
 import { fetchConversation, saveConversation, clearConversation } from '@/lib/supabase/simulator'
+import { recordStudyDay } from '@/lib/supabase/activity'
 import { cn } from '@/lib/utils'
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
@@ -69,6 +70,8 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
 
     const baseLen = messages.length
     const nextApiHistory: ChatMessage[] = [...apiHistory, { role: 'user', content: text }]
+    const userId = useAuthStore.getState().user?.id
+    if (userId) void recordStudyDay(userId)
     setMessages(prev => [...prev, { role: 'user', content: text }, { role: 'assistant', content: '' }])
     setInput('')
     setIsStreaming(true)

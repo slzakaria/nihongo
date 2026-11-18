@@ -10,6 +10,8 @@ const MODEL_ID = 'eleven_turbo_v2_5' // v4 Turbo — fast, Japanese support, fre
 // Disk cache so the same phrase is never sent to ElevenLabs twice, even across
 // browsers/devices or a cleared client cache — phrases are a finite, static set.
 const CACHE_DIR = path.join(process.cwd(), '.cache', 'tts')
+// Bump when the request changes so previously cached audio is regenerated
+const CACHE_VERSION = 'ja-v2'
 
 // Generous cap since the app's own finite phrase set is served from the disk cache above
 // (free) — this only throttles genuinely novel/arbitrary text from an anonymous caller.
@@ -17,7 +19,7 @@ const ANON_DAILY_LIMIT = 100
 const LIMIT_COOKIE = 'tts_reqs'
 
 function cacheKeyFor(text: string, voiceId: string) {
-  return createHash('sha256').update(`${voiceId}:${MODEL_ID}:${text}`).digest('hex')
+  return createHash('sha256').update(`${CACHE_VERSION}:${voiceId}:${MODEL_ID}:${text}`).digest('hex')
 }
 
 async function readFromCache(key: string): Promise<Buffer | undefined> {
@@ -80,6 +82,8 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       text: cleanText,
       model_id: MODEL_ID,
+      // Without this the model guesses the language, which made Japanese read as English
+      language_code: 'ja',
       voice_settings: { stability: 0.5, similarity_boost: 0.75 },
     }),
   })

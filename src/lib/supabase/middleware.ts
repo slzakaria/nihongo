@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { isSessionExpired, SIGNED_IN_AT_COOKIE } from '@/lib/auth/session'
 
 // Refreshes the Supabase auth session cookie on every request (required by @supabase/ssr)
 export async function updateSession(request: NextRequest) {
@@ -25,7 +26,15 @@ export async function updateSession(request: NextRequest) {
   )
 
   // Must not be removed — triggers a token refresh when the session is near expiry
-  await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  // Sessions are revalidated every 6 hours: sign out (revokes the refresh token) once the sign-in time is stale
+  if (user && isSessionExpired(request.cookies.get(SIGNED_IN_AT_COOKIE)?.value)) {
+    await supabase.auth.signOut()
+    supabaseResponse.cookies.delete(SIGNED_IN_AT_COOKIE)
+  }
 
   return supabaseResponse
 }
