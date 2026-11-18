@@ -6,6 +6,15 @@ import { useAuthStore } from '@/store/auth'
 import { useSignInDialogStore } from '@/store/signInDialog'
 import { SignIn } from '@clerk/nextjs'
 
+// Lets Clerk's card shrink to the dialog width instead of its fixed desktop width, which overflows on phones.
+const fluidClerkAppearance = {
+  elements: {
+    rootBox: 'w-full',
+    cardBox: 'w-full',
+    card: 'w-full shadow-none',
+  },
+}
+
 // Centered sign-in popup with a branded header. Closes on Escape, backdrop click, or the close button,
 // and closes itself once the user is signed in.
 export function SignInDialog() {
@@ -39,7 +48,7 @@ export function SignInDialog() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="sign-in-title"
-        className="animate-scale-in relative w-full max-w-fit overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+        className="animate-scale-in relative w-full max-w-md overflow-hidden rounded-xl border border-border bg-card shadow-lg"
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Welcome back</p>
@@ -48,8 +57,8 @@ export function SignInDialog() {
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">Sync your progress across every device.</p>
         </div>
-        <div className="p-6">
-          <SignIn routing="hash" />
+        <div className="p-1">
+          <SignIn routing="hash" appearance={fluidClerkAppearance} />
         </div>
         <button
           type="button"
