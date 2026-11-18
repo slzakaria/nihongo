@@ -64,10 +64,10 @@ export default function Home() {
             you need for bars, shops, and small talk in Japan.
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
-            <Button asChild className="cursor-pointer">
+            <Button asChild className="cursor-pointer w-full">
               <Link href="/flashcards">Start Flashcards</Link>
             </Button>
-            <Button asChild className="cursor-pointer">
+            <Button asChild className="cursor-pointer w-full">
               <Link href="/scenarios">Browse Scenarios</Link>
             </Button>
           </div>
