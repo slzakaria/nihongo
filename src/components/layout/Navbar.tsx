@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/auth";
 import { useProgressStore } from "@/store/progress";
 
-const links = [
+export const navLinks = [
   { href: "/scenarios", label: "Scenarios" },
   { href: "/kana", label: "Kana (Alphabet)" },
   { href: "/flashcards", label: "Flashcards" },
@@ -25,7 +25,7 @@ export function Navbar() {
   const [now] = useState(() => Date.now());
   const [mobileOpen, setMobileOpen] = useState(false);
   const dueCount = Object.values(cards).filter((c) => c.nextReview <= now).length;
-  const visibleLinks = user ? [...links, { href: "/profile", label: "Progress" }] : links;
+  const visibleLinks = user ? [...navLinks, { href: "/profile", label: "Progress" }] : navLinks;
 
   return (
     <header className='border-b border-border bg-card print:hidden'>

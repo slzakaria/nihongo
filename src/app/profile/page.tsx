@@ -1,19 +1,20 @@
 'use client'
 
-import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/auth'
-import { useOnboardingStore } from '@/store/onboarding'
 import { useProgressStore } from '@/store/progress'
 import { getAllPhrases } from '@/lib/data/phrases'
 import { useContentStore } from '@/lib/data/content'
-import { computeStreak } from '@/lib/srs/streak'
+import { computeStudyStats, dayKey } from '@/lib/activity/studyDays'
+import { fetchConversationSummaries, type ConversationSummary } from '@/lib/supabase/simulator'
+import { fetchStudyDays } from '@/lib/supabase/activity'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { PageHeader } from '@/components/layout/PageHeader'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-
-type Tab = 'scenarios' | 'flashcards'
+import { AccountCard } from '@/components/profile/AccountCard'
+import { ProgressTabs } from '@/components/profile/ProgressTabs'
+import { useOnboardingStore } from '@/store/onboarding'
 
 export default function ProfilePage() {
   const user = useAuthStore(s => s.user)
@@ -21,14 +22,23 @@ export default function ProfilePage() {
   const cards = useProgressStore(s => s.cards)
   const scenarios = useContentStore(s => s.content.phrases)
   const [now] = useState(() => Date.now())
-  const [tab, setTab] = useState<Tab>('scenarios')
+  const [conversations, setConversations] = useState<ConversationSummary[] | null>(null)
+  const [studyDays, setStudyDays] = useState<string[] | null>(null)
+
+  const userId = user?.id
+  useEffect(() => {
+    if (!userId) return
+    void fetchConversationSummaries(userId).then(setConversations)
+    void fetchStudyDays(userId).then(setStudyDays)
+  }, [userId])
 
   const allCards = Object.values(cards)
   const totalPhrases = getAllPhrases().length
   const reviewed = allCards.filter(c => c.lastReview !== null).length
   const due = allCards.filter(c => c.nextReview <= now).length
   const overallPct = totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100)
-  const streak = useMemo(() => computeStreak(allCards, now), [allCards, now])
+  const study = computeStudyStats(studyDays ?? [], dayKey(new Date(now)))
+  const practisedScenarios = conversations?.length ?? 0
 
   if (!user) {
     return (
@@ -42,12 +52,32 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {userName ? `${userName}'s progress` : 'Your progress'}
-        </h1>
-        <p className="text-muted-foreground">Synced to {user.email}</p>
+    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
+      <PageHeader
+        title={userName ? `${userName}'s profile` : 'Your profile'}
+        description="Your account, and how far you have got in every scenario, flashcard deck and simulator conversation."
+      />
+
+      <AccountCard />
+
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+        <StatTile label="Phrases reviewed" value={`${overallPct}%`} detail={`${reviewed} of ${totalPhrases}`} />
+        <StatTile label="Due now" value={String(due)} detail="flashcards waiting" />
+        <StatTile
+          label="Current streak"
+          value={String(study.streak)}
+          detail={study.streak === 1 ? 'day in a row' : 'days in a row'}
+        />
+        <StatTile
+          label="Days learning"
+          value={String(study.total)}
+          detail={study.total === 1 ? 'day studied' : 'days studied'}
+        />
+        <StatTile
+          label="Simulator"
+          value={String(practisedScenarios)}
+          detail={practisedScenarios === 1 ? 'scenario practised' : 'scenarios practised'}
+        />
       </div>
 
       <Card>
@@ -61,59 +91,23 @@ export default function ProfilePage() {
               {reviewed} / {totalPhrases} phrases reviewed ({overallPct}%)
             </span>
             {due > 0 && <Badge variant="secondary">{due} due now</Badge>}
-            {streak > 0 && <Badge variant="muted">🔥 {streak} day{streak === 1 ? '' : 's'} streak</Badge>}
           </div>
         </CardContent>
       </Card>
 
-      <div>
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-semibold tracking-tight">By scenario</h2>
-          <div className="flex gap-1 rounded-md border border-border p-0.5" role="tablist" aria-label="View by">
-            {(['scenarios', 'flashcards'] as const).map(t => (
-              <button
-                key={t}
-                type="button"
-                role="tab"
-                aria-selected={tab === t}
-                onClick={() => setTab(t)}
-                className={cn(
-                  'rounded px-3 py-1 text-xs font-medium capitalize transition-colors cursor-pointer',
-                  tab === t ? 'bg-secondary text-secondary-foreground' : 'text-muted-foreground hover:bg-muted'
-                )}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-          {scenarios.map(s => {
-            const scenarioCards = allCards.filter(c => c.scenarioSlug === s.slug)
-            const scenarioReviewed = scenarioCards.filter(c => c.lastReview !== null).length
-            const scenarioDue = scenarioCards.filter(c => c.nextReview <= now).length
-            const pct = s.phrases.length === 0 ? 0 : Math.round((scenarioReviewed / s.phrases.length) * 100)
-            return (
-              <Link key={s.slug} href={`/${tab}/${s.slug}`}>
-                <Card className="h-full transition-colors hover:border-primary">
-                  <CardHeader>
-                    <CardTitle className="text-base">{s.label}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-col gap-2">
-                    <Progress value={pct} />
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>
-                        {scenarioReviewed} / {s.phrases.length} reviewed · {pct}%
-                      </span>
-                      {scenarioDue > 0 && <Badge variant="muted">{scenarioDue} due</Badge>}
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            )
-          })}
-        </div>
-      </div>
+      <ProgressTabs cards={allCards} scenarios={scenarios} conversations={conversations} now={now} />
     </div>
+  )
+}
+
+function StatTile({ label, value, detail }: { label: string; value: string; detail: string }) {
+  return (
+    <Card>
+      <CardContent className="flex flex-col gap-1 p-4">
+        <span className="text-xs uppercase tracking-wide text-muted-foreground">{label}</span>
+        <span className="text-2xl font-semibold">{value}</span>
+        <span className="text-xs text-muted-foreground">{detail}</span>
+      </CardContent>
+    </Card>
   )
 }

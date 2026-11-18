@@ -5,6 +5,7 @@ import { createCard, sm2 } from '@/lib/srs/sm2'
 import { getAllPhrases, getScenarioSlugForPhrase } from '@/lib/data/phrases'
 import { useAuthStore } from '@/store/auth'
 import { upsertCards, deleteScenarioCards } from '@/lib/supabase/progress'
+import { recordStudyDay } from '@/lib/supabase/activity'
 
 interface ProgressStore {
   cards: Record<string, SRSCard> // keyed by phraseId
@@ -62,7 +63,10 @@ export const useProgressStore = create<ProgressStore>()(
           cards: { ...state.cards, [phraseId]: updated },
         }))
         const userId = useAuthStore.getState().user?.id
-        if (userId) void upsertCards(userId, [updated])
+        if (userId) {
+          void upsertCards(userId, [updated])
+          void recordStudyDay(userId)
+        }
       },
 
       // Marks a phrase as reviewed from passive exposure (audio played / answers opened), without affecting SRS scheduling
@@ -74,7 +78,10 @@ export const useProgressStore = create<ProgressStore>()(
           cards: { ...state.cards, [phraseId]: updated },
         }))
         const userId = useAuthStore.getState().user?.id
-        if (userId) void upsertCards(userId, [updated])
+        if (userId) {
+          void upsertCards(userId, [updated])
+          void recordStudyDay(userId)
+        }
       },
 
       getDueCards: scenarioSlug => {

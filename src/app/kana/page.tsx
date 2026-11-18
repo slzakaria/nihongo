@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { KanaCard } from '@/components/kana/KanaCard'
+import { PageHeader } from '@/components/layout/PageHeader'
 import { useContentStore } from '@/lib/data/content'
 import { cn } from '@/lib/utils'
 
@@ -19,10 +20,7 @@ export default function KanaPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10 sm:px-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Kana</h1>
-        <p className="text-muted-foreground">Learn the Japanese syllabaries, row by row.</p>
-      </div>
+      <PageHeader title="Kana" description="Learn the Japanese syllabaries, row by row." />
 
       <div role="tablist" className="flex gap-2">
         {(Object.keys(labels) as Script[]).map(key => (

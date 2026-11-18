@@ -3,31 +3,31 @@
 :root {
   --radius: 0.75rem;
 
-  /* white smoke */
-  --background: #eff7f6;
-  --foreground: #223338;
+  /* washi paper */
+  --background: #fbf8f6;
+  --foreground: #2b3a4a;
 
   --card: #ffffff;
-  --card-foreground: #223338;
+  --card-foreground: #2b3a4a;
 
-  /* frosted blue */
-  --primary: #7bdff2;
-  --primary-foreground: #0f3a45;
+  /* hanami blue */
+  --primary: #8fb8de;
+  --primary-foreground: #14324d;
 
-  /* blush pop */
-  --secondary: #f2b5d4;
-  --secondary-foreground: #6b1f44;
+  /* sakura pink */
+  --secondary: #f7b7c2;
+  --secondary-foreground: #5c1d2e;
 
-  /* icy aqua */
-  --muted: #b2f7ef;
-  --muted-foreground: #4f6c69;
+  /* pale sky */
+  --muted: #e6f0f8;
+  --muted-foreground: #55697d;
 
-  /* petal frost */
-  --accent: #f7d6e0;
-  --accent-foreground: #6b1f44;
+  /* peach */
+  --accent: #ffd8c2;
+  --accent-foreground: #6b3a2a;
 
-  --border: #dceaea;
-  --ring: #7bdff2;
+  --border: #dbe5ee;
+  --ring: #8fb8de;
 }
 
 @theme inline {
@@ -53,26 +53,30 @@
 }
 
 .dark {
-  --background: #201c22;
-  --foreground: #eaf7f6;
+  /* night river */
+  --background: #101b2a;
+  --foreground: #e8f0f8;
 
-  --card: #2a2530;
-  --card-foreground: #eaf7f6;
+  --card: #172538;
+  --card-foreground: #e8f0f8;
 
-  --primary: #7bdff2;
-  --primary-foreground: #0b2c35;
+  /* moonlit blue */
+  --primary: #9cc8ee;
+  --primary-foreground: #0a1f33;
 
-  --secondary: #d98fb3;
-  --secondary-foreground: #3a1526;
+  /* soft sakura */
+  --secondary: #f2b8c6;
+  --secondary-foreground: #3a1a24;
 
-  --muted: #1e3230;
-  --muted-foreground: #9fb8b5;
+  --muted: #1d2e44;
+  --muted-foreground: #a6b9cc;
 
-  --accent: #d98fb3;
-  --accent-foreground: #3a1526;
+  /* warm peach */
+  --accent: #f5c9b0;
+  --accent-foreground: #3a1f14;
 
-  --border: #223635;
-  --ring: #7bdff2;
+  --border: #2a3c55;
+  --ring: #9cc8ee;
 }
 
 body {
@@ -80,3 +84,107 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+@layer base {
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  select {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Brand gradient used on headers and cards. It slides across on hover (when the element or an ancestor
+   with the `group` class is hovered), so the colours move rather than snap. */
+.gradient-brand {
+  background-image: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--primary) 45%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 50%, transparent) 50%,
+    color-mix(in srgb, var(--secondary) 45%, transparent) 100%
+  );
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  transition: background-position 0.9s ease;
+}
+
+/* Muted text sits on a tinted background here, so it uses the full foreground colour to stay readable */
+.gradient-brand .text-muted-foreground {
+  color: var(--foreground);
+  opacity: 0.85;
+}
+
+.gradient-brand:hover,
+.group:hover .gradient-brand {
+  background-position: 100% 50%;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.25s ease-out both;
+}
+
+.animate-draw-line {
+  animation: draw-line 0.6s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-draw-line {
+    animation: none;
+  }
+}
+

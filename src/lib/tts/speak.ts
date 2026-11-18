@@ -3,6 +3,9 @@
 // in-memory blob URLs for the current tab, IndexedDB for across reloads/navigations.
 import { getCachedAudio, setCachedAudio } from './audioCache'
 
+// Matches the server's CACHE_VERSION so browsers drop audio generated before the language fix
+const CACHE_VERSION = 'ja-v2'
+
 const blobUrlCache = new Map<string, string>()
 const inFlight = new Map<string, Promise<string>>()
 
@@ -14,7 +17,8 @@ async function fetchAudioUrl(text: string): Promise<string> {
   if (pending) return pending
 
   const promise = (async () => {
-    const cachedBlob = await getCachedAudio(text).catch(() => undefined)
+    const cacheKey = `${CACHE_VERSION}:${text}`
+    const cachedBlob = await getCachedAudio(cacheKey).catch(() => undefined)
     if (cachedBlob) {
       const url = URL.createObjectURL(cachedBlob)
       blobUrlCache.set(text, url)
@@ -29,7 +33,7 @@ async function fetchAudioUrl(text: string): Promise<string> {
     if (!res.ok) throw new Error('TTS request failed')
 
     const blob = await res.blob()
-    void setCachedAudio(text, blob).catch(() => {
+    void setCachedAudio(cacheKey, blob).catch(() => {
       // non-fatal — the phrase will just be re-fetched next session
     })
 
