@@ -1,4 +1,4 @@
-import type { User } from '@supabase/supabase-js'
+import type { AppUser } from '@/store/auth'
 import { createClient } from '@/lib/supabase/client'
 import { RomajiMode } from '@/types'
 
@@ -10,6 +10,7 @@ export interface ProfileRow {
   phone: string | null
   last_sign_in_at: string | null
   profile_intro_seen: boolean
+  feature_tour_seen: boolean
   has_onboarded: boolean
   romaji_mode: RomajiMode
 }
@@ -28,10 +29,10 @@ export async function upsertProfile(userId: string, fields: Partial<Omit<Profile
 }
 
 // Mirrors the account details that live in Supabase Auth, so they are also visible on the profiles table
-export async function syncAccountFields(user: User) {
+export async function syncAccountFields(user: AppUser) {
   await upsertProfile(user.id, {
-    email: user.email ?? null,
+    email: user.email,
     phone: user.phone ? `+${user.phone.replace(/^\+/, '')}` : null,
-    last_sign_in_at: user.last_sign_in_at ?? null,
+    last_sign_in_at: user.lastSignInAt,
   })
 }

@@ -4,6 +4,7 @@ import { SRSCard, SRSGrade } from '@/types'
 import { createCard, sm2 } from '@/lib/srs/sm2'
 import { getAllPhrases, getScenarioSlugForPhrase } from '@/lib/data/phrases'
 import { useAuthStore } from '@/store/auth'
+import { useGoalsStore } from '@/store/goals'
 import { upsertCards, deleteScenarioCards } from '@/lib/supabase/progress'
 import { recordStudyDay } from '@/lib/supabase/activity'
 
@@ -11,6 +12,7 @@ interface ProgressStore {
   cards: Record<string, SRSCard> // keyed by phraseId
   initCard: (phraseId: string) => void
   initScenario: (scenarioSlug: string) => void
+  initKana: (rowSlug: string, phraseIds: string[]) => void
   gradeCard: (phraseId: string, grade: SRSGrade) => void
   markReviewed: (phraseId: string) => void
   getDueCards: (scenarioSlug?: string) => SRSCard[]
@@ -55,10 +57,29 @@ export const useProgressStore = create<ProgressStore>()(
         if (userId && newCards.length > 0) void upsertCards(userId, newCards)
       },
 
+      initKana: (rowSlug, phraseIds) => {
+        const scenarioSlug = `kana:${rowSlug}`
+        const newCards: SRSCard[] = []
+        set(state => {
+          const cards = { ...state.cards }
+          for (const id of phraseIds) {
+            if (!cards[id]) {
+              const card = createCard(id, scenarioSlug)
+              cards[id] = card
+              newCards.push(card)
+            }
+          }
+          return { cards }
+        })
+        const userId = useAuthStore.getState().user?.id
+        if (userId && newCards.length > 0) void upsertCards(userId, newCards)
+      },
+
       gradeCard: (phraseId, grade) => {
         const card = get().cards[phraseId]
         if (!card) return
         const updated = sm2(card, grade)
+        useGoalsStore.getState().recordReview()
         set(state => ({
           cards: { ...state.cards, [phraseId]: updated },
         }))
@@ -74,6 +95,7 @@ export const useProgressStore = create<ProgressStore>()(
         const card = get().cards[phraseId]
         if (!card || card.lastReview !== null) return
         const updated = { ...card, lastReview: Date.now() }
+        useGoalsStore.getState().recordReview()
         set(state => ({
           cards: { ...state.cards, [phraseId]: updated },
         }))

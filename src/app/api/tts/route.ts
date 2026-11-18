@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server'
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import { createClient } from '@/lib/supabase/server'
+import { currentServerUser } from '@/lib/auth/server'
 import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
 
 const ELEVENLABS_API_URL = 'https://api.elevenlabs.io/v1/text-to-speech'
@@ -57,10 +57,7 @@ export async function POST(req: NextRequest) {
   }
 
   let setCookie: string | undefined
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await currentServerUser()
   if (!user) {
     const { limited, setCookie: cookie } = checkAndBumpDailyLimit(req, LIMIT_COOKIE, ANON_DAILY_LIMIT)
     if (limited) {

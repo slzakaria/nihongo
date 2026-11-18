@@ -7,7 +7,6 @@ import { useAuthStore } from '@/store/auth'
 import { useAudio } from '@/hooks/useAudio'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { readSignedInAt } from '@/lib/auth/session'
 
 // Case-insensitive, trimmed match against our small VIP list
 const SPECIAL_NAMES = ['rimane', 'riri', 'youssra', 'youyou', 'narimane', 'youss' , 'yous','zackari','zachari']
@@ -21,8 +20,7 @@ const GREETED_KEY = 'nihongo-greeted-at'
 
 // Plays the VIP greeting once per sign-in. The sign-in timestamp is the key, so reloads don't replay it
 // but the next sign-in does.
-function greetSpecialUser(name: string, play: (text: string) => Promise<void>) {
-  const signedInAt = readSignedInAt()
+function greetSpecialUser(name: string, signedInAt: string | null, play: (text: string) => Promise<void>) {
   if (!signedInAt || localStorage.getItem(GREETED_KEY) === signedInAt) return
   localStorage.setItem(GREETED_KEY, signedInAt)
   void play(SPECIAL_VOICE_MESSAGE(name))
@@ -43,7 +41,7 @@ export function WelcomeDialog() {
   useEffect(() => {
     if (!user || !synced || !hasOnboarded) return
     const trimmed = userName.trim()
-    if (SPECIAL_NAMES.includes(trimmed.toLowerCase())) greetSpecialUser(trimmed, play)
+    if (SPECIAL_NAMES.includes(trimmed.toLowerCase())) greetSpecialUser(trimmed, user.lastSignInAt, play)
   }, [user, synced, hasOnboarded, userName, play])
 
   function handleSubmit(e: React.FormEvent) {
@@ -52,7 +50,7 @@ export function WelcomeDialog() {
     const isSpecial = SPECIAL_NAMES.includes(trimmed.toLowerCase())
     completeOnboarding(trimmed)
     setToastMessage(isSpecial ? SPECIAL_MESSAGE : DEFAULT_MESSAGE(trimmed))
-    if (isSpecial) greetSpecialUser(trimmed, play)
+    if (isSpecial) greetSpecialUser(trimmed, user?.lastSignInAt ?? null, play)
   }
 
   // Name capture only happens once signed in, so it always has a user to persist against

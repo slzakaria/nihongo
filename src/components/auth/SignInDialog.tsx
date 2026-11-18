@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 import { useSignInDialogStore } from '@/store/signInDialog'
-import { SignInForm } from '@/components/layout/SignInForm'
+import { SignIn } from '@clerk/nextjs'
 
 // Centered sign-in popup with a branded header. Closes on Escape, backdrop click, or the close button,
 // and closes itself once the user is signed in.
@@ -39,7 +39,7 @@ export function SignInDialog() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="sign-in-title"
-        className="animate-scale-in relative w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+        className="animate-scale-in relative w-full max-w-fit overflow-hidden rounded-xl border border-border bg-card shadow-lg"
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Welcome back</p>
@@ -49,7 +49,7 @@ export function SignInDialog() {
           <p className="mt-1 text-sm text-muted-foreground">Sync your progress across every device.</p>
         </div>
         <div className="p-6">
-          <SignInForm />
+          <SignIn routing="hash" />
         </div>
         <button
           type="button"

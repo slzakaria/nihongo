@@ -6,6 +6,8 @@ import { useProgressStore } from '@/store/progress'
 import { getAllPhrases } from '@/lib/data/phrases'
 import { useContentStore } from '@/lib/data/content'
 import { computeStudyStats, dayKey } from '@/lib/activity/studyDays'
+import { countReviewedPhrases } from '@/lib/srs/milestones'
+import { GoalsCard } from '@/components/profile/GoalsCard'
 import { fetchConversationSummaries, type ConversationSummary } from '@/lib/supabase/simulator'
 import { fetchStudyDays } from '@/lib/supabase/activity'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -34,7 +36,7 @@ export default function ProfilePage() {
 
   const allCards = Object.values(cards)
   const totalPhrases = getAllPhrases().length
-  const reviewed = allCards.filter(c => c.lastReview !== null).length
+  const reviewed = countReviewedPhrases(allCards)
   const due = allCards.filter(c => c.nextReview <= now).length
   const overallPct = totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100)
   const study = computeStudyStats(studyDays ?? [], dayKey(new Date(now)))
@@ -94,6 +96,8 @@ export default function ProfilePage() {
           </div>
         </CardContent>
       </Card>
+
+      <GoalsCard reviewed={countReviewedPhrases(allCards)} />
 
       <ProgressTabs cards={allCards} scenarios={scenarios} conversations={conversations} now={now} />
     </div>

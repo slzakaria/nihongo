@@ -20,7 +20,7 @@ export function Footer() {
             </Link>
           ))}
         </nav>
-        <p className="text-center text-xs text-muted-foreground">⛩️ ZS made this app so that R & Y dont always rely on him while in Japan ⛩️ - {year}</p>
+        <p className="text-center text-xs text-muted-foreground">⛩️ はなぞの:flower garden - Hanazono made by ZS so that R & Y dont always rely on him while in Japan ⛩️ - {year}</p>
       </div>
     </footer>
   )

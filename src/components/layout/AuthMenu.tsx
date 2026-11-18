@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { LogOut, User, UserRound } from 'lucide-react'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+import { useClerk } from '@clerk/nextjs'
 import { useAuthStore } from '@/store/auth'
 import { useOnboardingStore } from '@/store/onboarding'
 import { Button } from '@/components/ui/button'
@@ -17,7 +17,7 @@ export function AuthMenu() {
   const showSignIn = useSignInDialogStore(s => s.show)
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const supabase = createClient()
+  const { signOut: clerkSignOut } = useClerk()
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
@@ -28,7 +28,7 @@ export function AuthMenu() {
   }, [])
 
   async function signOut() {
-    await supabase.auth.signOut()
+    await clerkSignOut()
     setOpen(false)
   }
 

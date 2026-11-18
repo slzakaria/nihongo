@@ -4,16 +4,14 @@ import { useRef, useState } from 'react'
 import { Camera, Loader2 } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 import { useOnboardingStore } from '@/store/onboarding'
-import { SESSION_MAX_AGE_MS, readSignedInAt } from '@/lib/auth/session'
-import { PHONE_AUTH_ENABLED } from '@/lib/auth/phone'
 import { uploadAvatar, AVATAR_TYPES } from '@/lib/supabase/avatar'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar } from '@/components/ui/avatar'
-import { EmailEditor, NameEditor, PasswordEditor, PhoneEditor } from '@/components/profile/AccountEditors'
+import { NameEditor } from '@/components/profile/NameEditor'
 
-type EditableField = 'name' | 'email' | 'phone' | 'password'
+type EditableField = 'name'
 
 function formatDate(value: string | null | undefined, withTime = false) {
   if (!value) return '—'
@@ -32,12 +30,7 @@ export function AccountCard() {
   const fileInput = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState<string | null>(null)
-  const [editing, setEditing] = useState<EditableField | null>(() =>
-    // Reset links send users to /profile?password=1, so open the password editor straight away
-    typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('password') === '1'
-      ? 'password'
-      : null
-  )
+  const [editing, setEditing] = useState<EditableField | null>(null)
   if (!user) return null
 
   async function handleFile(file: File | undefined) {
@@ -54,17 +47,12 @@ export function AccountCard() {
     }
   }
 
-  const signedInAt = readSignedInAt()
-  const sessionEnds = signedInAt ? new Date(Number(signedInAt) + SESSION_MAX_AGE_MS).toISOString() : null
-
   const rows: { key: EditableField | null; label: string; value: string }[] = [
     { key: 'name', label: 'Registered name', value: userName || '—' },
-    { key: 'email', label: 'Email', value: user.email ?? '—' },
-    { key: PHONE_AUTH_ENABLED ? 'phone' : null, label: 'Phone', value: user.phone ? `+${user.phone.replace(/^\+/, '')}` : '—' },
-    { key: 'password', label: 'Password', value: '••••••••' },
-    { key: null, label: 'Joined', value: formatDate(user.created_at) },
-    { key: null, label: 'Last sign-in', value: formatDate(user.last_sign_in_at, true) },
-    { key: null, label: 'Session ends', value: formatDate(sessionEnds, true) },
+    { key: null, label: 'Email', value: user.email ?? '—' },
+    { key: null, label: 'Phone', value: user.phone ? `+${user.phone.replace(/^\+/, '')}` : '—' },
+    { key: null, label: 'Joined', value: formatDate(user.createdAt) },
+    { key: null, label: 'Last sign-in', value: formatDate(user.lastSignInAt, true) },
   ]
 
   function closeEditor() {
@@ -119,11 +107,6 @@ export function AccountCard() {
               </div>
               <dd className="text-sm font-medium">{row.value}</dd>
               {row.key === 'name' && editing === 'name' && <NameEditor onDone={closeEditor} />}
-              {row.key === 'email' && editing === 'email' && (
-                <EmailEditor current={user.email ?? undefined} onDone={closeEditor} />
-              )}
-              {row.key === 'phone' && editing === 'phone' && <PhoneEditor onDone={closeEditor} />}
-              {row.key === 'password' && editing === 'password' && <PasswordEditor onDone={closeEditor} />}
             </div>
           ))}
         </dl>

@@ -2,7 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest } from 'next/server'
 import { loadContent } from '@/lib/data/content'
 import { getSimulatorPrompt } from '@/lib/simulator/prompts'
-import { createClient } from '@/lib/supabase/server'
+import { currentServerUser } from '@/lib/auth/server'
 import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
 import { ChatMessage } from '@/types'
 
@@ -23,10 +23,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: 'Unknown scenario' }, { status: 400 })
   }
 
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await currentServerUser()
 
   let setCookie: string | undefined
   if (!user) {

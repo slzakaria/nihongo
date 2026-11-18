@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, BookOpen } from 'lucide-react'
+import { ArrowLeft, BookOpen, Mic } from 'lucide-react'
 import { loadContent } from '@/lib/data/content'
 import { PhraseList } from '@/components/phrases/PhraseList'
 import { ScenarioSidebar } from '@/components/layout/ScenarioSidebar'
+import { EtiquetteCard } from '@/components/scenarios/EtiquetteCard'
+import { getEtiquetteTips } from '@/lib/data/etiquette'
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent()
@@ -37,14 +39,25 @@ export default async function ScenarioDetailPage({
             <h1 className="text-2xl font-semibold tracking-tight">{scenario.label}</h1>
             <p className="text-muted-foreground">{scenario.phrases.length} phrases</p>
           </div>
-          <Link
-            href={`/quick-ref/${scenario.slug}`}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted"
-          >
-            <BookOpen className="h-3.5 w-3.5" />
-            Quick Reference
-          </Link>
+          <div className="flex shrink-0 flex-wrap justify-end gap-2">
+            <Link
+              href={`/speaking/${scenario.slug}`}
+              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted"
+            >
+              <Mic className="h-3.5 w-3.5" />
+              Practise speaking
+            </Link>
+            <Link
+              href={`/quick-ref/${scenario.slug}`}
+              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              Quick Reference
+            </Link>
+          </div>
         </div>
+
+        <EtiquetteCard tips={getEtiquetteTips(scenario.slug)} />
 
         <PhraseList phrases={scenario.phrases} scenarioSlug={scenario.slug} />
       </div>

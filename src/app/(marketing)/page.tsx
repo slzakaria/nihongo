@@ -56,7 +56,7 @@ export default function Home() {
       <section className="gradient-brand relative overflow-hidden rounded-3xl p-8 sm:p-12">
         <div className="flex max-w-2xl flex-col items-start gap-4">
           <h1 className="animate-fade-up text-3xl font-semibold tracking-tight sm:text-4xl">
-            <span className="text-primary-foreground dark:text-primary">はなぞの:HanaZono <br></br>
+            <span className="text-primary-foreground dark:text-primary">はなぞの : Hanazono <br></br>
 						</span> Survival Japanese for your trip
           </h1>
           <p className="animate-fade-up text-muted-foreground" style={{ animationDelay: '120ms' }}>
