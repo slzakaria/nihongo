@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { KanaCard } from '@/components/kana/KanaCard'
 import { PageHeader } from '@/components/layout/PageHeader'
-import { useContentStore } from '@/lib/data/content'
+import { loadKana, useContentStore } from '@/lib/data/content'
 import { cn } from '@/lib/utils'
 
 const labels = {
@@ -18,6 +18,10 @@ type Script = keyof typeof labels
 export default function KanaPage() {
   const [script, setScript] = useState<Script>('hiragana')
   const rows = useContentStore(s => s.content[script])
+
+  useEffect(() => {
+    loadKana()
+  }, [])
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10 sm:px-6">

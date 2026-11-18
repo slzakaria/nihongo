@@ -4,6 +4,7 @@ import { useMemo, useState, type ReactNode } from 'react'
 import { X, Loader2 } from 'lucide-react'
 import { getAllPhrases } from '@/lib/data/phrases'
 import { Button } from '@/components/ui/button'
+import { trackBusy } from '@/store/busy'
 
 interface Lookup {
   reading: string
@@ -40,11 +41,11 @@ export function WordLookup({ context, children }: { context: string; children: R
     setResult(null)
     setLoading(true)
     try {
-      const res = await fetch('/api/word', {
+      const res = await trackBusy(fetch('/api/word', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ word: term, context }),
-      })
+      }))
       const data = (await res.json()) as Lookup & { error?: string }
       if (!res.ok) throw new Error(data.error ?? 'Lookup failed')
       cache.set(term, data)

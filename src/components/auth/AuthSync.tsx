@@ -3,8 +3,6 @@
 import { useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { useAuthStore, type AppUser } from '@/store/auth'
-import { hydrateOnSignIn } from '@/lib/supabase/sync'
-import { syncAccountFields } from '@/lib/supabase/profile'
 import { useProgressStore } from '@/store/progress'
 import { useOnboardingStore } from '@/store/onboarding'
 
@@ -46,8 +44,9 @@ export function AuthSync() {
       lastSignInAt,
     }
     useAuthStore.getState().setUser(appUser)
-    void hydrateOnSignIn(appUser.id)
-    void syncAccountFields(appUser)
+    // Supabase code loads only for signed-in people, so guests never download it
+    void import('@/lib/supabase/sync').then(m => m.hydrateOnSignIn(appUser.id))
+    void import('@/lib/supabase/profile').then(m => m.syncAccountFields(appUser))
     // Only re-sync when the signed-in person or their details change
   }, [isLoaded, userKey, externalId, email, phone, createdAt, lastSignInAt])
 

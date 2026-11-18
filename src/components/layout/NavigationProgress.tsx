@@ -1,18 +1,15 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import { useBusyStore } from '@/store/busy'
 
-// Fast navigations finish before this, so the bar never flickers on them
-const SHOW_AFTER_MS = 150
-// Stops the bar if a navigation never completes (e.g. a click on a link to the current page)
+// Stops the overlay if a navigation never completes (e.g. a click on a link that fails to load)
 const GIVE_UP_MS = 15000
 
-// Thin top bar shown only while an in-app navigation is taking noticeable time
+// Marks in-app navigations as busy so the loading overlay covers them until the new route renders
 export function NavigationProgress() {
   const pathname = usePathname()
-  const [visible, setVisible] = useState(false)
-  const showTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const giveUpTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   useEffect(() => {
@@ -23,10 +20,9 @@ export function NavigationProgress() {
       const url = new URL(anchor.href)
       if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return
 
-      clearTimeout(showTimer.current)
       clearTimeout(giveUpTimer.current)
-      showTimer.current = setTimeout(() => setVisible(true), SHOW_AFTER_MS)
-      giveUpTimer.current = setTimeout(() => setVisible(false), GIVE_UP_MS)
+      useBusyStore.getState().setNavigating(true)
+      giveUpTimer.current = setTimeout(() => useBusyStore.getState().setNavigating(false), GIVE_UP_MS)
     }
 
     // Capture phase runs before Next's Link handler, so the click is seen even though Link prevents the default
@@ -34,24 +30,13 @@ export function NavigationProgress() {
     return () => document.removeEventListener('click', onClick, true)
   }, [])
 
-  // Runs when the route changes: the pending navigation is finished, so cancel its timers and hide the bar
+  // Runs when the route changes: the pending navigation is finished, so cancel its timer and clear the overlay
   useEffect(() => {
     return () => {
-      clearTimeout(showTimer.current)
       clearTimeout(giveUpTimer.current)
-      setVisible(false)
+      useBusyStore.getState().setNavigating(false)
     }
   }, [pathname])
 
-  if (!visible) return null
-
-  return (
-    <div
-      role="progressbar"
-      aria-label="Loading page"
-      className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5 overflow-hidden bg-primary/20"
-    >
-      <div className="h-full w-full animate-pulse bg-primary" />
-    </div>
-  )
+  return null
 }

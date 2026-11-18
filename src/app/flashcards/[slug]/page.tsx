@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { ArrowLeft } from 'lucide-react'
 import { loadContent } from '@/lib/data/content'
 import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck'
@@ -8,6 +9,18 @@ import { ScenarioSidebar } from '@/components/layout/ScenarioSidebar'
 export async function generateStaticParams() {
   const { phrases } = await loadContent()
   return phrases.map(s => ({ slug: s.slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const { phrases } = await loadContent()
+  const scenario = phrases.find(s => s.slug === slug)
+  if (!scenario) return {}
+  return {
+    title: `${scenario.label} Flashcards`,
+    description: `Spaced-repetition flashcards for ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases.`,
+    alternates: { canonical: `/flashcards/${slug}` },
+  }
 }
 
 export default async function FlashcardSessionPage({

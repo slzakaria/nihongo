@@ -5,8 +5,16 @@ import { createCard, sm2 } from '@/lib/srs/sm2'
 import { getAllPhrases, getScenarioSlugForPhrase } from '@/lib/data/phrases'
 import { useAuthStore } from '@/store/auth'
 import { useGoalsStore } from '@/store/goals'
-import { upsertCards, deleteScenarioCards } from '@/lib/supabase/progress'
-import { recordStudyDay } from '@/lib/supabase/activity'
+import type * as progressApi from '@/lib/supabase/progress'
+import type * as activityApi from '@/lib/supabase/activity'
+
+// Supabase code loads on the first write, keeping it out of the first-paint bundle
+const upsertCards: typeof progressApi.upsertCards = async (...args) =>
+  (await import('@/lib/supabase/progress')).upsertCards(...args)
+const deleteScenarioCards: typeof progressApi.deleteScenarioCards = async (...args) =>
+  (await import('@/lib/supabase/progress')).deleteScenarioCards(...args)
+const recordStudyDay: typeof activityApi.recordStudyDay = async (...args) =>
+  (await import('@/lib/supabase/activity')).recordStudyDay(...args)
 
 interface ProgressStore {
   cards: Record<string, SRSCard> // keyed by phraseId

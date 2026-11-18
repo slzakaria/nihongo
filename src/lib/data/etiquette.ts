@@ -12,24 +12,24 @@ export const ETIQUETTE: Record<string, string[]> = {
     'Tipping is not expected. Service is included.',
     'Say ごちそうさまでした (gochisōsama deshita) when you finish eating, to thank the cook.',
     'The おしぼり (oshibori) is for cleaning your hands only, not your face.',
-    'Many small restaurants use a ticket machine (券売機) near the door. Buy your ticket, then hand it to staff.',
+    'Many small restaurants use a ticket machine (けんばいき) near the door. Buy your ticket, then hand it to staff.',
     'Slurping noodles is normal and shows you are enjoying them.',
   ],
   'bar-cocktails': [
-    'Many bars charge a small table fee (お通し, otōshi) that appears on the bill.',
-    'Pour drinks for others rather than for yourself. Wait for the toast (乾杯, kanpai) before drinking.',
+    'Many bars charge a small table fee (おとおし, otōshi) that appears on the bill.',
+    'Pour drinks for others rather than for yourself. Wait for the toast (かんぱい, kanpai) before drinking.',
     'Popular bars are small. Arrive early or book ahead.',
     'Keep your voice down and check whether smoking is allowed before you sit.',
   ],
   'konbini-food': [
-    'Ask レジ袋はいりますか? (do you need a bag?). Bags usually cost a small fee.',
-    'Ask 温めますか? (shall I heat it?) before you eat something from the shelves.',
+    'Ask レジぶくろはいりますか? (do you need a bag?). Bags usually cost a small fee.',
+    'Ask あたためますか? (shall I heat it?) before you eat something from the shelves.',
     'Eat in the designated area or outside. Do not eat in the aisles.',
   ],
   'supermarket-izakaya': [
     'Sit only where staff direct you. Many izakaya have a small seating charge.',
     'Order a few dishes at a time. They arrive as they are ready, and sharing is normal.',
-    'Say 乾杯 (kanpai) at the start of the meal and do not start drinking before the toast.',
+    'Say かんぱい (kanpai) at the start of the meal and do not start drinking before the toast.',
   ],
   onsen: [
     'Wash thoroughly at the seated washing stations before you enter the bath.',
@@ -88,7 +88,7 @@ export const ETIQUETTE: Record<string, string[]> = {
   ],
   'making-friends': [
     'Ask before you add someone on LINE. Exchanging contact details is common, but not automatic.',
-    'If you visit someone\'s home, take a small gift (お土産, omiyage) and remove your shoes at the door.',
+    'If you visit someone\'s home, take a small gift (おみやげ, omiyage) and remove your shoes at the door.',
   ],
   karaoke: [
     'Karaoke rooms are charged by the time, and the drink bar is usually included.',

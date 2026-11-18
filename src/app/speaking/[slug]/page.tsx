@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
+import { trackBusy } from '@/store/busy'
 
 interface Score {
   score: number
@@ -45,14 +46,14 @@ export default function SpeakingDrillPage() {
     setScoring(true)
     setError(null)
     try {
-      const res = await fetch('/api/practice/score', {
+      const res = await trackBusy(fetch('/api/practice/score', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           target: { japanese: phrase.japanese, romaji: phrase.romaji, english: phrase.english },
           transcript,
         }),
-      })
+      }))
       const data = (await res.json()) as Score & { error?: string }
       if (!res.ok) throw new Error(data.error ?? 'Scoring failed')
       setResult(data)

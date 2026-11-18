@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { urlBase64ToUint8Array } from '@/lib/push'
+import { trackBusy } from '@/store/busy'
 
 export function usePushSubscription() {
   const [supported, setSupported] = useState(false)
@@ -35,11 +36,11 @@ export function usePushSubscription() {
         applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string) as BufferSource,
       })
 
-      await fetch('/api/push/subscribe', {
+      await trackBusy(fetch('/api/push/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(sub.toJSON()),
-      })
+      }))
       setSubscribed(true)
     } finally {
       setLoading(false)
@@ -52,11 +53,11 @@ export function usePushSubscription() {
       const reg = await navigator.serviceWorker.ready
       const sub = await reg.pushManager.getSubscription()
       if (sub) {
-        await fetch('/api/push/unsubscribe', {
+        await trackBusy(fetch('/api/push/unsubscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ endpoint: sub.endpoint }),
-        })
+        }))
         await sub.unsubscribe()
       }
       setSubscribed(false)

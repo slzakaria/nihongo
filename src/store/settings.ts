@@ -2,7 +2,11 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { RomajiMode, TtsSpeed } from '@/types'
 import { useAuthStore } from '@/store/auth'
-import { upsertProfile } from '@/lib/supabase/profile'
+import type * as profileApi from '@/lib/supabase/profile'
+
+// Supabase code loads on the first write, keeping it out of the first-paint bundle
+const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
+  (await import('@/lib/supabase/profile')).upsertProfile(...args)
 
 interface SettingsStore {
   romajiMode: RomajiMode
