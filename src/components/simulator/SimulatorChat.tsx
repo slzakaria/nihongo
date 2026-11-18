@@ -189,21 +189,15 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
             type="button"
             variant={isListening ? 'secondary' : 'outline'}
             size="icon"
-            disabled={isTranscribing}
+            loading={isTranscribing}
             aria-label={isListening ? 'Stop recording' : 'Record in Japanese'}
             onClick={handleMicClick}
             className={cn(isListening && 'ring-2 ring-red-500')}
           >
-            {isTranscribing ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : isListening ? (
-              <MicOff className="h-4 w-4" />
-            ) : (
-              <Mic className="h-4 w-4" />
-            )}
+            {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
           </Button>
         )}
-        <Button type="submit" size="icon" disabled={isStreaming || !input.trim()}>
+        <Button type="submit" size="icon" loading={isStreaming} disabled={!input.trim()} aria-label="Send message">
           <Send className="h-4 w-4" />
         </Button>
       </form>

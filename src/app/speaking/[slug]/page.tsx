@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
-import { ArrowLeft, Eye, EyeOff, Loader2, Mic, MicOff, RotateCcw } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff, Mic, MicOff, RotateCcw } from 'lucide-react'
 import { useContentStore } from '@/lib/data/content'
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition'
 import { AudioButton } from '@/components/phrases/AudioButton'
@@ -131,16 +131,11 @@ export default function SpeakingDrillPage() {
                   type="button"
                   size="lg"
                   className="cursor-pointer gap-2"
+                  loading={scoring || isTranscribing}
                   disabled={scoring || isTranscribing}
                   onClick={() => (isListening ? stop() : start(text => void score(text)))}
                 >
-                  {isTranscribing || scoring ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : isListening ? (
-                    <MicOff className="h-4 w-4" />
-                  ) : (
-                    <Mic className="h-4 w-4" />
-                  )}
+                  {!(scoring || isTranscribing) && (isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />)}
                   {isListening ? 'Stop recording' : scoring ? 'Checking…' : 'Record my reply'}
                 </Button>
               ) : (

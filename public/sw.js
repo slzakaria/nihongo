@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hanazono-v1';
+const CACHE_NAME = 'hanazono-v2';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
@@ -13,8 +13,6 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Network-first with cache fallback: prefers fresh content when online, but keeps
-// previously visited pages (scenarios, flashcards, etc.) usable with no signal.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
@@ -22,6 +20,22 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.pathname.startsWith('/api/')) return;
 
+  // Next.js build assets have content hashes in their names, so a cached copy never goes stale: serve it directly
+  if (url.pathname.startsWith('/_next/static/')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cached = await cache.match(request);
+        if (cached) return cached;
+        const response = await fetch(request);
+        if (response.ok) cache.put(request, response.clone());
+        return response;
+      })
+    );
+    return;
+  }
+
+  // Pages and other files: network-first with cache fallback, so fresh content wins when online
+  // and previously visited pages still work offline.
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
       try {

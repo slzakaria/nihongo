@@ -3,20 +3,14 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
-import { WelcomeDialog } from "@/components/layout/WelcomeDialog";
+import { NavigationProgress } from "@/components/layout/NavigationProgress";
 import { ThemeSync } from "@/components/layout/ThemeSync";
 import { AuthSync } from "@/components/auth/AuthSync";
-import { ContentSync } from "@/components/layout/ContentSync";
 import { ServiceWorkerRegister } from "@/components/layout/ServiceWorkerRegister";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { SignInInvite } from "@/components/layout/SignInInvite";
 import { Footer } from "@/components/layout/Footer";
-import { PageTransition } from "@/components/layout/PageTransition";
-import { ProfileIntro } from "@/components/profile/ProfileIntro";
-import { FeatureTour } from "@/components/layout/FeatureTour";
-import { MilestoneWatcher } from "@/components/layout/MilestoneWatcher";
-import { SignInDialog } from "@/components/auth/SignInDialog";
-import { Analytics } from "@vercel/analytics/next"
+import { DeferredGlobals } from "@/components/layout/DeferredGlobals";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,7 +25,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hanazono - Survival Japanese",
-  description: "Survival Japanese for your trip — phrases, flashcards, and a live simulator.",
+  description: "Hanazono - Survival Japanese for your trip — phrases, flashcards, and a live simulator.",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -57,20 +51,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {/* beforeInteractive injects this into the server HTML, so it runs before paint without React rendering a <script> */}
           <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
           <Navbar />
-          <main className="flex flex-1 flex-col"><PageTransition>{children}</PageTransition></main>
+          <NavigationProgress />
+          <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
-          <WelcomeDialog />
-          <FeatureTour />
-          <ProfileIntro />
-          <MilestoneWatcher />
+          <DeferredGlobals />
           <BackToTop />
           <SignInInvite />
-          <SignInDialog />
           <ThemeSync />
           <AuthSync />
-          <ContentSync />
           <ServiceWorkerRegister />
-          <Analytics />
         </ClerkProvider>
       </body>
     </html>
