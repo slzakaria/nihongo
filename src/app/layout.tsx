@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { NavigationProgress } from "@/components/layout/NavigationProgress";
+import { LoadingOverlay } from "@/components/layout/LoadingOverlay";
 import { ThemeSync } from "@/components/layout/ThemeSync";
 import { AuthSync } from "@/components/auth/AuthSync";
 import { ServiceWorkerRegister } from "@/components/layout/ServiceWorkerRegister";
@@ -11,6 +12,7 @@ import { BackToTop } from "@/components/layout/BackToTop";
 import { SignInInvite } from "@/components/layout/SignInInvite";
 import { Footer } from "@/components/layout/Footer";
 import { DeferredGlobals } from "@/components/layout/DeferredGlobals";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,8 +26,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hanazono - Survival Japanese",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Hanazono - Survival Japanese",
+    template: "%s | Hanazono",
+  },
   description: "Hanazono - Survival Japanese for your trip — phrases, flashcards, and a live simulator.",
+  applicationName: "Hanazono",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -33,6 +40,18 @@ export const metadata: Metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Hanazono",
+    url: SITE_URL,
+    title: "Hanazono - Survival Japanese",
+    description: "Phrases, flashcards and a live simulator for travelling in Japan.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Hanazono - Survival Japanese",
+    description: "Phrases, flashcards and a live simulator for travelling in Japan.",
   },
 };
 
@@ -52,6 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
           <Navbar />
           <NavigationProgress />
+          <LoadingOverlay />
           <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
           <DeferredGlobals />

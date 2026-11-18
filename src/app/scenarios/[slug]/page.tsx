@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { ArrowLeft, BookOpen, Mic } from 'lucide-react'
 import { loadContent } from '@/lib/data/content'
 import { PhraseList } from '@/components/phrases/PhraseList'
@@ -12,6 +13,18 @@ export async function generateStaticParams() {
   return phrases.map(s => ({ slug: s.slug }))
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const { phrases } = await loadContent()
+  const scenario = phrases.find(s => s.slug === slug)
+  if (!scenario) return {}
+  return {
+    title: `${scenario.label} Phrases`,
+    description: `${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases in Japanese with romaji and English, plus example replies.`,
+    alternates: { canonical: `/scenarios/${slug}` },
+  }
+}
+
 export default async function ScenarioDetailPage({
   params,
 }: {
@@ -22,8 +35,27 @@ export default async function ScenarioDetailPage({
   const scenario = phrases.find(s => s.slug === slug)
   if (!scenario) notFound()
 
+  // Escapes "<" so phrase text can't close the script tag early
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: scenario.label,
+    numberOfItems: scenario.phrases.length,
+    itemListElement: scenario.phrases.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: p.japanese,
+      alternateName: p.romaji,
+      description: p.english,
+    })),
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 gap-8 px-4 py-10 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       <ScenarioSidebar currentSlug={scenario.slug} basePath="/scenarios" />
 
       <div className="flex flex-1 flex-col gap-6">

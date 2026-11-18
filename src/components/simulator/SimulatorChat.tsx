@@ -11,6 +11,7 @@ import { useAuthStore } from '@/store/auth'
 import { fetchConversation, saveConversation, clearConversation } from '@/lib/supabase/simulator'
 import { recordStudyDay } from '@/lib/supabase/activity'
 import { FeedbackPanel } from '@/components/simulator/FeedbackPanel'
+import { trackBusy } from '@/store/busy'
 import { cn } from '@/lib/utils'
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
@@ -79,11 +80,11 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
     setIsStreaming(true)
 
     try {
-      const res = await fetch('/api/simulator', {
+      const res = await trackBusy(fetch('/api/simulator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: nextApiHistory, scenarioSlug }),
-      })
+      }))
 
       if (res.status === 429) {
         const data = (await res.json().catch(() => null)) as { error?: string } | null

@@ -12,6 +12,9 @@ if (!url || !serviceKey) {
 
 const supabase = createClient(url, serviceKey, { auth: { persistSession: false } })
 
+// Phrase responses live in their own file, so attach them to each phrase before upload
+const responses = JSON.parse(await readFile('src/lib/data/phrase-responses.json', 'utf8'))
+
 const datasets = [
   { table: 'phrase_scenarios', file: 'src/lib/data/phrases.json' },
   { table: 'hiragana_rows', file: 'src/lib/data/hiragana.json' },
@@ -25,7 +28,9 @@ for (const { table, file } of datasets) {
     label: s.label,
     icon: s.icon ?? '',
     sort_order: index,
-    phrases: s.phrases,
+    phrases: table === 'phrase_scenarios'
+      ? s.phrases.map(p => ({ ...p, responses: responses[p.id] ?? [] }))
+      : s.phrases,
     updated_at: new Date().toISOString(),
   }))
 

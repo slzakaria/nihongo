@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
-import { useContentStore } from '@/lib/data/content'
+import { useEffect, useMemo, useState } from 'react'
+import { loadPhraseResponses, useContentStore } from '@/lib/data/content'
 import { PhraseCard } from '@/components/phrases/PhraseCard'
 import { PageHeader } from '@/components/layout/PageHeader'
 
@@ -13,6 +13,10 @@ export default function SearchPage() {
     () => scenarios.flatMap(s => s.phrases.map(p => ({ phrase: p, scenario: s }))),
     [scenarios]
   )
+
+  useEffect(() => {
+    loadPhraseResponses()
+  }, [])
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()

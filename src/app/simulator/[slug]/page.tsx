@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { ArrowLeft } from 'lucide-react'
 import { loadContent } from '@/lib/data/content'
 import { SimulatorChat } from '@/components/simulator/SimulatorChat'
@@ -8,6 +9,18 @@ import { ScenarioPrompt } from '@/components/simulator/ScenarioPrompt'
 export async function generateStaticParams() {
   const { phrases } = await loadContent()
   return phrases.map(s => ({ slug: s.slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const { phrases } = await loadContent()
+  const scenario = phrases.find(s => s.slug === slug)
+  if (!scenario) return {}
+  return {
+    title: `${scenario.label} Conversation Practice`,
+    description: `Practise a ${scenario.label.toLowerCase()} conversation in Japanese with a live AI partner.`,
+    alternates: { canonical: `/simulator/${slug}` },
+  }
 }
 
 export default async function SimulatorSessionPage({

@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { ArrowLeft } from 'lucide-react'
-import { useContentStore } from '@/lib/data/content'
+import { loadKana, useContentStore } from '@/lib/data/content'
 import { useProgressStore } from '@/store/progress'
 import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck'
 
@@ -12,6 +12,10 @@ export default function KanaPracticePage() {
   const hiragana = useContentStore(s => s.content.hiragana)
   const katakana = useContentStore(s => s.content.katakana)
   const initKana = useProgressStore(s => s.initKana)
+
+  useEffect(() => {
+    loadKana()
+  }, [])
 
   const rows = useMemo(() => [...hiragana, ...katakana], [hiragana, katakana])
   const kanaPhrases = useMemo(() => rows.flatMap(r => r.phrases), [rows])

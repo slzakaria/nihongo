@@ -5,6 +5,7 @@ import { Loader2, X } from 'lucide-react'
 import type { ChatMessage } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { trackBusy } from '@/store/busy'
 
 interface Feedback {
   summary: string
@@ -30,11 +31,11 @@ export function FeedbackPanel({
 
   useEffect(() => {
     let cancelled = false
-    fetch('/api/simulator/feedback', {
+    trackBusy(fetch('/api/simulator/feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scenarioSlug, messages: snapshot }),
-    })
+    }))
       .then(async res => {
         const data = (await res.json()) as Feedback & { error?: string }
         if (!res.ok) throw new Error(data.error ?? 'Feedback failed')
