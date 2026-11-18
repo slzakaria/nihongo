@@ -10,6 +10,7 @@ import { useSpeechRecognition } from '@/hooks/useSpeechRecognition'
 import { useAuthStore } from '@/store/auth'
 import { fetchConversation, saveConversation, clearConversation } from '@/lib/supabase/simulator'
 import { recordStudyDay } from '@/lib/supabase/activity'
+import { FeedbackPanel } from '@/components/simulator/FeedbackPanel'
 import { cn } from '@/lib/utils'
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
@@ -26,6 +27,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   const [input, setInput] = useState('')
   const inputRef = useRef(input)
   const [isStreaming, setIsStreaming] = useState(false)
+  const [reviewOpen, setReviewOpen] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const {
     isSupported: micSupported,
@@ -158,6 +160,16 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         ))}
         <div ref={scrollRef} />
       </div>
+      {messages.some(m => m.role === 'user') && (
+        <div className="flex justify-end">
+          <Button type="button" variant="outline" size="sm" className="cursor-pointer" onClick={() => setReviewOpen(true)}>
+            Review my replies
+          </Button>
+        </div>
+      )}
+      {reviewOpen && (
+        <FeedbackPanel scenarioSlug={scenarioSlug} messages={apiHistory} onClose={() => setReviewOpen(false)} />
+      )}
 
       <form
         onSubmit={e => {

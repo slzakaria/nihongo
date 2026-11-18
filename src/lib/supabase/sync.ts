@@ -19,6 +19,7 @@ export async function hydrateOnSignIn(userId: string) {
         userName: profile.user_name || local.userName,
         avatarUrl: profile.avatar_url ?? null,
         profileIntroSeen: profile.profile_intro_seen ?? false,
+        featureTourSeen: profile.feature_tour_seen ?? false,
       })
       useSettingsStore.setState({ romajiMode: profile.romaji_mode })
     } else {

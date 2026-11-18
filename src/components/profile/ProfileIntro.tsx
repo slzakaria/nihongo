@@ -20,9 +20,11 @@ export function ProfileIntro() {
   const synced = useOnboardingStore(s => s.synced)
   const hasOnboarded = useOnboardingStore(s => s.hasOnboarded)
   const profileIntroSeen = useOnboardingStore(s => s.profileIntroSeen)
+  const featureTourSeen = useOnboardingStore(s => s.featureTourSeen)
   const markProfileIntroSeen = useOnboardingStore(s => s.markProfileIntroSeen)
 
-  if (!user || !synced || !hasOnboarded || profileIntroSeen) return null
+  // Waits for the feature tour so the two dialogs don't stack
+  if (!user || !synced || !hasOnboarded || profileIntroSeen || !featureTourSeen) return null
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">

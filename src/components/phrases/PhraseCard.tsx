@@ -6,6 +6,7 @@ import { Phrase } from '@/types'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { AudioButton } from '@/components/phrases/AudioButton'
+import { WordLookup } from '@/components/phrases/WordLookup'
 import { useSettingsStore } from '@/store/settings'
 import { useProgressStore } from '@/store/progress'
 import { cn } from '@/lib/utils'
@@ -26,9 +27,11 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
             className="flex-1 cursor-pointer"
             onClick={() => romajiMode === 'reveal' && setRevealed(r => !r)}
           >
-            <p lang="ja" className="text-xl font-medium">
-              {phrase.japanese}
-            </p>
+            <WordLookup context={phrase.japanese}>
+              <p lang="ja" className="text-xl font-medium">
+                {phrase.japanese}
+              </p>
+            </WordLookup>
             {romajiMode !== 'never' && (
               <>
                 {phrase.kanji && (

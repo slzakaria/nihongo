@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { KanaCard } from '@/components/kana/KanaCard'
 import { PageHeader } from '@/components/layout/PageHeader'
@@ -20,7 +21,14 @@ export default function KanaPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10 sm:px-6">
-      <PageHeader title="Kana" description="Learn the Japanese syllabaries, row by row." />
+      <PageHeader title="Kana" description="Learn the Japanese syllabaries, row by row.">
+        <Link
+          href="/kana/practice"
+          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-sm hover:bg-muted"
+        >
+          Practise due kana
+        </Link>
+      </PageHeader>
 
       <div role="tablist" className="flex gap-2">
         {(Object.keys(labels) as Script[]).map(key => (

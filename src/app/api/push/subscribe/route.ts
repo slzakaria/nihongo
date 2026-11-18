@@ -1,11 +1,8 @@
 import { NextRequest } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { currentServerUser, serverSupabase } from '@/lib/auth/server'
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await currentServerUser()
   if (!user) {
     return Response.json({ error: 'Not signed in' }, { status: 401 })
   }
@@ -15,7 +12,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: 'Invalid subscription' }, { status: 400 })
   }
 
-  const { error } = await supabase.from('push_subscriptions').upsert(
+  const { error } = await serverSupabase(user).from('push_subscriptions').upsert(
     { user_id: user.id, endpoint: sub.endpoint, p256dh: sub.keys.p256dh, auth: sub.keys.auth },
     { onConflict: 'endpoint' }
   )

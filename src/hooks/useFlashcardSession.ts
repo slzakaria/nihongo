@@ -3,11 +3,9 @@
 import { useMemo, useState } from 'react'
 import { Phrase, SRSGrade } from '@/types'
 import { useProgressStore } from '@/store/progress'
-import { useContentStore } from '@/lib/data/content'
 
-export function useFlashcardSession(slug: string, force = false) {
-  const scenario = useContentStore(s => s.content.phrases.find(x => x.slug === slug))
-  const phrases = useMemo(() => scenario?.phrases ?? [], [scenario])
+// Works on any list of phrases (a scenario, or the kana set)
+export function useFlashcardSession(phrases: Phrase[], force = false) {
   const cards = useProgressStore(s => s.cards)
   const gradeCard = useProgressStore(s => s.gradeCard)
 

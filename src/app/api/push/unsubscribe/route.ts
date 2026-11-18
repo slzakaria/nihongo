@@ -1,11 +1,8 @@
 import { NextRequest } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { currentServerUser, serverSupabase } from '@/lib/auth/server'
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await currentServerUser()
   if (!user) {
     return Response.json({ error: 'Not signed in' }, { status: 401 })
   }
@@ -15,7 +12,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: 'Missing endpoint' }, { status: 400 })
   }
 
-  const { error } = await supabase
+  const { error } = await serverSupabase(user)
     .from('push_subscriptions')
     .delete()
     .eq('user_id', user.id)
