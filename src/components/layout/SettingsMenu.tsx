@@ -1,11 +1,9 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Bell, BellOff, Monitor, Moon, Settings, Sun } from 'lucide-react'
+import { Monitor, Moon, Settings, Sun } from 'lucide-react'
 import { useSettingsStore } from '@/store/settings'
 import { useThemeStore, type Theme } from '@/store/theme'
-import { useAuthStore } from '@/store/auth'
-import { usePushSubscription } from '@/hooks/usePushSubscription'
 import { RomajiMode, TtsSpeed } from '@/types'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -36,8 +34,6 @@ export function SettingsMenu() {
   const setTtsSpeed = useSettingsStore(s => s.setTtsSpeed)
   const theme = useThemeStore(s => s.theme)
   const setTheme = useThemeStore(s => s.setTheme)
-  const user = useAuthStore(s => s.user)
-  const { supported: pushSupported, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePushSubscription()
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -123,21 +119,6 @@ export function SettingsMenu() {
               </button>
             ))}
           </div>
-
-          {user && pushSupported && (
-            <>
-              <div className="my-1 h-px bg-border" />
-              <button
-                type="button"
-                disabled={pushLoading}
-                onClick={() => (subscribed ? unsubscribe() : subscribe())}
-                className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted"
-              >
-                {subscribed ? <BellOff className="h-3.5 w-3.5" /> : <Bell className="h-3.5 w-3.5" />}
-                {subscribed ? 'Disable due-card reminders' : 'Enable due-card reminders'}
-              </button>
-            </>
-          )}
         </div>
       )}
     </div>
