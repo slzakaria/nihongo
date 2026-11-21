@@ -21,7 +21,7 @@ export const useBadgesStore = create<BadgesStore>()(
       celebrated: {},
       markCelebrated: id => {
         if (get().celebrated[id]) return
-        const celebrated = { ...get().celebrated, [id]: true }
+        const celebrated: Record<string, true> = { ...get().celebrated, [id]: true }
         set({ celebrated })
         const userId = useAuthStore.getState().user?.id
         if (userId) void upsertProfile(userId, { celebrated_badges: Object.keys(celebrated) })

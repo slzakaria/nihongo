@@ -22,11 +22,11 @@ export function PageHeader({
         className
       )}
     >
-      <div className="flex flex-col gap-2">
+      <div className="relative flex flex-col gap-2">
         <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{title}</h1>
         {description && <p className="max-w-2xl text-white/80">{description}</p>}
       </div>
-      {children && <div className="mt-4">{children}</div>}
+      {children && <div className="relative mt-4">{children}</div>}
     </header>
   )
 }
