@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
@@ -42,8 +43,9 @@ export function Navbar() {
   return (
     <header ref={headerRef} className='relative border-b border-border bg-card print:hidden'>
       <div className='mx-auto flex max-w-5xl items-center justify-between gap-2 px-3 py-3 sm:px-6'>
-        <Link href='/' className='shrink-0 whitespace-nowrap text-base font-semibold tracking-tight sm:text-lg flex gap-2'>
-          <span>花園</span> <span> - はなぞの</span>
+        <Link href='/' className='flex shrink-0 items-center gap-2 whitespace-nowrap' aria-label="Hanazono home">
+          <Image src="/logohanazono.png" alt="Hanazono" width={60} height={60} className="h-12 w-12 sm:h-16 sm:w-16" priority />
+					<span>花園</span>
         </Link>
 
         <div className='flex items-center gap-0.5 sm:hidden'>

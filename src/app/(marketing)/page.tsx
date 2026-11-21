@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo } from 'react'
 import { Bot, Languages, Layers, MessagesSquare, Search, TrendingUp, ArrowRight } from 'lucide-react'
@@ -10,6 +11,7 @@ import { Progress } from '@/components/ui/progress'
 import { ScenarioCard } from '@/components/scenarios/ScenarioCard'
 import { FloatingPhrases } from '@/components/marketing/FloatingPhrases'
 import { KanaTeaser } from '@/components/marketing/KanaTeaser'
+import { ScrollReveal } from '@/components/marketing/ScrollReveal'
 import { SectionHeader } from '@/components/marketing/SectionHeader'
 import { SimulatorTeaser } from '@/components/marketing/SimulatorTeaser'
 import { useProgressStore } from '@/store/progress'
@@ -65,10 +67,12 @@ export default function Home() {
 
       <section className="hero-banner relative overflow-hidden rounded-xl p-8 sm:p-12">
         <div className="relative flex max-w-2xl flex-col items-start gap-4">
-          <h1 className="animate-fade-up text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            <span className="text-primary">はなぞの : Hanazono <br></br>
-						</span> Survival Japanese for your trip
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="animate-fade-up text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              <span className="text-primary">はなぞの : Hanazono <br></br>
+							</span> Survival Japanese for your trip
+            </h1>
+          </div>
           <p className="animate-fade-up text-white/80" style={{ animationDelay: '120ms' }}>
             Phrases for real situations, spaced-repetition drills, and a live chat simulator. Everything
             you need for bars, shops, and small talk in Japan.
@@ -103,7 +107,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-5">
+      <ScrollReveal side="left" as="section" className="flex flex-col gap-5">
         <SectionHeader
           kicker="さがす・Explore"
           title="Explore"
@@ -128,9 +132,9 @@ export default function Home() {
             )
           })}
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="flex flex-col gap-5">
+      <ScrollReveal side="right" as="section" className="flex flex-col gap-5">
         <SectionHeader
           kicker="シナリオ・Scenarios"
           title="Popular scenarios"
@@ -149,10 +153,14 @@ export default function Home() {
             </Link>
           </Button>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <KanaTeaser />
-      <SimulatorTeaser />
+      <ScrollReveal side="left">
+        <KanaTeaser />
+      </ScrollReveal>
+      <ScrollReveal side="right">
+        <SimulatorTeaser />
+      </ScrollReveal>
     </div>
   )
 }

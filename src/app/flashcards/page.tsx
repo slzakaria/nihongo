@@ -1,14 +1,15 @@
 'use client'
 
-import { ArrowRight, Layers } from 'lucide-react'
 import { useContentStore } from '@/lib/data/content'
-import { CardContent } from '@/components/ui/card'
-import { LinkCard } from '@/components/ui/link-card'
+import { Progress } from '@/components/ui/progress'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SearchTrigger } from '@/components/search/SearchTrigger'
+import { ScenarioMiniCard } from '@/components/scenarios/ScenarioMiniCard'
+import { useProgressStore } from '@/store/progress'
 
 export default function FlashcardsPage() {
   const scenarios = useContentStore(s => s.content.phrases)
+  const cards = useProgressStore(s => s.cards)
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
@@ -19,21 +20,28 @@ export default function FlashcardsPage() {
         <SearchTrigger />
       </PageHeader>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {scenarios.map((s, i) => (
-          <LinkCard key={s.slug} href={`/flashcards/${s.slug}`} index={i}>
-            <CardContent className="flex items-center gap-4 p-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent text-xl transition duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">
-                {s.icon || <Layers className="h-5 w-5" />}
-              </span>
-              <div className="min-w-0 flex-1">
-                <h3 className="truncate font-medium">{s.label}</h3>
-                <p className="text-xs text-muted-foreground">{s.phrases.length} cards to review</p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {scenarios.map((s, i) => {
+          const reviewed = Object.values(cards).filter(
+            c => c.scenarioSlug === s.slug && c.lastReview !== null
+          ).length
+          const total = s.phrases.length
+          const pct = total === 0 ? 0 : Math.round((reviewed / total) * 100)
+
+          return (
+            <ScenarioMiniCard key={s.slug} scenario={s} href={`/flashcards/${s.slug}`} index={i}>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-xs font-semibold tracking-tight">{pct}%</span>
+                  <span className="text-[10px] text-muted-foreground">
+                    {reviewed}/{total}
+                  </span>
+                </div>
+                <Progress value={pct} className="h-1" />
               </div>
-              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-            </CardContent>
-          </LinkCard>
-        ))}
+            </ScenarioMiniCard>
+          )
+        })}
       </div>
     </div>
   )

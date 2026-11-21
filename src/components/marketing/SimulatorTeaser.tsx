@@ -39,7 +39,7 @@ export function SimulatorTeaser() {
             <span className="h-2.5 w-2.5 rounded-full bg-secondary" aria-hidden="true" />
             <span className="h-2.5 w-2.5 rounded-full bg-accent" aria-hidden="true" />
             <span className="h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true" />
-            <span className="ml-2 truncate text-xs text-muted-foreground">居酒屋・Izakaya scenario</span>
+            <span className="ml-2 truncate text-xs text-muted-foreground">いざかや・Izakaya scenario</span>
           </div>
           <div className="flex flex-col gap-3 p-4">
             {MOCK_MESSAGES.map((m, i) => (

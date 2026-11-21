@@ -5,11 +5,9 @@ import { useContentStore } from '@/lib/data/content'
 import { useAuthStore } from '@/store/auth'
 import { fetchConversationSummaries, type ConversationSummary } from '@/lib/supabase/simulator'
 import { revisitInfo } from '@/lib/simulator/revisit'
-import { CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { LinkCard } from '@/components/ui/link-card'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SearchTrigger } from '@/components/search/SearchTrigger'
-import { scenarioKana } from '@/lib/data/scenarioKana'
+import { ScenarioMiniCard } from '@/components/scenarios/ScenarioMiniCard'
 
 export default function SimulatorPickerPage() {
   const scenarios = useContentStore(s => s.content.phrases)
@@ -30,27 +28,17 @@ export default function SimulatorPickerPage() {
         <SearchTrigger />
       </PageHeader>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {scenarios.map((s, i) => {
           const info = userId
             ? revisitInfo(updatedBySlug.get(s.slug), now)
             : { due: false, label: 'Start conversation' }
           return (
-            <LinkCard key={s.slug} href={`/simulator/${s.slug}`} index={i}>
-              <CardHeader>
-                {scenarioKana(s.slug) && (
-                  <p lang="ja" className="text-xs text-muted-foreground">
-                    {scenarioKana(s.slug)}
-                  </p>
-                )}
-                <CardTitle className="text-base">{s.label}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <span className={info.due ? 'text-xs font-medium text-primary' : 'text-xs text-muted-foreground'}>
-                  {info.label}
-                </span>
-              </CardContent>
-            </LinkCard>
+            <ScenarioMiniCard key={s.slug} scenario={s} href={`/simulator/${s.slug}`} index={i} size="lg">
+              <span className={info.due ? 'text-xs font-medium text-primary' : 'text-xs text-muted-foreground'}>
+                {info.label}
+              </span>
+            </ScenarioMiniCard>
           )
         })}
       </div>

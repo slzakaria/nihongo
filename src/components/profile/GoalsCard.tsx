@@ -1,28 +1,55 @@
 'use client'
 
-import { Award, Lock, Target } from 'lucide-react'
-import { useGoalsStore, reviewsToday } from '@/store/goals'
-import { MILESTONES } from '@/lib/srs/milestones'
+import { Target } from 'lucide-react'
+import { useGoalsStore, reviewsToday, reviewsThisWeek } from '@/store/goals'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 
-// Daily target, today's progress, and the milestone badges
-export function GoalsCard({ reviewed }: { reviewed: number }) {
+// Overall progress plus daily and weekly targets — one combined card rather than a separate
+// "Overall" card above it. Badges now live in their own BadgesCard, since there are enough of
+// them now to want their own dedicated section.
+export function GoalsCard({
+  reviewed,
+  totalPhrases,
+  due,
+}: {
+  reviewed: number
+  totalPhrases: number
+  due: number
+}) {
   const dailyGoal = useGoalsStore(s => s.dailyGoal)
   const setDailyGoal = useGoalsStore(s => s.setDailyGoal)
+  const weeklyGoal = useGoalsStore(s => s.weeklyGoal)
+  const setWeeklyGoal = useGoalsStore(s => s.setWeeklyGoal)
   const today = useGoalsStore(s => reviewsToday(s))
-  const pct = Math.min(100, Math.round((today / dailyGoal) * 100))
+  const thisWeek = useGoalsStore(s => reviewsThisWeek(s))
+  const dailyPct = Math.min(100, Math.round((today / dailyGoal) * 100))
+  const weeklyPct = Math.min(100, Math.round((thisWeek / weeklyGoal) * 100))
+  const overallPct = totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100)
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
           <Target className="h-4 w-4" aria-hidden="true" />
-          Daily goal
+          Goals
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between text-sm">
+            <span>Overall progress</span>
+            {due > 0 && <Badge variant="secondary">{due} due now</Badge>}
+          </div>
+          <Progress value={overallPct} />
+          <p className="text-xs text-muted-foreground">
+            {reviewed} / {totalPhrases} phrases reviewed ({overallPct}%)
+          </p>
+        </div>
+
+        <div className="h-px bg-border" />
+
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between text-sm">
             <span>
@@ -30,7 +57,7 @@ export function GoalsCard({ reviewed }: { reviewed: number }) {
               {today >= dailyGoal && <span className="ml-2 text-primary">Goal reached 🎉</span>}
             </span>
             <label className="flex items-center gap-2 text-xs text-muted-foreground">
-              Goal
+              Daily
               <input
                 type="number"
                 min={1}
@@ -41,34 +68,28 @@ export function GoalsCard({ reviewed }: { reviewed: number }) {
               />
             </label>
           </div>
-          <Progress value={pct} />
+          <Progress value={dailyPct} />
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="flex items-center gap-2 text-sm font-medium">
-            <Award className="h-4 w-4" aria-hidden="true" />
-            Badges
-          </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {MILESTONES.map(m => {
-              const unlocked = reviewed >= m
-              return (
-                <div
-                  key={m}
-                  className={cn(
-                    'flex flex-col items-center gap-1 rounded-lg border border-border p-3 text-center',
-                    unlocked ? 'gradient-brand' : 'opacity-60'
-                  )}
-                >
-                  {unlocked ? <Award className="h-6 w-6" aria-hidden="true" /> : <Lock className="h-6 w-6" aria-hidden="true" />}
-                  <span className="text-sm font-semibold">{m} phrases</span>
-                  <span className="text-xs text-muted-foreground">
-                    {unlocked ? 'Unlocked' : `${reviewed} / ${m}`}
-                  </span>
-                </div>
-              )
-            })}
+          <div className="flex items-center justify-between text-sm">
+            <span>
+              {thisWeek} of {weeklyGoal} reviews this week
+              {thisWeek >= weeklyGoal && <span className="ml-2 text-primary">Goal reached 🎉</span>}
+            </span>
+            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+              Weekly
+              <input
+                type="number"
+                min={1}
+                max={1000}
+                value={weeklyGoal}
+                onChange={e => setWeeklyGoal(Number(e.target.value) || 1)}
+                className="w-16 rounded-md border border-border bg-background px-2 py-1 text-sm text-foreground"
+              />
+            </label>
           </div>
+          <Progress value={weeklyPct} />
         </div>
       </CardContent>
     </Card>
