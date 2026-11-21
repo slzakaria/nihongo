@@ -337,16 +337,40 @@ body {
   animation: twinkle 4s ease-in-out infinite alternate;
 }
 
-/* Hero banner photo for the landing page — a dark scrim on the left guarantees the heading and
-   button text stay legible even where the hero's own aspect ratio crops the photo differently
-   (e.g. on mobile), while the photo's own built-in gradient (navy night sky fading to a warm
-   sunset over Mt. Fuji) still shows through mostly unobstructed on the right. */
+/* Hero banner artwork, used on the landing page and every PageHeader. The artwork itself is a
+   near-white illustration, so a plain gradient scrim isn't dark enough to keep white text legible
+   over it (unlike the old photo, which had its own dark sky). A ::before layer holds the artwork at
+   full sharpness, and a separate ::after layer lays a dark scrim on top, darkest on the left (where
+   the text sits) and fading out toward the right so the illustration stays crisp and visible there.
+   Both pseudo-elements sit behind the real content via z-index, and `.hero-banner` itself provides
+   the positioning context + text stacking order. */
 .hero-banner {
-  background-image:
-    linear-gradient(90deg, rgba(8, 14, 28, 0.6) 0%, rgba(8, 14, 28, 0.25) 45%, rgba(8, 14, 28, 0) 68%),
-    url('/purebg.jpeg');
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/bannerhanazono.png');
   background-size: cover;
   background-position: center;
+  z-index: -2;
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    rgba(8, 14, 28, 0.78) 0%,
+    rgba(8, 14, 28, 0.5) 40%,
+    rgba(8, 14, 28, 0.2) 60%,
+    rgba(8, 14, 28, 0) 75%
+  );
+  z-index: -1;
 }
 
 /* Brand gradient used on headers and cards. It slides across on hover (when the element or an ancestor
