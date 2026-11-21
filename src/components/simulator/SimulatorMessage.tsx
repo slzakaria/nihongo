@@ -16,7 +16,7 @@ export function SimulatorMessage({
   const isUser = message.role === 'user'
   const hintMatch = message.content.match(/\[HINT:\s*([\s\S]*?)\]\s*$/)
   const mainText = hintMatch ? message.content.slice(0, hintMatch.index).trim() : message.content
-  const { play, isLoading, isPlaying } = useAudio()
+  const { play, isLoading, isPlaying, disabled } = useAudio()
   const hasAutoPlayed = useRef(false)
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function SimulatorMessage({
       <div
         className={cn(
           'flex max-w-[80%] flex-col gap-1 rounded-lg px-4 py-2.5',
-          isUser ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'
+          isUser ? 'bg-primary/15' : 'bg-muted'
         )}
       >
         <div className="flex items-center gap-2">
@@ -42,6 +42,7 @@ export function SimulatorMessage({
             <AudioIconButton
               isLoading={isLoading}
               isPlaying={isPlaying}
+              disabled={disabled}
               onClick={() => play(mainText)}
               className="h-8 w-8 shrink-0"
             />

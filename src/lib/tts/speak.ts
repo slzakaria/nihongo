@@ -2,6 +2,7 @@
 // ElevenLabs only. Two-tier cache so the same phrase is never fetched twice:
 // in-memory blob URLs for the current tab, IndexedDB for across reloads/navigations.
 import { getCachedAudio, setCachedAudio } from './audioCache'
+import { showGuestLimitDialog } from '@/store/rateLimitDialog'
 
 // Matches the server's CACHE_VERSION so browsers drop audio generated before the language fix
 const CACHE_VERSION = 'ja-v2'
@@ -9,7 +10,7 @@ const CACHE_VERSION = 'ja-v2'
 const blobUrlCache = new Map<string, string>()
 const inFlight = new Map<string, Promise<string>>()
 
-async function fetchAudioUrl(text: string): Promise<string> {
+async function fetchAudioUrl(text: string, signal?: AbortSignal): Promise<string> {
   const cached = blobUrlCache.get(text)
   if (cached) return cached
 
@@ -29,7 +30,13 @@ async function fetchAudioUrl(text: string): Promise<string> {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
+      signal,
     })
+    if (res.status === 429) {
+      const data = (await res.json().catch(() => null)) as { error?: string } | null
+      showGuestLimitDialog(data?.error)
+      throw new Error('TTS guest limit reached')
+    }
     if (!res.ok) throw new Error('TTS request failed')
 
     const blob = await res.blob()
@@ -46,6 +53,6 @@ async function fetchAudioUrl(text: string): Promise<string> {
   return promise
 }
 
-export function loadAudio(text: string): Promise<string> {
-  return fetchAudioUrl(text)
+export function loadAudio(text: string, signal?: AbortSignal): Promise<string> {
+  return fetchAudioUrl(text, signal)
 }

@@ -13,6 +13,9 @@ export interface ProfileRow {
   feature_tour_seen: boolean
   has_onboarded: boolean
   romaji_mode: RomajiMode
+  weekly_goal: number
+  streak_freeze_until: string | null
+  celebrated_badges: string[]
 }
 
 export async function fetchProfile(userId: string): Promise<ProfileRow | null> {

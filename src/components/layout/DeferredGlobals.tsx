@@ -3,6 +3,9 @@
 import { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { inject } from '@vercel/analytics'
+import { RateLimitDialog } from '@/components/layout/RateLimitDialog'
+import { SearchDialog } from '@/components/search/SearchDialog'
+import { DailyRecap } from '@/components/layout/DailyRecap'
 
 // Loaded as separate chunks and mounted after hydration, so they stay out of the initial page bundle
 const WelcomeDialog = dynamic(() => import('@/components/layout/WelcomeDialog').then(m => m.WelcomeDialog), { ssr: false })
@@ -24,6 +27,9 @@ export function DeferredGlobals() {
       <ProfileIntro />
       <MilestoneWatcher />
       <SignInDialog />
+      <RateLimitDialog />
+      <SearchDialog />
+      <DailyRecap />
     </>
   )
 }

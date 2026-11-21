@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { KanaCard } from '@/components/kana/KanaCard'
 import { PageHeader } from '@/components/layout/PageHeader'
+import { SearchTrigger } from '@/components/search/SearchTrigger'
 import { loadKana, useContentStore } from '@/lib/data/content'
 import { cn } from '@/lib/utils'
 
@@ -26,12 +27,15 @@ export default function KanaPage() {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10 sm:px-6">
       <PageHeader title="Kana" description="Learn the Japanese syllabaries, row by row.">
-        <Link
-          href="/kana/practice"
-          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-sm hover:bg-muted"
-        >
-          Practise due kana
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/kana/practice"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-sm hover:bg-muted"
+          >
+            Practise due kana
+          </Link>
+          <SearchTrigger className="max-w-xs" />
+        </div>
       </PageHeader>
 
       <div role="tablist" className="flex gap-2">

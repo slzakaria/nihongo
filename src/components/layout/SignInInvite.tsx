@@ -6,24 +6,42 @@ import { useAuthStore } from '@/store/auth'
 import { useSignInDialogStore } from '@/store/signInDialog'
 import { Button } from '@/components/ui/button'
 
-const DISMISSED_KEY = 'nihongo-signin-invite-dismissed'
+const DISMISS_COUNT_KEY = 'nihongo-signin-invite-dismiss-count'
+// After this many "Not now" clicks (counted across all visits, not just this tab), stop showing
+// the invite for good instead of nagging on every page forever.
+const MAX_DISMISSALS = 6
 
-// Invites signed-out visitors to sign in once they navigate past the homepage. Dismissal lasts for the tab session.
+function readDismissCount(): number {
+  if (typeof window === 'undefined') return 0
+  return parseInt(localStorage.getItem(DISMISS_COUNT_KEY) ?? '0', 10) || 0
+}
+
+// Invites signed-out visitors to sign in once they navigate past the homepage. Reappears on each
+// new page (dismissing only hides it for the page you dismissed it on) until "Not now" has been
+// clicked MAX_DISMISSALS times in total, after which it stays dismissed for good.
 export function SignInInvite() {
   const pathname = usePathname()
   const user = useAuthStore(s => s.user)
   const loaded = useAuthStore(s => s.loaded)
-  const [dismissed, setDismissed] = useState(
-    () => typeof window !== 'undefined' && sessionStorage.getItem(DISMISSED_KEY) === '1'
-  )
   const showSignIn = useSignInDialogStore(s => s.show)
+  const [dismissCount, setDismissCount] = useState(readDismissCount)
+  const [hiddenForPath, setHiddenForPath] = useState<string | null>(null)
 
-  const shouldShow = loaded && !user && !dismissed && pathname !== '/' && !pathname.startsWith('/auth')
+  const permanentlyDismissed = dismissCount >= MAX_DISMISSALS
+  const shouldShow =
+    loaded &&
+    !user &&
+    !permanentlyDismissed &&
+    hiddenForPath !== pathname &&
+    pathname !== '/' &&
+    !pathname.startsWith('/auth')
   if (!shouldShow) return null
 
   function dismiss() {
-    sessionStorage.setItem(DISMISSED_KEY, '1')
-    setDismissed(true)
+    const next = dismissCount + 1
+    localStorage.setItem(DISMISS_COUNT_KEY, String(next))
+    setDismissCount(next)
+    setHiddenForPath(pathname)
   }
 
   return (

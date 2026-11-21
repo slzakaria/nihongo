@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { Loader2, X } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 import { useSignInDialogStore } from '@/store/signInDialog'
-import { ClerkFailed, ClerkLoaded, ClerkLoading, SignIn } from '@clerk/nextjs'
+import { ClerkFailed, ClerkLoaded, ClerkLoading, SignIn, useUser } from '@clerk/nextjs'
 
 // Clerk's card sits inside our dialog, so it drops its own card styling and heading, and uses the app's theme classes
 // so it follows light and dark mode.
@@ -35,6 +35,10 @@ export function SignInDialog() {
   const open = useSignInDialogStore(s => s.open)
   const hide = useSignInDialogStore(s => s.hide)
   const user = useAuthStore(s => s.user)
+  // Clerk confirms the session a moment before our own store (AuthSync) catches up and closes
+  // this dialog — show a spinner for that gap instead of leaving the form sitting there inert.
+  const { isSignedIn } = useUser()
+  const finishingSignIn = !!isSignedIn && !user
 
   useEffect(() => {
     if (!open) return
@@ -62,7 +66,7 @@ export function SignInDialog() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="sign-in-title"
-        className="animate-scale-in relative w-full max-w-md overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+        className="animate-scale-in relative w-full max-w-md overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Welcome back</p>
@@ -72,19 +76,28 @@ export function SignInDialog() {
           <p className="mt-1 text-sm text-muted-foreground">Sync your progress across every device.</p>
         </div>
         <div className="px-4 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
-          <ClerkLoading>
-            <div className="flex min-h-48 items-center justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Loading sign-in" />
+          {finishingSignIn ? (
+            <div className="flex min-h-48 flex-col items-center justify-center gap-3 text-sm text-muted-foreground">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Finishing sign-in" />
+              Finishing sign-in…
             </div>
-          </ClerkLoading>
-          <ClerkFailed>
-            <p className="p-6 text-center text-sm text-muted-foreground">
-              Sign-in is unavailable right now. Please try again later.
-            </p>
-          </ClerkFailed>
-          <ClerkLoaded>
-            <SignIn routing="hash" appearance={clerkAppearance} />
-          </ClerkLoaded>
+          ) : (
+            <>
+              <ClerkLoading>
+                <div className="flex min-h-48 items-center justify-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Loading sign-in" />
+                </div>
+              </ClerkLoading>
+              <ClerkFailed>
+                <p className="p-6 text-center text-sm text-muted-foreground">
+                  Sign-in is unavailable right now. Please try again later.
+                </p>
+              </ClerkFailed>
+              <ClerkLoaded>
+                <SignIn routing="hash" appearance={clerkAppearance} />
+              </ClerkLoaded>
+            </>
+          )}
         </div>
         <button
           type="button"

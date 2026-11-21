@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { loadContent } from '@/lib/data/content'
 import { SimulatorChat } from '@/components/simulator/SimulatorChat'
 import { ScenarioPrompt } from '@/components/simulator/ScenarioPrompt'
+import { scenarioKana } from '@/lib/data/scenarioKana'
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent()
@@ -44,6 +45,11 @@ export default async function SimulatorSessionPage({
           Simulator
         </Link>
         <h1 className="text-2xl font-semibold tracking-tight">{scenario.label}</h1>
+        {scenarioKana(scenario.slug) && (
+          <p lang="ja" className="text-sm text-muted-foreground">
+            {scenarioKana(scenario.slug)}
+          </p>
+        )}
       </div>
 
       <ScenarioPrompt scenario={scenario} />

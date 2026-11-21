@@ -7,11 +7,13 @@ import { cn } from '@/lib/utils'
 export function AudioIconButton({
   isLoading,
   isPlaying,
+  disabled,
   onClick,
   className,
 }: {
   isLoading: boolean
   isPlaying: boolean
+  disabled?: boolean
   onClick: () => void
   className?: string
 }) {
@@ -22,6 +24,7 @@ export function AudioIconButton({
       size="icon"
       aria-label="Play pronunciation"
       loading={isLoading}
+      disabled={disabled}
       className={cn(isPlaying && 'text-primary-foreground bg-primary', className)}
       onClick={onClick}
     >

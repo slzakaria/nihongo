@@ -1,12 +1,10 @@
 import { NextRequest } from 'next/server'
 import { currentServerUser } from '@/lib/auth/server'
-import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
+import { ANON_DAILY_LIMIT, checkAndBumpDailyLimit } from '@/lib/rateLimit'
 
 const ELEVENLABS_STT_URL = 'https://api.elevenlabs.io/v1/speech-to-text'
 const MODEL_ID = 'scribe_v2'
 
-// Lower than TTS since each request is a real (uncached) transcription call
-const ANON_DAILY_LIMIT = 30
 const LIMIT_COOKIE = 'stt_reqs'
 
 export async function POST(req: NextRequest) {

@@ -1677,6 +1677,96 @@
           "notes": "事故 (jiko) = accident. 交通事故 (koutsuu jiko) = traffic accident."
         },
         {
+          "id": "em-16",
+          "japanese": "むねがいたいです",
+          "romaji": "Mune ga itai desu",
+          "english": "My chest hurts",
+          "difficulty": "core",
+          "notes": "むね (胸, mune) = chest. Combine with たすけてください if the pain is severe — chest pain is treated as a priority by 119 dispatchers.",
+          "kanji": "胸が痛いです"
+        },
+        {
+          "id": "em-17",
+          "japanese": "いきがくるしいです",
+          "romaji": "Iki ga kurushii desu",
+          "english": "I'm having trouble breathing",
+          "difficulty": "core",
+          "notes": "いき (息, iki) = breath. くるしい (苦しい, kurushii) = painful/hard to bear — a clear signal for an urgent 119 call.",
+          "kanji": "息が苦しいです"
+        },
+        {
+          "id": "em-18",
+          "japanese": "いしきがありません",
+          "romaji": "Ishiki ga arimasen",
+          "english": "[Someone] is unconscious",
+          "difficulty": "core",
+          "notes": "いしき (意識, ishiki) = consciousness. Say this while calling 119 and pointing at the person who collapsed.",
+          "kanji": "意識がありません"
+        },
+        {
+          "id": "em-19",
+          "japanese": "ちがとまりません",
+          "romaji": "Chi ga tomarimasen",
+          "english": "The bleeding won't stop",
+          "difficulty": "core",
+          "notes": "ち (血, chi) = blood. とまる (止まる, tomaru) = to stop. Apply pressure with a clean cloth while help is on the way.",
+          "kanji": "血が止まりません"
+        },
+        {
+          "id": "em-20",
+          "japanese": "ほねがおれたとおもいます",
+          "romaji": "Hone ga oreta to omoimasu",
+          "english": "I think I broke a bone",
+          "difficulty": "extra",
+          "notes": "ほね (骨, hone) = bone. おれる (折れる, oreru) = to break/snap. Try not to move the area until it's checked.",
+          "kanji": "骨が折れたと思います"
+        },
+        {
+          "id": "em-21",
+          "japanese": "あしをくじきました",
+          "romaji": "Ashi wo kujikimashita",
+          "english": "I sprained my ankle/leg",
+          "difficulty": "extra",
+          "notes": "くじく (挫く, kujiku) = to sprain/twist. あし (足, ashi) covers both foot and leg — point to be specific.",
+          "kanji": "足をくじきました"
+        },
+        {
+          "id": "em-22",
+          "japanese": "もちびょうがあります",
+          "romaji": "Mochibyou ga arimasu",
+          "english": "I have a chronic/pre-existing condition",
+          "difficulty": "extra",
+          "notes": "もちびょう (持病, mochibyou) = chronic illness. Good to mention early so staff understand your situation (e.g. asthma, heart condition).",
+          "kanji": "持病があります"
+        },
+        {
+          "id": "em-23",
+          "japanese": "インスリンがひつようです",
+          "romaji": "Insurin ga hitsuyou desu",
+          "english": "I need insulin",
+          "difficulty": "extra",
+          "notes": "インスリン (insurin) = insulin, written in katakana as a loanword. ひつよう (必要, hitsuyou) = necessary.",
+          "kanji": "インスリンが必要です"
+        },
+        {
+          "id": "em-24",
+          "japanese": "じょせいのおいしゃさんをおねがいします",
+          "romaji": "Josei no o-isha-san wo onegai shimasu",
+          "english": "I'd like a female doctor, please",
+          "difficulty": "extra",
+          "notes": "じょせい (女性, josei) = woman/female. Swap in だんせい (男性, dansei) / male if you'd prefer a male doctor instead.",
+          "kanji": "女性のお医者さんをお願いします"
+        },
+        {
+          "id": "em-25",
+          "japanese": "りょこうほけんにはいっています",
+          "romaji": "Ryokou hoken ni haitte imasu",
+          "english": "I have travel insurance",
+          "difficulty": "extra",
+          "notes": "りょこうほけん (旅行保険, ryokou hoken) = travel insurance. Keep your policy number and emergency contact number on you.",
+          "kanji": "旅行保険に入っています"
+        },
+        {
           "id": "pc-01",
           "japanese": "みちにまよいました",
           "romaji": "Michi ni mayoimashita",
@@ -2888,6 +2978,168 @@
           "difficulty": "core",
           "notes": "びょういん (病院, byouin) covers both hospitals and small clinics in everyday use. For something urgent, see the Emergencies scenario instead.",
           "kanji": "病院に行きたいです"
+        },
+        {
+          "id": "ph-11",
+          "japanese": "のどがいたいです",
+          "romaji": "Nodo ga itai desu",
+          "english": "My throat hurts",
+          "difficulty": "core",
+          "notes": "のど (喉, nodo) = throat. A common early symptom of a cold — pair with あたまがいたいです if you have a headache too.",
+          "kanji": "喉が痛いです"
+        },
+        {
+          "id": "ph-12",
+          "japanese": "せきがでます",
+          "romaji": "Seki ga demasu",
+          "english": "I have a cough",
+          "difficulty": "core",
+          "notes": "せき (咳, seki) = cough. でる (出る, deru) = to come out — literally 'a cough is coming out'.",
+          "kanji": "咳が出ます"
+        },
+        {
+          "id": "ph-13",
+          "japanese": "はなみずがでます",
+          "romaji": "Hanamizu ga demasu",
+          "english": "I have a runny nose",
+          "difficulty": "core",
+          "notes": "はなみず (鼻水, hanamizu) = runny nose/nasal discharge. Pharmacies sell tissues with built-in lotion (保湿ティッシュ) for sore noses.",
+          "kanji": "鼻水が出ます"
+        },
+        {
+          "id": "ph-14",
+          "japanese": "さむけがします",
+          "romaji": "Samuke ga shimasu",
+          "english": "I have chills",
+          "difficulty": "extra",
+          "notes": "さむけ (寒気, samuke) = chills/feeling cold. Often mentioned together with ねつがあります if a fever is starting.",
+          "kanji": "寒気がします"
+        },
+        {
+          "id": "ph-15",
+          "japanese": "からだじゅうがいたいです",
+          "romaji": "Karadajuu ga itai desu",
+          "english": "My whole body aches",
+          "difficulty": "extra",
+          "notes": "からだじゅう (体中, karadajuu) = all over the body. A classic flu symptom alongside fever and chills.",
+          "kanji": "体中が痛いです"
+        },
+        {
+          "id": "ph-16",
+          "japanese": "インフルエンザだとおもいます",
+          "romaji": "Infuruenza da to omoimasu",
+          "english": "I think I have the flu",
+          "difficulty": "extra",
+          "notes": "インフルエンザ (infuruenza) = influenza/flu, distinct from かぜ (風邪, kaze) / common cold. Clinics may test for it with a quick swab.",
+          "kanji": "インフルエンザだと思います"
+        },
+        {
+          "id": "ph-17",
+          "japanese": "げりです",
+          "romaji": "Geri desu",
+          "english": "I have diarrhea",
+          "difficulty": "core",
+          "notes": "げり (下痢, geri) = diarrhea. Direct and clearly understood by any pharmacist or doctor.",
+          "kanji": "下痢です"
+        },
+        {
+          "id": "ph-18",
+          "japanese": "べんぴです",
+          "romaji": "Benpi desu",
+          "english": "I'm constipated",
+          "difficulty": "core",
+          "notes": "べんぴ (便秘, benpi) = constipation. Common after a long flight or a change in diet.",
+          "kanji": "便秘です"
+        },
+        {
+          "id": "ph-19",
+          "japanese": "はきけがします",
+          "romaji": "Hakike ga shimasu",
+          "english": "I feel nauseous",
+          "difficulty": "core",
+          "notes": "はきけ (吐き気, hakike) = nausea/urge to vomit. Useful on trains, boats, or after unfamiliar food.",
+          "kanji": "吐き気がします"
+        },
+        {
+          "id": "ph-20",
+          "japanese": "おなかのちょうしがわるいです",
+          "romaji": "Onaka no choushi ga warui desu",
+          "english": "My stomach isn't feeling right",
+          "difficulty": "extra",
+          "notes": "ちょうし (調子, choushi) = condition/state. A softer, more general alternative to おなかがいたいです when it's discomfort rather than sharp pain.",
+          "kanji": "お腹の調子が悪いです"
+        },
+        {
+          "id": "ph-21",
+          "japanese": "げりどめはありますか？",
+          "romaji": "Geridome wa arimasu ka?",
+          "english": "Do you have medicine for diarrhea?",
+          "difficulty": "core",
+          "notes": "げりどめ (下痢止め, geridome) = anti-diarrheal medicine. Usually found in the digestive medicine (胃腸薬) section.",
+          "kanji": "下痢止めはありますか？"
+        },
+        {
+          "id": "ph-22",
+          "japanese": "べんぴやくはありますか？",
+          "romaji": "Benpiyaku wa arimasu ka?",
+          "english": "Do you have constipation medicine / a laxative?",
+          "difficulty": "core",
+          "notes": "べんぴやく (便秘薬, benpiyaku) = laxative/constipation medicine.",
+          "kanji": "便秘薬はありますか？"
+        },
+        {
+          "id": "ph-23",
+          "japanese": "いちょうやくはありますか？",
+          "romaji": "Ichouyaku wa arimasu ka?",
+          "english": "Do you have stomach medicine?",
+          "difficulty": "core",
+          "notes": "いちょうやく (胃腸薬, ichouyaku) = general stomach/digestive medicine, a good catch-all for stomach aches, bloating, or nausea.",
+          "kanji": "胃腸薬はありますか？"
+        },
+        {
+          "id": "ph-24",
+          "japanese": "かぜぐすりはありますか？",
+          "romaji": "Kazegusuri wa arimasu ka?",
+          "english": "Do you have cold medicine?",
+          "difficulty": "core",
+          "notes": "かぜぐすり (風邪薬, kazegusuri) = cold medicine. Ask the pharmacist for one that covers your main symptom (cough, fever, runny nose).",
+          "kanji": "風邪薬はありますか？"
+        },
+        {
+          "id": "ph-25",
+          "japanese": "しょほうせんがあります",
+          "romaji": "Shohousen ga arimasu",
+          "english": "I have a prescription",
+          "difficulty": "extra",
+          "notes": "しょほうせん (処方箋, shohousen) = prescription. Hand it to the pharmacist at the 調剤 (choozai, dispensing) counter.",
+          "kanji": "処方箋があります"
+        },
+        {
+          "id": "ph-26",
+          "japanese": "いちにちになんかいのみますか？",
+          "romaji": "Ichinichi ni nankai nomimasu ka?",
+          "english": "How many times a day do I take this?",
+          "difficulty": "extra",
+          "notes": "なんかい (何回, nankai) = how many times. のむ (飲む, nomu) is also used for 'taking' medicine, not just drinking.",
+          "kanji": "一日に何回飲みますか？"
+        },
+        {
+          "id": "ph-27",
+          "japanese": "しょくぜんですか、しょくごですか？",
+          "romaji": "Shokuzen desu ka, shokugo desu ka?",
+          "english": "Before meals or after meals?",
+          "difficulty": "extra",
+          "notes": "しょくぜん (食前, shokuzen) = before meals. しょくご (食後, shokugo) = after meals — standard labels on Japanese medicine packets.",
+          "kanji": "食前ですか、食後ですか？"
+        },
+        {
+          "id": "ph-28",
+          "japanese": "ねむくなりますか？",
+          "romaji": "Nemuku narimasu ka?",
+          "english": "Will this make me drowsy?",
+          "difficulty": "extra",
+          "notes": "ねむい (眠い, nemui) = sleepy. Worth asking before driving, cycling, or sightseeing on cold medicine.",
+          "kanji": "眠くなりますか？"
         }
       ]
     },
@@ -5305,6 +5557,281 @@
           "english": "Is that everything for your order?",
           "difficulty": "core",
           "notes": "Staff ask this before they finish taking your order. Answer はい, or add もう一つ、〜をください to keep ordering."
+        }
+      ]
+    },
+    {
+      "slug": "vocabulary-adjectives",
+      "label": "Essential Vocabulary & Adjectives",
+      "icon": "🔤",
+      "phrases": [
+        {
+          "id": "vc-01",
+          "japanese": "みず",
+          "romaji": "Mizu",
+          "english": "Water",
+          "difficulty": "core",
+          "notes": "Ask for it free at most restaurants: おみずをください (O-mizu wo kudasai).",
+          "kanji": "水"
+        },
+        {
+          "id": "vc-02",
+          "japanese": "でぐち",
+          "romaji": "Deguchi",
+          "english": "Exit",
+          "difficulty": "core",
+          "notes": "出口 (deguchi) is everywhere in stations and malls — often numbered, e.g. B2でぐち (B2 exit).",
+          "kanji": "出口"
+        },
+        {
+          "id": "vc-03",
+          "japanese": "いりぐち",
+          "romaji": "Iriguchi",
+          "english": "Entrance",
+          "difficulty": "core",
+          "notes": "入口 (iriguchi) is the opposite of でぐち — look for it on signs at shops, shrines, and stations.",
+          "kanji": "入口"
+        },
+        {
+          "id": "vc-04",
+          "japanese": "おかね",
+          "romaji": "O-kane",
+          "english": "Money",
+          "difficulty": "core",
+          "notes": "お金 (o-kane) — the お prefix is a politeness marker commonly kept even in casual speech.",
+          "kanji": "お金"
+        },
+        {
+          "id": "vc-05",
+          "japanese": "にもつ",
+          "romaji": "Nimotsu",
+          "english": "Luggage / baggage",
+          "difficulty": "extra",
+          "notes": "荷物 (nimotsu) covers suitcases, bags, and parcels alike — useful at hotels, lockers, and bus stops.",
+          "kanji": "荷物"
+        },
+        {
+          "id": "vc-06",
+          "japanese": "かさ",
+          "romaji": "Kasa",
+          "english": "Umbrella",
+          "difficulty": "extra",
+          "notes": "傘 (kasa). Convenience stores sell cheap clear ビニールがさ (vinyl umbrellas) during sudden rain.",
+          "kanji": "傘"
+        },
+        {
+          "id": "vc-07",
+          "japanese": "もんだい",
+          "romaji": "Mondai",
+          "english": "Problem",
+          "difficulty": "extra",
+          "notes": "問題 (mondai). だいじょうぶです (Daijoubu desu) = 'it's fine/no problem' is the common reassuring reply.",
+          "kanji": "問題"
+        },
+        {
+          "id": "vc-08",
+          "japanese": "ひだり",
+          "romaji": "Hidari",
+          "english": "Left",
+          "difficulty": "core",
+          "notes": "左 (hidari). Pair with がわ (側, gawa) / side: ひだりがわ = the left side.",
+          "kanji": "左"
+        },
+        {
+          "id": "vc-09",
+          "japanese": "みぎ",
+          "romaji": "Migi",
+          "english": "Right",
+          "difficulty": "core",
+          "notes": "右 (migi). Japan drives on the left, so みぎ often matters for crossing streets safely.",
+          "kanji": "右"
+        },
+        {
+          "id": "vc-10",
+          "japanese": "ちかく",
+          "romaji": "Chikaku",
+          "english": "Nearby / close",
+          "difficulty": "extra",
+          "notes": "近く (chikaku). Use as このちかくに〜はありますか？(Kono chikaku ni ~ wa arimasu ka?) / Is there a ~ nearby?",
+          "kanji": "近く"
+        },
+        {
+          "id": "vc-11",
+          "japanese": "せき",
+          "romaji": "Seki",
+          "english": "Seat",
+          "difficulty": "extra",
+          "notes": "席 (seki). Comes up constantly for reserved train seats (してい せき, 指定席) and restaurant seating.",
+          "kanji": "席"
+        },
+        {
+          "id": "vc-12",
+          "japanese": "かぞく",
+          "romaji": "Kazoku",
+          "english": "Family",
+          "difficulty": "extra",
+          "notes": "家族 (kazoku). Add ご (go) as a polite prefix when asking about someone else's family: ごかぞく.",
+          "kanji": "家族"
+        },
+        {
+          "id": "vc-13",
+          "japanese": "ひと",
+          "romaji": "Hito",
+          "english": "Person / people",
+          "difficulty": "extra",
+          "notes": "人 (hito). Also the counter base for なんにん (何人, how many people) when booking tables or tours.",
+          "kanji": "人"
+        },
+        {
+          "id": "vc-14",
+          "japanese": "みせ",
+          "romaji": "Mise",
+          "english": "Shop / store",
+          "difficulty": "core",
+          "notes": "店 (mise). おみせ with the polite お prefix is just as common in everyday conversation.",
+          "kanji": "店"
+        },
+        {
+          "id": "vc-15",
+          "japanese": "ばんごう",
+          "romaji": "Bangou",
+          "english": "Number",
+          "difficulty": "extra",
+          "notes": "番号 (bangou). Shows up as でんわばんごう (phone number), せきばんごう (seat number), and more.",
+          "kanji": "番号"
+        },
+        {
+          "id": "aj-01",
+          "japanese": "おおきい",
+          "romaji": "Ookii",
+          "english": "Big",
+          "difficulty": "core",
+          "notes": "大きい (ookii) is an い-adjective — it ends in い and conjugates on its own, no です needed before a noun.",
+          "kanji": "大きい"
+        },
+        {
+          "id": "aj-02",
+          "japanese": "ちいさい",
+          "romaji": "Chiisai",
+          "english": "Small",
+          "difficulty": "core",
+          "notes": "小さい (chiisai). Opposite of おおきい — Japanese clothing and food portion sizes often run smaller than Western ones.",
+          "kanji": "小さい"
+        },
+        {
+          "id": "aj-03",
+          "japanese": "たかい",
+          "romaji": "Takai",
+          "english": "Expensive / tall / high",
+          "difficulty": "core",
+          "notes": "高い (takai) covers both price and height — context (and what you're pointing at) makes the meaning clear.",
+          "kanji": "高い"
+        },
+        {
+          "id": "aj-04",
+          "japanese": "やすい",
+          "romaji": "Yasui",
+          "english": "Cheap",
+          "difficulty": "core",
+          "notes": "安い (yasui) — the opposite of たかい when talking about price.",
+          "kanji": "安い"
+        },
+        {
+          "id": "aj-05",
+          "japanese": "あつい",
+          "romaji": "Atsui",
+          "english": "Hot (weather)",
+          "difficulty": "core",
+          "notes": "暑い (atsui) for weather/air temperature. A different kanji, 熱い (also atsui), is used for hot objects or drinks.",
+          "kanji": "暑い"
+        },
+        {
+          "id": "aj-06",
+          "japanese": "さむい",
+          "romaji": "Samui",
+          "english": "Cold (weather)",
+          "difficulty": "core",
+          "notes": "寒い (samui) for weather/air temperature. For cold drinks or objects use つめたい (冷たい, tsumetai) instead.",
+          "kanji": "寒い"
+        },
+        {
+          "id": "aj-07",
+          "japanese": "おいしい",
+          "romaji": "Oishii",
+          "english": "Delicious",
+          "difficulty": "core",
+          "notes": "美味しい (oishii). One of the most-used words in Japan — perfectly fine said alone after a bite of food.",
+          "kanji": "美味しい"
+        },
+        {
+          "id": "aj-08",
+          "japanese": "まずい",
+          "romaji": "Mazui",
+          "english": "Not tasty / bad-tasting",
+          "difficulty": "extra",
+          "notes": "まずい (mazui) is blunt — avoid saying it directly to a cook or host; use it more to describe medicine or an honest mishap."
+        },
+        {
+          "id": "aj-09",
+          "japanese": "むずかしい",
+          "romaji": "Muzukashii",
+          "english": "Difficult",
+          "difficulty": "core",
+          "notes": "難しい (muzukashii). Also used politely to soften a refusal, e.g. それはむずかしいです = 'that would be difficult' (i.e. no).",
+          "kanji": "難しい"
+        },
+        {
+          "id": "aj-10",
+          "japanese": "かんたん",
+          "romaji": "Kantan",
+          "english": "Easy / simple",
+          "difficulty": "core",
+          "notes": "簡単 (kantan) is a な-adjective, so it takes な before a noun: かんたんなりょうり (easy dish) — but です alone after it.",
+          "kanji": "簡単"
+        },
+        {
+          "id": "aj-11",
+          "japanese": "いそがしい",
+          "romaji": "Isogashii",
+          "english": "Busy",
+          "difficulty": "extra",
+          "notes": "忙しい (isogashii). A common polite excuse too: いそがしいので (because I'm busy) ...",
+          "kanji": "忙しい"
+        },
+        {
+          "id": "aj-12",
+          "japanese": "こわい",
+          "romaji": "Kowai",
+          "english": "Scary / dangerous",
+          "difficulty": "extra",
+          "notes": "怖い (kowai). Used for frightening experiences, haunted spots, and dangerous-feeling situations alike.",
+          "kanji": "怖い"
+        },
+        {
+          "id": "aj-13",
+          "japanese": "きれい",
+          "romaji": "Kirei",
+          "english": "Pretty / clean",
+          "difficulty": "extra",
+          "notes": "綺麗 (kirei) is a な-adjective covering both beauty and cleanliness — a very versatile compliment.",
+          "kanji": "綺麗"
+        },
+        {
+          "id": "aj-14",
+          "japanese": "べんり",
+          "romaji": "Benri",
+          "english": "Convenient",
+          "difficulty": "extra",
+          "notes": "便利 (benri) is a な-adjective, often heard praising konbini, IC cards, and train networks.",
+          "kanji": "便利"
+        },
+        {
+          "id": "aj-15",
+          "japanese": "うるさい",
+          "romaji": "Urusai",
+          "english": "Noisy / loud",
+          "difficulty": "extra",
+          "notes": "煩い (urusai), almost always written in kana. Also doubles as a sharp 'shut up!' when shouted — tone matters."
         }
       ]
     }
