@@ -5,6 +5,7 @@ import { X, Loader2 } from 'lucide-react'
 import { getAllPhrases } from '@/lib/data/phrases'
 import { Button } from '@/components/ui/button'
 import { trackBusy } from '@/store/busy'
+import { showGuestLimitDialog } from '@/store/rateLimitDialog'
 
 interface Lookup {
   reading: string
@@ -47,6 +48,7 @@ export function WordLookup({ context, children }: { context: string; children: R
         body: JSON.stringify({ word: term, context }),
       }))
       const data = (await res.json()) as Lookup & { error?: string }
+      if (res.status === 429) showGuestLimitDialog(data.error)
       if (!res.ok) throw new Error(data.error ?? 'Lookup failed')
       cache.set(term, data)
       setResult(data)

@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { currentServerUser } from '@/lib/auth/server'
-import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
+import { ANON_DAILY_LIMIT, checkAndBumpDailyLimit } from '@/lib/rateLimit'
 
 const ELEVENLABS_API_URL = 'https://api.elevenlabs.io/v1/text-to-speech'
 const MODEL_ID = 'eleven_turbo_v2_5' // v4 Turbo — fast, Japanese support, free tier
@@ -13,9 +13,6 @@ const CACHE_DIR = path.join(process.cwd(), '.cache', 'tts')
 // Bump when the request changes so previously cached audio is regenerated
 const CACHE_VERSION = 'ja-v2'
 
-// Generous cap since the app's own finite phrase set is served from the disk cache above
-// (free) — this only throttles genuinely novel/arbitrary text from an anonymous caller.
-const ANON_DAILY_LIMIT = 100
 const LIMIT_COOKIE = 'tts_reqs'
 
 function cacheKeyFor(text: string, voiceId: string) {

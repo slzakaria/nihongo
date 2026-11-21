@@ -25,7 +25,6 @@ export function ScenarioCard({ scenario, index = 0 }: { scenario: Scenario; inde
           </span>
         )}
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Scenario</p>
           <h3 className="text-base font-semibold">{scenario.label}</h3>
         </div>
       </div>

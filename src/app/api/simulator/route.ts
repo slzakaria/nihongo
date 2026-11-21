@@ -3,13 +3,12 @@ import { NextRequest } from 'next/server'
 import { loadContent } from '@/lib/data/content'
 import { getSimulatorPrompt } from '@/lib/simulator/prompts'
 import { currentServerUser } from '@/lib/auth/server'
-import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
+import { ANON_DAILY_LIMIT, checkAndBumpDailyLimit } from '@/lib/rateLimit'
 import { ChatMessage } from '@/types'
 
 const client = new Anthropic({ apiKey: process.env.CLAUDE_API_KEY })
 
-// Guests get a soft daily cap (cookie-based) so the Claude API can't be spammed anonymously
-const ANON_DAILY_LIMIT = 15
+// Guests get a hard daily cap (signed cookie) so the Claude API can't be spammed anonymously
 const LIMIT_COOKIE = 'sim_msgs'
 
 export async function POST(req: NextRequest) {

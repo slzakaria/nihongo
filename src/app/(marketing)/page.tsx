@@ -11,23 +11,26 @@ import { ScenarioCard } from '@/components/scenarios/ScenarioCard'
 import { useProgressStore } from '@/store/progress'
 import { useAuthStore } from '@/store/auth'
 import { useContentStore } from '@/lib/data/content'
+import { useSearchDialogStore } from '@/store/searchDialog'
 import { cn } from '@/lib/utils'
 
 // Scenarios most travellers need first. Shown on the landing page; the full list lives on /scenarios.
 const FEATURED_SLUGS = ['greetings', 'restaurant', 'shopping', 'getting-around', 'bar-cocktails', 'hotel']
 
+// Tiles without an `href` open the search dialog instead of navigating
 const EXPLORE_TILES = [
   { href: '/scenarios', label: 'Scenarios', description: 'Phrases for real situations, from bars to banks.', icon: MessagesSquare, tone: 'bg-primary/30' },
-  { href: '/kana', label: 'Kana (Alphabet)', description: 'Learn hiragana and katakana one character at a time.', icon: Languages, tone: 'bg-secondary/40' },
+  { href: '/kana', label: 'Kana', description: 'Learn hiragana and katakana one character at a time.', icon: Languages, tone: 'bg-secondary/40' },
   { href: '/flashcards', label: 'Flashcards', description: 'Spaced-repetition drills that bring phrases back when you need them.', icon: Layers, tone: 'bg-accent' },
   { href: '/simulator', label: 'Simulator', description: 'Practice a live conversation with a Japanese role-play partner.', icon: Bot, tone: 'bg-primary/20' },
-  { href: '/search', label: 'Search', description: 'Find any phrase, word or translation in seconds.', icon: Search, tone: 'bg-secondary/30' },
+  { href: undefined, label: 'Search', description: 'Find any phrase, word or translation in seconds.', icon: Search, tone: 'bg-secondary/30' },
 ]
 
 export default function Home() {
   const cards = useProgressStore(s => s.cards)
   const user = useAuthStore(s => s.user)
   const scenarios = useContentStore(s => s.content.phrases)
+  const showSearch = useSearchDialogStore(s => s.show)
 
   const totalPhrases = useMemo(
     () => scenarios.reduce((sum, s) => sum + s.phrases.length, 0),
@@ -89,7 +92,7 @@ export default function Home() {
           {tiles.map((tile, i) => {
             const Icon = tile.icon
             return (
-              <LinkCard key={tile.href} href={tile.href} index={i}>
+              <LinkCard key={tile.label} href={tile.href} onClick={tile.href ? undefined : showSearch} index={i}>
                 <CardContent className="flex flex-col gap-3 p-5">
                 <span className={cn('flex h-10 w-10 items-center justify-center rounded-full transition duration-300 group-hover:-rotate-6 group-hover:scale-110', tile.tone)}>
                     <Icon className="h-5 w-5" aria-hidden="true" />

@@ -6,6 +6,7 @@ import {
   isSpeechRecognitionSupported,
   type SpeechRecognitionLike,
 } from '@/lib/speech/recognition'
+import { showGuestLimitDialog } from '@/store/rateLimitDialog'
 
 function isMediaRecordingSupported(): boolean {
   return (
@@ -64,6 +65,12 @@ export function useSpeechRecognition() {
           const form = new FormData()
           form.append('file', new Blob(chunks, { type: mimeType }), 'speech.webm')
           const res = await fetch('/api/stt', { method: 'POST', body: form })
+          if (res.status === 429) {
+            const data = (await res.json().catch(() => null)) as { error?: string } | null
+            showGuestLimitDialog(data?.error)
+            setError('rate-limited')
+            return
+          }
           if (!res.ok) throw new Error('stt-failed')
           const data = (await res.json()) as { text?: string }
           if (data.text) onResult(data.text)

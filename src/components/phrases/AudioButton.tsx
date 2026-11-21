@@ -12,12 +12,13 @@ export function AudioButton({
   className?: string
   onPlay?: () => void
 }) {
-  const { play, isLoading, isPlaying } = useAudio()
+  const { play, isLoading, isPlaying, disabled } = useAudio()
 
   return (
     <AudioIconButton
       isLoading={isLoading}
       isPlaying={isPlaying}
+      disabled={disabled}
       onClick={() => {
         onPlay?.()
         play(text)

@@ -1,9 +1,8 @@
 import { NextRequest } from 'next/server'
 import { askClaudeJson } from '@/lib/ai/claude'
-import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
+import { ANON_DAILY_LIMIT, checkAndBumpDailyLimit } from '@/lib/rateLimit'
 import { currentServerUser } from '@/lib/auth/server'
 
-const ANON_DAILY_LIMIT = 30
 const LIMIT_COOKIE = 'score_reqs'
 
 interface Score {

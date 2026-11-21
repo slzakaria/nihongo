@@ -16,6 +16,7 @@ export function AuthMenu() {
   const avatarUrl = useOnboardingStore(s => s.avatarUrl)
   const showSignIn = useSignInDialogStore(s => s.show)
   const [open, setOpen] = useState(false)
+  const [signingOut, setSigningOut] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const { signOut: clerkSignOut } = useClerk()
 
@@ -28,8 +29,13 @@ export function AuthMenu() {
   }, [])
 
   async function signOut() {
-    await clerkSignOut()
-    setOpen(false)
+    setSigningOut(true)
+    try {
+      await clerkSignOut()
+    } finally {
+      setSigningOut(false)
+      setOpen(false)
+    }
   }
 
   return (
@@ -67,9 +73,10 @@ export function AuthMenu() {
                 size="sm"
                 className="w-full justify-start gap-2 cursor-pointer"
                 onClick={signOut}
+                loading={signingOut}
               >
                 <LogOut className="h-3.5 w-3.5" />
-                Sign out
+                {signingOut ? 'Signing out…' : 'Sign out'}
               </Button>
             </div>
           ) : null}

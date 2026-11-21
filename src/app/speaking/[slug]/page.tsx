@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
 import { trackBusy } from '@/store/busy'
+import { showGuestLimitDialog } from '@/store/rateLimitDialog'
 
 interface Score {
   score: number
@@ -55,6 +56,7 @@ export default function SpeakingDrillPage() {
         }),
       }))
       const data = (await res.json()) as Score & { error?: string }
+      if (res.status === 429) showGuestLimitDialog(data.error)
       if (!res.ok) throw new Error(data.error ?? 'Scoring failed')
       setResult(data)
     } catch (err) {

@@ -12,6 +12,7 @@ import { fetchConversation, saveConversation, clearConversation } from '@/lib/su
 import { recordStudyDay } from '@/lib/supabase/activity'
 import { FeedbackPanel } from '@/components/simulator/FeedbackPanel'
 import { trackBusy } from '@/store/busy'
+import { showGuestLimitDialog } from '@/store/rateLimitDialog'
 import { cn } from '@/lib/utils'
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
@@ -88,6 +89,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
 
       if (res.status === 429) {
         const data = (await res.json().catch(() => null)) as { error?: string } | null
+        showGuestLimitDialog(data?.error)
         setMessages(prev => {
           const updated = [...prev]
           updated[baseLen + 1] = {
@@ -242,6 +244,8 @@ function micErrorMessage(error: string): string {
       return 'Speech recognition needs network access and failed to reach it — check your connection.'
     case 'stt-failed':
       return 'Could not transcribe that recording — please try again.'
+    case 'rate-limited':
+      return "You've reached the guest limit for voice features — sign in to continue."
     case 'not-supported':
       return 'Speech recognition is not supported in this browser.'
     default:

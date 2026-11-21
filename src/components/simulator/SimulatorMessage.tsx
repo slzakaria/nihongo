@@ -16,7 +16,7 @@ export function SimulatorMessage({
   const isUser = message.role === 'user'
   const hintMatch = message.content.match(/\[HINT:\s*([\s\S]*?)\]\s*$/)
   const mainText = hintMatch ? message.content.slice(0, hintMatch.index).trim() : message.content
-  const { play, isLoading, isPlaying } = useAudio()
+  const { play, isLoading, isPlaying, disabled } = useAudio()
   const hasAutoPlayed = useRef(false)
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export function SimulatorMessage({
             <AudioIconButton
               isLoading={isLoading}
               isPlaying={isPlaying}
+              disabled={disabled}
               onClick={() => play(mainText)}
               className="h-8 w-8 shrink-0"
             />

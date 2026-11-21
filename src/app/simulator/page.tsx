@@ -8,6 +8,7 @@ import { revisitInfo } from '@/lib/simulator/revisit'
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { LinkCard } from '@/components/ui/link-card'
 import { PageHeader } from '@/components/layout/PageHeader'
+import { SearchTrigger } from '@/components/search/SearchTrigger'
 
 export default function SimulatorPickerPage() {
   const scenarios = useContentStore(s => s.content.phrases)
@@ -24,7 +25,9 @@ export default function SimulatorPickerPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
-      <PageHeader title="Simulator" description="Pick a scenario and practice a live conversation." />
+      <PageHeader title="Simulator" description="Pick a scenario and practice a live conversation.">
+        <SearchTrigger />
+      </PageHeader>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {scenarios.map((s, i) => {

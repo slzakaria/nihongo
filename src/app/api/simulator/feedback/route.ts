@@ -1,11 +1,10 @@
 import { NextRequest } from 'next/server'
 import { askClaudeJson } from '@/lib/ai/claude'
-import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
+import { ANON_DAILY_LIMIT, checkAndBumpDailyLimit } from '@/lib/rateLimit'
 import { currentServerUser } from '@/lib/auth/server'
 import { loadContent } from '@/lib/data/content'
 import type { ChatMessage } from '@/types'
 
-const ANON_DAILY_LIMIT = 10
 const LIMIT_COOKIE = 'feedback_reqs'
 const MAX_TURNS = 20
 

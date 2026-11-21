@@ -5,6 +5,7 @@ import { useContentStore } from '@/lib/data/content'
 import { CardContent } from '@/components/ui/card'
 import { LinkCard } from '@/components/ui/link-card'
 import { PageHeader } from '@/components/layout/PageHeader'
+import { SearchTrigger } from '@/components/search/SearchTrigger'
 
 export default function FlashcardsPage() {
   const scenarios = useContentStore(s => s.content.phrases)
@@ -14,7 +15,9 @@ export default function FlashcardsPage() {
       <PageHeader
         title="Flashcards"
         description="Pick a scenario to start a spaced-repetition session."
-      />
+      >
+        <SearchTrigger />
+      </PageHeader>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {scenarios.map((s, i) => (

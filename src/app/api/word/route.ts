@@ -1,10 +1,8 @@
 import { NextRequest } from 'next/server'
 import { askClaudeJson } from '@/lib/ai/claude'
-import { checkAndBumpDailyLimit } from '@/lib/rateLimit'
+import { ANON_DAILY_LIMIT, checkAndBumpDailyLimit } from '@/lib/rateLimit'
 import { currentServerUser } from '@/lib/auth/server'
 
-// Guests get a small daily cap so lookups can't be used to run up API costs anonymously
-const ANON_DAILY_LIMIT = 30
 const LIMIT_COOKIE = 'word_reqs'
 
 interface WordResult {
