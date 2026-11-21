@@ -31,7 +31,7 @@ export function SimulatorMessage({
       <div
         className={cn(
           'flex max-w-[80%] flex-col gap-1 rounded-lg px-4 py-2.5',
-          isUser ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'
+          isUser ? 'bg-primary/15' : 'bg-muted'
         )}
       >
         <div className="flex items-center gap-2">

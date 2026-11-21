@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
+import { StarrySky } from "@/components/layout/StarrySky";
 import { NavigationProgress } from "@/components/layout/NavigationProgress";
 import { LoadingOverlay } from "@/components/layout/LoadingOverlay";
 import { ThemeSync } from "@/components/layout/ThemeSync";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ClerkProvider>
           {/* beforeInteractive injects this into the server HTML, so it runs before paint without React rendering a <script> */}
           <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+          <StarrySky />
           <Navbar />
           <NavigationProgress />
           <LoadingOverlay />

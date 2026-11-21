@@ -16,7 +16,7 @@ export function PageHeader({
   return (
     <header
       className={cn(
-        'animate-fade-up gradient-brand relative overflow-hidden rounded-3xl p-6 sm:p-8',
+        'animate-fade-up gradient-brand relative overflow-hidden rounded-xl p-6 sm:p-8',
         className
       )}
     >

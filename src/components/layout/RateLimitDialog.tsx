@@ -44,7 +44,7 @@ export function RateLimitDialog() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="rate-limit-title"
-        className="animate-scale-in relative w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+        className="animate-scale-in relative w-full max-w-sm overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Guest limit reached</p>

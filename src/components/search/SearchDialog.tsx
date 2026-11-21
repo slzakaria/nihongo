@@ -68,7 +68,7 @@ export function SearchDialog() {
         role="dialog"
         aria-modal="true"
         aria-label="Search phrases"
-        className="animate-scale-in flex w-full max-w-xl flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+        className="animate-scale-in flex w-full max-w-xl flex-col overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
           <Search className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />

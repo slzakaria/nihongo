@@ -5,6 +5,11 @@ import { loadAudio } from '@/lib/tts/speak'
 import { useSettingsStore } from '@/store/settings'
 import { useAudioStore, nextAudioId } from '@/store/audio'
 
+// Safety valve: if a play() never settles for any reason (network stall, a browser's autoplay
+// policy silently blocking playback without rejecting the promise, etc.), the shared lock would
+// otherwise disable every voice button on the page forever. Force it back to idle after this long.
+const STUCK_LOCK_TIMEOUT_MS = 6000
+
 export function useAudio() {
   const idRef = useRef<number | null>(null)
   if (idRef.current === null) idRef.current = nextAudioId()
@@ -37,19 +42,37 @@ export function useAudio() {
       if (!text || useAudioStore.getState().status !== 'idle') return
       useAudioStore.setState({ activeId: id, status: 'loading' })
 
+      const release = () => {
+        if (useAudioStore.getState().activeId === id) useAudioStore.setState({ activeId: null, status: 'idle' })
+      }
+      // If this never settles, abort the underlying request and release the lock — without the
+      // abort, a request that resolves late (well after its own timeout already gave up on it)
+      // could still reach the `status: 'playing'` line below and re-steal the lock from whatever
+      // newer play() call is using it by then.
+      const controller = new AbortController()
+      const stuckTimer = setTimeout(() => {
+        controller.abort()
+        release()
+      }, STUCK_LOCK_TIMEOUT_MS)
+
       try {
-        const url = await loadAudio(text)
+        const url = await loadAudio(text, controller.signal)
+        // Another play() may have taken over (e.g. the timeout above already fired) — don't
+        // resume as this instance if we no longer hold the lock.
+        if (useAudioStore.getState().activeId !== id) return
+
         const audio = new Audio(url)
         audio.playbackRate = useSettingsStore.getState().ttsSpeed
         audioRef.current = audio
         audio.onended = audio.onerror = () => {
-          // Only clear the lock if we still hold it (a later play() could have already moved on)
-          if (useAudioStore.getState().activeId === id) useAudioStore.setState({ activeId: null, status: 'idle' })
+          clearTimeout(stuckTimer)
+          release()
         }
         useAudioStore.setState({ status: 'playing' })
         await audio.play()
       } catch {
-        if (useAudioStore.getState().activeId === id) useAudioStore.setState({ activeId: null, status: 'idle' })
+        clearTimeout(stuckTimer)
+        release()
       }
     },
     [id]

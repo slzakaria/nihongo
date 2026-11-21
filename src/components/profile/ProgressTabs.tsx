@@ -51,7 +51,7 @@ export function ProgressTabs({
             onClick={() => setTab(t.value)}
             className={cn(
               'cursor-pointer rounded px-3 py-1.5 text-xs font-medium transition-colors',
-              tab === t.value ? 'bg-secondary text-secondary-foreground' : 'text-muted-foreground hover:bg-muted'
+              tab === t.value ? 'bg-primary/15 font-semibold text-foreground' : 'text-muted-foreground hover:bg-muted'
             )}
           >
             {t.label}

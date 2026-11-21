@@ -66,7 +66,7 @@ export function SignInDialog() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="sign-in-title"
-        className="animate-scale-in relative w-full max-w-md overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+        className="animate-scale-in relative w-full max-w-md overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Welcome back</p>

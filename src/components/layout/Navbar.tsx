@@ -29,7 +29,7 @@ export function Navbar() {
     setMobileOpen(false);
   }
   const headerRef = useRef<HTMLElement>(null);
-  const visibleLinks = user ? [...navLinks, { href: "/profile", label: "Progress" }] : navLinks;
+  const visibleLinks = navLinks;
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
@@ -70,7 +70,7 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "relative shrink-0 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:bg-muted sm:px-3 sm:text-sm align-middle items-center",
-                  active && "bg-secondary text-secondary-foreground hover:bg-secondary"
+                  active && "bg-primary/15 font-semibold text-foreground hover:bg-primary/15"
                 )}>
                 {link.label}
               </Link>

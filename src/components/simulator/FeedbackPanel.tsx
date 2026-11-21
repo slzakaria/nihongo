@@ -5,7 +5,6 @@ import { Loader2, X } from 'lucide-react'
 import type { ChatMessage } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { trackBusy } from '@/store/busy'
 import { showGuestLimitDialog } from '@/store/rateLimitDialog'
 
 interface Feedback {
@@ -32,11 +31,11 @@ export function FeedbackPanel({
 
   useEffect(() => {
     let cancelled = false
-    trackBusy(fetch('/api/simulator/feedback', {
+    fetch('/api/simulator/feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scenarioSlug, messages: snapshot }),
-    }))
+    })
       .then(async res => {
         const data = (await res.json()) as Feedback & { error?: string }
         if (res.status === 429) showGuestLimitDialog(data.error)

@@ -70,7 +70,7 @@ export function SettingsMenu() {
                   onClick={() => setTheme(t.value)}
                   className={cn(
                     'flex flex-1 flex-col items-center gap-1 rounded-md py-1.5 text-xs hover:bg-muted',
-                    theme === t.value && 'bg-secondary text-secondary-foreground hover:bg-secondary'
+                    theme === t.value && 'bg-primary/15 font-semibold text-foreground hover:bg-primary/15'
                   )}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -93,7 +93,7 @@ export function SettingsMenu() {
               }}
               className={cn(
                 'flex w-full flex-col items-start rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted',
-                romajiMode === m.value && 'bg-secondary text-secondary-foreground hover:bg-secondary'
+                romajiMode === m.value && 'bg-primary/15 font-semibold text-foreground hover:bg-primary/15'
               )}
             >
               <span>{m.label}</span>
@@ -112,7 +112,7 @@ export function SettingsMenu() {
                 onClick={() => setTtsSpeed(s.value)}
                 className={cn(
                   'flex-1 rounded-md py-1.5 text-xs hover:bg-muted',
-                  ttsSpeed === s.value && 'bg-secondary text-secondary-foreground hover:bg-secondary'
+                  ttsSpeed === s.value && 'bg-primary/15 font-semibold text-foreground hover:bg-primary/15'
                 )}
               >
                 {s.label}

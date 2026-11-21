@@ -38,11 +38,11 @@ export function ScenarioSidebar({
             href={`${basePath}/${s.slug}`}
             className={cn(
               'flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted',
-              active && 'bg-secondary text-secondary-foreground hover:bg-secondary'
+              active && 'bg-primary/15 font-semibold text-foreground hover:bg-primary/15'
             )}
           >
             <span>{s.label}</span>
-            <span className={cn('text-xs text-muted-foreground', active && 'text-secondary-foreground')}>
+            <span className="text-xs text-muted-foreground">
               {pct}%
             </span>
           </Link>

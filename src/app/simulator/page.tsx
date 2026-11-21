@@ -9,6 +9,7 @@ import { CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { LinkCard } from '@/components/ui/link-card'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SearchTrigger } from '@/components/search/SearchTrigger'
+import { scenarioKana } from '@/lib/data/scenarioKana'
 
 export default function SimulatorPickerPage() {
   const scenarios = useContentStore(s => s.content.phrases)
@@ -37,6 +38,11 @@ export default function SimulatorPickerPage() {
           return (
             <LinkCard key={s.slug} href={`/simulator/${s.slug}`} index={i}>
               <CardHeader>
+                {scenarioKana(s.slug) && (
+                  <p lang="ja" className="text-xs text-muted-foreground">
+                    {scenarioKana(s.slug)}
+                  </p>
+                )}
                 <CardTitle className="text-base">{s.label}</CardTitle>
               </CardHeader>
               <CardContent>

@@ -1,33 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.575rem;
 
-  /* washi paper */
-  --background: #fbf8f6;
+  /* washi paper, warmed slightly toward peach rather than cool blue-white */
+  --background: #f7f2ec;
   --foreground: #2b3a4a;
 
   --card: #ffffff;
   --card-foreground: #2b3a4a;
 
-  /* hanami blue */
-  --primary: #8fb8de;
+  /* sky blue */
+  --primary: #83cff0;
   --primary-foreground: #14324d;
 
   /* sakura pink */
-  --secondary: #f7b7c2;
+  --secondary: #f39ac4;
   --secondary-foreground: #5c1d2e;
 
-  /* pale sky */
-  --muted: #e6f0f8;
+  /* elevated */
+  --muted: #e9f2fa;
   --muted-foreground: #55697d;
 
   /* peach */
-  --accent: #ffd8c2;
+  --accent: #ffb6a6;
   --accent-foreground: #6b3a2a;
 
   --border: #dbe5ee;
-  --ring: #8fb8de;
+  --ring: #83cff0;
+
+  /* Starry-sky sparkle dot colours — tri-colour (blue/pink/peach) and saturated enough to read
+     against the light background. Dark theme overrides all three to plain white below. */
+  --star-a: color-mix(in srgb, var(--primary) 85%, transparent);
+  --star-b: color-mix(in srgb, var(--secondary) 80%, transparent);
+  --star-c: color-mix(in srgb, var(--accent) 80%, transparent);
+  --star-glow-a: color-mix(in srgb, var(--primary) 26%, transparent);
+  --star-glow-b: color-mix(in srgb, var(--secondary) 18%, transparent);
+  --star-glow-c: color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 @theme inline {
@@ -53,36 +62,47 @@
 }
 
 .dark {
-  /* night river */
-  --background: #101b2a;
-  --foreground: #e8f0f8;
+  /* dark mode background */
+  --background: #101c2d;
+  --foreground: #eaf1fa;
 
-  --card: #172538;
-  --card-foreground: #e8f0f8;
+  /* dark mode surface */
+  --card: #1b2b40;
+  --card-foreground: #eaf1fa;
 
-  /* moonlit blue */
-  --primary: #9cc8ee;
-  --primary-foreground: #0a1f33;
+  /* sky blue */
+  --primary: #83cff0;
+  --primary-foreground: #14324d;
 
-  /* soft sakura */
-  --secondary: #f2b8c6;
-  --secondary-foreground: #3a1a24;
+  /* sakura pink */
+  --secondary: #f39ac4;
+  --secondary-foreground: #5c1d2e;
 
-  --muted: #1d2e44;
-  --muted-foreground: #a6b9cc;
+  /* dark mode elevated */
+  --muted: #293d54;
+  --muted-foreground: #92a6bc;
 
-  /* warm peach */
-  --accent: #f5c9b0;
-  --accent-foreground: #3a1f14;
+  /* peach */
+  --accent: #ffb6a6;
+  --accent-foreground: #6b3a2a;
 
-  --border: #2a3c55;
-  --ring: #9cc8ee;
+  --border: rgba(148, 163, 184, 0.14);
+  --ring: #83cff0;
+
+  /* Classic plain-white starfield at night — no colour tint, no corner glow washes */
+  --star-a: #fff;
+  --star-b: #fff;
+  --star-c: #fff;
+  --star-glow-a: transparent;
+  --star-glow-b: transparent;
+  --star-glow-c: transparent;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 @layer base {
@@ -138,18 +158,207 @@ body {
   }
 }
 
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Gentler shimmer for the light-theme sparkle background — the dark starfield's full 0.4→1 swing
+   reads as a dramatic blink, which looks out of place against a soft daytime pastel. */
+@keyframes twinkle-soft {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Each word in a floating-phrase slot takes its turn: fades in, holds for a long stretch, fades
+   out, then waits while the other words sharing that slot (staggered via animation-delay) take
+   their turn. Three words share a 27s loop (9s each) so every word gets a long, comfortably
+   readable dwell time rather than flicking past. */
+@keyframes word-cycle {
+  0%,
+  2% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  6%,
+  29% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.animate-word-cycle {
+  animation: word-cycle 27s ease-in-out infinite both;
+}
+
 .animate-fade-up {
-  animation: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.animate-float {
+  animation: float-bob 6s ease-in-out infinite both;
+}
+
+/* Small scattered dots for a background effect behind every page — a night-sky starfield in dark
+   theme, and a tri-colour (blue/pink/peach) sparkle version in light theme so the pastel
+   background isn't just a flat colour. The dot layout is shared between themes; only the
+   --star-* colour variables and the twinkle animation change (see :root / .dark above).
+   Painted as one background-image so it's a single lightweight layer rather than dozens of DOM
+   nodes. */
+.starry-sky {
+  opacity: 1;
+  background-image:
+    radial-gradient(ellipse 70% 55% at 12% 8%, var(--star-glow-a), transparent 72%),
+    radial-gradient(ellipse 60% 50% at 88% 15%, var(--star-glow-c), transparent 72%),
+    radial-gradient(ellipse 65% 55% at 20% 92%, var(--star-glow-b), transparent 72%),
+    radial-gradient(2.5px 2.5px at 83.4% 48.0%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 84.2% 98.3%, var(--star-b), transparent),
+    radial-gradient(3px 2px at 41.7% 36.2%, var(--star-b), transparent),
+    radial-gradient(2px 2px at 68.7% 51.5%, var(--star-b), transparent),
+    radial-gradient(2.5px 2.5px at 6.2% 1.0%, var(--star-c), transparent),
+    radial-gradient(1.5px 2px at 69.3% 7.4%, var(--star-a), transparent),
+    radial-gradient(1.5px 1.5px at 82.0% 13.1%, var(--star-c), transparent),
+    radial-gradient(2px 3px at 65.7% 90.2%, var(--star-a), transparent),
+    radial-gradient(3px 2px at 81.5% 28.9%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 49.7% 79.1%, var(--star-b), transparent),
+    radial-gradient(2px 1.5px at 60.0% 47.5%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 21.0% 62.2%, var(--star-a), transparent),
+    radial-gradient(2px 3px at 31.7% 69.1%, var(--star-a), transparent),
+    radial-gradient(4.5px 2px at 97.7% 20.1%, var(--star-b), transparent),
+    radial-gradient(2px 3px at 43.2% 54.9%, var(--star-a), transparent),
+    radial-gradient(1.5px 2px at 40.1% 11.1%, var(--star-c), transparent),
+    radial-gradient(2px 1.5px at 94.6% 36.7%, var(--star-b), transparent),
+    radial-gradient(2px 2px at 11.1% 57.0%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 3.5% 86.7%, var(--star-b), transparent),
+    radial-gradient(2.5px 2.5px at 3.3% 94.2%, var(--star-c), transparent),
+    radial-gradient(2px 1.5px at 42.1% 54.0%, var(--star-a), transparent),
+    radial-gradient(5px 2.5px at 75.8% 32.9%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 51.8% 90.0%, var(--star-a), transparent),
+    radial-gradient(1.5px 1.5px at 79.5% 96.2%, var(--star-a), transparent),
+    radial-gradient(4.5px 2px at 65.4% 35.3%, var(--star-b), transparent),
+    radial-gradient(2px 3px at 34.5% 92.5%, var(--star-a), transparent),
+    radial-gradient(1.5px 2px at 80.2% 71.9%, var(--star-a), transparent),
+    radial-gradient(2.5px 2.5px at 31.2% 81.0%, var(--star-b), transparent),
+    radial-gradient(1.5px 2px at 67.7% 42.9%, var(--star-c), transparent),
+    radial-gradient(1.5px 1.5px at 48.5% 58.7%, var(--star-b), transparent),
+    radial-gradient(2px 2px at 4.7% 43.5%, var(--star-a), transparent),
+    radial-gradient(1.5px 1.5px at 83.3% 93.6%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 5.6% 85.1%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 37.2% 56.5%, var(--star-a), transparent),
+    radial-gradient(4.5px 2px at 82.8% 7.0%, var(--star-b), transparent),
+    radial-gradient(4.5px 2px at 80.0% 15.3%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 73.4% 40.0%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 68.9% 94.7%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 49.3% 72.6%, var(--star-a), transparent),
+    radial-gradient(1.5px 2px at 87.9% 35.0%, var(--star-a), transparent),
+    radial-gradient(2px 3px at 49.7% 17.3%, var(--star-b), transparent),
+    radial-gradient(2px 3px at 67.7% 55.8%, var(--star-b), transparent),
+    radial-gradient(2px 2px at 53.6% 94.0%, var(--star-a), transparent),
+    radial-gradient(5px 2.5px at 3.7% 21.9%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 65.2% 73.5%, var(--star-c), transparent),
+    radial-gradient(3px 2px at 85.6% 69.2%, var(--star-c), transparent),
+    radial-gradient(5px 2.5px at 3.1% 79.3%, var(--star-c), transparent),
+    radial-gradient(1.5px 2px at 94.9% 15.8%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 11.0% 34.6%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 15.8% 65.5%, var(--star-a), transparent),
+    radial-gradient(1.5px 1.5px at 12.6% 42.0%, var(--star-c), transparent),
+    radial-gradient(2px 3px at 70.7% 20.5%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 24.6% 55.0%, var(--star-b), transparent),
+    radial-gradient(3px 2px at 40.2% 19.7%, var(--star-a), transparent),
+    radial-gradient(1.5px 1.5px at 8.1% 53.5%, var(--star-b), transparent),
+    radial-gradient(1.5px 2px at 54.8% 87.6%, var(--star-c), transparent),
+    radial-gradient(3px 2px at 69.7% 64.4%, var(--star-b), transparent),
+    radial-gradient(1.5px 2px at 6.8% 76.3%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 62.8% 58.1%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 44.2% 11.8%, var(--star-b), transparent),
+    radial-gradient(2px 2px at 43.5% 63.3%, var(--star-c), transparent),
+    radial-gradient(3px 2px at 77.4% 9.0%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 37.5% 54.7%, var(--star-a), transparent),
+    radial-gradient(1.5px 2px at 35.8% 60.9%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 78.4% 47.3%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 56.3% 61.7%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 75.3% 30.2%, var(--star-b), transparent),
+    radial-gradient(1.5px 2px at 46.4% 73.8%, var(--star-b), transparent),
+    radial-gradient(4px 2px at 52.6% 92.5%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 28.6% 15.3%, var(--star-c), transparent),
+    radial-gradient(1.5px 1.5px at 57.6% 39.9%, var(--star-b), transparent),
+    radial-gradient(2px 1.5px at 46.6% 91.5%, var(--star-a), transparent),
+    radial-gradient(2.5px 2.5px at 36.5% 68.6%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 52.5% 86.8%, var(--star-a), transparent),
+    radial-gradient(1.5px 2px at 4.8% 66.5%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 72.0% 17.7%, var(--star-c), transparent),
+    radial-gradient(2px 1.5px at 93.9% 39.7%, var(--star-a), transparent),
+    radial-gradient(3px 2px at 34.7% 64.0%, var(--star-c), transparent),
+    radial-gradient(2px 3px at 55.7% 78.3%, var(--star-c), transparent),
+    radial-gradient(1.5px 2px at 48.1% 31.6%, var(--star-c), transparent),
+    radial-gradient(2px 1.5px at 58.1% 90.2%, var(--star-c), transparent),
+    radial-gradient(2px 3px at 50.3% 63.4%, var(--star-c), transparent),
+    radial-gradient(2px 3px at 20.1% 24.5%, var(--star-b), transparent),
+    radial-gradient(3px 2px at 45.0% 60.7%, var(--star-b), transparent),
+    radial-gradient(1.5px 2px at 73.5% 23.2%, var(--star-c), transparent),
+    radial-gradient(2px 1.5px at 30.4% 78.8%, var(--star-b), transparent),
+    radial-gradient(2px 1.5px at 76.6% 53.2%, var(--star-b), transparent),
+    radial-gradient(2.5px 2.5px at 37.9% 63.2%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 80.5% 97.5%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 11.0% 47.1%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 3.7% 58.9%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 47.9% 68.8%, var(--star-b), transparent),
+    radial-gradient(1.5px 2px at 89.2% 77.4%, var(--star-a), transparent);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  animation: twinkle-soft 6s ease-in-out infinite alternate;
+}
+
+.dark .starry-sky {
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+/* Hero banner photo for the landing page — a dark scrim on the left guarantees the heading and
+   button text stay legible even where the hero's own aspect ratio crops the photo differently
+   (e.g. on mobile), while the photo's own built-in gradient (navy night sky fading to a warm
+   sunset over Mt. Fuji) still shows through mostly unobstructed on the right. */
+.hero-banner {
+  background-image:
+    linear-gradient(90deg, rgba(8, 14, 28, 0.6) 0%, rgba(8, 14, 28, 0.25) 45%, rgba(8, 14, 28, 0) 68%),
+    url('/purebg.jpeg');
+  background-size: cover;
+  background-position: center;
 }
 
 /* Brand gradient used on headers and cards. It slides across on hover (when the element or an ancestor
-   with the `group` class is hovered), so the colours move rather than snap. */
+   with the `group` class is hovered), so the colours move rather than snap. The colour-mix stops blend
+   with whatever's behind (the card/background), so this stays a moody tinted surface rather than a flat
+   coat of pastel — vivid enough to read as three distinct hues, without overpowering the text on top. */
 .gradient-brand {
   background-image: linear-gradient(
     120deg,
-    color-mix(in srgb, var(--primary) 45%, transparent) 0%,
-    color-mix(in srgb, var(--accent) 50%, transparent) 50%,
-    color-mix(in srgb, var(--secondary) 45%, transparent) 100%
+    color-mix(in srgb, var(--primary) 60%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 65%, transparent) 50%,
+    color-mix(in srgb, var(--secondary) 60%, transparent) 100%
   );
   background-size: 200% 200%;
   background-position: 0% 50%;
@@ -165,6 +374,20 @@ body {
 .gradient-brand:hover,
 .group:hover .gradient-brand {
   background-position: 100% 50%;
+}
+
+/* Same three brand colours and stop order as gradient-brand above, more saturated and sized to
+   100% (not 200%) so the full sweep stays visible at any fill width — gradient-brand's 200% size
+   is tuned for its hover-slide and would clip off the far colour long before a progress bar
+   reached 100%. Used for progress bar fills, which need to read clearly rather than sit subtly
+   behind text. */
+.gradient-fill {
+  background-image: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--primary) 70%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 75%, transparent) 50%,
+    color-mix(in srgb, var(--secondary) 70%, transparent) 100%
+  );
 }
 
 .animate-fade-in {
@@ -187,4 +410,3 @@ body {
     animation: none;
   }
 }
-

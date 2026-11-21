@@ -8,15 +8,17 @@ import { ChatMessage } from '@/types'
 import { getScenarioStarter } from '@/lib/simulator/prompts'
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition'
 import { useAuthStore } from '@/store/auth'
+import { useContentStore } from '@/lib/data/content'
 import { fetchConversation, saveConversation, clearConversation } from '@/lib/supabase/simulator'
 import { recordStudyDay } from '@/lib/supabase/activity'
 import { FeedbackPanel } from '@/components/simulator/FeedbackPanel'
-import { trackBusy } from '@/store/busy'
 import { showGuestLimitDialog } from '@/store/rateLimitDialog'
+import { scenarioKana } from '@/lib/data/scenarioKana'
 import { cn } from '@/lib/utils'
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   const starter = getScenarioStarter(scenarioSlug)
+  const scenario = useContentStore(s => s.content.phrases.find(sc => sc.slug === scenarioSlug))
   const user = useAuthStore(s => s.user)
   // `messages` is what's shown on screen (includes the opening line); `apiHistory` is
   // what's sent to Claude — the opener never counts as a turn, so history always starts on 'user'
@@ -81,11 +83,11 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
     setIsStreaming(true)
 
     try {
-      const res = await trackBusy(fetch('/api/simulator', {
+      const res = await fetch('/api/simulator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: nextApiHistory, scenarioSlug }),
-      }))
+      })
 
       if (res.status === 429) {
         const data = (await res.json().catch(() => null)) as { error?: string } | null
@@ -157,12 +159,56 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
           </button>
         </div>
       )}
-      <div className="flex max-h-[60vh] flex-col gap-3 overflow-y-auto sm:max-h-[65vh]">
-        {messages.map((m, i) => (
-          <SimulatorMessage key={i} message={m} autoPlay={i === autoPlayIndex} />
-        ))}
-        <div ref={scrollRef} />
+
+      <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+        {scenario && (
+          <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
+            <span className="truncate text-xs text-muted-foreground">
+              {scenario.icon} {scenarioKana(scenario.slug) ? `${scenarioKana(scenario.slug)}・` : ''}
+              {scenario.label}
+            </span>
+          </div>
+        )}
+
+        <div className="flex max-h-[60vh] flex-col gap-3 overflow-y-auto p-4 sm:max-h-[65vh]">
+          {messages.map((m, i) => (
+            <SimulatorMessage key={i} message={m} autoPlay={i === autoPlayIndex} />
+          ))}
+          <div ref={scrollRef} />
+        </div>
+
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            sendMessage()
+          }}
+          className="flex gap-2 border-t border-border p-3"
+        >
+          <input
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            placeholder="Type in any language..."
+            className="h-10 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+          {micSupported && (
+            <Button
+              type="button"
+              variant={isListening ? 'secondary' : 'outline'}
+              size="icon"
+              loading={isTranscribing}
+              aria-label={isListening ? 'Stop recording' : 'Record in Japanese'}
+              onClick={handleMicClick}
+              className={cn(isListening && 'ring-2 ring-red-500')}
+            >
+              {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+            </Button>
+          )}
+          <Button type="submit" size="icon" loading={isStreaming} disabled={!input.trim()} aria-label="Send message">
+            <Send className="h-4 w-4" />
+          </Button>
+        </form>
       </div>
+
       {messages.some(m => m.role === 'user') && (
         <div className="flex justify-end">
           <Button type="button" variant="outline" size="sm" className="cursor-pointer" onClick={() => setReviewOpen(true)}>
@@ -174,36 +220,6 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         <FeedbackPanel scenarioSlug={scenarioSlug} messages={apiHistory} onClose={() => setReviewOpen(false)} />
       )}
 
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          sendMessage()
-        }}
-        className="flex gap-2"
-      >
-        <input
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          placeholder="Type in any language..."
-          className="h-10 flex-1 rounded-md border border-border bg-card px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-        {micSupported && (
-          <Button
-            type="button"
-            variant={isListening ? 'secondary' : 'outline'}
-            size="icon"
-            loading={isTranscribing}
-            aria-label={isListening ? 'Stop recording' : 'Record in Japanese'}
-            onClick={handleMicClick}
-            className={cn(isListening && 'ring-2 ring-red-500')}
-          >
-            {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-          </Button>
-        )}
-        <Button type="submit" size="icon" loading={isStreaming} disabled={!input.trim()} aria-label="Send message">
-          <Send className="h-4 w-4" />
-        </Button>
-      </form>
       {(isListening || isTranscribing) && (
         <p role="status" className="flex items-center gap-2 text-xs text-muted-foreground">
           {isListening ? (

@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/auth'
 
 export function Footer() {
   const user = useAuthStore(s => s.user)
-  const links = user ? [...navLinks, { href: '/profile', label: 'Progress' }] : navLinks
+  const links = navLinks
   const year = new Date().getFullYear()
 
   return (
@@ -20,7 +20,7 @@ export function Footer() {
             </Link>
           ))}
         </nav>
-        <p className="text-center text-xs text-muted-foreground">⛩️ はなぞの:flower garden - Hanazono made by ZS so that R & Y dont always rely on him while in Japan ⛩️ - {year}</p>
+        <p className="text-center text-sm text-muted-foreground">⛩️ はなぞの:flower garden - made by <Link className='underline' target='_blank' href='https://zakariaslimane.dev/'>ZS</Link> so that R & Y dont always rely on him while in Japan ⛩️ - {year}</p>
       </div>
     </footer>
   )

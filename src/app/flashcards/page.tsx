@@ -23,7 +23,7 @@ export default function FlashcardsPage() {
         {scenarios.map((s, i) => (
           <LinkCard key={s.slug} href={`/flashcards/${s.slug}`} index={i}>
             <CardContent className="flex items-center gap-4 p-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-accent text-xl transition duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent text-xl transition duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">
                 {s.icon || <Layers className="h-5 w-5" />}
               </span>
               <div className="min-w-0 flex-1">
