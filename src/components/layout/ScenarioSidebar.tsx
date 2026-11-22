@@ -29,7 +29,7 @@ export function ScenarioSidebar({
   }, [cards]);
 
   return (
-    <nav className="hidden w-48 shrink-0 flex-col gap-1 md:flex">
+    <nav className="hidden w-[240px] shrink-0 flex-col gap-1 md:flex lg:w-[260px] xl:w-[300px]">
       {scenarios.map((s) => {
         const reviewed = reviewedByScenario.get(s.slug) ?? 0;
         const pct =
@@ -41,19 +41,21 @@ export function ScenarioSidebar({
             href={`${basePath}/${s.slug}`}
             aria-current={active ? 'page' : undefined}
             className={cn(
-              'flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors hover:bg-foreground/5',
+              'grid grid-cols-[minmax(0,1fr)_3.25rem] items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-foreground/5',
               active &&
                 'bg-secondary/20 font-semibold text-foreground hover:bg-secondary/25',
             )}
           >
-            <span className="min-w-0 flex-1">
+            <span className="min-w-0">
               <BilingualText
                 english={s.label}
                 japanese={scenarioKana(s.slug) ?? 'シナリオ'}
-                className="max-w-full truncate"
+                className="max-w-full"
               />
             </span>
-            <span className="text-xs text-muted-foreground">{pct}%</span>
+            <span className="shrink-0 pl-2 text-right text-xs tabular-nums text-muted-foreground">
+              {pct}%
+            </span>
           </Link>
         );
       })}

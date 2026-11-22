@@ -61,7 +61,7 @@ export function PhraseList({
             key={value}
             size="sm"
             variant={activeFilter === value ? 'default' : 'outline'}
-            className={cn('capitalize')}
+            className={cn('capitalize', activeFilter === value && 'solid-primary-button')}
             disabled={value !== 'all' && count === 0}
             onClick={() => setFilter(value)}
           >
