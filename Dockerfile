@@ -6,7 +6,7 @@ RUN apk upgrade --no-cache && corepack enable
 # --- deps: install dependencies only (cached unless lockfile changes) ---
 FROM base AS deps
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # --- builder: build the app ---

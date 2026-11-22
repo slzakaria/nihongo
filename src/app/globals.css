@@ -3,40 +3,33 @@
 :root {
   --radius: 0.575rem;
 
-  /* washi paper, warmed slightly toward peach rather than cool blue-white */
-  --background: #f7f2ec;
-  --foreground: #2b3a4a;
+  --background: #faf7f4;
+  --foreground: #2d2520;
 
   --card: #ffffff;
-  --card-foreground: #2b3a4a;
+  --card-foreground: #2d2520;
 
-  /* sky blue */
-  --primary: #83cff0;
-  --primary-foreground: #14324d;
+  --primary: #d4537e;
+  --primary-foreground: #ffffff;
 
-  /* sakura pink */
-  --secondary: #f39ac4;
-  --secondary-foreground: #5c1d2e;
+  --secondary: #fce4ee;
+  --secondary-foreground: #993556;
 
-  /* elevated */
-  --muted: #e9f2fa;
-  --muted-foreground: #55697d;
+  --muted: #fdf6f0;
+  --muted-foreground: #8a7470;
 
-  /* peach */
-  --accent: #ffb6a6;
-  --accent-foreground: #6b3a2a;
+  --accent: #faeada;
+  --accent-foreground: #8a5030;
 
-  --border: #dbe5ee;
-  --ring: #83cff0;
+  --border: #f0d8cc;
+  --ring: #d4537e;
 
-  /* Starry-sky sparkle dot colours — tri-colour (blue/pink/peach) and saturated enough to read
-     against the light background. Dark theme overrides all three to plain white below. */
-  --star-a: color-mix(in srgb, var(--primary) 85%, transparent);
-  --star-b: color-mix(in srgb, var(--secondary) 80%, transparent);
-  --star-c: color-mix(in srgb, var(--accent) 80%, transparent);
-  --star-glow-a: color-mix(in srgb, var(--primary) 26%, transparent);
-  --star-glow-b: color-mix(in srgb, var(--secondary) 18%, transparent);
-  --star-glow-c: color-mix(in srgb, var(--accent) 22%, transparent);
+  --star-a: color-mix(in srgb, #378add 65%, transparent);
+  --star-b: color-mix(in srgb, #d4537e 65%, transparent);
+  --star-c: color-mix(in srgb, #f5c4b3 70%, transparent);
+  --star-glow-a: color-mix(in srgb, #e6f1fb 42%, transparent);
+  --star-glow-b: color-mix(in srgb, #fce4ee 32%, transparent);
+  --star-glow-c: color-mix(in srgb, #f4f0fc 40%, transparent);
 }
 
 @theme inline {
@@ -57,37 +50,33 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-sans: var(--font-geist-sans);
+  --font-sans:
+    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-serif-jp: var(--font-noto-serif-jp);
 }
 
 .dark {
-  /* dark mode background */
-  --background: #101c2d;
-  --foreground: #eaf1fa;
+  --background: #12151f;
+  --foreground: #e8eaf6;
 
-  /* dark mode surface */
-  --card: #1b2b40;
-  --card-foreground: #eaf1fa;
+  --card: #1e1e2e;
+  --card-foreground: #e8eaf6;
 
-  /* sky blue */
-  --primary: #83cff0;
-  --primary-foreground: #14324d;
+  --primary: #378add;
+  --primary-foreground: #ffffff;
 
-  /* sakura pink */
-  --secondary: #f39ac4;
-  --secondary-foreground: #5c1d2e;
+  --secondary: #2d1f28;
+  --secondary-foreground: #ed93b1;
 
-  /* dark mode elevated */
-  --muted: #293d54;
-  --muted-foreground: #92a6bc;
+  --muted: #1a1f2e;
+  --muted-foreground: #8893b0;
 
-  /* peach */
-  --accent: #ffb6a6;
-  --accent-foreground: #6b3a2a;
+  --accent: #2a2018;
+  --accent-foreground: #fac775;
 
-  --border: rgba(148, 163, 184, 0.14);
-  --ring: #83cff0;
+  --border: #2d3450;
+  --ring: #85b7eb;
 
   /* Classic plain-white starfield at night — no colour tint, no corner glow washes */
   --star-a: #fff;
@@ -99,10 +88,406 @@
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(135deg, #faf7f4 0%, #fdf6f0 52%, #f4f0fc 100%);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family:
+    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+.dark body {
+  background: linear-gradient(135deg, #12151f 0%, #1a1f2e 52%, #16122a 100%);
+}
+
+.navbar-logo {
+  color: #d4537e;
+  font-family: var(--font-noto-serif-jp), serif;
+}
+
+.dark .navbar-logo {
+  color: #85b7eb;
+}
+
+.header-actions > div > button {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  color: var(--muted-foreground);
+}
+
+.header-actions > div > button:hover {
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+.explore-card--pink {
+  border-color: #f9d0de;
+  background-color: #fef4f7;
+}
+
+.explore-card--blue {
+  border-color: #c8e0f8;
+  background-color: #f0f7fe;
+}
+
+.explore-card--peach {
+  border-color: #f5dac8;
+  background-color: #fdf4ee;
+}
+
+.dark .explore-card {
+  border-color: var(--border);
+  background-color: var(--card);
+}
+
+.dark .explore-card--pink {
+  border-color: #3d2030;
+  background-color: #221520;
+}
+
+.dark .explore-card--blue {
+  border-color: #1e3050;
+  background-color: #151e2e;
+}
+
+.dark .explore-card--peach {
+  border-color: #3d2e18;
+  background-color: #201810;
+}
+
+.explore-icon--pink {
+  background-color: #fce4ee;
+  color: #d4537e;
+}
+
+.explore-icon--blue {
+  background-color: #e6f1fb;
+  color: #378add;
+}
+
+.explore-icon--peach {
+  background-color: #faeada;
+  color: #c47a40;
+}
+
+.dark .explore-icon--pink {
+  background-color: #3d1f28;
+  color: #ed93b1;
+}
+
+.dark .explore-icon--blue {
+  background-color: #1a2a3e;
+  color: #85b7eb;
+}
+
+.dark .explore-icon--peach {
+  background-color: #3a2810;
+  color: #fac775;
+}
+
+.scenario-card {
+  border-color: #f0d8cc;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+.dark .scenario-card {
+  border-color: #2d3450;
+  background-color: #1e1e2e;
+}
+
+.explore-carousel {
+  justify-content: safe center;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 1rem;
+  scrollbar-color: var(--border) transparent;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 640px) {
+  .explore-carousel {
+    scroll-padding-inline: 1.5rem;
+  }
+}
+
+.explore-carousel-arrow {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background-color: var(--card);
+  color: var(--foreground);
+  box-shadow: 0 1px 3px rgb(45 37 32 / 10%);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.explore-carousel-arrow:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.explore-carousel-arrow:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.explore-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.explore-carousel::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: var(--border);
+}
+
+.simulator-teaser {
+  padding-block: 3rem;
+}
+
+.simulator-chat {
+  border-color: #f0d8cc;
+  background-color: #ffffff;
+}
+
+.dark .simulator-chat {
+  border-color: #2d3450;
+  background-color: #1e1e2e;
+}
+
+.simulator-chat-header {
+  border-color: #f0d8cc;
+  background-color: #fdf6f0;
+}
+
+.dark .simulator-chat-header {
+  border-color: #2d3450;
+  background-color: #1a1f2e;
+}
+
+.simulator-chip--pink {
+  border-color: #ed93b1;
+  background-color: #fce4ee;
+  color: #993556;
+}
+
+.simulator-chip--blue {
+  border-color: #85b7eb;
+  background-color: #e6f1fb;
+  color: #185fa5;
+}
+
+.simulator-chip--peach {
+  border-color: #f5c4b3;
+  background-color: #faeada;
+  color: #8a5030;
+}
+
+.dark .simulator-chip--pink {
+  border-color: #4a2d3a;
+  background-color: #2d1f28;
+  color: #ed93b1;
+}
+
+.dark .simulator-chip--blue {
+  border-color: #2a4060;
+  background-color: #1a2a3e;
+  color: #85b7eb;
+}
+
+.dark .simulator-chip--peach {
+  border-color: #4a3820;
+  background-color: #2a2018;
+  color: #fac775;
+}
+
+.simulator-bubble--assistant {
+  background-color: #e6f1fb;
+  color: #2d2520;
+}
+
+.simulator-bubble--user {
+  background-color: #fce4ee;
+  color: #2d2520;
+}
+
+.simulator-translation {
+  display: block;
+  margin-top: 0.125rem;
+}
+
+.simulator-bubble--assistant .simulator-translation {
+  color: #378add;
+}
+
+.simulator-bubble--user .simulator-translation {
+  color: #d4537e;
+}
+
+.dark .simulator-bubble--assistant {
+  background-color: #1a2a3e;
+  color: #e8eaf6;
+}
+
+.dark .simulator-bubble--user {
+  background-color: #2d1f28;
+  color: #e8eaf6;
+}
+
+.dark .simulator-bubble--assistant .simulator-translation {
+  color: #85b7eb;
+}
+
+.dark .simulator-bubble--user .simulator-translation {
+  color: #ed93b1;
+}
+
+.simulator-chat-input {
+  border-color: #f0d8cc;
+  background-color: #ffffff;
+}
+
+.simulator-chat-input > div {
+  border-color: #f0d8cc;
+  background-color: #ffffff;
+  color: #b8a09a;
+}
+
+.simulator-send-button:disabled {
+  background-color: #d4537e;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.dark .simulator-chat-input {
+  border-color: #2d3450;
+  background-color: #1e1e2e;
+}
+
+.dark .simulator-chat-input > div {
+  border-color: #2d3450;
+  background-color: #12151f;
+  color: #5a6480;
+}
+
+.dark .simulator-send-button:disabled {
+  background-color: #378add;
+  color: #ffffff;
+}
+
+.srs-grade-button {
+  border-width: 1px;
+  font-weight: 600;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.srs-grade-button--again {
+  border-color: #e8d9cf;
+  background-color: #fdf6f0;
+  color: #75645d;
+}
+
+.srs-grade-button--hard {
+  border-color: #efdbc5;
+  background-color: #faeada;
+  color: #8a5030;
+}
+
+.srs-grade-button--good {
+  border-color: #edb4c9;
+  background-color: #fce4ee;
+  color: #993556;
+}
+
+.srs-grade-button--easy {
+  border-color: #c3dcef;
+  background-color: #e0eef9;
+  color: #185fa5;
+}
+
+.srs-grade-button.srs-grade-button--again:hover {
+  border-color: #d8c2b5;
+  background-color: #f5e9e1;
+  color: #5e4d46;
+}
+
+.srs-grade-button.srs-grade-button--hard:hover {
+  border-color: #e7c9a7;
+  background-color: #f5dfc8;
+  color: #70401f;
+}
+
+.srs-grade-button.srs-grade-button--good:hover {
+  border-color: #e59bb7;
+  background-color: #f7d3e2;
+  color: #842b4b;
+}
+
+.srs-grade-button.srs-grade-button--easy:hover {
+  border-color: #a9cce7;
+  background-color: #cde2f3;
+  color: #124e88;
+}
+
+.dark .srs-grade-button--again {
+  border-color: #3d465c;
+  background-color: #222a3b;
+  color: #c4cbe0;
+}
+
+.dark .srs-grade-button--hard {
+  border-color: #4a3820;
+  background-color: #2a2018;
+  color: #fac775;
+}
+
+.dark .srs-grade-button--good {
+  border-color: #4a2d3a;
+  background-color: #2d1f28;
+  color: #ed93b1;
+}
+
+.dark .srs-grade-button--easy {
+  border-color: #2a4060;
+  background-color: #1a2a3e;
+  color: #85b7eb;
+}
+
+.dark .srs-grade-button--again:hover {
+  border-color: #59667d;
+  background-color: #2b3447;
+  color: #e8eaf6;
+}
+
+.dark .srs-grade-button--hard:hover {
+  border-color: #72552d;
+  background-color: #362a1c;
+  color: #ffd88c;
+}
+
+.dark .srs-grade-button--good:hover {
+  border-color: #704055;
+  background-color: #3a2733;
+  color: #f3abc4;
+}
+
+.dark .srs-grade-button--easy:hover {
+  border-color: #42638a;
+  background-color: #223852;
+  color: #a4cdf2;
 }
 
 @layer base {
@@ -233,62 +618,74 @@ body {
 .starry-sky {
   opacity: 1;
   background-image:
-    radial-gradient(ellipse 70% 55% at 12% 8%, var(--star-glow-a), transparent 72%),
-    radial-gradient(ellipse 60% 50% at 88% 15%, var(--star-glow-c), transparent 72%),
-    radial-gradient(ellipse 65% 55% at 20% 92%, var(--star-glow-b), transparent 72%),
-    radial-gradient(2.5px 2.5px at 83.4% 48.0%, var(--star-b), transparent),
+    radial-gradient(
+      ellipse 70% 55% at 12% 8%,
+      var(--star-glow-a),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 88% 15%,
+      var(--star-glow-c),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 65% 55% at 20% 92%,
+      var(--star-glow-b),
+      transparent 72%
+    ),
+    radial-gradient(2.5px 2.5px at 83.4% 48%, var(--star-b), transparent),
     radial-gradient(1.5px 1.5px at 84.2% 98.3%, var(--star-b), transparent),
     radial-gradient(3px 2px at 41.7% 36.2%, var(--star-b), transparent),
     radial-gradient(2px 2px at 68.7% 51.5%, var(--star-b), transparent),
-    radial-gradient(2.5px 2.5px at 6.2% 1.0%, var(--star-c), transparent),
+    radial-gradient(2.5px 2.5px at 6.2% 1%, var(--star-c), transparent),
     radial-gradient(1.5px 2px at 69.3% 7.4%, var(--star-a), transparent),
-    radial-gradient(1.5px 1.5px at 82.0% 13.1%, var(--star-c), transparent),
+    radial-gradient(1.5px 1.5px at 82% 13.1%, var(--star-c), transparent),
     radial-gradient(2px 3px at 65.7% 90.2%, var(--star-a), transparent),
     radial-gradient(3px 2px at 81.5% 28.9%, var(--star-c), transparent),
     radial-gradient(2.5px 2.5px at 49.7% 79.1%, var(--star-b), transparent),
-    radial-gradient(2px 1.5px at 60.0% 47.5%, var(--star-a), transparent),
-    radial-gradient(2px 1.5px at 21.0% 62.2%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 60% 47.5%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 21% 62.2%, var(--star-a), transparent),
     radial-gradient(2px 3px at 31.7% 69.1%, var(--star-a), transparent),
     radial-gradient(4.5px 2px at 97.7% 20.1%, var(--star-b), transparent),
     radial-gradient(2px 3px at 43.2% 54.9%, var(--star-a), transparent),
     radial-gradient(1.5px 2px at 40.1% 11.1%, var(--star-c), transparent),
     radial-gradient(2px 1.5px at 94.6% 36.7%, var(--star-b), transparent),
-    radial-gradient(2px 2px at 11.1% 57.0%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 11.1% 57%, var(--star-c), transparent),
     radial-gradient(2.5px 2.5px at 3.5% 86.7%, var(--star-b), transparent),
     radial-gradient(2.5px 2.5px at 3.3% 94.2%, var(--star-c), transparent),
-    radial-gradient(2px 1.5px at 42.1% 54.0%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 42.1% 54%, var(--star-a), transparent),
     radial-gradient(5px 2.5px at 75.8% 32.9%, var(--star-a), transparent),
-    radial-gradient(2px 1.5px at 51.8% 90.0%, var(--star-a), transparent),
+    radial-gradient(2px 1.5px at 51.8% 90%, var(--star-a), transparent),
     radial-gradient(1.5px 1.5px at 79.5% 96.2%, var(--star-a), transparent),
     radial-gradient(4.5px 2px at 65.4% 35.3%, var(--star-b), transparent),
     radial-gradient(2px 3px at 34.5% 92.5%, var(--star-a), transparent),
     radial-gradient(1.5px 2px at 80.2% 71.9%, var(--star-a), transparent),
-    radial-gradient(2.5px 2.5px at 31.2% 81.0%, var(--star-b), transparent),
+    radial-gradient(2.5px 2.5px at 31.2% 81%, var(--star-b), transparent),
     radial-gradient(1.5px 2px at 67.7% 42.9%, var(--star-c), transparent),
     radial-gradient(1.5px 1.5px at 48.5% 58.7%, var(--star-b), transparent),
     radial-gradient(2px 2px at 4.7% 43.5%, var(--star-a), transparent),
     radial-gradient(1.5px 1.5px at 83.3% 93.6%, var(--star-c), transparent),
     radial-gradient(2px 2px at 5.6% 85.1%, var(--star-c), transparent),
     radial-gradient(2.5px 2.5px at 37.2% 56.5%, var(--star-a), transparent),
-    radial-gradient(4.5px 2px at 82.8% 7.0%, var(--star-b), transparent),
-    radial-gradient(4.5px 2px at 80.0% 15.3%, var(--star-a), transparent),
-    radial-gradient(2px 2px at 73.4% 40.0%, var(--star-a), transparent),
+    radial-gradient(4.5px 2px at 82.8% 7%, var(--star-b), transparent),
+    radial-gradient(4.5px 2px at 80% 15.3%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 73.4% 40%, var(--star-a), transparent),
     radial-gradient(2px 2px at 68.9% 94.7%, var(--star-c), transparent),
     radial-gradient(2.5px 2.5px at 49.3% 72.6%, var(--star-a), transparent),
-    radial-gradient(1.5px 2px at 87.9% 35.0%, var(--star-a), transparent),
+    radial-gradient(1.5px 2px at 87.9% 35%, var(--star-a), transparent),
     radial-gradient(2px 3px at 49.7% 17.3%, var(--star-b), transparent),
     radial-gradient(2px 3px at 67.7% 55.8%, var(--star-b), transparent),
-    radial-gradient(2px 2px at 53.6% 94.0%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 53.6% 94%, var(--star-a), transparent),
     radial-gradient(5px 2.5px at 3.7% 21.9%, var(--star-c), transparent),
     radial-gradient(2.5px 2.5px at 65.2% 73.5%, var(--star-c), transparent),
     radial-gradient(3px 2px at 85.6% 69.2%, var(--star-c), transparent),
     radial-gradient(5px 2.5px at 3.1% 79.3%, var(--star-c), transparent),
     radial-gradient(1.5px 2px at 94.9% 15.8%, var(--star-c), transparent),
-    radial-gradient(2px 2px at 11.0% 34.6%, var(--star-a), transparent),
+    radial-gradient(2px 2px at 11% 34.6%, var(--star-a), transparent),
     radial-gradient(2px 2px at 15.8% 65.5%, var(--star-a), transparent),
-    radial-gradient(1.5px 1.5px at 12.6% 42.0%, var(--star-c), transparent),
+    radial-gradient(1.5px 1.5px at 12.6% 42%, var(--star-c), transparent),
     radial-gradient(2px 3px at 70.7% 20.5%, var(--star-b), transparent),
-    radial-gradient(1.5px 1.5px at 24.6% 55.0%, var(--star-b), transparent),
+    radial-gradient(1.5px 1.5px at 24.6% 55%, var(--star-b), transparent),
     radial-gradient(3px 2px at 40.2% 19.7%, var(--star-a), transparent),
     radial-gradient(1.5px 1.5px at 8.1% 53.5%, var(--star-b), transparent),
     radial-gradient(1.5px 2px at 54.8% 87.6%, var(--star-c), transparent),
@@ -297,7 +694,7 @@ body {
     radial-gradient(2px 2px at 62.8% 58.1%, var(--star-a), transparent),
     radial-gradient(2px 2px at 44.2% 11.8%, var(--star-b), transparent),
     radial-gradient(2px 2px at 43.5% 63.3%, var(--star-c), transparent),
-    radial-gradient(3px 2px at 77.4% 9.0%, var(--star-c), transparent),
+    radial-gradient(3px 2px at 77.4% 9%, var(--star-c), transparent),
     radial-gradient(2px 2px at 37.5% 54.7%, var(--star-a), transparent),
     radial-gradient(1.5px 2px at 35.8% 60.9%, var(--star-b), transparent),
     radial-gradient(1.5px 1.5px at 78.4% 47.3%, var(--star-b), transparent),
@@ -311,21 +708,21 @@ body {
     radial-gradient(2.5px 2.5px at 36.5% 68.6%, var(--star-a), transparent),
     radial-gradient(2px 1.5px at 52.5% 86.8%, var(--star-a), transparent),
     radial-gradient(1.5px 2px at 4.8% 66.5%, var(--star-b), transparent),
-    radial-gradient(1.5px 1.5px at 72.0% 17.7%, var(--star-c), transparent),
+    radial-gradient(1.5px 1.5px at 72% 17.7%, var(--star-c), transparent),
     radial-gradient(2px 1.5px at 93.9% 39.7%, var(--star-a), transparent),
-    radial-gradient(3px 2px at 34.7% 64.0%, var(--star-c), transparent),
+    radial-gradient(3px 2px at 34.7% 64%, var(--star-c), transparent),
     radial-gradient(2px 3px at 55.7% 78.3%, var(--star-c), transparent),
     radial-gradient(1.5px 2px at 48.1% 31.6%, var(--star-c), transparent),
     radial-gradient(2px 1.5px at 58.1% 90.2%, var(--star-c), transparent),
     radial-gradient(2px 3px at 50.3% 63.4%, var(--star-c), transparent),
     radial-gradient(2px 3px at 20.1% 24.5%, var(--star-b), transparent),
-    radial-gradient(3px 2px at 45.0% 60.7%, var(--star-b), transparent),
+    radial-gradient(3px 2px at 45% 60.7%, var(--star-b), transparent),
     radial-gradient(1.5px 2px at 73.5% 23.2%, var(--star-c), transparent),
     radial-gradient(2px 1.5px at 30.4% 78.8%, var(--star-b), transparent),
     radial-gradient(2px 1.5px at 76.6% 53.2%, var(--star-b), transparent),
     radial-gradient(2.5px 2.5px at 37.9% 63.2%, var(--star-c), transparent),
     radial-gradient(2.5px 2.5px at 80.5% 97.5%, var(--star-a), transparent),
-    radial-gradient(2px 2px at 11.0% 47.1%, var(--star-c), transparent),
+    radial-gradient(2px 2px at 11% 47.1%, var(--star-c), transparent),
     radial-gradient(2px 2px at 3.7% 58.9%, var(--star-a), transparent),
     radial-gradient(2px 1.5px at 47.9% 68.8%, var(--star-b), transparent),
     radial-gradient(1.5px 2px at 89.2% 77.4%, var(--star-a), transparent);
@@ -337,40 +734,192 @@ body {
   animation: twinkle 4s ease-in-out infinite alternate;
 }
 
-/* Hero banner artwork, used on the landing page and every PageHeader. The artwork itself is a
-   near-white illustration, so a plain gradient scrim isn't dark enough to keep white text legible
-   over it (unlike the old photo, which had its own dark sky). A ::before layer holds the artwork at
-   full sharpness, and a separate ::after layer lays a dark scrim on top, darkest on the left (where
-   the text sits) and fading out toward the right so the illustration stays crisp and visible there.
-   Both pseudo-elements sit behind the real content via z-index, and `.hero-banner` itself provides
-   the positioning context + text stacking order. */
+/* Warm sakura and ink-blue palette scoped to homepage and page-header banners. */
 .hero-banner {
+  --hero-surface: #fdf6f0;
+  --hero-border: #f0d8cc;
+  --hero-title-ja: #d4537e;
+  --hero-title-en: #2d2520;
+  --hero-subtitle: #8a7470;
+  --hero-kicker: #b08a80;
+  --hero-primary: #d4537e;
+  --hero-primary-foreground: #fff;
+  --hero-secondary: #d4537e;
+  --hero-secondary-hover: #fce4ee;
+  --hero-track: #edd8c8;
+  --hero-pink-soft: #fce4ee;
+  --hero-pink: #d4537e;
+  --hero-bloom-pink: #ed93b1;
+  --hero-pink-strong: #993556;
+  --hero-blue-soft: #e6f1fb;
+  --hero-blue: #85b7eb;
+  --hero-blue-strong: #185fa5;
+  --hero-peach-soft: #faeada;
+  --hero-peach: #f5c4b3;
+  --hero-peach-strong: #8a5030;
+  --hero-bloom-main: #f5c4b3;
+  --hero-bloom-secondary: #85b7eb;
+  --hero-branch: #c8907a;
+  --hero-watermark: #ed93b1;
   position: relative;
   isolation: isolate;
+  border: 1px solid var(--hero-border);
+  background: var(--hero-surface);
+  color: var(--hero-title-en);
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease;
 }
 
-.hero-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/bannerhanazono.png');
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
+.dark .hero-banner {
+  --hero-surface: #1a1f2e;
+  --hero-border: #2d3450;
+  --hero-title-ja: #85b7eb;
+  --hero-title-en: #e8eaf6;
+  --hero-subtitle: #8893b0;
+  --hero-kicker: #5a6480;
+  --hero-primary: #378add;
+  --hero-primary-foreground: #fff;
+  --hero-secondary: #85b7eb;
+  --hero-secondary-hover: #1a2a3e;
+  --hero-track: #2a3250;
+  --hero-pink-soft: #2d1f28;
+  --hero-pink: #ed93b1;
+  --hero-bloom-pink: #ed93b1;
+  --hero-pink-strong: #ed93b1;
+  --hero-blue-soft: #1a2a3e;
+  --hero-blue: #85b7eb;
+  --hero-blue-strong: #85b7eb;
+  --hero-peach-soft: #2a2018;
+  --hero-peach: #fac775;
+  --hero-peach-strong: #fac775;
+  --hero-bloom-main: #85b7eb;
+  --hero-bloom-secondary: #ed93b1;
+  --hero-branch: #6080a0;
+  --hero-watermark: #85b7eb;
 }
 
-.hero-banner::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(
-    90deg,
-    rgba(8, 14, 28, 0.78) 0%,
-    rgba(8, 14, 28, 0.5) 40%,
-    rgba(8, 14, 28, 0.2) 60%,
-    rgba(8, 14, 28, 0) 75%
-  );
-  z-index: -1;
+.hero-kicker {
+  color: var(--hero-kicker);
+}
+
+.hero-title-ja {
+  color: var(--hero-title-ja);
+  font-family: var(--font-noto-serif-jp), serif;
+  font-weight: 300;
+}
+
+.hero-title-en,
+.hero-page-title {
+  color: var(--hero-title-en);
+  font-family:
+    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+}
+
+.hero-description,
+.hero-page-description {
+  color: var(--hero-subtitle);
+  font-family:
+    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+}
+
+.hero-banner .hero-primary-cta {
+  border: 1px solid var(--hero-primary);
+  background-color: var(--hero-primary);
+  background-image: none;
+  color: var(--hero-primary-foreground);
+}
+
+.hero-banner .hero-primary-cta:hover {
+  border-color: var(--hero-primary);
+  background-color: var(--hero-primary);
+  background-image: none;
+  color: var(--hero-primary-foreground);
+  filter: brightness(0.94);
+}
+
+.hero-secondary-cta {
+  border-color: var(--hero-secondary);
+  background: transparent;
+  color: var(--hero-secondary);
+}
+
+.hero-secondary-cta:hover {
+  border-color: var(--hero-secondary);
+  background: var(--hero-secondary-hover);
+  color: var(--hero-secondary);
+}
+
+.hero-progress-label {
+  color: var(--hero-kicker);
+  font-family:
+    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+}
+
+.hero-progress-track {
+  background: var(--hero-track);
+}
+
+.hero-progress-fill {
+  background: linear-gradient(90deg, #ed93b1, #85b7eb);
+  transition: width 700ms ease;
+}
+
+.hero-vocab-pill {
+  font-family:
+    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+}
+
+.hero-vocab-pill--pink {
+  border-color: #ed93b1;
+  background: var(--hero-pink-soft);
+  color: var(--hero-pink-strong);
+}
+
+.hero-vocab-pill--blue {
+  border-color: #85b7eb;
+  background: var(--hero-blue-soft);
+  color: var(--hero-blue-strong);
+}
+
+.hero-vocab-pill--peach {
+  border-color: #f5c4b3;
+  background: var(--hero-peach-soft);
+  color: var(--hero-peach-strong);
+}
+
+.hero-banner-art {
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.hero-page-art {
+  right: -1rem;
+  max-width: 46%;
+  opacity: 0.62;
+}
+
+@media (max-width: 639px) {
+  .hero-banner-art {
+    right: -5rem;
+    top: -2.5rem;
+    width: 250px;
+    height: 240px;
+    opacity: 0.42;
+  }
+
+  .hero-vocab-pill {
+    display: none;
+  }
+
+  .hero-page-art {
+    right: -3rem;
+    top: -2rem;
+    width: 200px;
+    height: 180px;
+    opacity: 0.4;
+  }
 }
 
 /* Brand gradient used on headers and cards. It slides across on hover (when the element or an ancestor

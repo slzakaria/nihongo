@@ -1,34 +1,37 @@
-'use client'
+"use client";
 
-import { useMemo, useState } from 'react'
-import { Phrase, SRSGrade } from '@/types'
-import { useProgressStore } from '@/store/progress'
+import { useMemo, useState } from "react";
+import { Phrase, SRSGrade } from "@/types";
+import { useProgressStore } from "@/store/progress";
 
 // Works on any list of phrases (a scenario, or the kana set)
 export function useFlashcardSession(phrases: Phrase[], force = false) {
-  const cards = useProgressStore(s => s.cards)
-  const gradeCard = useProgressStore(s => s.gradeCard)
+  const cards = useProgressStore((s) => s.cards);
+  const gradeCard = useProgressStore((s) => s.gradeCard);
 
-  const [now] = useState(() => Date.now())
+  const [now] = useState(() => Date.now());
   const dueCards = useMemo(() => {
     return phrases
-      .map(p => cards[p.id])
-      .filter((c): c is NonNullable<typeof c> => !!c && (force || c.nextReview <= now))
-  }, [phrases, cards, now, force])
+      .map((p) => cards[p.id])
+      .filter(
+        (c): c is NonNullable<typeof c> =>
+          !!c && (force || c.nextReview <= now),
+      );
+  }, [phrases, cards, now, force]);
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [showBack, setShowBack] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showBack, setShowBack] = useState(false);
 
-  const currentCard = dueCards[currentIndex]
+  const currentCard = dueCards[currentIndex];
   const currentPhrase: Phrase | undefined = currentCard
-    ? phrases.find(p => p.id === currentCard.phraseId)
-    : undefined
+    ? phrases.find((p) => p.id === currentCard.phraseId)
+    : undefined;
 
   function grade(score: SRSGrade) {
-    if (!currentCard) return
-    gradeCard(currentCard.phraseId, score)
-    setShowBack(false)
-    setCurrentIndex(i => i + 1)
+    if (!currentCard) return;
+    gradeCard(currentCard.phraseId, score);
+    setShowBack(false);
+    setCurrentIndex((i) => i + 1);
   }
 
   return {
@@ -39,5 +42,5 @@ export function useFlashcardSession(phrases: Phrase[], force = false) {
     total: dueCards.length,
     currentIndex,
     done: currentIndex >= dueCards.length,
-  }
+  };
 }

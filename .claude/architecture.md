@@ -1,56 +1,43 @@
+# Architecture
+
+Hanazono is a Next.js App Router application. Route handlers live beside pages under `src/app`; shared UI and browser state are separated into components, hooks, libraries, and Zustand stores.
+
+```text
 src/
-├── app/
-│   ├── (marketing)/
-│   │   └── page.tsx                    # Landing / home
-│   ├── scenarios/
-│   │   ├── page.tsx                    # Scenario selection grid
-│   │   └── [slug]/
-│   │       └── page.tsx                # Scenario detail + phrase list
-│   ├── flashcards/
-│   │   ├── page.tsx                    # Session config (scenario picker, mode)
-│   │   └── [slug]/
-│   │       └── page.tsx                # Active flashcard session
-│   ├── simulator/
-│   │   ├── page.tsx                    # Scenario picker for simulation
-│   │   └── [slug]/
-│   │       └── page.tsx                # Active sim conversation
-│   ├── quick-ref/
-│   │   └── [slug]/
-│   │       └── page.tsx                # Printable/saveable cheat sheet
-│   └── api/
-│       └── simulator/
-│           └── route.ts                # Claude API proxy (server-side only)
-├── components/
-│   ├── ui/                             # shadcn base components
-│   ├── phrases/
-│   │   ├── PhraseCard.tsx
-│   │   ├── PhraseList.tsx
-│   │   └── AudioButton.tsx
-│   ├── flashcards/
-│   │   ├── FlashcardDeck.tsx
-│   │   ├── FlashcardFace.tsx           # front / back faces
-│   │   └── ProgressBar.tsx
-│   ├── simulator/
-│   │   ├── SimulatorChat.tsx
-│   │   ├── SimulatorMessage.tsx
-│   │   └── ScenarioPrompt.tsx
-│   └── layout/
-│       ├── Navbar.tsx
-│       └── ScenarioSidebar.tsx
-├── lib/
-│   ├── data/
-│   │   └── phrases.ts                  # The JSON, typed and exported
-│   ├── srs/
-│   │   └── sm2.ts                      # Spaced repetition algorithm
-│   ├── tts/
-│   │   └── speak.ts                    # Web Speech API wrapper
-│   └── simulator/
-│       └── prompts.ts                  # System prompts per scenario
-├── hooks/
-│   ├── useFlashcardSession.ts
-│   ├── useSRS.ts
-│   └── useAudio.ts
-├── store/
-│   └── progress.ts                     # Zustand store
-└── types/
-    └── index.ts                        # Phrase, Scenario, SRSCard types
+  app/
+    (marketing)/          Landing page
+    api/                  Server routes for AI, speech, audio, and account operations
+    flashcards/           Review setup, sessions, and saved phrases
+    kana/                 Kana reference and practice
+    offline-practice/     Offline practice entry point
+    profile/              Account progress and preferences
+    quick-ref/            Printable phrase sheets
+    scenarios/            Scenario directory and phrase lists
+    simulator/            AI role-play sessions
+    speaking/             Pronunciation practice
+  components/
+    auth/ layout/ marketing/ profile/ ui/
+    flashcards/ kana/ phrases/ scenarios/ search/ simulator/
+  hooks/                  Audio, speech recognition, review, and popup timing
+  lib/
+    activity/              Study-day and activity helpers
+    data/                  Bundled phrase and kana content
+    simulator/ ai/         Prompt and AI request logic
+    speech/ tts/            Speech scoring and audio
+    srs/                    Review scheduling and merge logic
+    supabase/               Persistence adapters
+  store/                   Zustand state for auth, study, goals, and settings
+public/
+  offline.html sw.js       Offline shell and service worker
+supabase/migrations/       Database schema
+docs/                      User-facing project documentation
+```
+
+## Data and synchronization
+
+- Phrase and kana content is bundled with the app so standard study flows do not need a content API.
+- Zustand stores keep study state available locally. Signed-in changes are queued and synchronized with Supabase; the offline practice flow can continue without a network connection.
+- Clerk provides identity. Supabase stores account profiles, review progress, bookmarks, and study activity.
+- API credentials for AI and speech providers must remain server-side.
+
+See [pages.md](pages.md) for the route inventory and [../docs/design-system.md](../docs/design-system.md) for visual implementation guidance.

@@ -15,7 +15,7 @@ export const navLinks = [
   { href: "/scenarios", label: "Scenarios" },
   { href: "/kana", label: "Kana" },
   { href: "/flashcards", label: "Flashcards" },
-  { href: "/simulator", label: "Simulator" }
+  { href: "/simulator", label: "Simulator" },
 ];
 
 export function Navbar() {
@@ -23,87 +23,114 @@ export function Navbar() {
   const user = useAuthStore((s) => s.user);
   const showSearch = useSearchDialogStore((s) => s.show);
   const [mobileOpen, setMobileOpen] = useState(false);
-  // The navbar lives in the root layout, so it persists across pages. Close the mobile menu when the route changes.
-  const [menuPath, setMenuPath] = useState(pathname);
-  if (pathname !== menuPath) {
-    setMenuPath(pathname);
+  useEffect(() => {
     setMobileOpen(false);
-  }
+  }, [pathname]);
   const headerRef = useRef<HTMLElement>(null);
   const visibleLinks = navLinks;
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) setMobileOpen(false);
+      if (headerRef.current && !headerRef.current.contains(e.target as Node))
+        setMobileOpen(false);
     }
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
   return (
-    <header ref={headerRef} className='relative border-b border-border bg-card print:hidden'>
-      <div className='mx-auto flex max-w-5xl items-center justify-between gap-2 px-3 py-3 sm:px-6'>
-        <Link href='/' className='flex shrink-0 items-center gap-2 whitespace-nowrap' aria-label="Hanazono home">
-          <Image src="/logohanazono.png" alt="Hanazono" width={60} height={60} className="h-12 w-12 sm:h-16 sm:w-16" priority />
-					<span>花園</span>
+    <header
+      ref={headerRef}
+      className="relative z-50 border-b border-border bg-background shadow-none print:hidden"
+    >
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-3 py-3 sm:px-6">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2 whitespace-nowrap"
+          aria-label="Hanazono home"
+        >
+          <Image
+            src="/hanazono.svg"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7"
+            priority
+          />
+          <span className="navbar-logo text-[15px]" lang="ja">
+            花園 - はなぞの
+          </span>
         </Link>
 
-        <div className='flex items-center gap-0.5 sm:hidden'>
+        <div className="header-actions flex items-center gap-1 sm:hidden">
           <AuthMenu />
-          <SettingsMenu />
+          <SettingsMenu onOpen={() => setMobileOpen(false)} />
           <Button
-            type='button'
-            variant='ghost'
-            size='icon'
-            className='cursor-pointer'
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="cursor-pointer"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((o) => !o)}>
-            {mobileOpen ? <X className='h-4 w-4' /> : <Menu className='h-4 w-4' />}
+            onClick={() => setMobileOpen((o) => !o)}
+          >
+            {mobileOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Menu className="h-4 w-4" />
+            )}
           </Button>
         </div>
 
-        <nav className='hidden min-w-0 items-center justify-center gap-0.5 overflow-x-auto sm:flex sm:gap-1'>
+        <nav className="hidden min-w-0 items-center justify-center gap-1 overflow-x-auto sm:flex sm:gap-3">
           {visibleLinks.map((link) => {
             const active = pathname.startsWith(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative shrink-0 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:bg-muted sm:px-3 sm:text-sm align-middle items-center",
-                  active && "bg-primary/15 font-semibold text-foreground hover:bg-primary/15"
-                )}>
+                  "relative shrink-0 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground sm:px-1 sm:text-[13px] align-middle items-center",
+                  active && "font-semibold text-foreground",
+                )}
+              >
                 {link.label}
               </Link>
             );
           })}
           <button
-            type='button'
+            type="button"
             onClick={showSearch}
-            className='relative flex shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:bg-muted sm:px-3 sm:text-sm'>
-            <Search className='h-3.5 w-3.5' aria-hidden="true" />
+            className="relative flex shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground sm:px-1 sm:text-[13px]"
+          >
+            <Search className="h-3.5 w-3.5" aria-hidden="true" />
             Search
           </button>
         </nav>
 
-        <div className='hidden shrink-0 items-center gap-1 border-l border-border pl-3 sm:flex'>
+        <div className="header-actions hidden shrink-0 items-center gap-2 sm:flex">
           <AuthMenu />
           <SettingsMenu />
         </div>
       </div>
 
       {mobileOpen && (
-        <nav className='absolute right-3 top-full z-50 mt-2 flex w-56 flex-col gap-1 rounded-md border border-border bg-card p-2 shadow-md sm:hidden'>
+        <nav className="absolute right-3 top-full z-50 mt-2 flex w-56 flex-col gap-1 rounded-md border border-border bg-card p-2 shadow-md sm:hidden">
           {visibleLinks.map((link) => {
             const active = pathname.startsWith(link.href);
             return (
               <Button
                 key={link.href}
                 asChild
-                variant={active ? "secondary" : "ghost"}
-                size='default'
-                className='w-full justify-start cursor-pointer'>
+                variant="ghost"
+                size="default"
+                className={cn(
+                  "w-full justify-start cursor-pointer",
+                  active &&
+                    "bg-secondary/20 font-semibold hover:bg-secondary/25",
+                )}
+              >
                 <Link href={link.href} onClick={() => setMobileOpen(false)}>
                   {link.label}
                 </Link>
@@ -111,14 +138,15 @@ export function Navbar() {
             );
           })}
           <Button
-            variant='ghost'
-            size='default'
-            className='w-full justify-start cursor-pointer gap-2'
+            variant="ghost"
+            size="default"
+            className="w-full justify-start cursor-pointer gap-2"
             onClick={() => {
               setMobileOpen(false);
               showSearch();
-            }}>
-            <Search className='h-4 w-4' aria-hidden="true" />
+            }}
+          >
+            <Search className="h-4 w-4" aria-hidden="true" />
             Search
           </Button>
         </nav>

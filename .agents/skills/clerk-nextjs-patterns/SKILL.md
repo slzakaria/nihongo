@@ -19,24 +19,24 @@ For basic setup, see `clerk-setup` skill.
 
 ## What Do You Need?
 
-| Task | Reference |
-| --- | --- |
-| Server vs client auth (`auth()` vs hooks) | references/server-vs-client.md |
-| Protect routes (check in each page, handler, and Server Function) | references/middleware-strategies.md |
-| Protect Server Actions | references/server-actions.md |
-| API route auth (401 vs 403) | references/api-routes.md |
-| Cache auth data (user-scoped caching) | references/caching-auth.md |
-| Fix `next build` errors under Cache Components | [Cache Components](#cache-components) |
+| Task                                                              | Reference                             |
+| ----------------------------------------------------------------- | ------------------------------------- |
+| Server vs client auth (`auth()` vs hooks)                         | references/server-vs-client.md        |
+| Protect routes (check in each page, handler, and Server Function) | references/middleware-strategies.md   |
+| Protect Server Actions                                            | references/server-actions.md          |
+| API route auth (401 vs 403)                                       | references/api-routes.md              |
+| Cache auth data (user-scoped caching)                             | references/caching-auth.md            |
+| Fix `next build` errors under Cache Components                    | [Cache Components](#cache-components) |
 
 ## References
 
-| Reference | Description |
-| --- | --- |
-| `references/server-vs-client.md` | `await auth()` vs hooks |
+| Reference                             | Description                                                                                               |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `references/server-vs-client.md`      | `await auth()` vs hooks                                                                                   |
 | `references/middleware-strategies.md` | `auth.protect()` in each resource, bare `clerkMiddleware()` in `proxy.ts` (Next.js <=15: `middleware.ts`) |
-| `references/server-actions.md` | Protect mutations |
-| `references/api-routes.md` | 401 vs 403 |
-| `references/caching-auth.md` | User-scoped caching with `'use cache'` |
+| `references/server-actions.md`        | Protect mutations                                                                                         |
+| `references/api-routes.md`            | 401 vs 403                                                                                                |
+| `references/caching-auth.md`          | User-scoped caching with `'use cache'`                                                                    |
 
 ## Mental Model
 
@@ -59,13 +59,13 @@ Key properties from `auth()`:
 
 ```tsx
 // Server Component
-import { auth } from '@clerk/nextjs/server'
-import { Suspense } from 'react'
+import { auth } from "@clerk/nextjs/server";
+import { Suspense } from "react";
 
 async function Greeting() {
-  const { isAuthenticated, userId } = await auth() // MUST await!
-  if (!isAuthenticated) return <p>Not signed in</p>
-  return <p>Hello {userId}</p>
+  const { isAuthenticated, userId } = await auth(); // MUST await!
+  if (!isAuthenticated) return <p>Not signed in</p>;
+  return <p>Hello {userId}</p>;
 }
 
 export default function Page() {
@@ -73,7 +73,7 @@ export default function Page() {
     <Suspense>
       <Greeting />
     </Suspense>
-  )
+  );
 }
 ```
 
@@ -88,8 +88,8 @@ export default function Page() {
 **Authentication check:**
 
 ```tsx
-import { Show } from '@clerk/nextjs'
-import { Suspense } from 'react'
+import { Show } from "@clerk/nextjs";
+import { Suspense } from "react";
 
 export function AuthenticatedDashboard() {
   return (
@@ -98,7 +98,7 @@ export function AuthenticatedDashboard() {
         <Dashboard />
       </Show>
     </Suspense>
-  )
+  );
 }
 ```
 
@@ -129,7 +129,11 @@ export function AuthenticatedDashboard() {
 **Callback for complex logic:**
 
 ```tsx
-<Show when={(has) => has({ role: 'org:admin' }) || has({ role: 'org:billing_manager' })}>
+<Show
+  when={(has) =>
+    has({ role: "org:admin" }) || has({ role: "org:billing_manager" })
+  }
+>
   <BillingActions />
 </Show>
 ```
@@ -151,15 +155,15 @@ Use `next build --debug-prerender` to list every failing route. A plain `next bu
 
 ## Common Pitfalls
 
-| Symptom | Cause | Fix |
-| --- | --- | --- |
-| `undefined` userId in Server Component | Missing `await` | `await auth()` not `auth()` |
-| Auth not working on API routes | Missing matcher | Add `'/api(.*)'` and `'/trpc(.*)'` to `proxy.ts` (Next.js <=15: `middleware.ts`) |
-| `next build` fails with "uncached or runtime data during prerendering" | `auth()`, `currentUser()`, or server `<Show>` outside `<Suspense>` | Wrap the auth-dependent UI in `<Suspense>` (see [Cache Components](#cache-components)) |
-| Cache returns wrong user's data | `userId` not part of the cache key | Pass `userId` into the `'use cache'` function as an argument |
-| Mutations bypass auth | Unprotected Server Action | Check `auth()` at start of action |
-| Protected page returns 200, not 307, while signed out | The redirect happened after streaming started (e.g. under a `loading.tsx`) | Confirm the body redirects to sign-in and has no protected data. Keep the check in the page |
-| Wrong HTTP error code | Confused 401/403 | 401 = not signed in, 403 = no permission |
+| Symptom                                                                | Cause                                                                      | Fix                                                                                         |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `undefined` userId in Server Component                                 | Missing `await`                                                            | `await auth()` not `auth()`                                                                 |
+| Auth not working on API routes                                         | Missing matcher                                                            | Add `'/api(.*)'` and `'/trpc(.*)'` to `proxy.ts` (Next.js <=15: `middleware.ts`)            |
+| `next build` fails with "uncached or runtime data during prerendering" | `auth()`, `currentUser()`, or server `<Show>` outside `<Suspense>`         | Wrap the auth-dependent UI in `<Suspense>` (see [Cache Components](#cache-components))      |
+| Cache returns wrong user's data                                        | `userId` not part of the cache key                                         | Pass `userId` into the `'use cache'` function as an argument                                |
+| Mutations bypass auth                                                  | Unprotected Server Action                                                  | Check `auth()` at start of action                                                           |
+| Protected page returns 200, not 307, while signed out                  | The redirect happened after streaming started (e.g. under a `loading.tsx`) | Confirm the body redirects to sign-in and has no protected data. Keep the check in the page |
+| Wrong HTTP error code                                                  | Confused 401/403                                                           | 401 = not signed in, 403 = no permission                                                    |
 
 ## Session Tokens & Custom JWTs
 
@@ -170,18 +174,18 @@ Pass a custom JWT to third-party services (Hasura, Supabase, etc.) using JWT tem
 **Server-side (Server Component or Route Handler)**:
 
 ```tsx
-import { auth } from '@clerk/nextjs/server'
+import { auth } from "@clerk/nextjs/server";
 
 export async function ExternalData() {
-  const { getToken } = await auth()
-  const token = await getToken({ template: 'hasura' })
-  if (!token) return <p>Not authenticated</p>
+  const { getToken } = await auth();
+  const token = await getToken({ template: "hasura" });
+  if (!token) return <p>Not authenticated</p>;
 
-  const res = await fetch('https://api.example.com/graphql', {
+  const res = await fetch("https://api.example.com/graphql", {
     headers: { Authorization: `Bearer ${token}` },
-  })
-  const data = await res.json()
-  return <pre>{JSON.stringify(data)}</pre>
+  });
+  const data = await res.json();
+  return <pre>{JSON.stringify(data)}</pre>;
 }
 ```
 
@@ -239,36 +243,38 @@ For standalone API servers that receive Clerk session tokens from the `Authoriza
 **Using `@clerk/backend` `verifyToken`** (recommended):
 
 ```typescript
-import { verifyToken } from '@clerk/backend'
+import { verifyToken } from "@clerk/backend";
 
-const token = req.headers.authorization?.replace('Bearer ', '')
-if (!token) return res.status(401).json({ error: 'No token' })
+const token = req.headers.authorization?.replace("Bearer ", "");
+if (!token) return res.status(401).json({ error: "No token" });
 
 try {
   const claims = await verifyToken(token, {
     jwtKey: process.env.CLERK_JWT_KEY,
-  })
+  });
   // claims.sub = userId
 } catch {
-  return res.status(401).json({ error: 'Invalid token' })
+  return res.status(401).json({ error: "Invalid token" });
 }
 ```
 
 **Using `jsonwebtoken`** (when you can't use `@clerk/backend`):
 
 ```typescript
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
-const publicKey = process.env.CLERK_PEM_PUBLIC_KEY!.replace(/\\n/g, '\n')
-const token = req.headers.authorization?.replace('Bearer ', '')
-if (!token) return res.status(401).json({ error: 'No token' })
+const publicKey = process.env.CLERK_PEM_PUBLIC_KEY!.replace(/\\n/g, "\n");
+const token = req.headers.authorization?.replace("Bearer ", "");
+if (!token) return res.status(401).json({ error: "No token" });
 
 try {
-  const claims = jwt.verify(token, publicKey, { algorithms: ['RS256'] }) as jwt.JwtPayload
+  const claims = jwt.verify(token, publicKey, {
+    algorithms: ["RS256"],
+  }) as jwt.JwtPayload;
   // Manually check exp and nbf (jsonwebtoken does this automatically, but verify azp if needed)
   // claims.sub = userId
 } catch {
-  return res.status(401).json({ error: 'Invalid or expired token' })
+  return res.status(401).json({ error: "Invalid or expired token" });
 }
 ```
 

@@ -88,13 +88,13 @@ Which commands need an account, and the full rules: [auth.md](references/auth.md
 
 ## The mental model
 
-| Layer | What it does | Commands |
-| --- | --- | --- |
-| **Session / project** | Auth, link a repo to a Clerk app, pull env keys | `auth login`, `link`, `unlink`, `whoami`, `env pull`, `doctor` |
-| **Instance config** | Manage the configuration (social providers, session lifetimes, etc.) for a specific instance | `config pull`, `config schema`, `config patch`, `config put` |
-| **Backend API (default)** | Runtime data: users, orgs, sessions, invitations, JWT templates, webhooks | `clerk api <path>` |
-| **Platform API (`--platform`)** | Account-level: applications, instances, billing | `clerk api --platform <path>` |
-| **Frontend API (`--fapi`)** | The instance's public client-facing API (what clerk-js calls) | `clerk api --fapi <path>` |
+| Layer                           | What it does                                                                                 | Commands                                                       |
+| ------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Session / project**           | Auth, link a repo to a Clerk app, pull env keys                                              | `auth login`, `link`, `unlink`, `whoami`, `env pull`, `doctor` |
+| **Instance config**             | Manage the configuration (social providers, session lifetimes, etc.) for a specific instance | `config pull`, `config schema`, `config patch`, `config put`   |
+| **Backend API (default)**       | Runtime data: users, orgs, sessions, invitations, JWT templates, webhooks                    | `clerk api <path>`                                             |
+| **Platform API (`--platform`)** | Account-level: applications, instances, billing                                              | `clerk api --platform <path>`                                  |
+| **Frontend API (`--fapi`)**     | The instance's public client-facing API (what clerk-js calls)                                | `clerk api --fapi <path>`                                      |
 
 A project is "linked" to an application via `clerk link`. Once linked, most commands auto-resolve the target app and dev instance from the repo's git remote. To target something else, pass `--app <id>` and/or `--instance dev|prod|<instance_id>`. See [references/auth.md](references/auth.md) for the full resolution order.
 

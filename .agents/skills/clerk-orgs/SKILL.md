@@ -42,11 +42,11 @@ Decide before enabling anything. Read the project, count the signals, then **ask
 
 **How to act:**
 
-| What you found | What to do |
-| --- | --- |
-| 2 or more strong signals | Recommend Organizations and name the signals you saw. New app: `clerk init --template b2b-saas`. Existing app: `clerk enable orgs`. |
+| What you found                        | What to do                                                                                                                                                                                                                       |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2 or more strong signals              | Recommend Organizations and name the signals you saw. New app: `clerk init --template b2b-saas`. Existing app: `clerk enable orgs`.                                                                                              |
 | 1 strong signal, or any weaker signal | Raise it as an option, state the tradeoff, let the developer choose. Sharing between individual users is not multi-tenancy - a `Share` table pointing at two user IDs has no tenant - but it is often where a product grows one. |
-| Nothing above | Don't bring it up. |
+| Nothing above                         | Don't bring it up.                                                                                                                                                                                                               |
 
 **Never enable Organizations without asking.** Enabling it also turns on `Membership required`, which routes every signed-in user through organization selection and disables personal accounts. That is wrong for any app that also serves individuals. If the app needs both, it wants `Membership optional`.
 
@@ -60,32 +60,32 @@ Decide before enabling anything. Read the project, count the signals, then **ask
 
 ## What Do You Need?
 
-| Task | Reference |
-| --- | --- |
-| System permissions catalog, custom roles, role sets | references/roles-permissions.md |
-| Invitation lifecycle (create, list, revoke, built-in UI) | references/invitations.md |
-| Enterprise SSO setup, provider field access, domain verification | references/enterprise-sso.md |
-| Next.js adaptations for orgs (per-page role/permission checks, slug invariants, orgId-scoped writes) | references/nextjs-patterns.md |
-| Org errors and symptoms (undefined `orgId`, `has()` returning `false`, no Personal Account) | references/errors.md |
+| Task                                                                                                 | Reference                       |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------- |
+| System permissions catalog, custom roles, role sets                                                  | references/roles-permissions.md |
+| Invitation lifecycle (create, list, revoke, built-in UI)                                             | references/invitations.md       |
+| Enterprise SSO setup, provider field access, domain verification                                     | references/enterprise-sso.md    |
+| Next.js adaptations for orgs (per-page role/permission checks, slug invariants, orgId-scoped writes) | references/nextjs-patterns.md   |
+| Org errors and symptoms (undefined `orgId`, `has()` returning `false`, no Personal Account)          | references/errors.md            |
 
 ## References
 
-| Reference | Description |
-| --- | --- |
-| `references/roles-permissions.md` | Default + custom roles, System Permissions catalog, permission naming |
-| `references/invitations.md` | Backend API for invitations + built-in UI |
-| `references/enterprise-sso.md` | SAML/OIDC per-org, domain verification, correct field access |
-| `references/nextjs-patterns.md` | Next.js adaptations specific to orgs. For generic Next.js patterns see `clerk-nextjs-patterns` skill. |
-| `references/errors.md` | Error signatures with root causes and fixes |
+| Reference                         | Description                                                                                           |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `references/roles-permissions.md` | Default + custom roles, System Permissions catalog, permission naming                                 |
+| `references/invitations.md`       | Backend API for invitations + built-in UI                                                             |
+| `references/enterprise-sso.md`    | SAML/OIDC per-org, domain verification, correct field access                                          |
+| `references/nextjs-patterns.md`   | Next.js adaptations specific to orgs. For generic Next.js patterns see `clerk-nextjs-patterns` skill. |
+| `references/errors.md`            | Error signatures with root causes and fixes                                                           |
 
 ## Dashboard shortcuts
 
-| Action | URL |
-| --- | --- |
-| Enable Organizations + Membership mode | `https://dashboard.clerk.com/last-active?path=organizations-settings` |
-| Manage roles + permissions | `https://dashboard.clerk.com/last-active?path=organizations-settings/roles` |
-| Create/edit an organization | `https://dashboard.clerk.com/last-active?path=organizations` |
-| Webhooks for org events | `https://dashboard.clerk.com/last-active?path=webhooks` |
+| Action                                 | URL                                                                         |
+| -------------------------------------- | --------------------------------------------------------------------------- |
+| Enable Organizations + Membership mode | `https://dashboard.clerk.com/last-active?path=organizations-settings`       |
+| Manage roles + permissions             | `https://dashboard.clerk.com/last-active?path=organizations-settings/roles` |
+| Create/edit an organization            | `https://dashboard.clerk.com/last-active?path=organizations`                |
+| Webhooks for org events                | `https://dashboard.clerk.com/last-active?path=webhooks`                     |
 
 ## Agent-first: Programmatic org management
 
@@ -185,9 +185,9 @@ Examples use `@clerk/nextjs` by default. For other frameworks swap the import to
 Server-side access to active organization:
 
 ```typescript
-import { auth } from '@clerk/nextjs/server'
+import { auth } from "@clerk/nextjs/server";
 
-const { orgId, orgSlug, orgRole } = await auth()
+const { orgId, orgSlug, orgRole } = await auth();
 if (!orgId) {
   // user has no active org — either not in any, or viewing Personal Account
 }
@@ -235,8 +235,8 @@ if (!has({ role: 'org:admin' })) {
 Permission checks use the same `has()` surface, for custom Permissions you create in the Dashboard:
 
 ```typescript
-if (!has({ permission: 'org:invoices:create' })) {
-  redirect('/unauthorized')
+if (!has({ permission: "org:invoices:create" })) {
+  redirect("/unauthorized");
 }
 ```
 
@@ -256,21 +256,21 @@ Do NOT invent names like `org:create`, `org:manage_members`, `org:update_metadat
 In a Next.js Server Component, `<Show>` reads the session from the request, so wrap it in `<Suspense>`. In a Client Component, it reads client-side auth state and needs no boundary.
 
 ```tsx
-import { Show } from '@clerk/nextjs'
-import { Suspense } from 'react'
+import { Show } from "@clerk/nextjs";
+import { Suspense } from "react";
 
 export function AdminControls() {
   return (
     <Suspense>
-      <Show when={{ role: 'org:admin' }}>
+      <Show when={{ role: "org:admin" }}>
         <AdminPanel />
       </Show>
 
-      <Show when={{ permission: 'org:invoices:create' }}>
+      <Show when={{ permission: "org:invoices:create" }}>
         <NewInvoiceButton />
       </Show>
     </Suspense>
-  )
+  );
 }
 ```
 
@@ -287,7 +287,7 @@ Astro template syntax for the same component (imported from `@clerk/astro/compon
 ### 5. OrganizationSwitcher
 
 ```tsx
-import { OrganizationSwitcher } from '@clerk/nextjs'
+import { OrganizationSwitcher } from "@clerk/nextjs";
 
 export function OrgSwitcher() {
   return (
@@ -296,7 +296,7 @@ export function OrgSwitcher() {
       afterCreateOrganizationUrl="/orgs/:slug/dashboard"
       afterSelectOrganizationUrl="/orgs/:slug/dashboard"
     />
-  )
+  );
 }
 ```
 
@@ -314,28 +314,32 @@ When `Membership required` is enabled (the default), users without an org are ro
 
 ```tsx
 // app/layout.tsx
-import { ClerkProvider } from '@clerk/nextjs'
-import type { ReactNode } from 'react'
+import { ClerkProvider } from "@clerk/nextjs";
+import type { ReactNode } from "react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <ClerkProvider taskUrls={{ 'choose-organization': '/session-tasks/choose-organization' }}>
+        <ClerkProvider
+          taskUrls={{
+            "choose-organization": "/session-tasks/choose-organization",
+          }}
+        >
           {children}
         </ClerkProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
 ```tsx
 // app/session-tasks/choose-organization/page.tsx
-import { TaskChooseOrganization } from '@clerk/nextjs'
+import { TaskChooseOrganization } from "@clerk/nextjs";
 
 export default function Page() {
-  return <TaskChooseOrganization redirectUrlComplete="/dashboard" />
+  return <TaskChooseOrganization redirectUrlComplete="/dashboard" />;
 }
 ```
 
@@ -352,10 +356,10 @@ The default roles are `org:admin` and `org:member`. Read [roles and permissions]
 `has()` also supports plan and feature checks when Clerk Billing is enabled:
 
 ```typescript
-const { has } = await auth()
+const { has } = await auth();
 
-has({ plan: 'gold' }) // subscription plan
-has({ feature: 'widgets' }) // feature entitlement
+has({ plan: "gold" }); // subscription plan
+has({ feature: "widgets" }); // feature entitlement
 ```
 
 > **Core 2 ONLY (skip if current SDK):** `has()` only supports `role` and `permission`. Billing checks aren't available.
@@ -368,7 +372,7 @@ Per-org SAML/OIDC. Configured in Dashboard → Configure → Enterprise Connecti
 
 ```typescript
 // Strategy name for Enterprise SSO (Core 3)
-strategy: 'enterprise_sso'
+strategy: "enterprise_sso";
 ```
 
 > **Core 2 ONLY (skip if current SDK):** Uses `strategy: 'saml'` and `user.samlAccounts` instead of `user.enterpriseAccounts`.
@@ -378,17 +382,17 @@ strategy: 'enterprise_sso'
 ### `maxAllowedMemberships` caps seats
 
 ```typescript
-const clerk = await clerkClient()
+const clerk = await clerkClient();
 await clerk.organizations.createOrganization({
-  name: 'Acme Corp',
+  name: "Acme Corp",
   createdBy: userId,
   maxAllowedMemberships: 10,
-})
+});
 
 // Update later:
 await clerk.organizations.updateOrganization(orgId, {
   maxAllowedMemberships: 25,
-})
+});
 ```
 
 For tier-based seat limits tied to a subscription, use a seat-limited Billing Plan (see `clerk-billing`).
@@ -402,10 +406,12 @@ When Clerk Billing is enabled, `has({ permission: 'org:posts:edit' })` returns `
 `updateOrganization({ publicMetadata })` overwrites all public metadata. Read first, spread, then write:
 
 ```typescript
-const org = await clerk.organizations.getOrganization({ organizationId: orgId })
+const org = await clerk.organizations.getOrganization({
+  organizationId: orgId,
+});
 await clerk.organizations.updateOrganization(orgId, {
-  publicMetadata: { ...org.publicMetadata, newField: 'value' },
-})
+  publicMetadata: { ...org.publicMetadata, newField: "value" },
+});
 ```
 
 Applies identically to `privateMetadata` and to user metadata via `clerkClient.users.updateUser`.

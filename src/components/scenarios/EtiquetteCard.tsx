@@ -1,5 +1,5 @@
-import { Lightbulb } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
+import { Lightbulb } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Practical etiquette for a scenario, shown above its phrase list
 export function EtiquetteCard({ tips }: { tips: string[] }) {
@@ -13,11 +13,11 @@ export function EtiquetteCard({ tips }: { tips: string[] }) {
           <h2 className="text-sm font-semibold">Good to know</h2>
         </div>
         <ul className="flex list-disc flex-col gap-1.5 pl-5 text-sm text-muted-foreground">
-          {tips.map(tip => (
+          {tips.map((tip) => (
             <li key={tip}>{tip}</li>
           ))}
         </ul>
       </CardContent>
     </Card>
-  )
+  );
 }
