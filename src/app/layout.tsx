@@ -1,5 +1,6 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import { ui } from '@clerk/ui';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Geist_Mono, Inter, Noto_Serif_JP } from 'next/font/google';
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <SignInInvite />
           <ThemeSync />
           <AuthSync />
+          <SpeedInsights />
         </ClerkProvider>
       </body>
     </html>
