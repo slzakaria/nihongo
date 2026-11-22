@@ -23,6 +23,13 @@ describe('sm2', () => {
     expect(failed.interval).toBe(1);
   });
 
+  it('treats grade 2 (the Hard rating) as a lapse under the current SM-2 policy', () => {
+    const card = sm2(sm2(createCard('gr-01', 'greetings'), 4), 4);
+    const hard = sm2(card, 2);
+    expect(hard.repetitions).toBe(0);
+    expect(hard.interval).toBe(1);
+  });
+
   it('grows the interval on consecutive passing grades (1 -> 6 -> ease-based)', () => {
     const card = createCard('gr-01', 'greetings');
     const first = sm2(card, 4);

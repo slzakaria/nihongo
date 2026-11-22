@@ -21,6 +21,7 @@ import { FloatingPhrases } from '@/components/marketing/FloatingPhrases';
 import { HeroBanner } from '@/components/marketing/HeroBanner';
 import { KanaTeaser } from '@/components/marketing/KanaTeaser';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
+import { BilingualText } from '@/components/layout/BilingualText';
 import { SimulatorTeaser } from '@/components/marketing/SimulatorTeaser';
 import { useProgressStore } from '@/store/progress';
 import { useAuthStore } from '@/store/auth';
@@ -43,7 +44,9 @@ const EXPLORE_TILES = [
   {
     href: '/scenarios',
     label: 'Scenarios',
+    labelKana: 'シナリオ',
     description: 'Phrases for real situations, from bars to banks.',
+    descriptionKana: 'バーやぎんこうなど、さまざまなばめんのフレーズ。',
     icon: MessagesSquare,
     tone: 'explore-icon--pink',
     surface: 'explore-card--pink',
@@ -51,7 +54,9 @@ const EXPLORE_TILES = [
   {
     href: '/kana',
     label: 'Kana',
+    labelKana: 'かな',
     description: 'Learn hiragana and katakana one character at a time.',
+    descriptionKana: 'ひらがなとカタカナを、ひとつずつまなびます。',
     icon: Languages,
     tone: 'explore-icon--blue',
     surface: 'explore-card--blue',
@@ -59,7 +64,9 @@ const EXPLORE_TILES = [
   {
     href: '/flashcards',
     label: 'Flashcards',
+    labelKana: 'フラッシュカード',
     description: 'Spaced-repetition drills that bring phrases back when you need them.',
+    descriptionKana: 'ひつようなときにフレーズがもどってくる、くりかえしれんしゅう。',
     icon: Layers,
     tone: 'explore-icon--peach',
     surface: 'explore-card--peach',
@@ -67,7 +74,9 @@ const EXPLORE_TILES = [
   {
     href: '/simulator',
     label: 'Simulator',
+    labelKana: 'シミュレーター',
     description: 'Practice a live conversation with a Japanese role-play partner.',
+    descriptionKana: 'にほんごのあいてと、リアルタイムでかいわをれんしゅう。',
     icon: Bot,
     tone: 'explore-icon--blue',
     surface: 'explore-card--blue',
@@ -75,7 +84,9 @@ const EXPLORE_TILES = [
   {
     href: undefined,
     label: 'Search',
+    labelKana: 'けんさく',
     description: 'Find any phrase, word or translation in seconds.',
+    descriptionKana: 'フレーズやことば、やくをすぐにみつける。',
     icon: Search,
     tone: 'explore-icon--pink',
     surface: 'explore-card--pink',
@@ -116,7 +127,10 @@ export default function Home() {
         {
           href: '/profile',
           label: 'Progress',
+          labelKana: 'がくしゅう',
           description: 'See how far you have come and what to review next.',
+          descriptionKana:
+            'がくしゅうのすすみぐあいと、つぎにふくしゅうすることをかくにん。',
           icon: TrendingUp,
           tone: 'explore-icon--peach',
           surface: 'explore-card--peach',
@@ -170,8 +184,10 @@ export default function Home() {
       <section className="explore-section relative left-1/2 flex w-screen -translate-x-1/2 flex-col gap-5">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
           <SectionHeader
-            kicker="さがす・Explore"
-            title="Explore"
+            kicker="Explore"
+            kickerKana="さがす"
+            title="Explore the app features"
+            titleKana="みてみよう"
             description="Everything in one place, from phrases to flashcards."
           />
           <div className="flex shrink-0 gap-2">
@@ -231,14 +247,25 @@ export default function Home() {
                       <Icon className="h-4 w-4" aria-hidden="true" />
                     </span>
                     <div className="flex min-w-0 flex-1 items-center justify-between">
-                      <h3 className="truncate text-sm font-medium">{tile.label}</h3>
+                      <h3 className="min-w-0 truncate text-sm font-medium">
+                        <BilingualText
+                          english={tile.label}
+                          japanese={tile.labelKana}
+                          className="w-full"
+                        />
+                      </h3>
                       <ArrowRight
                         className="explore-card-arrow hidden h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 sm:block"
                         aria-hidden="true"
                       />
                     </div>
                     <p className="explore-card-description line-clamp-3 text-xs leading-relaxed text-muted-foreground">
-                      {tile.description}
+                      <BilingualText
+                        english={tile.description}
+                        japanese={tile.descriptionKana}
+                        className="w-full"
+                        japaneseClassName="mt-1"
+                      />
                     </p>
                   </CardContent>
                 </LinkCard>
@@ -256,8 +283,10 @@ export default function Home() {
 
       <section className="flex flex-col gap-5">
         <SectionHeader
-          kicker="シナリオ・Scenarios"
+          kicker="Scenarios"
+          kickerKana="シナリオ"
           title="Popular scenarios"
+          titleKana="にんきのシナリオ"
           description="The situations travellers ask about most."
         />
         <div className="grid grid-cols-2 gap-4 min-[480px]:grid-cols-3">

@@ -18,6 +18,7 @@ import { recordStudyDay } from '@/lib/supabase/activity';
 import { FeedbackPanel } from '@/components/simulator/FeedbackPanel';
 import { showRateLimitDialog } from '@/store/rateLimitDialog';
 import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 import { cn } from '@/lib/utils';
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
@@ -193,10 +194,12 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
       <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
         {scenario && (
           <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-            <span className="truncate text-xs text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               {scenario.icon}{' '}
-              {scenarioKana(scenario.slug) ? `${scenarioKana(scenario.slug)}・` : ''}
-              {scenario.label}
+              <BilingualText
+                english={scenario.label}
+                japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+              />
             </span>
           </div>
         )}

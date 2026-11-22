@@ -91,7 +91,7 @@ export function StreakFreezeCard({ userId }: { userId: string }) {
               />
               <Button
                 size="sm"
-                className="cursor-pointer"
+                className="solid-primary-button cursor-pointer"
                 disabled={!draft}
                 loading={saving}
                 onClick={save}

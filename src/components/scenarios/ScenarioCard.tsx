@@ -50,7 +50,12 @@ export function ScenarioCard({
           {scenario.label}
         </h3>
         <p className="truncate text-xs text-muted-foreground">
-          {kana && <span lang="ja">{kana} · </span>}
+          {kana && (
+            <span lang="ja" className="kana-text text-[1.1em]">
+              {kana}
+            </span>
+          )}
+          {kana && <span className="mx-1">·</span>}
           {total} phrase{total === 1 ? '' : 's'}
         </p>
       </div>

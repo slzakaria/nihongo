@@ -8,13 +8,15 @@ export interface PhraseResponse {
   listen_for: string;
 }
 
+export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
+
 export interface Phrase {
   id: string;
   japanese: string;
   kanji?: string;
   romaji: string;
   english: string;
-  difficulty: 'core' | 'extra';
+  difficulty: Difficulty;
   notes: string;
   responses: PhraseResponse[];
 }

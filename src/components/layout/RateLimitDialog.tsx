@@ -59,7 +59,7 @@ export function RateLimitDialog() {
             {!user && (
               <Button
                 type="button"
-                className="cursor-pointer"
+                className="dialog-primary-button cursor-pointer"
                 onClick={() => {
                   hide();
                   showSignIn();

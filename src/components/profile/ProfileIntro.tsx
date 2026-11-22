@@ -100,7 +100,11 @@ export function ProfileIntro() {
             <Button variant="ghost" className="cursor-pointer" onClick={finishIntro}>
               Got it
             </Button>
-            <Button asChild className="cursor-pointer" onClick={finishIntro}>
+            <Button
+              asChild
+              className="dialog-primary-button cursor-pointer"
+              onClick={finishIntro}
+            >
               <Link href="/profile">
                 <UserRound className="h-4 w-4" aria-hidden="true" />
                 Open my profile

@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import { ArrowLeft } from 'lucide-react';
 import { loadContent } from '@/lib/data/content';
 import { PrintButton } from '@/components/layout/PrintButton';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { scenarioKana } from '@/lib/data/scenarioKana';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -48,12 +50,20 @@ export default async function QuickRefPage({
             Back to {scenario.label}
           </Link>
           <h1 className="min-w-0 text-xl font-semibold break-words">
-            {scenario.label} — Quick Reference
+            <BilingualText
+              english={<>{scenario.label} — Quick Reference</>}
+              japanese={`${scenarioKana(scenario.slug) ?? 'シナリオ'}・クイックリファレンス`}
+            />
           </h1>
         </div>
         <PrintButton />
       </div>
-      <h1 className="mb-4 hidden text-xl font-semibold print:block">{scenario.label}</h1>
+      <h1 className="mb-4 hidden text-xl font-semibold print:block">
+        <BilingualText
+          english={scenario.label}
+          japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+        />
+      </h1>
 
       <table className="w-full border-collapse text-sm">
         <tbody>

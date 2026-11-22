@@ -9,8 +9,8 @@ interface ClerkGlobal {
   };
 }
 
-// Clerk's session is exposed on window once its browser SDK loads. The `supabase` JWT template makes the token's
-// `sub` the user's database ID, so Supabase row-level security recognises the signed-in person.
+// Clerk's session is exposed on window once its browser SDK loads. The `supabase` JWT template must include the
+// `db_id` claim used by Supabase row-level security to identify the signed-in person's database ID.
 async function clerkSupabaseToken(): Promise<string | null> {
   const clerk = (window as unknown as { Clerk?: ClerkGlobal }).Clerk;
   if (!clerk?.session) return null;

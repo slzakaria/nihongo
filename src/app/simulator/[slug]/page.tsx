@@ -6,6 +6,7 @@ import { loadContent } from '@/lib/data/content';
 import { SimulatorChat } from '@/components/simulator/SimulatorChat';
 import { ScenarioPrompt } from '@/components/simulator/ScenarioPrompt';
 import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -48,12 +49,12 @@ export default async function SimulatorSessionPage({
           <ArrowLeft className="h-3.5 w-3.5" />
           Simulator
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">{scenario.label}</h1>
-        {scenarioKana(scenario.slug) && (
-          <p lang="ja" className="text-sm text-muted-foreground">
-            {scenarioKana(scenario.slug)}
-          </p>
-        )}
+        <h1 className="text-2xl font-semibold tracking-tight">
+          <BilingualText
+            english={scenario.label}
+            japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+          />
+        </h1>
       </div>
 
       <ScenarioPrompt scenario={scenario} />

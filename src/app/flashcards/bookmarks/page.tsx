@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useContentStore } from '@/lib/data/content';
 import { useProgressStore } from '@/store/progress';
 import { useBookmarkStore } from '@/store/bookmarks';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 export default function BookmarkedFlashcardsPage() {
   const scenarios = useContentStore((s) => s.content.phrases);
@@ -36,11 +37,21 @@ export default function BookmarkedFlashcardsPage() {
           Flashcards
         </Link>
         <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-          <Bookmark className="h-5 w-5" aria-hidden="true" />
-          Saved phrases
+          <BilingualText
+            english={
+              <>
+                <Bookmark className="mr-2 inline h-5 w-5" aria-hidden="true" />
+                Saved phrases
+              </>
+            }
+            japanese="ほぞんしたフレーズ"
+          />
         </h1>
         <p className="text-muted-foreground">
-          Review your bookmarked phrases as a focused flashcard deck.
+          <BilingualText
+            english="Review your bookmarked phrases as a focused flashcard deck."
+            japanese="ブックマークしたフレーズを、まとめてふくしゅうしましょう。"
+          />
         </p>
       </div>
 
@@ -48,9 +59,17 @@ export default function BookmarkedFlashcardsPage() {
         <FlashcardDeck slug="bookmarks" phrases={phrases} onInit={initializeCards} />
       ) : (
         <div className="flex flex-col items-center gap-3 py-16 text-center">
-          <p className="text-lg font-medium">No saved phrases yet</p>
+          <p className="text-lg font-medium">
+            <BilingualText
+              english="No saved phrases yet"
+              japanese="ほぞんしたフレーズはまだありません"
+            />
+          </p>
           <p className="text-sm text-muted-foreground">
-            Bookmark phrases in a scenario and they’ll appear here.
+            <BilingualText
+              english="Bookmark phrases in a scenario and they’ll appear here."
+              japanese="シナリオでフレーズをブックマークすると、ここにひょうじされます。"
+            />
           </p>
           <Button asChild className="cursor-pointer">
             <Link href="/scenarios">Browse scenarios</Link>

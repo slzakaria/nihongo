@@ -34,8 +34,10 @@ export function KanaTeaser() {
   return (
     <section className="flex flex-col gap-5">
       <SectionHeader
-        kicker="か・Kana"
+        kicker="Kana"
+        kickerKana="かな"
         title="Read before you land"
+        titleKana="にほんにつくまえによんでみよう"
         description="Hiragana and katakana, one character at a time."
       />
       <div className="grid grid-cols-5 gap-2 sm:grid-cols-8 lg:grid-cols-5">

@@ -5,6 +5,7 @@ import { useOnboardingStore } from '@/store/onboarding';
 import { useAuthStore } from '@/store/auth';
 import { useAudio } from '@/hooks/useAudio';
 import { Button } from '@/components/ui/button';
+import { BilingualText } from '@/components/layout/BilingualText';
 import { cn } from '@/lib/utils';
 
 // Case-insensitive, trimmed match against our small VIP list
@@ -88,7 +89,9 @@ export function WelcomeDialog() {
           className="animate-scale-in flex w-full max-w-sm flex-col gap-4 rounded-lg border border-border bg-card p-6 shadow-lg"
         >
           <div>
-            <h2 className="text-lg font-semibold">ようこそ！ Welcome</h2>
+            <h2 className="text-lg font-semibold">
+              <BilingualText english="Welcome" japanese="ようこそ" />
+            </h2>
             <p className="text-sm text-muted-foreground">What should we call you?</p>
           </div>
           <input
@@ -99,7 +102,7 @@ export function WelcomeDialog() {
             placeholder="Your name"
             className="h-10 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
-          <Button type="submit" disabled={!name.trim()}>
+          <Button type="submit" className="dialog-primary-button" disabled={!name.trim()}>
             Start learning
           </Button>
         </form>

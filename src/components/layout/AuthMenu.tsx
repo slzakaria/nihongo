@@ -52,10 +52,10 @@ export function AuthMenu() {
           <Avatar
             url={avatarUrl}
             label={userName || user.email || user.phone || '?'}
-            className="h-7 w-7 text-xs"
+            className="h-5 w-5 text-[9px]"
           />
         ) : (
-          <User className="h-4 w-4" />
+          <User className="h-5 w-5" />
         )}
       </Button>
 

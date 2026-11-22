@@ -35,8 +35,10 @@ export function SimulatorTeaser() {
   return (
     <section className="simulator-teaser flex flex-col gap-5">
       <SectionHeader
-        kicker="シミュレーター・Simulator"
+        kicker="Simulator"
+        kickerKana="シミュレーター"
         title="Practice before the moment arrives"
+        titleKana="ほんばんのまえにれんしゅう"
         description="Chat live with a Japanese role-play partner."
       />
 

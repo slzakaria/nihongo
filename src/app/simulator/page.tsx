@@ -29,7 +29,9 @@ export default function SimulatorPickerPage() {
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
       <PageHeader
         title="Simulator"
+        titleKana="かいわシミュレーター"
         description="Pick a scenario and practice a live conversation."
+        descriptionKana="シナリオをえらんで、リアルタイムのかいわをれんしゅうしましょう。"
       >
         <SearchTrigger />
       </PageHeader>

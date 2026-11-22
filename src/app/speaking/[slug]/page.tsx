@@ -13,6 +13,8 @@ import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 import { trackBusy } from '@/store/busy';
 import { showRateLimitDialog } from '@/store/rateLimitDialog';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { scenarioKana } from '@/lib/data/scenarioKana';
 
 interface Score {
   score: number;
@@ -105,18 +107,28 @@ export default function SpeakingDrillPage() {
           <ArrowLeft className="h-3.5 w-3.5" />
           {scenario.label}
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">Speaking practice</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          <BilingualText english="Speaking practice" japanese="はなすれんしゅう" />
+        </h1>
         <p className="text-muted-foreground">
-          Listen, say the phrase out loud, then check how you did.
+          <BilingualText
+            english="Listen, say the phrase out loud, then check how you did."
+            japanese="フレーズをきいて、こえにだしてはなし、できたかかくにんしましょう。"
+          />
         </p>
       </div>
 
       {done ? (
         <Card>
           <CardContent className="flex flex-col items-center gap-3 p-8 text-center">
-            <p className="text-lg font-medium">All done 🎉</p>
+            <p className="text-lg font-medium">
+              <BilingualText english="All done 🎉" japanese="おつかれさまでした！" />
+            </p>
             <p className="text-sm text-muted-foreground">
-              You practised {phrases.length} phrases in this scenario.
+              <BilingualText
+                english={`You practised ${phrases.length} phrases in this scenario.`}
+                japanese={`このシナリオで${phrases.length}このフレーズをれんしゅうしました。`}
+              />
             </p>
             <Button
               type="button"

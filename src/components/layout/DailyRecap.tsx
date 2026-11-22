@@ -182,7 +182,7 @@ export function DailyRecap() {
             >
               Back
             </Button>
-            <Button className="cursor-pointer" onClick={next}>
+            <Button className="dialog-primary-button cursor-pointer" onClick={next}>
               {isLast ? 'Continue' : 'Next'}
             </Button>
           </div>

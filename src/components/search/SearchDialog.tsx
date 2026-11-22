@@ -5,6 +5,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { loadPhraseResponses, useContentStore } from '@/lib/data/content';
 import { useSearchDialogStore } from '@/store/searchDialog';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 // Caps the list so a broad query (e.g. a single common letter) doesn't render hundreds of rows
 const MAX_RESULTS = 30;
@@ -112,8 +114,11 @@ export function SearchDialog() {
                 <p lang="ja" className="truncate text-sm font-medium">
                   {phrase.japanese}
                 </p>
-                <span className="shrink-0 text-xs text-muted-foreground">
-                  {scenario.label}
+                <span className="shrink-0 text-xs text-right text-muted-foreground">
+                  <BilingualText
+                    english={scenario.label}
+                    japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+                  />
                 </span>
               </div>
               <p className="truncate text-xs text-muted-foreground">

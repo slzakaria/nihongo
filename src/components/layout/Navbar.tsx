@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 export const navLinks = [
   { href: '/scenarios', label: 'Scenarios' },
   { href: '/kana', label: 'Kana' },
+  { href: '/offline-practice', label: 'Offline' },
   { href: '/flashcards', label: 'Flashcards' },
   { href: '/simulator', label: 'Simulator' },
 ];
@@ -65,12 +66,12 @@ export function Navbar() {
             type="button"
             variant="ghost"
             size="icon"
-            className="cursor-pointer"
+            className="h-7 w-7 cursor-pointer p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((o) => !o)}
           >
-            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
 

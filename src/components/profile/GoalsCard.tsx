@@ -42,7 +42,7 @@ export function GoalsCard({
             <span>Overall progress</span>
             {due > 0 && <Badge variant="secondary">{due} due now</Badge>}
           </div>
-          <Progress value={overallPct} />
+          <Progress className="profile-progress h-2.5" value={overallPct} />
           <p className="text-xs text-muted-foreground">
             {reviewed} / {totalPhrases} phrases reviewed ({overallPct}%)
           </p>
@@ -70,7 +70,7 @@ export function GoalsCard({
               />
             </label>
           </div>
-          <Progress value={dailyPct} />
+          <Progress className="profile-progress h-2.5" value={dailyPct} />
         </div>
 
         <div className="flex flex-col gap-2">
@@ -93,7 +93,7 @@ export function GoalsCard({
               />
             </label>
           </div>
-          <Progress value={weeklyPct} />
+          <Progress className="profile-progress h-2.5" value={weeklyPct} />
         </div>
       </CardContent>
     </Card>

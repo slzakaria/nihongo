@@ -17,13 +17,12 @@ export function HeroBanner({
     <section className="hero-banner relative min-h-[320px] overflow-hidden rounded-2xl px-5 py-8 sm:px-10 sm:py-12">
       <div className="relative z-10 w-full sm:max-w-[62%]">
         <p className="hero-kicker mb-4 text-[11px] font-medium tracking-[0.18em]">
-          ✦ FOR YOUR NEXT TRIP
+          <span className="flex flex-col items-start">
+            <span>✦ FOR YOUR NEXT TRIP</span>
+          </span>
         </p>
-        <h1 className="mb-3">
-          <span
-            lang="ja"
-            className="hero-title-ja flex items-center gap-2.5 text-4xl leading-tight sm:text-[42px]"
-          >
+        <h1 className="mb-3 flex items-start gap-2.5">
+          <span className="hero-title-en mt-1 flex shrink-0 items-center">
             <Image
               src="/hanazono.svg"
               alt=""
@@ -32,15 +31,26 @@ export function HeroBanner({
               className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
               priority
             />
-            はなぞの
           </span>
-          <span className="hero-title-en mt-1 block text-xl font-medium leading-snug sm:text-[22px]">
-            Survival Japanese for your trip
+          <span className="flex min-w-0 flex-col">
+            <span className="hero-title-en text-2xl font-semibold leading-snug sm:text-3xl">
+              Survival Japanese for your trip
+            </span>
+            <span lang="ja" className="kana-text mt-1 text-sm leading-snug sm:text-base">
+              りょこうでつかえるにほんご
+            </span>
           </span>
         </h1>
         <p className="hero-description mb-6 max-w-[380px] text-sm leading-relaxed sm:mb-7">
-          Phrases for real situations, spaced-repetition drills, and a live chat simulator
-          — everything you need for bars, shops, and small talk in Japan.
+          <span className="flex flex-col gap-1">
+            <span>
+              Phrases for real situations, spaced-repetition drills, and a live chat
+              simulator — everything you need for bars, shops, and small talk in Japan.
+            </span>
+            <span lang="ja" className="kana-text text-[0.82em] leading-relaxed">
+              たびでつかえるフレーズ、くりかえしれんしゅう、リアルタイムのかいわ。バーやおみせでつかえるにほんごをまなびましょう。
+            </span>
+          </span>
         </p>
 
         <div className="mb-6 flex flex-wrap gap-2.5 sm:mb-7">

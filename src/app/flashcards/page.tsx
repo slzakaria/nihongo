@@ -19,7 +19,9 @@ export default function FlashcardsPage() {
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
       <PageHeader
         title="Flashcards"
+        titleKana="フラッシュカード"
         description="Pick a scenario to start a spaced-repetition session."
+        descriptionKana="シナリオをえらんで、くりかえしれんしゅうをはじめましょう。"
       >
         <div className="flex flex-wrap items-center gap-2">
           <a

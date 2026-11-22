@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
 import { loadKana, useContentStore } from '@/lib/data/content';
 import { useProgressStore } from '@/store/progress';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 type PracticeMode = 'phrases' | 'kana';
 
@@ -54,10 +55,14 @@ export default function OfflinePracticePage() {
           <ArrowLeft className="h-3.5 w-3.5" />
           Flashcards
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">Offline practice</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          <BilingualText english="Offline practice" japanese="オフラインれんしゅう" />
+        </h1>
         <p className="text-sm text-muted-foreground">
-          Open this page while connected once to cache its practice files. Reviews save on
-          this device and sync when you reconnect.
+          <BilingualText
+            english="Open this page while connected once to cache its practice files. Reviews save on this device and sync when you reconnect."
+            japanese="オンラインのときにこのページをひらくと、れんしゅうデータがほぞんされます。ふくしゅうはこのデバイスにきろくされ、さいせつぞくじにどうきします。"
+          />
         </p>
       </div>
 

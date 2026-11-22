@@ -59,7 +59,7 @@ export function BookmarksCard() {
         <Button
           asChild
           variant={savedPhrases.length > 0 ? 'default' : 'outline'}
-          className="w-fit cursor-pointer"
+          className="w-fit cursor-pointer solid-primary-button"
         >
           <Link href={savedPhrases.length > 0 ? '/flashcards/bookmarks' : '/scenarios'}>
             {savedPhrases.length > 0 ? 'Review saved phrases' : 'Browse scenarios'}

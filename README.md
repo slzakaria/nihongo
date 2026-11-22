@@ -4,7 +4,7 @@
 
 ## Features
 
-- **Scenario phrasebook:** 38 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies. Phrases include romaji, usage notes, kanji where available, and common replies.
+- **Scenario phrasebook:** 36 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies, plus two learning/reference categories. Phrases include romaji, usage notes, kanji where available, and common replies.
 - **Spaced-repetition flashcards:** scenario-based SM-2 review decks that bring phrases back when they are due, with progress for each deck. Bookmark phrases and review them in a focused saved-phrase queue.
 - **Kana study:** hiragana and katakana, organised by row, with a separate practice flow for kana due for review.
 - **Offline practice:** phrase and kana flashcards work from bundled content, save progress on the device, and queue signed-in changes to sync when reconnected. Open Offline practice once while online to cache its app shell.
@@ -119,7 +119,7 @@ Route details are listed in [`.claude/pages.md`](.claude/pages.md), with the cur
 
 ## Content
 
-Phrases live in `src/lib/data/phrases.json`, with kana in `hiragana.json` and `katakana.json`. Each scenario has an `icon` (emoji), a label, and a list of phrases with `responses`. After editing the JSON, run the seed script to update the database.
+Phrases live in `src/lib/data/phrases.json`, with kana in `hiragana.json` and `katakana.json`. Each scenario has an `icon` (emoji), a label, and a list of phrases with `responses`. See the [phrase catalog](docs/phrase-catalog.md) for the current category list and counts. After editing the JSON, run the seed script to update the database.
 
 ## Known limitations
 

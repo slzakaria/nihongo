@@ -72,7 +72,7 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center gap-2 px-4 py-20 text-center">
+      <div className="profile-page mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center gap-2 px-4 py-20 text-center">
         <h1 className="text-xl font-semibold tracking-tight">
           Sign in to view your progress
         </h1>
@@ -84,7 +84,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
+    <div className="profile-page mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
       <PageHeader
         title={userName ? `${userName}'s profile` : 'Your profile'}
         description="Your account, progress, goals and preferences, all in one place."

@@ -129,7 +129,7 @@ export function DangerZoneCard() {
               </Button>
               <Button
                 size="sm"
-                className="cursor-pointer bg-red-600 text-white hover:bg-red-700"
+                className="solid-danger-button cursor-pointer"
                 loading={deleting}
                 onClick={deleteAccount}
               >
@@ -140,7 +140,7 @@ export function DangerZoneCard() {
             <Button
               variant="outline"
               size="sm"
-              className="cursor-pointer bg-white border-red-500/50 text-red-600"
+              className="cursor-pointer border-red-600/60 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 dark:border-red-400/60 dark:bg-red-950/40 dark:text-red-300 dark:hover:bg-red-950/70 dark:hover:text-red-200"
               onClick={() => setConfirming(true)}
             >
               Delete account

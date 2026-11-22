@@ -62,7 +62,10 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
             <p className="mt-1 text-sm text-muted-foreground">{phrase.english}</p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            <Badge variant={phrase.difficulty === 'core' ? 'default' : 'secondary'}>
+            <Badge
+              variant={phrase.difficulty === 'easy' ? 'default' : 'secondary'}
+              className="capitalize"
+            >
               {phrase.difficulty}
             </Badge>
             <Button

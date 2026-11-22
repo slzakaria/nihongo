@@ -5,6 +5,7 @@ import { Loader2, X } from 'lucide-react';
 import { useAuthStore } from '@/store/auth';
 import { useSignInDialogStore } from '@/store/signInDialog';
 import { ClerkFailed, ClerkLoaded, ClerkLoading, SignIn, useUser } from '@clerk/nextjs';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 // Clerk's card sits inside our dialog, so it drops its own card styling and heading, and uses the app's theme classes
 // so it follows light and dark mode.
@@ -72,7 +73,7 @@ export function SignInDialog() {
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Welcome back
+            <BilingualText english="Welcome back" japanese="おかえりなさい" />
           </p>
           <h2 id="sign-in-title" className="text-xl font-semibold">
             Sign in

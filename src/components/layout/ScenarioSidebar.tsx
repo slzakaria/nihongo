@@ -4,6 +4,8 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import { useContentStore } from '@/lib/data/content';
 import { useProgressStore } from '@/store/progress';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 import { cn } from '@/lib/utils';
 
 export function ScenarioSidebar({
@@ -44,7 +46,13 @@ export function ScenarioSidebar({
                 'bg-secondary/20 font-semibold text-foreground hover:bg-secondary/25',
             )}
           >
-            <span>{s.label}</span>
+            <span className="min-w-0 flex-1">
+              <BilingualText
+                english={s.label}
+                japanese={scenarioKana(s.slug) ?? 'シナリオ'}
+                className="max-w-full truncate"
+              />
+            </span>
             <span className="text-xs text-muted-foreground">{pct}%</span>
           </Link>
         );

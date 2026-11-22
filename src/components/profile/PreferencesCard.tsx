@@ -63,9 +63,9 @@ export function PreferencesCard() {
                   type="button"
                   onClick={() => setTheme(t.value)}
                   className={cn(
-                    'flex flex-1 cursor-pointer flex-col items-center gap-1 rounded-md border border-border py-2 text-xs hover:bg-muted',
+                    'flex flex-1 cursor-pointer flex-col items-center gap-1 rounded-md border border-border py-2 text-xs transition-colors hover:bg-muted',
                     theme === t.value &&
-                      'border-primary bg-primary/15 font-semibold text-foreground',
+                      'border-primary bg-primary font-semibold text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
                   )}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -85,9 +85,9 @@ export function PreferencesCard() {
                 type="button"
                 onClick={() => setRomajiMode(m.value)}
                 className={cn(
-                  'flex w-full cursor-pointer flex-col items-start rounded-md border border-border px-3 py-1.5 text-left text-sm hover:bg-muted',
+                  'flex w-full cursor-pointer flex-col items-start rounded-md border border-border px-3 py-1.5 text-left text-sm transition-colors hover:bg-muted',
                   romajiMode === m.value &&
-                    'border-primary bg-primary/15 font-semibold text-foreground',
+                    'border-primary bg-primary font-semibold text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
                 )}
               >
                 <span>{m.label}</span>
@@ -106,9 +106,9 @@ export function PreferencesCard() {
                 type="button"
                 onClick={() => setTtsSpeed(s.value)}
                 className={cn(
-                  'flex-1 cursor-pointer rounded-md border border-border py-1.5 text-xs hover:bg-muted',
+                  'flex-1 cursor-pointer rounded-md border border-border py-1.5 text-xs transition-colors hover:bg-muted',
                   ttsSpeed === s.value &&
-                    'border-primary bg-primary/15 font-semibold text-foreground',
+                    'border-primary bg-primary font-semibold text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
                 )}
               >
                 {s.label}

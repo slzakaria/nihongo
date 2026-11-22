@@ -5,6 +5,7 @@
 
   --background: #faf7f4;
   --foreground: #2d2520;
+  --kana-color: #993556;
 
   --card: #ffffff;
   --card-foreground: #2d2520;
@@ -58,6 +59,7 @@
 .dark {
   --background: #12151f;
   --foreground: #e8eaf6;
+  --kana-color: #85b7eb;
 
   --card: #1e1e2e;
   --card-foreground: #e8eaf6;
@@ -94,6 +96,12 @@ body {
   overflow-x: hidden;
 }
 
+.kana-text {
+  color: var(--kana-color);
+  font-family: var(--font-noto-serif-jp), serif;
+  font-weight: 400;
+}
+
 .dark body {
   background: linear-gradient(135deg, #12151f 0%, #1a1f2e 52%, #16122a 100%);
 }
@@ -111,7 +119,7 @@ body {
   width: 1.75rem;
   height: 1.75rem;
   padding: 0;
-  border: 1px solid var(--border);
+  border: 0;
   color: var(--muted-foreground);
 }
 
@@ -404,10 +412,16 @@ body {
   color: #8a5030;
 }
 
-.srs-grade-button--good {
+.srs-grade-button--medium {
   border-color: #edb4c9;
   background-color: #fce4ee;
   color: #993556;
+}
+
+.srs-grade-button--expert {
+  border-color: #c9e2d4;
+  background-color: #e6f4eb;
+  color: #20633a;
 }
 
 .srs-grade-button--easy {
@@ -428,10 +442,16 @@ body {
   color: #70401f;
 }
 
-.srs-grade-button.srs-grade-button--good:hover {
+.srs-grade-button.srs-grade-button--medium:hover {
   border-color: #e59bb7;
   background-color: #f7d3e2;
   color: #842b4b;
+}
+
+.srs-grade-button.srs-grade-button--expert:hover {
+  border-color: #add3bc;
+  background-color: #d7eddf;
+  color: #174e2d;
 }
 
 .srs-grade-button.srs-grade-button--easy:hover {
@@ -452,10 +472,16 @@ body {
   color: #fac775;
 }
 
-.dark .srs-grade-button--good {
+.dark .srs-grade-button--medium {
   border-color: #4a2d3a;
   background-color: #2d1f28;
   color: #ed93b1;
+}
+
+.dark .srs-grade-button--expert {
+  border-color: #294b39;
+  background-color: #1d2e25;
+  color: #8fdbab;
 }
 
 .dark .srs-grade-button--easy {
@@ -476,10 +502,16 @@ body {
   color: #ffd88c;
 }
 
-.dark .srs-grade-button--good:hover {
+.dark .srs-grade-button--medium:hover {
   border-color: #704055;
   background-color: #3a2733;
   color: #f3abc4;
+}
+
+.dark .srs-grade-button.srs-grade-button--expert:hover {
+  border-color: #37684e;
+  background-color: #243a2d;
+  color: #a9edc1;
 }
 
 .dark .srs-grade-button--easy:hover {
@@ -724,7 +756,6 @@ body {
 .hero-banner {
   --hero-surface: #fdf6f0;
   --hero-border: #f0d8cc;
-  --hero-title-ja: #d4537e;
   --hero-title-en: #2d2520;
   --hero-subtitle: #806963;
   --hero-kicker: #806158;
@@ -761,7 +792,6 @@ body {
 .dark .hero-banner {
   --hero-surface: #1a1f2e;
   --hero-border: #2d3450;
-  --hero-title-ja: #85b7eb;
   --hero-title-en: #e8eaf6;
   --hero-subtitle: #8893b0;
   --hero-kicker: #8893b0;
@@ -788,12 +818,6 @@ body {
 
 .hero-kicker {
   color: var(--hero-kicker);
-}
-
-.hero-title-ja {
-  color: var(--hero-title-ja);
-  font-family: var(--font-noto-serif-jp), serif;
-  font-weight: 300;
 }
 
 .hero-title-en,
@@ -929,6 +953,50 @@ body {
 .gradient-brand:hover,
 .group:hover .gradient-brand {
   background-position: 100% 50%;
+}
+
+.dialog-primary-button,
+.solid-primary-button {
+  background-color: var(--primary);
+  background-image: none;
+  color: var(--primary-foreground);
+}
+
+.dialog-primary-button:hover:not(:disabled),
+.solid-primary-button:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary) 88%, var(--foreground));
+  background-image: none;
+  color: var(--primary-foreground);
+}
+
+.solid-danger-button {
+  background-color: #dc2626;
+  background-image: none;
+  color: #fff;
+}
+
+.solid-danger-button:hover:not(:disabled) {
+  background-color: #b91c1c;
+  background-image: none;
+  color: #fff;
+}
+
+.dark .solid-danger-button {
+  background-color: #f87171;
+  color: #12151f;
+}
+
+.dark .solid-danger-button:hover:not(:disabled) {
+  background-color: #fca5a5;
+  color: #12151f;
+}
+
+.profile-page .text-muted-foreground {
+  color: color-mix(in srgb, var(--foreground) 76%, var(--card));
+}
+
+.profile-progress .gradient-fill {
+  background-image: linear-gradient(90deg, var(--primary) 0%, var(--ring) 100%);
 }
 
 /* Same three brand colours and stop order as gradient-brand above, more saturated and sized to

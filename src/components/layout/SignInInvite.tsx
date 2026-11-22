@@ -48,18 +48,18 @@ export function SignInInvite() {
     <div
       role="dialog"
       aria-label="Sign in to save your progress"
-      className="animate-scale-in fixed bottom-4 left-4 z-40 w-72 max-w-[calc(100vw-6rem)] rounded-lg border border-border bg-card p-4 shadow-lg"
+      className="animate-scale-in fixed bottom-4 left-4 z-40 w-80 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-card p-5 shadow-lg"
     >
       <p className="text-sm font-medium">Save your progress</p>
-      <p className="mt-1 text-xs text-muted-foreground">
+      <p className="mt-2 text-sm text-muted-foreground">
         Sign in to sync your flashcards and phrase progress across devices.
       </p>
-      <div className="mt-3">
+      <div className="mt-4">
         <div className="flex gap-2">
-          <Button size="sm" className="cursor-pointer" onClick={showSignIn}>
+          <Button className="dialog-primary-button cursor-pointer" onClick={showSignIn}>
             Sign in
           </Button>
-          <Button size="sm" variant="ghost" className="cursor-pointer" onClick={dismiss}>
+          <Button variant="ghost" className="cursor-pointer" onClick={dismiss}>
             Not now
           </Button>
         </div>

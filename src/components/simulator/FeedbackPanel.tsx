@@ -6,6 +6,7 @@ import type { ChatMessage } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { showRateLimitDialog } from '@/store/rateLimitDialog';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 interface Feedback {
   summary: string;
@@ -54,7 +55,12 @@ export function FeedbackPanel({
     <Card>
       <CardContent className="flex flex-col gap-4 p-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold">Your conversation, reviewed</h2>
+          <h2 className="text-sm font-semibold">
+            <BilingualText
+              english="Your conversation, reviewed"
+              japanese="かいわのふりかえり"
+            />
+          </h2>
           <Button
             type="button"
             variant="ghost"
@@ -81,7 +87,7 @@ export function FeedbackPanel({
             {feedback.mistakes.length > 0 && (
               <section className="flex flex-col gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Mistakes
+                  <BilingualText english="Mistakes" japanese="まちがい" />
                 </h3>
                 {feedback.mistakes.map((m, i) => (
                   <div key={i} className="rounded-md border border-border p-3 text-sm">
@@ -100,7 +106,10 @@ export function FeedbackPanel({
             {feedback.natural.length > 0 && (
               <section className="flex flex-col gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Sounds more natural as
+                  <BilingualText
+                    english="Sounds more natural as"
+                    japanese="よりしぜんなひょうげん"
+                  />
                 </h3>
                 {feedback.natural.map((n, i) => (
                   <div key={i} className="text-sm">
@@ -119,7 +128,10 @@ export function FeedbackPanel({
             {feedback.newPhrases.length > 0 && (
               <section className="flex flex-col gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Try these next
+                  <BilingualText
+                    english="Try these next"
+                    japanese="つぎはこれをれんしゅう"
+                  />
                 </h3>
                 {feedback.newPhrases.map((p, i) => (
                   <div key={i} className="text-sm">

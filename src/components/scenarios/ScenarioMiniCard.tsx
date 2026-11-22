@@ -45,7 +45,7 @@ export function ScenarioMiniCard({
           {kana && (
             <p
               lang="ja"
-              className={`truncate text-muted-foreground ${lg ? 'text-xs' : 'text-[10px]'}`}
+              className={`kana-text truncate ${lg ? 'text-xs' : 'text-[10px]'}`}
             >
               {kana}
             </p>

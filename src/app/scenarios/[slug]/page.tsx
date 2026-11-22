@@ -7,6 +7,8 @@ import { PhraseList } from '@/components/phrases/PhraseList';
 import { ScenarioSidebar } from '@/components/layout/ScenarioSidebar';
 import { EtiquetteCard } from '@/components/scenarios/EtiquetteCard';
 import { getEtiquetteTips } from '@/lib/data/etiquette';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -75,9 +77,17 @@ export default async function ScenarioDetailPage({
               Scenarios
             </Link>
             <h1 className="text-2xl font-semibold tracking-tight break-words">
-              {scenario.label}
+              <BilingualText
+                english={scenario.label}
+                japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+              />
             </h1>
-            <p className="text-muted-foreground">{scenario.phrases.length} phrases</p>
+            <p className="text-muted-foreground">
+              <BilingualText
+                english={`${scenario.phrases.length} phrases`}
+                japanese={`フレーズが${scenario.phrases.length}こ`}
+              />
+            </p>
           </div>
           <div className="flex flex-wrap gap-2 sm:shrink-0 sm:justify-end">
             <Link

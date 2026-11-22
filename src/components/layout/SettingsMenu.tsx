@@ -65,7 +65,7 @@ export function SettingsMenu({ onOpen }: { onOpen?: () => void }) {
         }}
         className="cursor-pointer"
       >
-        <Settings className="h-4 w-4" />
+        <Settings className="h-5 w-5" />
       </Button>
 
       {open && (

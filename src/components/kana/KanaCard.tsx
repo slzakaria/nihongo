@@ -17,7 +17,10 @@ export function KanaCard({ kana }: { kana: Phrase }) {
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            <Badge variant={kana.difficulty === 'core' ? 'default' : 'secondary'}>
+            <Badge
+              variant={kana.difficulty === 'easy' ? 'default' : 'secondary'}
+              className="capitalize"
+            >
               {kana.difficulty}
             </Badge>
           </div>

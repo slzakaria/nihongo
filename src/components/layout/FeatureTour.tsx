@@ -17,6 +17,7 @@ import { useOnboardingStore } from '@/store/onboarding';
 import { markInfoPopupShown, useInfoPopupCooldown } from '@/hooks/useInfoPopupCooldown';
 import { isAdminEmail } from '@/lib/admin';
 import { Button } from '@/components/ui/button';
+import { BilingualText } from '@/components/layout/BilingualText';
 import { cn } from '@/lib/utils';
 
 const GUEST_TOUR_COOKIE = 'nihongo-feature-tour-seen';
@@ -169,7 +170,11 @@ export function FeatureTour() {
             <Icon className="h-6 w-6" aria-hidden="true" />
           </span>
           <h2 id="feature-tour-title" className="text-xl font-semibold">
-            {slide.title}
+            {currentIndex === 0 ? (
+              <BilingualText english={slide.title} japanese="はなぞのへようこそ" />
+            ) : (
+              slide.title
+            )}
           </h2>
           <p className="min-h-[4.5rem] text-sm text-muted-foreground">{slide.text}</p>
         </div>
@@ -200,12 +205,15 @@ export function FeatureTour() {
               Back
             </Button>
             {isLast ? (
-              <Button className="cursor-pointer" onClick={finishTour}>
+              <Button
+                className="dialog-primary-button cursor-pointer"
+                onClick={finishTour}
+              >
                 Start learning
               </Button>
             ) : (
               <Button
-                className="cursor-pointer"
+                className="dialog-primary-button cursor-pointer"
                 onClick={() => setIndex(currentIndex + 1)}
               >
                 Next
