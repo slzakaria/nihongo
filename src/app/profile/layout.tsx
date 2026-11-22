@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Profile',
+  title: "Profile",
   robots: { index: false, follow: false },
-}
+};
 
-export default function ProfileLayout({ children }: LayoutProps<'/profile'>) {
-  return children
+export default function ProfileLayout({ children }: LayoutProps<"/profile">) {
+  return children;
 }

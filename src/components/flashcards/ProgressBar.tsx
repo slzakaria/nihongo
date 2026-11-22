@@ -1,7 +1,13 @@
-import { Progress } from '@/components/ui/progress'
+import { Progress } from "@/components/ui/progress";
 
-export function ProgressBar({ current, total }: { current: number; total: number }) {
-  const pct = total === 0 ? 0 : (current / total) * 100
+export function ProgressBar({
+  current,
+  total,
+}: {
+  current: number;
+  total: number;
+}) {
+  const pct = total === 0 ? 0 : (current / total) * 100;
 
   return (
     <div className="flex flex-col gap-1">
@@ -12,5 +18,5 @@ export function ProgressBar({ current, total }: { current: number; total: number
       </div>
       <Progress value={pct} />
     </div>
-  )
+  );
 }

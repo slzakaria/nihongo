@@ -1,30 +1,53 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Award, ChevronDown, ChevronUp, Lock } from 'lucide-react'
-import { BADGES, CATEGORY_ICON, CATEGORY_LABEL, isBadgeUnlocked, type BadgeCategory, type BadgeStats } from '@/lib/badges'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { useState } from "react";
+import { Award, ChevronDown, ChevronUp, Lock } from "lucide-react";
+import {
+  BADGES,
+  CATEGORY_ICON,
+  CATEGORY_LABEL,
+  isBadgeUnlocked,
+  type BadgeCategory,
+  type BadgeStats,
+} from "@/lib/badges";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const CATEGORIES: BadgeCategory[] = ['phrases', 'streak', 'studyDays', 'scenarios', 'simulator']
+const CATEGORIES: BadgeCategory[] = [
+  "phrases",
+  "streak",
+  "studyDays",
+  "scenarios",
+  "simulator",
+];
 // How many badges to show before the section is collapsed behind "See more"
-const COLLAPSED_COUNT = 6
+const COLLAPSED_COUNT = 6;
 
-function BadgeTile({ badge, stats }: { badge: (typeof BADGES)[number]; stats: BadgeStats }) {
-  const unlocked = isBadgeUnlocked(badge, stats)
+function BadgeTile({
+  badge,
+  stats,
+}: {
+  badge: (typeof BADGES)[number];
+  stats: BadgeStats;
+}) {
+  const unlocked = isBadgeUnlocked(badge, stats);
   return (
     <div
       className={cn(
-        'flex flex-col items-center gap-1 rounded-lg border border-border p-3 text-center',
-        unlocked ? 'gradient-brand' : 'opacity-60'
+        "flex flex-col items-center gap-1 rounded-lg border border-border p-3 text-center",
+        unlocked ? "gradient-brand" : "opacity-60",
       )}
     >
-      {unlocked ? <Award className="h-6 w-6" aria-hidden="true" /> : <Lock className="h-6 w-6" aria-hidden="true" />}
+      {unlocked ? (
+        <Award className="h-6 w-6" aria-hidden="true" />
+      ) : (
+        <Lock className="h-6 w-6" aria-hidden="true" />
+      )}
       <span className="text-sm font-semibold">{badge.label}</span>
       <span className="text-xs text-muted-foreground">{badge.description}</span>
     </div>
-  )
+  );
 }
 
 // Every badge across every category, grouped and shown with its unlocked/locked state. The same
@@ -33,7 +56,7 @@ function BadgeTile({ badge, stats }: { badge: (typeof BADGES)[number]; stats: Ba
 // at what's next. Collapsed to the first few badges by default, with a "See more" toggle to reveal
 // the full, categorized list.
 export function BadgesCard({ stats }: { stats: BadgeStats }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <Card>
@@ -45,10 +68,12 @@ export function BadgesCard({ stats }: { stats: BadgeStats }) {
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         {expanded ? (
-          CATEGORIES.map(category => {
-            const Icon = CATEGORY_ICON[category]
-            const badges = BADGES.filter(b => b.category === category)
-            const unlockedCount = badges.filter(b => isBadgeUnlocked(b, stats)).length
+          CATEGORIES.map((category) => {
+            const Icon = CATEGORY_ICON[category];
+            const badges = BADGES.filter((b) => b.category === category);
+            const unlockedCount = badges.filter((b) =>
+              isBadgeUnlocked(b, stats),
+            ).length;
             return (
               <div key={category} className="flex flex-col gap-2">
                 <p className="flex items-center gap-2 text-sm font-medium">
@@ -59,16 +84,16 @@ export function BadgesCard({ stats }: { stats: BadgeStats }) {
                   </span>
                 </p>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                  {badges.map(badge => (
+                  {badges.map((badge) => (
                     <BadgeTile key={badge.id} badge={badge} stats={stats} />
                   ))}
                 </div>
               </div>
-            )
+            );
           })
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {BADGES.slice(0, COLLAPSED_COUNT).map(badge => (
+            {BADGES.slice(0, COLLAPSED_COUNT).map((badge) => (
               <BadgeTile key={badge.id} badge={badge} stats={stats} />
             ))}
           </div>
@@ -79,7 +104,7 @@ export function BadgesCard({ stats }: { stats: BadgeStats }) {
             variant="ghost"
             size="sm"
             className="w-full"
-            onClick={() => setExpanded(e => !e)}
+            onClick={() => setExpanded((e) => !e)}
           >
             {expanded ? (
               <>
@@ -96,5 +121,5 @@ export function BadgesCard({ stats }: { stats: BadgeStats }) {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

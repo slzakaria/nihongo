@@ -6,5 +6,5 @@ export default function AuthErrorPage() {
         Request a new sign-in link from the sign-in menu and try again.
       </p>
     </div>
-  )
+  );
 }

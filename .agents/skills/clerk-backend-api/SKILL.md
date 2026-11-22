@@ -1,6 +1,6 @@
 ---
 name: clerk-backend-api
-description: 'Clerk Backend REST API explorer and executor. Browse tags, inspect endpoint schemas, and execute authenticated requests. Use when listing users, managing organizations, or calling any Clerk API endpoint.'
+description: "Clerk Backend REST API explorer and executor. Browse tags, inspect endpoint schemas, and execute authenticated requests. Use when listing users, managing organizations, or calling any Clerk API endpoint."
 allowed-tools: Bash, Read, Grep, Skill, WebFetch
 license: MIT
 compatibility: Requires CLERK_SECRET_KEY (sk_*) for Backend API calls.
@@ -66,34 +66,36 @@ curl -s -X POST "https://api.clerk.com/v1/organizations/${ORG_ID}/invitations" \
 ### SDK equivalent (for Next.js / TypeScript projects with `@clerk/nextjs` or `@clerk/backend`)
 
 ```typescript
-import { clerkClient } from '@clerk/nextjs/server'
+import { clerkClient } from "@clerk/nextjs/server";
 // OR if using @clerk/backend directly:
 // import { createClerkClient } from '@clerk/backend'
 // const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
 // Step 1: Create organization
 const org = await clerkClient.organizations.createOrganization({
-  name: 'Acme Corp',
+  name: "Acme Corp",
   createdBy: userId, // required — the ID of the user creating the org
-})
+});
 
 // Step 2: Invite member to the org
-const invitation = await clerkClient.organizations.createOrganizationInvitation({
-  organizationId: org.id,
-  emailAddress: 'user@example.com',
-  role: 'org:admin', // or 'org:member'
-})
+const invitation = await clerkClient.organizations.createOrganizationInvitation(
+  {
+    organizationId: org.id,
+    emailAddress: "user@example.com",
+    role: "org:admin", // or 'org:member'
+  },
+);
 ```
 
 ### Update user metadata
 
 **Always explain the three metadata types before asking which to use:**
 
-| Type | Field | Readable by | Writable by | Use for |
-| --- | --- | --- | --- | --- |
-| Public | `public_metadata` | Client + Server | **Server only** | Plan tier, roles, feature flags the frontend reads |
-| Private | `private_metadata` | **Server only** | **Server only** | Stripe IDs, compliance flags, internal identifiers |
-| Unsafe | `unsafe_metadata` | Client + Server | Client + Server | Ephemeral UI state, onboarding steps (client-writable — avoid sensitive data) |
+| Type    | Field              | Readable by     | Writable by     | Use for                                                                       |
+| ------- | ------------------ | --------------- | --------------- | ----------------------------------------------------------------------------- |
+| Public  | `public_metadata`  | Client + Server | **Server only** | Plan tier, roles, feature flags the frontend reads                            |
+| Private | `private_metadata` | **Server only** | **Server only** | Stripe IDs, compliance flags, internal identifiers                            |
+| Unsafe  | `unsafe_metadata`  | Client + Server | Client + Server | Ephemeral UI state, onboarding steps (client-writable — avoid sensitive data) |
 
 **For `plan: 'pro'` and `onboarded: true` — use `public_metadata`** (frontend-readable, server-writable):
 
@@ -108,14 +110,14 @@ curl -s -X PATCH "https://api.clerk.com/v1/users/${USER_ID}" \
 **SDK equivalent:**
 
 ```typescript
-import { clerkClient } from '@clerk/nextjs/server'
+import { clerkClient } from "@clerk/nextjs/server";
 // OR: import { createClerkClient } from '@clerk/backend'
 
 await clerkClient.users.updateUser(userId, {
-  publicMetadata: { plan: 'pro', onboarded: true }, // readable by client, writable server-only
+  publicMetadata: { plan: "pro", onboarded: true }, // readable by client, writable server-only
   // privateMetadata: { stripeId: 'cus_xxx' },         // server-only read AND write
   // unsafeMetadata: { step: 'welcome' },              // client-writable, avoid sensitive data
-})
+});
 ```
 
 **Note:** REST API uses `snake_case` (`public_metadata`). SDK uses `camelCase` (`publicMetadata`).
@@ -295,7 +297,9 @@ Use the output to determine the latest version and available tags.
 Wrong:
 
 ```typescript
-await clerkClient.users.updateUser(userId, { publicMetadata: { newField: 'value' } })
+await clerkClient.users.updateUser(userId, {
+  publicMetadata: { newField: "value" },
+});
 ```
 
 This DELETES all other `publicMetadata` fields.
@@ -303,10 +307,10 @@ This DELETES all other `publicMetadata` fields.
 Right:
 
 ```typescript
-const user = await clerkClient.users.getUser(userId)
+const user = await clerkClient.users.getUser(userId);
 await clerkClient.users.updateUser(userId, {
-  publicMetadata: { ...user.publicMetadata, newField: 'value' },
-})
+  publicMetadata: { ...user.publicMetadata, newField: "value" },
+});
 ```
 
 ---
@@ -315,12 +319,12 @@ await clerkClient.users.updateUser(userId, {
 
 Determine the active mode based on the user prompt in [Options context](#options-context):
 
-| Mode | Trigger | Behavior |
-| --- | --- | --- |
-| `help` | Prompt is empty, or contains only `help` / `-h` / `--help` | Print usage examples (step 0) |
-| `browse` | Prompt is `tags`, or a tag name (e.g. `Users`) | List all tags or endpoints for a tag |
-| `execute` | Specific endpoint (e.g. `GET /users`) or natural language action (e.g. "get user john_doe") | Look up endpoint, execute request |
-| `detail` | Endpoint + `help` / `-h` / `--help` (e.g. `GET /users help`) | Show endpoint schema, don't execute |
+| Mode      | Trigger                                                                                     | Behavior                             |
+| --------- | ------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `help`    | Prompt is empty, or contains only `help` / `-h` / `--help`                                  | Print usage examples (step 0)        |
+| `browse`  | Prompt is `tags`, or a tag name (e.g. `Users`)                                              | List all tags or endpoints for a tag |
+| `execute` | Specific endpoint (e.g. `GET /users`) or natural language action (e.g. "get user john_doe") | Look up endpoint, execute request    |
+| `detail`  | Endpoint + `help` / `-h` / `--help` (e.g. `GET /users help`)                                | Show endpoint schema, don't execute  |
 
 ---
 

@@ -1,17 +1,20 @@
 {
   "name": "Hanazono - japanesse survival phrases",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "node --use-system-ca ./node_modules/next/dist/bin/next build",
     "start": "node --use-system-ca ./node_modules/next/dist/bin/next start",
     "lint": "eslint",
+    "format": "prettier --write . --ignore-unknown",
+    "format:check": "prettier --check . --ignore-unknown",
     "test": "vitest run"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
-    "@clerk/nextjs": "^7.10.6",
+    "@clerk/nextjs": "^7.10.7",
+    "@clerk/ui": "1.44.3",
     "@radix-ui/react-slot": "^1.5.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.2",
@@ -34,6 +37,7 @@
     "@types/react-dom": "^19.3.0",
     "eslint": "^10.15.0",
     "eslint-config-next": "~16.3.8",
+    "prettier": "3.10.1",
     "tailwindcss": "^4.3.5",
     "typescript": "^5.9.3",
     "vitest": "^5.1.1"

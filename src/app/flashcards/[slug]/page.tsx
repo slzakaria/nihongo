@@ -1,37 +1,41 @@
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import type { Metadata } from 'next'
-import { ArrowLeft } from 'lucide-react'
-import { loadContent } from '@/lib/data/content'
-import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck'
-import { ScenarioSidebar } from '@/components/layout/ScenarioSidebar'
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
+import { loadContent } from "@/lib/data/content";
+import { FlashcardDeck } from "@/components/flashcards/FlashcardDeck";
+import { ScenarioSidebar } from "@/components/layout/ScenarioSidebar";
 
 export async function generateStaticParams() {
-  const { phrases } = await loadContent()
-  return phrases.map(s => ({ slug: s.slug }))
+  const { phrases } = await loadContent();
+  return phrases.map((s) => ({ slug: s.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params
-  const { phrases } = await loadContent()
-  const scenario = phrases.find(s => s.slug === slug)
-  if (!scenario) return {}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { phrases } = await loadContent();
+  const scenario = phrases.find((s) => s.slug === slug);
+  if (!scenario) return {};
   return {
     title: `${scenario.label} Flashcards`,
     description: `Spaced-repetition flashcards for ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases.`,
     alternates: { canonical: `/flashcards/${slug}` },
-  }
+  };
 }
 
 export default async function FlashcardSessionPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
-  const { phrases } = await loadContent()
-  const scenario = phrases.find(s => s.slug === slug)
-  if (!scenario) notFound()
+  const { slug } = await params;
+  const { phrases } = await loadContent();
+  const scenario = phrases.find((s) => s.slug === slug);
+  if (!scenario) notFound();
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-1 gap-8 px-4 py-10 sm:px-6">
@@ -46,11 +50,13 @@ export default async function FlashcardSessionPage({
             <ArrowLeft className="h-3.5 w-3.5" />
             Flashcards
           </Link>
-          <h1 className="text-2xl font-semibold tracking-tight">{scenario.label}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {scenario.label}
+          </h1>
         </div>
 
         <FlashcardDeck key={scenario.slug} slug={scenario.slug} />
       </div>
     </div>
-  )
+  );
 }

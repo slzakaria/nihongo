@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { useAudio } from '@/hooks/useAudio'
-import { AudioIconButton } from '@/components/phrases/AudioIconButton'
+import { useAudio } from "@/hooks/useAudio";
+import { AudioIconButton } from "@/components/phrases/AudioIconButton";
 
 export function AudioButton({
   text,
   className,
   onPlay,
 }: {
-  text: string
-  className?: string
-  onPlay?: () => void
+  text: string;
+  className?: string;
+  onPlay?: () => void;
 }) {
-  const { play, isLoading, isPlaying, disabled } = useAudio()
+  const { play, isLoading, isPlaying, disabled } = useAudio();
 
   return (
     <AudioIconButton
@@ -20,10 +20,10 @@ export function AudioButton({
       isPlaying={isPlaying}
       disabled={disabled}
       onClick={() => {
-        onPlay?.()
-        play(text)
+        onPlay?.();
+        play(text);
       }}
       className={className}
     />
-  )
+  );
 }

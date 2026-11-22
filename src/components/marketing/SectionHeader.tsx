@@ -5,15 +5,17 @@ export function SectionHeader({
   title,
   description,
 }: {
-  kicker: string
-  title: string
-  description?: string
+  kicker: string;
+  title: string;
+  description?: string;
 }) {
   return (
     <div>
       <p className="text-sm font-medium text-muted-foreground">{kicker}</p>
       <h2 className="text-xl font-semibold">{title}</h2>
-      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+      {description && (
+        <p className="text-sm text-muted-foreground">{description}</p>
+      )}
     </div>
-  )
+  );
 }
