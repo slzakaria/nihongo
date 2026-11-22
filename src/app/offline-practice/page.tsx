@@ -69,7 +69,7 @@ export default function OfflinePracticePage() {
       <div className="flex gap-2">
         <Button
           type="button"
-          variant={mode === 'phrases' ? 'default' : 'outline'}
+          variant={mode === 'phrases' ? 'secondary' : 'outline'}
           onClick={() => setMode('phrases')}
         >
           Phrases
