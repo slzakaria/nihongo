@@ -1,21 +1,22 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, Search, X } from "lucide-react";
-import { SettingsMenu } from "@/components/layout/SettingsMenu";
-import { AuthMenu } from "@/components/layout/AuthMenu";
-import { Button } from "@/components/ui/button";
-import { useAuthStore } from "@/store/auth";
-import { useSearchDialogStore } from "@/store/searchDialog";
-import { cn } from "@/lib/utils";
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Menu, Search, X } from 'lucide-react';
+import { SettingsMenu } from '@/components/layout/SettingsMenu';
+import { AuthMenu } from '@/components/layout/AuthMenu';
+import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/store/auth';
+import { useSearchDialogStore } from '@/store/searchDialog';
+import { cn } from '@/lib/utils';
 
 export const navLinks = [
-  { href: "/scenarios", label: "Scenarios" },
-  { href: "/kana", label: "Kana" },
-  { href: "/flashcards", label: "Flashcards" },
-  { href: "/simulator", label: "Simulator" },
+  { href: '/scenarios', label: 'Scenarios' },
+  { href: '/kana', label: 'Kana' },
+  { href: '/offline-practice', label: 'Offline' },
+  { href: '/flashcards', label: 'Flashcards' },
+  { href: '/simulator', label: 'Simulator' },
 ];
 
 export function Navbar() {
@@ -34,8 +35,8 @@ export function Navbar() {
       if (headerRef.current && !headerRef.current.contains(e.target as Node))
         setMobileOpen(false);
     }
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
+    document.addEventListener('mousedown', onClickOutside);
+    return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
   return (
@@ -44,11 +45,7 @@ export function Navbar() {
       className="relative z-50 border-b border-border bg-background shadow-none print:hidden"
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-3 py-3 sm:px-6">
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2 whitespace-nowrap"
-          aria-label="Hanazono home"
-        >
+        <Link href="/" className="flex shrink-0 items-center gap-2 whitespace-nowrap">
           <Image
             src="/hanazono.svg"
             alt=""
@@ -69,16 +66,12 @@ export function Navbar() {
             type="button"
             variant="ghost"
             size="icon"
-            className="cursor-pointer"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            className="h-7 w-7 cursor-pointer p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((o) => !o)}
           >
-            {mobileOpen ? (
-              <X className="h-4 w-4" />
-            ) : (
-              <Menu className="h-4 w-4" />
-            )}
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
 
@@ -89,10 +82,10 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={active ? "page" : undefined}
+                aria-current={active ? 'page' : undefined}
                 className={cn(
-                  "relative shrink-0 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground sm:px-1 sm:text-[13px] align-middle items-center",
-                  active && "font-semibold text-foreground",
+                  'relative shrink-0 whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground sm:px-1 sm:text-[13px] align-middle items-center',
+                  active && 'font-semibold text-foreground',
                 )}
               >
                 {link.label}
@@ -126,9 +119,8 @@ export function Navbar() {
                 variant="ghost"
                 size="default"
                 className={cn(
-                  "w-full justify-start cursor-pointer",
-                  active &&
-                    "bg-secondary/20 font-semibold hover:bg-secondary/25",
+                  'w-full justify-start cursor-pointer',
+                  active && 'bg-secondary/20 font-semibold hover:bg-secondary/25',
                 )}
               >
                 <Link href={link.href} onClick={() => setMobileOpen(false)}>

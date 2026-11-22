@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Loader2, X } from "lucide-react";
-import type { ChatMessage } from "@/types";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { showGuestLimitDialog } from "@/store/rateLimitDialog";
+import { useEffect, useState } from 'react';
+import { Loader2, X } from 'lucide-react';
+import type { ChatMessage } from '@/types';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { showRateLimitDialog } from '@/store/rateLimitDialog';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 interface Feedback {
   summary: string;
@@ -31,20 +32,19 @@ export function FeedbackPanel({
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/simulator/feedback", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    fetch('/api/simulator/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scenarioSlug, messages: snapshot }),
     })
       .then(async (res) => {
         const data = (await res.json()) as Feedback & { error?: string };
-        if (res.status === 429) showGuestLimitDialog(data.error);
-        if (!res.ok) throw new Error(data.error ?? "Feedback failed");
+        if (res.status === 429) showRateLimitDialog(data.error);
+        if (!res.ok) throw new Error(data.error ?? 'Feedback failed');
         if (!cancelled) setFeedback(data);
       })
       .catch((err) => {
-        if (!cancelled)
-          setError(err instanceof Error ? err.message : "Feedback failed");
+        if (!cancelled) setError(err instanceof Error ? err.message : 'Feedback failed');
       });
     return () => {
       cancelled = true;
@@ -55,7 +55,12 @@ export function FeedbackPanel({
     <Card>
       <CardContent className="flex flex-col gap-4 p-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold">Your conversation, reviewed</h2>
+          <h2 className="text-sm font-semibold">
+            <BilingualText
+              english="Your conversation, reviewed"
+              japanese="かいわのふりかえり"
+            />
+          </h2>
           <Button
             type="button"
             variant="ghost"
@@ -82,13 +87,10 @@ export function FeedbackPanel({
             {feedback.mistakes.length > 0 && (
               <section className="flex flex-col gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Mistakes
+                  <BilingualText english="Mistakes" japanese="まちがい" />
                 </h3>
                 {feedback.mistakes.map((m, i) => (
-                  <div
-                    key={i}
-                    className="rounded-md border border-border p-3 text-sm"
-                  >
+                  <div key={i} className="rounded-md border border-border p-3 text-sm">
                     <p lang="ja" className="line-through opacity-70">
                       {m.said}
                     </p>
@@ -104,7 +106,10 @@ export function FeedbackPanel({
             {feedback.natural.length > 0 && (
               <section className="flex flex-col gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Sounds more natural as
+                  <BilingualText
+                    english="Sounds more natural as"
+                    japanese="よりしぜんなひょうげん"
+                  />
                 </h3>
                 {feedback.natural.map((n, i) => (
                   <div key={i} className="text-sm">
@@ -123,7 +128,10 @@ export function FeedbackPanel({
             {feedback.newPhrases.length > 0 && (
               <section className="flex flex-col gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Try these next
+                  <BilingualText
+                    english="Try these next"
+                    japanese="つぎはこれをれんしゅう"
+                  />
                 </h3>
                 {feedback.newPhrases.map((p, i) => (
                   <div key={i} className="text-sm">

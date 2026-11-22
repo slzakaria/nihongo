@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 // The signed-in person as the app sees them. `id` is the database key: the Supabase ID for migrated users,
 // the Clerk ID for new ones. Clerk's session token carries the same value, so row-level security still matches.

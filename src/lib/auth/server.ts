@@ -1,8 +1,8 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server';
 import {
   createClient as createSupabaseClient,
   type SupabaseClient,
-} from "@supabase/supabase-js";
+} from '@supabase/supabase-js';
 
 export interface ServerUser {
   // Database ID: the Supabase ID for migrated users, the Clerk ID for new ones
@@ -14,11 +14,11 @@ export interface ServerUser {
 export async function currentServerUser(): Promise<ServerUser | null> {
   const { userId, getToken } = await auth();
   if (!userId) return null;
-  const token = await getToken({ template: "supabase" });
+  const token = await getToken({ template: 'supabase' });
   if (!token) return null;
   // The token was just issued by Clerk for this request, so its `db_id` claim can be read without re-verifying
   const payload = JSON.parse(
-    Buffer.from(token.split(".")[1], "base64url").toString("utf8"),
+    Buffer.from(token.split('.')[1], 'base64url').toString('utf8'),
   ) as { db_id?: string };
   if (!payload.db_id) return null;
   return { id: payload.db_id, token };

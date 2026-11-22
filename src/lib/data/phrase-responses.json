@@ -2615,6 +2615,96 @@
       "listen_for": "連絡 (renraku) = contact."
     }
   ],
+  "em-16": [
+    {
+      "japanese": "むねがいたいんですね。すぐきゅうきゅうしゃをよびます。",
+      "romaji": "Mune ga itain desu ne. Sugu kyuukyuusha wo yobimasu.",
+      "english": "Your chest hurts? I'll call an ambulance right away.",
+      "listen_for": "きゅうきゅうしゃ (救急車, kyuukyuusha) = ambulance.",
+      "kanji": "胸が痛いんですね。すぐ救急車を呼びます。"
+    }
+  ],
+  "em-17": [
+    {
+      "japanese": "いきがくるしいんですね。すぐきゅうきゅうしゃをよびます。",
+      "romaji": "Iki ga kurushii n desu ne. Sugu kyuukyuusha wo yobimasu.",
+      "english": "I understand you're having trouble breathing. I'll call an ambulance.",
+      "listen_for": "いきがくるしい (息が苦しい, iki ga kurushii) = having difficulty breathing.",
+      "kanji": "息が苦しいんですね。すぐ救急車を呼びます。"
+    }
+  ],
+  "em-18": [
+    {
+      "japanese": "すぐきゅうきゅうしゃをよびます。いまいるばしょをおしえてください。",
+      "romaji": "Sugu kyuukyuusha wo yobimasu. Ima iru basho wo oshiete kudasai.",
+      "english": "I'll call an ambulance right away. Please tell me where you are.",
+      "listen_for": "いまいるばしょ (今いる場所, ima iru basho) = your current location.",
+      "kanji": "すぐ救急車を呼びます。今いる場所を教えてください。"
+    }
+  ],
+  "em-19": [
+    {
+      "japanese": "すぐきゅうきゅうしゃをよびます。そばにいますね。",
+      "romaji": "Sugu kyuukyuusha wo yobimasu. Soba ni imasu ne.",
+      "english": "I'll call an ambulance right away. I'll stay with you.",
+      "listen_for": "そばにいます (soba ni imasu) = I'll stay nearby.",
+      "kanji": "すぐ救急車を呼びます。そばにいますね。"
+    }
+  ],
+  "em-20": [
+    {
+      "japanese": "すぐきゅうきゅうしゃをよびます。どこをけがしましたか？",
+      "romaji": "Sugu kyuukyuusha wo yobimasu. Doko wo kega shimashita ka?",
+      "english": "I'll call an ambulance right away. Where are you injured?",
+      "listen_for": "どこをけがしましたか (doko wo kega shimashita ka) = where are you injured?",
+      "kanji": "すぐ救急車を呼びます。どこを怪我しましたか？"
+    }
+  ],
+  "em-21": [
+    {
+      "japanese": "ちかくのびょういんをさがしましょうか？",
+      "romaji": "Chikaku no byouin wo sagashimashou ka?",
+      "english": "Would you like me to find a nearby hospital?",
+      "listen_for": "さがしましょうか (sagashimashou ka) = shall I look for one?",
+      "kanji": "近くの病院を探しましょうか？"
+    }
+  ],
+  "em-22": [
+    {
+      "japanese": "ひつようなくすりや、してほしいことはありますか？",
+      "romaji": "Hitsuyou na kusuri ya, shite hoshii koto wa arimasu ka?",
+      "english": "Is there any medication you need or anything you'd like us to do?",
+      "listen_for": "ひつようなくすり (必要な薬, hitsuyou na kusuri) = medication you need.",
+      "kanji": "必要な薬や、してほしいことはありますか？"
+    }
+  ],
+  "em-23": [
+    {
+      "japanese": "インスリンのなまえがわかりますか？ちかくのびょういんをさがします。",
+      "romaji": "Insurin no namae ga wakarimasu ka? Chikaku no byouin wo sagashimasu.",
+      "english": "Do you know the name of your insulin? I'll find a nearby hospital.",
+      "listen_for": "なまえ (名前, namae) = name. The reply offers help finding medical care.",
+      "kanji": "インスリンの名前がわかりますか？近くの病院を探します。"
+    }
+  ],
+  "em-24": [
+    {
+      "japanese": "わかりました。じょせいのいしがいるびょういんをさがします。",
+      "romaji": "Wakarimashita. Josei no ishi ga iru byouin wo sagashimasu.",
+      "english": "Understood. I'll look for a hospital with a female doctor.",
+      "listen_for": "じょせいのいし (女性の医師, josei no ishi) = female doctor.",
+      "kanji": "分かりました。女性の医師がいる病院を探します。"
+    }
+  ],
+  "em-25": [
+    {
+      "japanese": "ほけんがいしゃのれんらくさきはわかりますか？",
+      "romaji": "Hoken gaisha no renrakusaki wa wakarimasu ka?",
+      "english": "Do you know your insurance company's contact details?",
+      "listen_for": "れんらくさき (連絡先, renrakusaki) = contact details.",
+      "kanji": "保険会社の連絡先は分かりますか？"
+    }
+  ],
   "pc-01": [
     {
       "japanese": "どちらへいきたいですか？",
@@ -4466,6 +4556,276 @@
       "english": "There's a hospital nearby. Shall I show you the way?",
       "listen_for": "ごあんない (ご案内, goannai) = guide/show the way. A kind offer — say はい、おねがいします (お願いします) if you want help.",
       "kanji": "近くに病院があります。ご案内しましょうか？"
+    }
+  ],
+  "ph-11": [
+    {
+      "japanese": "いつからのどがいたみますか？ねつはありますか？",
+      "romaji": "Itsu kara nodo ga itamimasu ka? Netsu wa arimasu ka?",
+      "english": "Since when has your throat been sore? Do you have a fever?",
+      "listen_for": "いつから (itsu kara) = since when; ねつ (netsu) = fever.",
+      "kanji": "いつから喉が痛みますか？熱はありますか？"
+    }
+  ],
+  "ph-12": [
+    {
+      "japanese": "いつからせきがでていますか？",
+      "romaji": "Itsu kara seki ga dete imasu ka?",
+      "english": "Since when have you been coughing?",
+      "listen_for": "せき (咳, seki) = cough.",
+      "kanji": "いつから咳が出ていますか？"
+    }
+  ],
+  "ph-13": [
+    {
+      "japanese": "ねつやせきもありますか？",
+      "romaji": "Netsu ya seki mo arimasu ka?",
+      "english": "Do you also have a fever or cough?",
+      "listen_for": "ねつ (熱, netsu) = fever; せき (咳, seki) = cough.",
+      "kanji": "熱や咳もありますか？"
+    }
+  ],
+  "ph-14": [
+    {
+      "japanese": "たいおんをはかりましたか？",
+      "romaji": "Taion wo hakarimashita ka?",
+      "english": "Have you checked your temperature?",
+      "listen_for": "たいおん (体温, taion) = body temperature.",
+      "kanji": "体温を測りましたか？"
+    }
+  ],
+  "ph-15": [
+    {
+      "japanese": "いつからですか？ほかにしょうじょうはありますか？",
+      "romaji": "Itsu kara desu ka? Hoka ni shoujou wa arimasu ka?",
+      "english": "Since when? Do you have any other symptoms?",
+      "listen_for": "しょうじょう (症状, shoujou) = symptoms.",
+      "kanji": "いつからですか？ほかに症状はありますか？"
+    }
+  ],
+  "ph-16": [
+    {
+      "japanese": "びょういんでけんさをうけましたか？",
+      "romaji": "Byouin de kensa wo ukemashita ka?",
+      "english": "Have you been tested at a hospital or clinic?",
+      "listen_for": "けんさ (検査, kensa) = test or examination.",
+      "kanji": "病院で検査を受けましたか？"
+    }
+  ],
+  "ph-17": [
+    {
+      "japanese": "いつからつづいていますか？ほかのしょうじょうはありますか？",
+      "romaji": "Itsu kara tsuzuite imasu ka? Hoka no shoujou wa arimasu ka?",
+      "english": "How long has this been going on? Do you have any other symptoms?",
+      "listen_for": "つづいています (続いています, tsuzuite imasu) = has continued.",
+      "kanji": "いつから続いていますか？ほかの症状はありますか？"
+    }
+  ],
+  "ph-18": [
+    {
+      "japanese": "いつからつづいていますか？",
+      "romaji": "Itsu kara tsuzuite imasu ka?",
+      "english": "How long have you had this?",
+      "listen_for": "いつから (itsu kara) = since when.",
+      "kanji": "いつから続いていますか？"
+    }
+  ],
+  "ph-19": [
+    {
+      "japanese": "いつからきぶんがわるいですか？",
+      "romaji": "Itsu kara kibun ga warui desu ka?",
+      "english": "Since when have you been feeling nauseous?",
+      "listen_for": "きぶんがわるい (気分が悪い, kibun ga warui) = feeling unwell or nauseous.",
+      "kanji": "いつから気分が悪いですか？"
+    }
+  ],
+  "ph-20": [
+    {
+      "japanese": "どのようなしょうじょうですか？",
+      "romaji": "Dono you na shoujou desu ka?",
+      "english": "What kind of symptoms are you having?",
+      "listen_for": "どのような (dono you na) = what kind of; しょうじょう (shoujou) = symptoms.",
+      "kanji": "どのような症状ですか？"
+    }
+  ],
+  "ph-21": [
+    {
+      "japanese": "ほかにのんでいるくすりはありますか？",
+      "romaji": "Hoka ni nonde iru kusuri wa arimasu ka?",
+      "english": "Are you taking any other medicine?",
+      "listen_for": "ほかに (hoka ni) = any others; くすり (kusuri) = medicine.",
+      "kanji": "ほかに飲んでいる薬はありますか？"
+    }
+  ],
+  "ph-22": [
+    {
+      "japanese": "ほかにのんでいるくすりや、アレルギーはありますか？",
+      "romaji": "Hoka ni nonde iru kusuri ya, arerugii wa arimasu ka?",
+      "english": "Are you taking other medicine, or do you have any allergies?",
+      "listen_for": "アレルギー (arerugii) = allergy. Mention any relevant medicines or allergies.",
+      "kanji": "ほかに飲んでいる薬や、アレルギーはありますか？"
+    }
+  ],
+  "ph-23": [
+    {
+      "japanese": "いがいたみますか？",
+      "romaji": "I ga itamimasu ka?",
+      "english": "Does your stomach hurt?",
+      "listen_for": "い (胃, i) = stomach; いたみます (itamimasu) = hurts.",
+      "kanji": "胃が痛みますか？"
+    }
+  ],
+  "ph-24": [
+    {
+      "japanese": "いちばんつらいしょうじょうはなんですか？",
+      "romaji": "Ichiban tsurai shoujou wa nan desu ka?",
+      "english": "Which symptom is bothering you the most?",
+      "listen_for": "いちばん (ichiban) = the most; つらい (tsurai) = difficult or painful.",
+      "kanji": "一番つらい症状は何ですか？"
+    }
+  ],
+  "ph-25": [
+    {
+      "japanese": "しょほうせんをみせてください。かくにんします。",
+      "romaji": "Shohousen wo misete kudasai. Kakunin shimasu.",
+      "english": "Please show me the prescription. I'll check it.",
+      "listen_for": "しょほうせん (処方箋, shohousen) = prescription.",
+      "kanji": "処方箋を見せてください。確認します。"
+    }
+  ],
+  "ph-26": [
+    {
+      "japanese": "くすりによってのみかたがちがいます。せつめいしょをいっしょにかくにんしましょう。",
+      "romaji": "Kusuri ni yotte nomikata ga chigaimasu. Setsumeisho wo issho ni kakunin shimashou.",
+      "english": "Directions vary by medicine. Let's check the instructions together.",
+      "listen_for": "のみかた (飲み方, nomikata) = how to take; せつめいしょ (説明書, setsumeisho) = instructions.",
+      "kanji": "薬によって飲み方が違います。説明書を一緒に確認しましょう。"
+    }
+  ],
+  "ph-27": [
+    {
+      "japanese": "くすりのなまえをかくにんします。しょうしょうおまちください。",
+      "romaji": "Kusuri no namae wo kakunin shimasu. Shoushou omachi kudasai.",
+      "english": "I'll check the medicine's name. Please wait a moment.",
+      "listen_for": "しょうしょうおまちください (shoushou omachi kudasai) = please wait a moment.",
+      "kanji": "薬の名前を確認します。少々お待ちください。"
+    }
+  ],
+  "ph-28": [
+    {
+      "japanese": "くすりによってちがいます。やくざいしにかくにんしますね。",
+      "romaji": "Kusuri ni yotte chigaimasu. Yakuzaishi ni kakunin shimasu ne.",
+      "english": "It depends on the medicine. I'll check with the pharmacist.",
+      "listen_for": "やくざいし (薬剤師, yakuzaishi) = pharmacist.",
+      "kanji": "薬によって違います。薬剤師に確認しますね。"
+    }
+  ],
+  "rs-44": [
+    {
+      "japanese": "メニューをかくにんいたします。しょうしょうおまちください。",
+      "romaji": "Menyuu wo kakunin itashimasu. Shoushou omachi kudasai.",
+      "english": "I'll check the menu. Please wait a moment.",
+      "listen_for": "かくにんいたします (kakunin itashimasu) = I'll check, in polite service language.",
+      "kanji": "メニューを確認いたします。少々お待ちください。"
+    }
+  ],
+  "rs-45": [
+    {
+      "japanese": "だしのざいりょうをかくにんいたします。しょうしょうおまちください。",
+      "romaji": "Dashi no zairyou wo kakunin itashimasu. Shoushou omachi kudasai.",
+      "english": "I'll check the stock ingredients. Please wait a moment.",
+      "listen_for": "だし (dashi) = soup stock; ざいりょう (zairyou) = ingredients.",
+      "kanji": "だしの材料を確認いたします。少々お待ちください。"
+    }
+  ],
+  "rs-46": [
+    {
+      "japanese": "かしこまりました。ほかにぬいてほしいものはありますか？",
+      "romaji": "Kashikomarimashita. Hoka ni nuite hoshii mono wa arimasu ka?",
+      "english": "Certainly. Is there anything else you'd like left out?",
+      "listen_for": "ぬいてほしい (nuite hoshii) = would like left out.",
+      "kanji": "かしこまりました。ほかに抜いてほしいものはありますか？"
+    }
+  ],
+  "rs-47": [
+    {
+      "japanese": "ちょうりばにかくにんします。しょうしょうおまちください。",
+      "romaji": "Chouriba ni kakunin shimasu. Shoushou omachi kudasai.",
+      "english": "I'll check with the kitchen. Please wait a moment.",
+      "listen_for": "ちょうりば (調理場, chouriba) = kitchen or food-preparation area.",
+      "kanji": "調理場に確認します。少々お待ちください。"
+    }
+  ],
+  "rs-48": [
+    {
+      "japanese": "ちょうりばにかくにんします。しょうしょうおまちください。",
+      "romaji": "Chouriba ni kakunin shimasu. Shoushou omachi kudasai.",
+      "english": "I'll check with the kitchen. Please wait a moment.",
+      "listen_for": "ちょうりば (調理場, chouriba) = kitchen or food-preparation area.",
+      "kanji": "調理場に確認します。少々お待ちください。"
+    }
+  ],
+  "ar-09": [
+    {
+      "japanese": "とうちゃくロビーのあんないじょでかくにんできます。",
+      "romaji": "Touchaku robii no annaijo de kakunin dekimasu.",
+      "english": "You can check at the information desk in the arrivals lobby.",
+      "listen_for": "あんないじょ (案内所, annaijo) = information desk.",
+      "kanji": "到着ロビーの案内所で確認できます。"
+    }
+  ],
+  "ar-10": [
+    {
+      "japanese": "はい、むりょうワイファイがつかえます。せつぞくほうほうはこちらです。",
+      "romaji": "Hai, muryou waifai ga tsukaemasu. Setsuzoku houhou wa kochira desu.",
+      "english": "Yes, free Wi-Fi is available. Here are the connection instructions.",
+      "listen_for": "せつぞく (接続, setsuzoku) = connection.",
+      "kanji": "はい、無料Wi-Fiが使えます。接続方法はこちらです。"
+    }
+  ],
+  "ar-11": [
+    {
+      "japanese": "あちらにじゅうでんできるばしょがあります。",
+      "romaji": "Achira ni juuden dekiru basho ga arimasu.",
+      "english": "There is a place to charge your phone over there.",
+      "listen_for": "じゅうでん (充電, juuden) = charging.",
+      "kanji": "あちらに充電できる場所があります。"
+    }
+  ],
+  "tr-16": [
+    {
+      "japanese": "はい、かいさつのちかくにあります。ごあんないしますね。",
+      "romaji": "Hai, kaisatsu no chikaku ni arimasu. Goannai shimasu ne.",
+      "english": "Yes, it's near the ticket gates. I'll show you.",
+      "listen_for": "かいさつ (改札, kaisatsu) = ticket gates.",
+      "kanji": "はい、改札の近くにあります。ご案内しますね。"
+    }
+  ],
+  "tr-17": [
+    {
+      "japanese": "このルートならくるまいすでとおれます。エレベーターをごあんないします。",
+      "romaji": "Kono ruuto nara kurumaisu de tooremasu. Erebeetaa wo goannai shimasu.",
+      "english": "This route is wheelchair accessible. I'll show you the elevator.",
+      "listen_for": "とおれます (tooremasu) = can pass through; くるまいす (kurumaisu) = wheelchair.",
+      "kanji": "このルートなら車いすで通れます。エレベーターをご案内します。"
+    }
+  ],
+  "tr-18": [
+    {
+      "japanese": "エレベーターをつかうルートをごあんないします。",
+      "romaji": "Erebeetaa wo tsukau ruuto wo goannai shimasu.",
+      "english": "I'll show you a route that uses elevators.",
+      "listen_for": "つかう (使う, tsukau) = use; ルート (ruuto) = route.",
+      "kanji": "エレベーターを使うルートをご案内します。"
+    }
+  ],
+  "ht-19": [
+    {
+      "japanese": "くうしつとせつびをかくにんします。しょうしょうおまちください。",
+      "romaji": "Kuushitsu to setsubi wo kakunin shimasu. Shoushou omachi kudasai.",
+      "english": "I'll check room availability and facilities. Please wait a moment.",
+      "listen_for": "くうしつ (空室, kuushitsu) = room availability; せつび (設備, setsubi) = facilities.",
+      "kanji": "空室と設備を確認します。少々お待ちください。"
     }
   ],
   "am-01": [

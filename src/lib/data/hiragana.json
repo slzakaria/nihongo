@@ -2,7 +2,7 @@
   "scenarios": [
     {
       "slug": "a-row",
-      "label": "あ行 (a-row)",
+      "label": "あ (a-)",
       "icon": "",
       "phrases": [
         {
@@ -10,7 +10,7 @@
           "japanese": "あ",
           "romaji": "a",
           "english": "Sounds like 'a' in 'father'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -32,7 +32,7 @@
           "japanese": "い",
           "romaji": "i",
           "english": "Sounds like 'ee' in 'see' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -54,7 +54,7 @@
           "japanese": "う",
           "romaji": "u",
           "english": "Sounds like 'oo' in 'food' (lips not rounded)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -76,7 +76,7 @@
           "japanese": "え",
           "romaji": "e",
           "english": "Sounds like 'e' in 'bed'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -98,7 +98,7 @@
           "japanese": "お",
           "romaji": "o",
           "english": "Sounds like 'o' in 'go' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -119,7 +119,7 @@
     },
     {
       "slug": "ka-row",
-      "label": "か行 (ka-row)",
+      "label": "か (ka-)",
       "icon": "",
       "phrases": [
         {
@@ -127,7 +127,7 @@
           "japanese": "か",
           "romaji": "ka",
           "english": "Sounds like 'ka' in 'car'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -149,7 +149,7 @@
           "japanese": "き",
           "romaji": "ki",
           "english": "Sounds like 'key'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -171,7 +171,7 @@
           "japanese": "く",
           "romaji": "ku",
           "english": "Sounds like 'coo' (lips not rounded)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -193,7 +193,7 @@
           "japanese": "け",
           "romaji": "ke",
           "english": "Sounds like 'ke' in 'kettle'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -215,7 +215,7 @@
           "japanese": "こ",
           "romaji": "ko",
           "english": "Sounds like 'co' in 'cold' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -236,7 +236,7 @@
     },
     {
       "slug": "ga-row",
-      "label": "が行 (ga-row)",
+      "label": "が (ga-)",
       "icon": "",
       "phrases": [
         {
@@ -244,7 +244,7 @@
           "japanese": "が",
           "romaji": "ga",
           "english": "Sounds like 'ga' in 'garden'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "Dakuten (゛) turns か into が.",
           "responses": [
             {
@@ -266,7 +266,7 @@
           "japanese": "ぎ",
           "romaji": "gi",
           "english": "Sounds like 'gee' in 'geek'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -288,7 +288,7 @@
           "japanese": "ぐ",
           "romaji": "gu",
           "english": "Sounds like 'goo' (lips not rounded)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -310,7 +310,7 @@
           "japanese": "げ",
           "romaji": "ge",
           "english": "Sounds like 'ge' in 'get'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -332,7 +332,7 @@
           "japanese": "ご",
           "romaji": "go",
           "english": "Sounds like 'go' in 'gold'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -353,7 +353,7 @@
     },
     {
       "slug": "sa-row",
-      "label": "さ行 (sa-row)",
+      "label": "さ (sa-)",
       "icon": "",
       "phrases": [
         {
@@ -361,7 +361,7 @@
           "japanese": "さ",
           "romaji": "sa",
           "english": "Sounds like 'sa' in 'sand'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -383,7 +383,7 @@
           "japanese": "し",
           "romaji": "shi",
           "english": "Sounds like 'she' in 'shy'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Irregular: 'shi', not 'si'.",
           "responses": [
             {
@@ -405,7 +405,7 @@
           "japanese": "す",
           "romaji": "su",
           "english": "Sounds like 'su' in 'sun' (lips not rounded)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -427,7 +427,7 @@
           "japanese": "せ",
           "romaji": "se",
           "english": "Sounds like 'se' in 'set'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -449,7 +449,7 @@
           "japanese": "そ",
           "romaji": "so",
           "english": "Sounds like 'so' in 'song' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -470,7 +470,7 @@
     },
     {
       "slug": "za-row",
-      "label": "ざ行 (za-row)",
+      "label": "ざ (za-)",
       "icon": "",
       "phrases": [
         {
@@ -478,7 +478,7 @@
           "japanese": "ざ",
           "romaji": "za",
           "english": "Sounds like 'za' in 'zap'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -500,7 +500,7 @@
           "japanese": "じ",
           "romaji": "ji",
           "english": "Sounds like 'j' in 'jam'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "Same sound as ぢ. Usually written じ.",
           "responses": [
             {
@@ -522,7 +522,7 @@
           "japanese": "ず",
           "romaji": "zu",
           "english": "Sounds like 'zoo' (lips not rounded)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "Same sound as づ. Usually written ず.",
           "responses": [
             {
@@ -544,7 +544,7 @@
           "japanese": "ぜ",
           "romaji": "ze",
           "english": "Sounds like 'ze' in 'zebra'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -566,7 +566,7 @@
           "japanese": "ぞ",
           "romaji": "zo",
           "english": "Sounds like 'zo' in 'zone'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -587,7 +587,7 @@
     },
     {
       "slug": "ta-row",
-      "label": "た行 (ta-row)",
+      "label": "た (ta-)",
       "icon": "",
       "phrases": [
         {
@@ -595,7 +595,7 @@
           "japanese": "た",
           "romaji": "ta",
           "english": "Sounds like 'ta' in 'tap'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -617,7 +617,7 @@
           "japanese": "ち",
           "romaji": "chi",
           "english": "Sounds like 'ch' in 'cheese'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Irregular: 'chi', not 'ti'.",
           "responses": [
             {
@@ -639,7 +639,7 @@
           "japanese": "つ",
           "romaji": "tsu",
           "english": "Sounds like 'ts' in 'cats' + 'oo'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Irregular: 'tsu', not 'tu'.",
           "responses": [
             {
@@ -661,7 +661,7 @@
           "japanese": "て",
           "romaji": "te",
           "english": "Sounds like 'te' in 'ten'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -683,7 +683,7 @@
           "japanese": "と",
           "romaji": "to",
           "english": "Sounds like 'to' in 'top' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -704,7 +704,7 @@
     },
     {
       "slug": "da-row",
-      "label": "だ行 (da-row)",
+      "label": "だ (da-)",
       "icon": "",
       "phrases": [
         {
@@ -712,7 +712,7 @@
           "japanese": "だ",
           "romaji": "da",
           "english": "Sounds like 'da' in 'dad'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -734,7 +734,7 @@
           "japanese": "ぢ",
           "romaji": "ji",
           "english": "Sounds like 'j' in 'jam'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "Same sound as じ. Rare; mostly in compound words like はなぢ.",
           "responses": [
             {
@@ -756,7 +756,7 @@
           "japanese": "づ",
           "romaji": "zu",
           "english": "Sounds like 'zoo' (lips not rounded)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "Same sound as ず. Rare; mostly when a 'zu' sound repeats.",
           "responses": [
             {
@@ -778,7 +778,7 @@
           "japanese": "で",
           "romaji": "de",
           "english": "Sounds like 'de' in 'desk'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -800,7 +800,7 @@
           "japanese": "ど",
           "romaji": "do",
           "english": "Sounds like 'do' in 'dog'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -821,7 +821,7 @@
     },
     {
       "slug": "na-row",
-      "label": "な行 (na-row)",
+      "label": "な (na-)",
       "icon": "",
       "phrases": [
         {
@@ -829,7 +829,7 @@
           "japanese": "な",
           "romaji": "na",
           "english": "Sounds like 'na' in 'nap'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -851,7 +851,7 @@
           "japanese": "に",
           "romaji": "ni",
           "english": "Sounds like 'knee'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -873,7 +873,7 @@
           "japanese": "ぬ",
           "romaji": "nu",
           "english": "Sounds like 'noo' (lips not rounded)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -895,7 +895,7 @@
           "japanese": "ね",
           "romaji": "ne",
           "english": "Sounds like 'ne' in 'net'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -917,7 +917,7 @@
           "japanese": "の",
           "romaji": "no",
           "english": "Sounds like 'no' in 'note' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -938,7 +938,7 @@
     },
     {
       "slug": "ha-row",
-      "label": "は行 (ha-row)",
+      "label": "は (ha-)",
       "icon": "",
       "phrases": [
         {
@@ -946,7 +946,7 @@
           "japanese": "は",
           "romaji": "ha",
           "english": "Sounds like 'ha' in 'hat'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Written は, but read 'wa' when used as the topic particle.",
           "responses": [
             {
@@ -968,7 +968,7 @@
           "japanese": "ひ",
           "romaji": "hi",
           "english": "Sounds like 'hee' in 'heed'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -990,7 +990,7 @@
           "japanese": "ふ",
           "romaji": "fu",
           "english": "Sounds like 'fu' (lips barely touch)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Irregular: 'fu', not 'hu'.",
           "responses": [
             {
@@ -1012,7 +1012,7 @@
           "japanese": "へ",
           "romaji": "he",
           "english": "Sounds like 'he' in 'help'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Written へ, but read 'e' when used as the direction particle.",
           "responses": [
             {
@@ -1034,7 +1034,7 @@
           "japanese": "ほ",
           "romaji": "ho",
           "english": "Sounds like 'ho' in 'home' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1055,7 +1055,7 @@
     },
     {
       "slug": "ba-row",
-      "label": "ば行 (ba-row)",
+      "label": "ば (ba-)",
       "icon": "",
       "phrases": [
         {
@@ -1063,7 +1063,7 @@
           "japanese": "ば",
           "romaji": "ba",
           "english": "Sounds like 'ba' in 'bath'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1085,7 +1085,7 @@
           "japanese": "び",
           "romaji": "bi",
           "english": "Sounds like 'bee'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1107,7 +1107,7 @@
           "japanese": "ぶ",
           "romaji": "bu",
           "english": "Sounds like 'boo' (lips not rounded)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1129,7 +1129,7 @@
           "japanese": "べ",
           "romaji": "be",
           "english": "Sounds like 'be' in 'bed'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1151,7 +1151,7 @@
           "japanese": "ぼ",
           "romaji": "bo",
           "english": "Sounds like 'bo' in 'boat' (short)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1172,7 +1172,7 @@
     },
     {
       "slug": "pa-row",
-      "label": "ぱ行 (pa-row)",
+      "label": "ぱ (pa-)",
       "icon": "",
       "phrases": [
         {
@@ -1180,7 +1180,7 @@
           "japanese": "ぱ",
           "romaji": "pa",
           "english": "Sounds like 'pa' in 'park'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "Handakuten (゜) turns は into ぱ.",
           "responses": [
             {
@@ -1202,7 +1202,7 @@
           "japanese": "ぴ",
           "romaji": "pi",
           "english": "Sounds like 'pee' (short)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1224,7 +1224,7 @@
           "japanese": "ぷ",
           "romaji": "pu",
           "english": "Sounds like 'poo' (lips not rounded)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1246,7 +1246,7 @@
           "japanese": "ぺ",
           "romaji": "pe",
           "english": "Sounds like 'pe' in 'pen'",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1268,7 +1268,7 @@
           "japanese": "ぽ",
           "romaji": "po",
           "english": "Sounds like 'po' in 'pot' (short)",
-          "difficulty": "extra",
+          "difficulty": "medium",
           "notes": "",
           "responses": [
             {
@@ -1289,7 +1289,7 @@
     },
     {
       "slug": "ma-row",
-      "label": "ま行 (ma-row)",
+      "label": "ま (ma-)",
       "icon": "",
       "phrases": [
         {
@@ -1297,7 +1297,7 @@
           "japanese": "ま",
           "romaji": "ma",
           "english": "Sounds like 'ma' in 'mat'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1319,7 +1319,7 @@
           "japanese": "み",
           "romaji": "mi",
           "english": "Sounds like 'mee' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1341,7 +1341,7 @@
           "japanese": "む",
           "romaji": "mu",
           "english": "Sounds like 'moo' (lips not rounded)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1363,7 +1363,7 @@
           "japanese": "め",
           "romaji": "me",
           "english": "Sounds like 'me' in 'met'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1385,7 +1385,7 @@
           "japanese": "も",
           "romaji": "mo",
           "english": "Sounds like 'mo' in 'more' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1406,7 +1406,7 @@
     },
     {
       "slug": "ya-row",
-      "label": "や行 (ya-row)",
+      "label": "や (ya-)",
       "icon": "",
       "phrases": [
         {
@@ -1414,7 +1414,7 @@
           "japanese": "や",
           "romaji": "ya",
           "english": "Sounds like 'ya' in 'yacht'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1436,7 +1436,7 @@
           "japanese": "ゆ",
           "romaji": "yu",
           "english": "Sounds like 'you' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1458,7 +1458,7 @@
           "japanese": "よ",
           "romaji": "yo",
           "english": "Sounds like 'yo' in 'yoga'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1479,7 +1479,7 @@
     },
     {
       "slug": "ra-row",
-      "label": "ら行 (ra-row)",
+      "label": "ら (ra-)",
       "icon": "",
       "phrases": [
         {
@@ -1487,7 +1487,7 @@
           "japanese": "ら",
           "romaji": "ra",
           "english": "Quick tap 'r', like 'ra' in 'ladder'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "The Japanese r is a quick tap, between English 'r' and 'd'.",
           "responses": [
             {
@@ -1509,7 +1509,7 @@
           "japanese": "り",
           "romaji": "ri",
           "english": "Quick tap 'ree' (light tap)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1531,7 +1531,7 @@
           "japanese": "る",
           "romaji": "ru",
           "english": "Quick tap 'roo' (lips not rounded)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1553,7 +1553,7 @@
           "japanese": "れ",
           "romaji": "re",
           "english": "Quick tap 're' (light tap)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1575,7 +1575,7 @@
           "japanese": "ろ",
           "romaji": "ro",
           "english": "Quick tap 'ro', like 'ro' in 'rope' (short)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1596,7 +1596,7 @@
     },
     {
       "slug": "wa-row",
-      "label": "わ行 (wa-row)",
+      "label": "わ (wa-)",
       "icon": "",
       "phrases": [
         {
@@ -1604,7 +1604,7 @@
           "japanese": "わ",
           "romaji": "wa",
           "english": "Sounds like 'wa' in 'water'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "",
           "responses": [
             {
@@ -1626,7 +1626,7 @@
           "japanese": "を",
           "romaji": "wo",
           "english": "Sounds like 'o' in 'go' (used as a particle)",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Only used as the object particle (read 'o'), never at the start of a word.",
           "responses": [
             {
@@ -1655,7 +1655,7 @@
           "japanese": "ん",
           "romaji": "n",
           "english": "Nasal 'n', like the 'n' in 'song'",
-          "difficulty": "core",
+          "difficulty": "easy",
           "notes": "Never starts a word. Sounds like 'n' at the end of a syllable.",
           "responses": [
             {

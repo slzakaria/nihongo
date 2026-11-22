@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 export function CherryBlossom({ className }: { className?: string }) {
   return (
     <svg
       className={cn(
-        "hero-banner-art pointer-events-none absolute right-0 top-0 h-full w-[340px]",
+        'hero-banner-art pointer-events-none absolute right-0 top-0 h-full w-[340px]',
         className,
       )}
       viewBox="0 0 340 320"
@@ -89,12 +89,7 @@ export function CherryBlossom({ className }: { className?: string }) {
         color="var(--hero-peach)"
         accent="var(--hero-bloom-pink)"
       />
-      <BlossomCluster
-        cx={178}
-        cy={130}
-        color="var(--hero-bloom-pink)"
-        size="sm"
-      />
+      <BlossomCluster cx={178} cy={130} color="var(--hero-bloom-pink)" size="sm" />
       <BlossomCluster
         cx={265}
         cy={172}
@@ -130,14 +125,7 @@ export function CherryBlossom({ className }: { className?: string }) {
         fill="var(--hero-blue-soft)"
         opacity="0.18"
       />
-      <ellipse
-        cx="290"
-        cy="250"
-        rx="5"
-        ry="2"
-        fill="var(--hero-peach)"
-        opacity="0.28"
-      />
+      <ellipse cx="290" cy="250" rx="5" ry="2" fill="var(--hero-peach)" opacity="0.28" />
     </svg>
   );
 }
@@ -147,28 +135,22 @@ function BlossomCluster({
   cy,
   color,
   accent = color,
-  size = "md",
+  size = 'md',
 }: {
   cx: number;
   cy: number;
   color: string;
   accent?: string;
-  size?: "sm" | "md";
+  size?: 'sm' | 'md';
 }) {
-  const radius = size === "sm" ? 4.5 : 6;
+  const radius = size === 'sm' ? 4.5 : 6;
 
   return (
     <g opacity="0.72">
       <circle cx={cx} cy={cy} r={radius} fill={color} />
       <circle cx={cx + 10} cy={cy - 8} r={radius - 2} fill={accent} />
       <circle cx={cx - 8} cy={cy - 8} r={radius - 2} fill={color} />
-      <circle
-        cx={cx + 8}
-        cy={cy + 8}
-        r={radius - 2.5}
-        fill={accent}
-        opacity="0.8"
-      />
+      <circle cx={cx + 8} cy={cy + 8} r={radius - 2.5} fill={accent} opacity="0.8" />
       <circle cx={cx - 6} cy={cy + 10} r={radius - 3} fill={color} />
     </g>
   );

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useProgressStore } from "@/store/progress";
+import { useProgressStore } from '@/store/progress';
 
 // Thin convenience wrapper over the progress store's SRS-related actions
 export function useSRS(scenarioSlug?: string) {

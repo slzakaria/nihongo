@@ -1,11 +1,12 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
-import { loadContent } from "@/lib/data/content";
-import { SimulatorChat } from "@/components/simulator/SimulatorChat";
-import { ScenarioPrompt } from "@/components/simulator/ScenarioPrompt";
-import { scenarioKana } from "@/lib/data/scenarioKana";
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { ArrowLeft } from 'lucide-react';
+import { loadContent } from '@/lib/data/content';
+import { SimulatorChat } from '@/components/simulator/SimulatorChat';
+import { ScenarioPrompt } from '@/components/simulator/ScenarioPrompt';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -49,13 +50,11 @@ export default async function SimulatorSessionPage({
           Simulator
         </Link>
         <h1 className="text-2xl font-semibold tracking-tight">
-          {scenario.label}
+          <BilingualText
+            english={scenario.label}
+            japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+          />
         </h1>
-        {scenarioKana(scenario.slug) && (
-          <p lang="ja" className="text-sm text-muted-foreground">
-            {scenarioKana(scenario.slug)}
-          </p>
-        )}
       </div>
 
       <ScenarioPrompt scenario={scenario} />

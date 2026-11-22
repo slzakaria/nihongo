@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useAudio } from "@/hooks/useAudio";
-import { AudioIconButton } from "@/components/phrases/AudioIconButton";
+import { useAudio } from '@/hooks/useAudio';
+import { AudioIconButton } from '@/components/phrases/AudioIconButton';
 
 export function AudioButton({
   text,

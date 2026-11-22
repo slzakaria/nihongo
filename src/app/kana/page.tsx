@@ -1,23 +1,24 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { KanaCard } from "@/components/kana/KanaCard";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { SearchTrigger } from "@/components/search/SearchTrigger";
-import { loadKana, useContentStore } from "@/lib/data/content";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { KanaCard } from '@/components/kana/KanaCard';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { SearchTrigger } from '@/components/search/SearchTrigger';
+import { loadKana, useContentStore } from '@/lib/data/content';
+import { cn } from '@/lib/utils';
 
 const labels = {
-  hiragana: "Hiragana",
-  katakana: "Katakana",
+  hiragana: 'Hiragana',
+  katakana: 'Katakana',
 } as const;
 
 type Script = keyof typeof labels;
 
 export default function KanaPage() {
-  const [script, setScript] = useState<Script>("hiragana");
+  const [script, setScript] = useState<Script>('hiragana');
   const rows = useContentStore((s) => s.content[script]);
 
   useEffect(() => {
@@ -28,7 +29,9 @@ export default function KanaPage() {
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10 sm:px-6">
       <PageHeader
         title="Kana"
+        titleKana="かな"
         description="Learn the Japanese syllabaries, row by row."
+        descriptionKana="ひらがなとカタカナを、ぎょうごとにまなびましょう。"
       >
         <div className="flex flex-wrap items-center gap-2">
           <a
@@ -54,8 +57,8 @@ export default function KanaPage() {
             role="tab"
             aria-selected={script === key}
             size="sm"
-            variant={script === key ? "default" : "outline"}
-            className={cn("min-w-28 cursor-pointer")}
+            variant={script === key ? 'secondary' : 'outline'}
+            className={cn('min-w-28 cursor-pointer')}
             onClick={() => setScript(key)}
           >
             {labels[key]}
@@ -65,7 +68,14 @@ export default function KanaPage() {
 
       {rows.map((row) => (
         <section key={row.slug} className="flex flex-col gap-3">
-          <h2 className="text-lg font-medium">{row.label}</h2>
+          <h2 className="text-lg font-medium">
+            <BilingualText
+              english={(row.label.match(/\(([^)]+)\)/)?.[1] ?? row.label)
+                .replace(/-$/, '')
+                .replace(/^./, (letter) => letter.toUpperCase())}
+              japanese={row.label.split(' (')[0]}
+            />
+          </h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {row.phrases.map((kana) => (
               <KanaCard key={kana.id} kana={kana} />

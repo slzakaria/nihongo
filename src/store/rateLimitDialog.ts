@@ -1,7 +1,6 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-// Lets any fetch call (TTS, STT, word lookup, simulator, scoring...) that gets a 429 open a
-// centered dialog explaining the guest limit and nudging the user to sign in.
+// Lets any fetch call that gets a 429 open the shared daily-limit dialog.
 interface RateLimitDialogStore {
   open: boolean;
   message: string;
@@ -9,7 +8,7 @@ interface RateLimitDialogStore {
   hide: () => void;
 }
 
-const DEFAULT_MESSAGE = "You've reached today's guest limit for this feature.";
+const DEFAULT_MESSAGE = "You've reached today's usage limit.";
 
 export const useRateLimitDialogStore = create<RateLimitDialogStore>((set) => ({
   open: false,
@@ -19,6 +18,6 @@ export const useRateLimitDialogStore = create<RateLimitDialogStore>((set) => ({
 }));
 
 // Non-hook helper so plain modules (e.g. lib/tts/speak.ts) can trigger the dialog too.
-export function showGuestLimitDialog(message?: string) {
+export function showRateLimitDialog(message?: string) {
   useRateLimitDialogStore.getState().show(message);
 }

@@ -1,22 +1,23 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --radius: 0.575rem;
 
   --background: #faf7f4;
   --foreground: #2d2520;
+  --kana-color: #993556;
 
   --card: #ffffff;
   --card-foreground: #2d2520;
 
-  --primary: #d4537e;
+  --primary: #b43e63;
   --primary-foreground: #ffffff;
 
   --secondary: #fce4ee;
   --secondary-foreground: #993556;
 
   --muted: #fdf6f0;
-  --muted-foreground: #8a7470;
+  --muted-foreground: #806963;
 
   --accent: #faeada;
   --accent-foreground: #8a5030;
@@ -50,8 +51,7 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-sans:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-serif-jp: var(--font-noto-serif-jp);
 }
@@ -59,12 +59,13 @@
 .dark {
   --background: #12151f;
   --foreground: #e8eaf6;
+  --kana-color: #85b7eb;
 
   --card: #1e1e2e;
   --card-foreground: #e8eaf6;
 
   --primary: #378add;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #12151f;
 
   --secondary: #2d1f28;
   --secondary-foreground: #ed93b1;
@@ -91,9 +92,14 @@ body {
   background: linear-gradient(135deg, #faf7f4 0%, #fdf6f0 52%, #f4f0fc 100%);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+.kana-text {
+  color: var(--kana-color);
+  font-family: var(--font-noto-serif-jp), serif;
+  font-weight: 400;
 }
 
 .dark body {
@@ -101,7 +107,7 @@ body {
 }
 
 .navbar-logo {
-  color: #d4537e;
+  color: var(--primary);
   font-family: var(--font-noto-serif-jp), serif;
 }
 
@@ -113,7 +119,7 @@ body {
   width: 1.75rem;
   height: 1.75rem;
   padding: 0;
-  border: 1px solid var(--border);
+  border: 0;
   color: var(--muted-foreground);
 }
 
@@ -326,11 +332,11 @@ body {
 }
 
 .simulator-bubble--assistant .simulator-translation {
-  color: #378add;
+  color: #185fa5;
 }
 
 .simulator-bubble--user .simulator-translation {
-  color: #d4537e;
+  color: #993556;
 }
 
 .dark .simulator-bubble--assistant {
@@ -359,12 +365,12 @@ body {
 .simulator-chat-input > div {
   border-color: #f0d8cc;
   background-color: #ffffff;
-  color: #b8a09a;
+  color: var(--muted-foreground);
 }
 
 .simulator-send-button:disabled {
-  background-color: #d4537e;
-  color: #ffffff;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
   opacity: 1;
 }
 
@@ -406,10 +412,16 @@ body {
   color: #8a5030;
 }
 
-.srs-grade-button--good {
+.srs-grade-button--medium {
   border-color: #edb4c9;
   background-color: #fce4ee;
   color: #993556;
+}
+
+.srs-grade-button--expert {
+  border-color: #c9e2d4;
+  background-color: #e6f4eb;
+  color: #20633a;
 }
 
 .srs-grade-button--easy {
@@ -430,10 +442,16 @@ body {
   color: #70401f;
 }
 
-.srs-grade-button.srs-grade-button--good:hover {
+.srs-grade-button.srs-grade-button--medium:hover {
   border-color: #e59bb7;
   background-color: #f7d3e2;
   color: #842b4b;
+}
+
+.srs-grade-button.srs-grade-button--expert:hover {
+  border-color: #add3bc;
+  background-color: #d7eddf;
+  color: #174e2d;
 }
 
 .srs-grade-button.srs-grade-button--easy:hover {
@@ -454,10 +472,16 @@ body {
   color: #fac775;
 }
 
-.dark .srs-grade-button--good {
+.dark .srs-grade-button--medium {
   border-color: #4a2d3a;
   background-color: #2d1f28;
   color: #ed93b1;
+}
+
+.dark .srs-grade-button--expert {
+  border-color: #294b39;
+  background-color: #1d2e25;
+  color: #8fdbab;
 }
 
 .dark .srs-grade-button--easy {
@@ -478,10 +502,16 @@ body {
   color: #ffd88c;
 }
 
-.dark .srs-grade-button--good:hover {
+.dark .srs-grade-button--medium:hover {
   border-color: #704055;
   background-color: #3a2733;
   color: #f3abc4;
+}
+
+.dark .srs-grade-button.srs-grade-button--expert:hover {
+  border-color: #37684e;
+  background-color: #243a2d;
+  color: #a9edc1;
 }
 
 .dark .srs-grade-button--easy:hover {
@@ -492,7 +522,7 @@ body {
 
 @layer base {
   button:not(:disabled),
-  [role="button"],
+  [role='button'],
   summary,
   select {
     cursor: pointer;
@@ -618,21 +648,9 @@ body {
 .starry-sky {
   opacity: 1;
   background-image:
-    radial-gradient(
-      ellipse 70% 55% at 12% 8%,
-      var(--star-glow-a),
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 88% 15%,
-      var(--star-glow-c),
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 65% 55% at 20% 92%,
-      var(--star-glow-b),
-      transparent 72%
-    ),
+    radial-gradient(ellipse 70% 55% at 12% 8%, var(--star-glow-a), transparent 72%),
+    radial-gradient(ellipse 60% 50% at 88% 15%, var(--star-glow-c), transparent 72%),
+    radial-gradient(ellipse 65% 55% at 20% 92%, var(--star-glow-b), transparent 72%),
     radial-gradient(2.5px 2.5px at 83.4% 48%, var(--star-b), transparent),
     radial-gradient(1.5px 1.5px at 84.2% 98.3%, var(--star-b), transparent),
     radial-gradient(3px 2px at 41.7% 36.2%, var(--star-b), transparent),
@@ -738,13 +756,12 @@ body {
 .hero-banner {
   --hero-surface: #fdf6f0;
   --hero-border: #f0d8cc;
-  --hero-title-ja: #d4537e;
   --hero-title-en: #2d2520;
-  --hero-subtitle: #8a7470;
-  --hero-kicker: #b08a80;
-  --hero-primary: #d4537e;
+  --hero-subtitle: #806963;
+  --hero-kicker: #806158;
+  --hero-primary: #b43e63;
   --hero-primary-foreground: #fff;
-  --hero-secondary: #d4537e;
+  --hero-secondary: #b43e63;
   --hero-secondary-hover: #fce4ee;
   --hero-track: #edd8c8;
   --hero-pink-soft: #fce4ee;
@@ -775,12 +792,11 @@ body {
 .dark .hero-banner {
   --hero-surface: #1a1f2e;
   --hero-border: #2d3450;
-  --hero-title-ja: #85b7eb;
   --hero-title-en: #e8eaf6;
   --hero-subtitle: #8893b0;
-  --hero-kicker: #5a6480;
+  --hero-kicker: #8893b0;
   --hero-primary: #378add;
-  --hero-primary-foreground: #fff;
+  --hero-primary-foreground: #12151f;
   --hero-secondary: #85b7eb;
   --hero-secondary-hover: #1a2a3e;
   --hero-track: #2a3250;
@@ -804,24 +820,16 @@ body {
   color: var(--hero-kicker);
 }
 
-.hero-title-ja {
-  color: var(--hero-title-ja);
-  font-family: var(--font-noto-serif-jp), serif;
-  font-weight: 300;
-}
-
 .hero-title-en,
 .hero-page-title {
   color: var(--hero-title-en);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-description,
 .hero-page-description {
   color: var(--hero-subtitle);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-banner .hero-primary-cta {
@@ -853,8 +861,7 @@ body {
 
 .hero-progress-label {
   color: var(--hero-kicker);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-progress-track {
@@ -867,8 +874,7 @@ body {
 }
 
 .hero-vocab-pill {
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-vocab-pill--pink {
@@ -947,6 +953,50 @@ body {
 .gradient-brand:hover,
 .group:hover .gradient-brand {
   background-position: 100% 50%;
+}
+
+.dialog-primary-button,
+.solid-primary-button {
+  background-color: var(--primary);
+  background-image: none;
+  color: var(--primary-foreground);
+}
+
+.dialog-primary-button:hover:not(:disabled),
+.solid-primary-button:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary) 88%, var(--foreground));
+  background-image: none;
+  color: var(--primary-foreground);
+}
+
+.solid-danger-button {
+  background-color: #dc2626;
+  background-image: none;
+  color: #fff;
+}
+
+.solid-danger-button:hover:not(:disabled) {
+  background-color: #b91c1c;
+  background-image: none;
+  color: #fff;
+}
+
+.dark .solid-danger-button {
+  background-color: #f87171;
+  color: #12151f;
+}
+
+.dark .solid-danger-button:hover:not(:disabled) {
+  background-color: #fca5a5;
+  color: #12151f;
+}
+
+.profile-page .text-muted-foreground {
+  color: color-mix(in srgb, var(--foreground) 76%, var(--card));
+}
+
+.profile-progress .gradient-fill {
+  background-image: linear-gradient(90deg, var(--primary) 0%, var(--ring) 100%);
 }
 
 /* Same three brand colours and stop order as gradient-brand above, more saturated and sized to

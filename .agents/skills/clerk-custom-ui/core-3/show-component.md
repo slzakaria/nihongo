@@ -7,10 +7,10 @@ The `<Show>` component conditionally renders content based on authentication sta
 ## Import
 
 ```typescript
-import { Show } from "@clerk/nextjs"; // Next.js
-import { Show } from "@clerk/react"; // React
-import { Show } from "@clerk/react-router"; // React Router
-import { Show } from "@clerk/expo"; // Expo
+import { Show } from '@clerk/nextjs'; // Next.js
+import { Show } from '@clerk/react'; // React
+import { Show } from '@clerk/react-router'; // React Router
+import { Show } from '@clerk/expo'; // Expo
 ```
 
 ## Props
@@ -40,7 +40,7 @@ import { Show } from "@clerk/expo"; // Expo
 ### Role Check
 
 ```tsx
-<Show when={{ role: "org:admin" }}>
+<Show when={{ role: 'org:admin' }}>
   <AdminPanel />
 </Show>
 ```
@@ -48,7 +48,7 @@ import { Show } from "@clerk/expo"; // Expo
 ### Permission Check
 
 ```tsx
-<Show when={{ permission: "org:billing:manage" }}>
+<Show when={{ permission: 'org:billing:manage' }}>
   <BillingSettings />
 </Show>
 ```
@@ -56,7 +56,7 @@ import { Show } from "@clerk/expo"; // Expo
 ### Billing Feature Check
 
 ```tsx
-<Show when={{ feature: "widgets" }}>
+<Show when={{ feature: 'widgets' }}>
   <WidgetBuilder />
 </Show>
 ```
@@ -64,7 +64,7 @@ import { Show } from "@clerk/expo"; // Expo
 ### Billing Plan Check
 
 ```tsx
-<Show when={{ plan: "gold" }}>
+<Show when={{ plan: 'gold' }}>
   <PremiumContent />
 </Show>
 ```
@@ -73,9 +73,7 @@ import { Show } from "@clerk/expo"; // Expo
 
 ```tsx
 <Show
-  when={(has) =>
-    has({ role: "org:admin" }) || has({ permission: "org:billing:manage" })
-  }
+  when={(has) => has({ role: 'org:admin' }) || has({ permission: 'org:billing:manage' })}
 >
   <SettingsPanel />
 </Show>
@@ -112,8 +110,8 @@ The `treatPendingAsSignedOut` prop controls how pending sessions (sessions with 
 In a Next.js Server Component, `<Show>` reads the session from the request. With Cache Components (`cacheComponents: true`, the `create-next-app` default), `next build` fails on request data read outside a `<Suspense>` boundary, so wrap it in `<Suspense>` ([Read auth data inside Suspense](https://clerk.com/docs/guides/development/rendering-modes#read-auth-data-inside-suspense)):
 
 ```tsx
-import { Show } from "@clerk/nextjs";
-import { Suspense } from "react";
+import { Show } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export function WelcomeMessage() {
   return (

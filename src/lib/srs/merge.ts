@@ -1,4 +1,4 @@
-import { SRSCard } from "@/types";
+import { SRSCard } from '@/types';
 
 export interface MergeResult {
   merged: Record<string, SRSCard>;
@@ -15,9 +15,7 @@ export function mergeCards(
     const serverCard = serverCards[card.phraseId];
     if (!serverCard) return true;
     if (card.lastReview === null) return false;
-    return (
-      serverCard.lastReview === null || card.lastReview > serverCard.lastReview
-    );
+    return serverCard.lastReview === null || card.lastReview > serverCard.lastReview;
   });
   const merged = { ...serverCards };
   for (const c of localOnly) merged[c.phraseId] = c;

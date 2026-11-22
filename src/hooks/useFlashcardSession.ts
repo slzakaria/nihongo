@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import { Phrase, SRSGrade } from "@/types";
-import { useProgressStore } from "@/store/progress";
+import { useMemo, useState } from 'react';
+import { Phrase, SRSGrade } from '@/types';
+import { useProgressStore } from '@/store/progress';
 
 // Works on any list of phrases (a scenario, or the kana set)
 export function useFlashcardSession(phrases: Phrase[], force = false) {
@@ -13,10 +13,7 @@ export function useFlashcardSession(phrases: Phrase[], force = false) {
   const dueCards = useMemo(() => {
     return phrases
       .map((p) => cards[p.id])
-      .filter(
-        (c): c is NonNullable<typeof c> =>
-          !!c && (force || c.nextReview <= now),
-      );
+      .filter((c): c is NonNullable<typeof c> => !!c && (force || c.nextReview <= now));
   }, [phrases, cards, now, force]);
 
   const [currentIndex, setCurrentIndex] = useState(0);

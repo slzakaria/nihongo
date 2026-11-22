@@ -21,7 +21,7 @@ interface SpeechRecognitionLike {
 type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
 
 function getSpeechRecognitionCtor(): SpeechRecognitionCtor | undefined {
-  if (typeof window === "undefined") return undefined;
+  if (typeof window === 'undefined') return undefined;
   const w = window as unknown as {
     SpeechRecognition?: SpeechRecognitionCtor;
     webkitSpeechRecognition?: SpeechRecognitionCtor;

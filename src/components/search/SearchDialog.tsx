@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Search, X } from "lucide-react";
-import { loadPhraseResponses, useContentStore } from "@/lib/data/content";
-import { useSearchDialogStore } from "@/store/searchDialog";
+import Link from 'next/link';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Search, X } from 'lucide-react';
+import { loadPhraseResponses, useContentStore } from '@/lib/data/content';
+import { useSearchDialogStore } from '@/store/searchDialog';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 // Caps the list so a broad query (e.g. a single common letter) doesn't render hundreds of rows
 const MAX_RESULTS = 30;
@@ -14,15 +16,12 @@ const MAX_RESULTS = 30;
 export function SearchDialog() {
   const open = useSearchDialogStore((s) => s.open);
   const hide = useSearchDialogStore((s) => s.hide);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const scenarios = useContentStore((s) => s.content.phrases);
 
   const allEntries = useMemo(
-    () =>
-      scenarios.flatMap((s) =>
-        s.phrases.map((p) => ({ phrase: p, scenario: s })),
-      ),
+    () => scenarios.flatMap((s) => s.phrases.map((p) => ({ phrase: p, scenario: s }))),
     [scenarios],
   );
 
@@ -32,15 +31,15 @@ export function SearchDialog() {
 
   useEffect(() => {
     if (!open) return;
-    setQuery("");
+    setQuery('');
     const frame = requestAnimationFrame(() => inputRef.current?.focus());
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") hide();
+      if (e.key === 'Escape') hide();
     }
-    document.addEventListener("keydown", onKey);
+    document.addEventListener('keydown', onKey);
     return () => {
       cancelAnimationFrame(frame);
-      document.removeEventListener("keydown", onKey);
+      document.removeEventListener('keydown', onKey);
     };
   }, [open, hide]);
 
@@ -74,10 +73,7 @@ export function SearchDialog() {
         className="animate-scale-in flex w-full max-w-xl flex-col overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-          <Search
-            className="h-4 w-4 shrink-0 text-muted-foreground"
-            aria-hidden="true"
-          />
+          <Search className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
           <input
             ref={inputRef}
             value={query}
@@ -118,8 +114,11 @@ export function SearchDialog() {
                 <p lang="ja" className="truncate text-sm font-medium">
                   {phrase.japanese}
                 </p>
-                <span className="shrink-0 text-xs text-muted-foreground">
-                  {scenario.label}
+                <span className="shrink-0 text-xs text-right text-muted-foreground">
+                  <BilingualText
+                    english={scenario.label}
+                    japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+                  />
                 </span>
               </div>
               <p className="truncate text-xs text-muted-foreground">

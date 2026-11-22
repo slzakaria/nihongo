@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
-import Link from "next/link";
-import { useContentStore } from "@/lib/data/content";
-import { useProgressStore } from "@/store/progress";
-import { cn } from "@/lib/utils";
+import { useMemo } from 'react';
+import Link from 'next/link';
+import { useContentStore } from '@/lib/data/content';
+import { useProgressStore } from '@/store/progress';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { cn } from '@/lib/utils';
 
 export function ScenarioSidebar({
   currentSlug,
@@ -31,22 +33,26 @@ export function ScenarioSidebar({
       {scenarios.map((s) => {
         const reviewed = reviewedByScenario.get(s.slug) ?? 0;
         const pct =
-          s.phrases.length === 0
-            ? 0
-            : Math.round((reviewed / s.phrases.length) * 100);
+          s.phrases.length === 0 ? 0 : Math.round((reviewed / s.phrases.length) * 100);
         const active = s.slug === currentSlug;
         return (
           <Link
             key={s.slug}
             href={`${basePath}/${s.slug}`}
-            aria-current={active ? "page" : undefined}
+            aria-current={active ? 'page' : undefined}
             className={cn(
-              "flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors hover:bg-foreground/5",
+              'flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors hover:bg-foreground/5',
               active &&
-                "bg-secondary/20 font-semibold text-foreground hover:bg-secondary/25",
+                'bg-secondary/20 font-semibold text-foreground hover:bg-secondary/25',
             )}
           >
-            <span>{s.label}</span>
+            <span className="min-w-0 flex-1">
+              <BilingualText
+                english={s.label}
+                japanese={scenarioKana(s.slug) ?? 'シナリオ'}
+                className="max-w-full truncate"
+              />
+            </span>
             <span className="text-xs text-muted-foreground">{pct}%</span>
           </Link>
         );

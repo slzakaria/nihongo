@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export type Theme = "light" | "dark" | "system";
+export type Theme = 'light' | 'dark' | 'system';
 
 interface ThemeStore {
   theme: Theme;
@@ -11,9 +11,9 @@ interface ThemeStore {
 export const useThemeStore = create<ThemeStore>()(
   persist(
     (set) => ({
-      theme: "system",
+      theme: 'system',
       setTheme: (theme) => set({ theme }),
     }),
-    { name: "nihongo-theme" },
+    { name: 'nihongo-theme' },
   ),
 );

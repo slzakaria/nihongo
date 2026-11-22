@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useCallback, useEffect, useMemo } from "react";
-import { ArrowLeft } from "lucide-react";
-import { loadKana, useContentStore } from "@/lib/data/content";
-import { useProgressStore } from "@/store/progress";
-import { FlashcardDeck } from "@/components/flashcards/FlashcardDeck";
+import Link from 'next/link';
+import { useCallback, useEffect, useMemo } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { loadKana, useContentStore } from '@/lib/data/content';
+import { useProgressStore } from '@/store/progress';
+import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
+import { BilingualText } from '@/components/layout/BilingualText';
 
 // Spaced-repetition review of every hiragana and katakana character
 export default function KanaPracticePage() {
@@ -38,9 +39,14 @@ export default function KanaPracticePage() {
           <ArrowLeft className="h-3.5 w-3.5" />
           Kana
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">Kana practice</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          <BilingualText english="Kana practice" japanese="かなのれんしゅう" />
+        </h1>
         <p className="text-muted-foreground">
-          Characters you are due to review, from hiragana and katakana.
+          <BilingualText
+            english="Characters you are due to review, from hiragana and katakana."
+            japanese="ふくしゅうじきのひらがなとカタカナをれんしゅうしましょう。"
+          />
         </p>
       </div>
 

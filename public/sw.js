@@ -1,36 +1,34 @@
-const SHELL_CACHE = "hanazono-offline-shell-v1";
-const ASSET_CACHE = "hanazono-offline-assets-v1";
-const OFFLINE_PATH = "/offline-practice";
+const SHELL_CACHE = 'hanazono-offline-shell-v1';
+const ASSET_CACHE = 'hanazono-offline-assets-v1';
+const OFFLINE_PATH = '/offline-practice';
 const MAX_ASSETS = 100;
 
 function isPracticePath(pathname) {
   return (
-    pathname === "/flashcards" ||
-    pathname.startsWith("/flashcards/") ||
-    pathname === "/kana" ||
-    pathname.startsWith("/kana/")
+    pathname === '/flashcards' ||
+    pathname.startsWith('/flashcards/') ||
+    pathname === '/kana' ||
+    pathname.startsWith('/kana/')
   );
 }
 
-self.addEventListener("install", (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(SHELL_CACHE)
-      .then((cache) => cache.add("/offline.html"))
+      .then((cache) => cache.add('/offline.html'))
       .then(() => self.skipWaiting()),
   );
 });
 
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       const keep = new Set([SHELL_CACHE, ASSET_CACHE]);
       const names = await caches.keys();
       await Promise.all(
         names
-          .filter(
-            (name) => name.startsWith("hanazono-offline-") && !keep.has(name),
-          )
+          .filter((name) => name.startsWith('hanazono-offline-') && !keep.has(name))
           .map((name) => caches.delete(name)),
       );
       await self.clients.claim();
@@ -44,7 +42,7 @@ async function cacheAsset(request, event) {
   if (cached) return cached;
 
   const response = await fetch(request);
-  if (response.ok && response.type === "basic") {
+  if (response.ok && response.type === 'basic') {
     event.waitUntil(
       (async () => {
         await cache.put(request, response.clone());
@@ -60,34 +58,32 @@ async function loadOfflineShell() {
   const shellCache = await caches.open(SHELL_CACHE);
   return (
     (await shellCache.match(OFFLINE_PATH)) ||
-    (await shellCache.match("/offline.html")) ||
+    (await shellCache.match('/offline.html')) ||
     Response.error()
   );
 }
 
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   const request = event.request;
-  if (request.method !== "GET") return;
+  if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  const referrerPath = request.referrer
-    ? new URL(request.referrer).pathname
-    : "";
+  const referrerPath = request.referrer ? new URL(request.referrer).pathname : '';
   const isOfflinePageAsset =
     referrerPath === OFFLINE_PATH &&
-    (url.pathname.startsWith("/_next/static/") ||
-      ["image", "font", "style", "script"].includes(request.destination));
+    (url.pathname.startsWith('/_next/static/') ||
+      ['image', 'font', 'style', 'script'].includes(request.destination));
   if (isOfflinePageAsset) {
     event.respondWith(cacheAsset(request, event));
     return;
   }
 
   if (
-    request.mode === "navigate" &&
+    request.mode === 'navigate' &&
     (url.pathname === OFFLINE_PATH ||
-      url.pathname === "/" ||
+      url.pathname === '/' ||
       isPracticePath(url.pathname))
   ) {
     event.respondWith(
@@ -102,7 +98,7 @@ self.addEventListener("fetch", (event) => {
         } catch {
           if (url.pathname === OFFLINE_PATH) return loadOfflineShell();
           const cache = await caches.open(SHELL_CACHE);
-          return (await cache.match("/offline.html")) || Response.error();
+          return (await cache.match('/offline.html')) || Response.error();
         }
       })(),
     );

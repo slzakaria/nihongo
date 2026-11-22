@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-import { useAuthStore } from "@/store/auth";
-import { useSignInDialogStore } from "@/store/signInDialog";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useAuthStore } from '@/store/auth';
+import { useSignInDialogStore } from '@/store/signInDialog';
+import { Button } from '@/components/ui/button';
 
-const DISMISS_COUNT_KEY = "nihongo-signin-invite-dismiss-count";
+const DISMISS_COUNT_KEY = 'nihongo-signin-invite-dismiss-count';
 // After this many "Not now" clicks (counted across all visits, not just this tab), stop showing
 // the invite for good instead of nagging on every page forever.
 const MAX_DISMISSALS = 6;
 
 function readDismissCount(): number {
-  if (typeof window === "undefined") return 0;
-  return parseInt(localStorage.getItem(DISMISS_COUNT_KEY) ?? "0", 10) || 0;
+  if (typeof window === 'undefined') return 0;
+  return parseInt(localStorage.getItem(DISMISS_COUNT_KEY) ?? '0', 10) || 0;
 }
 
 // Invites signed-out visitors to sign in once they navigate past the homepage. Reappears on each
@@ -33,8 +33,8 @@ export function SignInInvite() {
     !user &&
     !permanentlyDismissed &&
     hiddenForPath !== pathname &&
-    pathname !== "/" &&
-    !pathname.startsWith("/auth");
+    pathname !== '/' &&
+    !pathname.startsWith('/auth');
   if (!shouldShow) return null;
 
   function dismiss() {
@@ -48,23 +48,18 @@ export function SignInInvite() {
     <div
       role="dialog"
       aria-label="Sign in to save your progress"
-      className="animate-scale-in fixed bottom-4 left-4 z-40 w-72 max-w-[calc(100vw-6rem)] rounded-lg border border-border bg-card p-4 shadow-lg"
+      className="animate-scale-in fixed bottom-4 left-4 z-40 w-80 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-card p-5 shadow-lg"
     >
       <p className="text-sm font-medium">Save your progress</p>
-      <p className="mt-1 text-xs text-muted-foreground">
+      <p className="mt-2 text-sm text-muted-foreground">
         Sign in to sync your flashcards and phrase progress across devices.
       </p>
-      <div className="mt-3">
+      <div className="mt-4">
         <div className="flex gap-2">
-          <Button size="sm" className="cursor-pointer" onClick={showSignIn}>
+          <Button className="dialog-primary-button cursor-pointer" onClick={showSignIn}>
             Sign in
           </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="cursor-pointer"
-            onClick={dismiss}
-          >
+          <Button variant="ghost" className="cursor-pointer" onClick={dismiss}>
             Not now
           </Button>
         </div>

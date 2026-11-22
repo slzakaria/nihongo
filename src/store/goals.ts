@@ -1,11 +1,11 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { useAuthStore } from "@/store/auth";
-import type * as profileApi from "@/lib/supabase/profile";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { useAuthStore } from '@/store/auth';
+import type * as profileApi from '@/lib/supabase/profile';
 
 // Supabase code loads on the first write, keeping it out of the first-paint bundle
 const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
-  (await import("@/lib/supabase/profile")).upsertProfile(...args);
+  (await import('@/lib/supabase/profile')).upsertProfile(...args);
 
 const todayKey = () => {
   const d = new Date();
@@ -65,20 +65,18 @@ export const useGoalsStore = create<GoalsStore>()(
         });
       },
     }),
-    { name: "nihongo-goals" },
+    { name: 'nihongo-goals' },
   ),
 );
 
 // Reviews counted for today (0 if the stored day is stale)
-export function reviewsToday(
-  state: Pick<GoalsStore, "day" | "reviewedToday">,
-): number {
+export function reviewsToday(state: Pick<GoalsStore, 'day' | 'reviewedToday'>): number {
   return state.day === todayKey() ? state.reviewedToday : 0;
 }
 
 // Reviews counted for this week (0 if the stored week is stale)
 export function reviewsThisWeek(
-  state: Pick<GoalsStore, "week" | "reviewedThisWeek">,
+  state: Pick<GoalsStore, 'week' | 'reviewedThisWeek'>,
 ): number {
   return state.week === weekKey() ? state.reviewedThisWeek : 0;
 }

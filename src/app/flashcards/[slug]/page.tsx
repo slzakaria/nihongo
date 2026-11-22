@@ -1,10 +1,12 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
-import { loadContent } from "@/lib/data/content";
-import { FlashcardDeck } from "@/components/flashcards/FlashcardDeck";
-import { ScenarioSidebar } from "@/components/layout/ScenarioSidebar";
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { ArrowLeft } from 'lucide-react';
+import { loadContent } from '@/lib/data/content';
+import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
+import { ScenarioSidebar } from '@/components/layout/ScenarioSidebar';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { scenarioKana } from '@/lib/data/scenarioKana';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -51,7 +53,10 @@ export default async function FlashcardSessionPage({
             Flashcards
           </Link>
           <h1 className="text-2xl font-semibold tracking-tight">
-            {scenario.label}
+            <BilingualText
+              english={scenario.label}
+              japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+            />
           </h1>
         </div>
 

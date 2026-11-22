@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { Loader2, Mic, MicOff, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SimulatorMessage } from "@/components/simulator/SimulatorMessage";
-import { ChatMessage } from "@/types";
-import { getScenarioStarter } from "@/lib/simulator/prompts";
-import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
-import { useAuthStore } from "@/store/auth";
-import { useContentStore } from "@/lib/data/content";
+import { useEffect, useRef, useState } from 'react';
+import { Loader2, Mic, MicOff, Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { SimulatorMessage } from '@/components/simulator/SimulatorMessage';
+import { ChatMessage } from '@/types';
+import { getScenarioStarter } from '@/lib/simulator/prompts';
+import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
+import { useAuthStore } from '@/store/auth';
+import { useContentStore } from '@/lib/data/content';
 import {
   fetchConversation,
   saveConversation,
   clearConversation,
-} from "@/lib/supabase/simulator";
-import { recordStudyDay } from "@/lib/supabase/activity";
-import { FeedbackPanel } from "@/components/simulator/FeedbackPanel";
-import { showGuestLimitDialog } from "@/store/rateLimitDialog";
-import { scenarioKana } from "@/lib/data/scenarioKana";
-import { cn } from "@/lib/utils";
+} from '@/lib/supabase/simulator';
+import { recordStudyDay } from '@/lib/supabase/activity';
+import { FeedbackPanel } from '@/components/simulator/FeedbackPanel';
+import { showRateLimitDialog } from '@/store/rateLimitDialog';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { cn } from '@/lib/utils';
 
 export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   const starter = getScenarioStarter(scenarioSlug);
@@ -29,14 +30,12 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   // `messages` is what's shown on screen (includes the opening line); `apiHistory` is
   // what's sent to Claude — the opener never counts as a turn, so history always starts on 'user'
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
-    starter ? [{ role: "assistant", content: starter }] : [],
+    starter ? [{ role: 'assistant', content: starter }] : [],
   );
   const [apiHistory, setApiHistory] = useState<ChatMessage[]>([]);
-  const [autoPlayIndex, setAutoPlayIndex] = useState<number | null>(
-    starter ? 0 : null,
-  );
+  const [autoPlayIndex, setAutoPlayIndex] = useState<number | null>(starter ? 0 : null);
   const [resumed, setResumed] = useState(false);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const inputRef = useRef(input);
   const [isStreaming, setIsStreaming] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -61,9 +60,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
     fetchConversation(user.id, scenarioSlug).then((saved) => {
       if (cancelled || !saved || saved.length === 0) return;
       setApiHistory(saved);
-      setMessages(
-        starter ? [{ role: "assistant", content: starter }, ...saved] : saved,
-      );
+      setMessages(starter ? [{ role: 'assistant', content: starter }, ...saved] : saved);
       setAutoPlayIndex(null);
       setResumed(true);
     });
@@ -73,7 +70,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   }, [user, scenarioSlug, starter]);
 
   function startFresh() {
-    setMessages(starter ? [{ role: "assistant", content: starter }] : []);
+    setMessages(starter ? [{ role: 'assistant', content: starter }] : []);
     setApiHistory([]);
     setAutoPlayIndex(null);
     setResumed(false);
@@ -87,26 +84,26 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
     const baseLen = messages.length;
     const nextApiHistory: ChatMessage[] = [
       ...apiHistory,
-      { role: "user", content: text },
+      { role: 'user', content: text },
     ];
     const userId = useAuthStore.getState().user?.id;
     if (userId) {
       void recordStudyDay(userId).catch((error) =>
-        console.error("Unable to record simulator study activity.", error),
+        console.error('Unable to record simulator study activity.', error),
       );
     }
     setMessages((prev) => [
       ...prev,
-      { role: "user", content: text },
-      { role: "assistant", content: "" },
+      { role: 'user', content: text },
+      { role: 'assistant', content: '' },
     ]);
-    setInput("");
+    setInput('');
     setIsStreaming(true);
 
     try {
-      const res = await fetch("/api/simulator", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/simulator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: nextApiHistory, scenarioSlug }),
       });
 
@@ -114,22 +111,23 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         const data = (await res.json().catch(() => null)) as {
           error?: string;
         } | null;
-        showGuestLimitDialog(data?.error);
+        showRateLimitDialog(data?.error);
         setMessages((prev) => {
           const updated = [...prev];
+          const hint = user ? 'try again tomorrow' : 'sign in for a higher daily limit';
           updated[baseLen + 1] = {
-            role: "assistant",
-            content: `${data?.error ?? "You've reached the free message limit for today."} [HINT: sign in for unlimited messages]`,
+            role: 'assistant',
+            content: `${data?.error ?? "You've reached today's usage limit."} [HINT: ${hint}]`,
           };
           return updated;
         });
         return;
       }
 
-      if (!res.body) throw new Error("No response body");
+      if (!res.body) throw new Error('No response body');
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let assistantText = "";
+      let assistantText = '';
 
       while (true) {
         const { done, value } = await reader.read();
@@ -137,28 +135,25 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         assistantText += decoder.decode(value, { stream: true });
         setMessages((prev) => {
           const updated = [...prev];
-          updated[baseLen + 1] = { role: "assistant", content: assistantText };
+          updated[baseLen + 1] = { role: 'assistant', content: assistantText };
           return updated;
         });
-        scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+        scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
 
-      setApiHistory([
-        ...nextApiHistory,
-        { role: "assistant", content: assistantText },
-      ]);
+      setApiHistory([...nextApiHistory, { role: 'assistant', content: assistantText }]);
       setAutoPlayIndex(baseLen + 1);
       if (user)
         void saveConversation(user.id, scenarioSlug, [
           ...nextApiHistory,
-          { role: "assistant", content: assistantText },
+          { role: 'assistant', content: assistantText },
         ]);
     } catch {
       setMessages((prev) => {
         const updated = [...prev];
         updated[baseLen + 1] = {
-          role: "assistant",
-          content: "Sorry, something went wrong. [HINT: connection error]",
+          role: 'assistant',
+          content: 'Sorry, something went wrong. [HINT: connection error]',
         };
         return updated;
       });
@@ -176,7 +171,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
       const combined = inputRef.current
         ? `${inputRef.current} ${transcript}`
         : transcript;
-      setInput("");
+      setInput('');
       void sendMessage(combined);
     });
   }
@@ -199,23 +194,19 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
       <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
         {scenario && (
           <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-            <span className="truncate text-xs text-muted-foreground">
-              {scenario.icon}{" "}
-              {scenarioKana(scenario.slug)
-                ? `${scenarioKana(scenario.slug)}・`
-                : ""}
-              {scenario.label}
+            <span className="text-xs text-muted-foreground">
+              {scenario.icon}{' '}
+              <BilingualText
+                english={scenario.label}
+                japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+              />
             </span>
           </div>
         )}
 
         <div className="flex max-h-[60vh] flex-col gap-3 overflow-y-auto p-4 sm:max-h-[65vh]">
           {messages.map((m, i) => (
-            <SimulatorMessage
-              key={i}
-              message={m}
-              autoPlay={i === autoPlayIndex}
-            />
+            <SimulatorMessage key={i} message={m} autoPlay={i === autoPlayIndex} />
           ))}
           <div ref={scrollRef} />
         </div>
@@ -236,18 +227,14 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
           {micSupported && (
             <Button
               type="button"
-              variant={isListening ? "secondary" : "outline"}
+              variant={isListening ? 'secondary' : 'outline'}
               size="icon"
               loading={isTranscribing}
-              aria-label={isListening ? "Stop recording" : "Record in Japanese"}
+              aria-label={isListening ? 'Stop recording' : 'Record in Japanese'}
               onClick={handleMicClick}
-              className={cn(isListening && "ring-2 ring-red-500")}
+              className={cn(isListening && 'ring-2 ring-red-500')}
             >
-              {isListening ? (
-                <MicOff className="h-4 w-4" />
-              ) : (
-                <Mic className="h-4 w-4" />
-              )}
+              {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
             </Button>
           )}
           <Button
@@ -262,7 +249,7 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         </form>
       </div>
 
-      {messages.some((m) => m.role === "user") && (
+      {messages.some((m) => m.role === 'user') && (
         <div className="flex justify-end">
           <Button
             type="button"
@@ -315,21 +302,21 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
 
 function micErrorMessage(error: string): string {
   switch (error) {
-    case "not-allowed":
-    case "service-not-allowed":
+    case 'not-allowed':
+    case 'service-not-allowed':
       return "Microphone access was denied. Allow it in your browser's site settings and try again.";
-    case "no-speech":
-      return "No speech detected — try again and speak right after tapping the mic.";
-    case "audio-capture":
-      return "No microphone found. Check that one is connected and enabled.";
-    case "network":
-      return "Speech recognition needs network access and failed to reach it — check your connection.";
-    case "stt-failed":
-      return "Could not transcribe that recording — please try again.";
-    case "rate-limited":
+    case 'no-speech':
+      return 'No speech detected — try again and speak right after tapping the mic.';
+    case 'audio-capture':
+      return 'No microphone found. Check that one is connected and enabled.';
+    case 'network':
+      return 'Speech recognition needs network access and failed to reach it — check your connection.';
+    case 'stt-failed':
+      return 'Could not transcribe that recording — please try again.';
+    case 'rate-limited':
       return "You've reached the guest limit for voice features — sign in to continue.";
-    case "not-supported":
-      return "Speech recognition is not supported in this browser.";
+    case 'not-supported':
+      return 'Speech recognition is not supported in this browser.';
     default:
       return `Mic error: ${error}`;
   }

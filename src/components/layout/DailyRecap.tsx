@@ -1,32 +1,24 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import {
-  Flame,
-  CalendarCheck,
-  BookOpenCheck,
-  MessageSquare,
-} from "lucide-react";
-import { useAuthStore } from "@/store/auth";
-import { useOnboardingStore } from "@/store/onboarding";
-import { useProgressStore } from "@/store/progress";
-import {
-  markInfoPopupShown,
-  useInfoPopupCooldown,
-} from "@/hooks/useInfoPopupCooldown";
-import { getAllPhrases } from "@/lib/data/phrases";
-import { countReviewedPhrases } from "@/lib/srs/milestones";
-import { computeStudyStats, dayKey } from "@/lib/activity/studyDays";
-import { fetchStudyDays } from "@/lib/supabase/activity";
-import { fetchConversationSummaries } from "@/lib/supabase/simulator";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from 'react';
+import { Flame, CalendarCheck, BookOpenCheck, MessageSquare } from 'lucide-react';
+import { useAuthStore } from '@/store/auth';
+import { useOnboardingStore } from '@/store/onboarding';
+import { useProgressStore } from '@/store/progress';
+import { markInfoPopupShown, useInfoPopupCooldown } from '@/hooks/useInfoPopupCooldown';
+import { getAllPhrases } from '@/lib/data/phrases';
+import { countReviewedPhrases } from '@/lib/srs/milestones';
+import { computeStudyStats, dayKey } from '@/lib/activity/studyDays';
+import { fetchStudyDays } from '@/lib/supabase/activity';
+import { fetchConversationSummaries } from '@/lib/supabase/simulator';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-const SEEN_KEY_PREFIX = "nihongo-recap-seen:";
+const SEEN_KEY_PREFIX = 'nihongo-recap-seen:';
 
 // Lazily loaded so confetti never ships in the initial bundle for people who never see it fire
 function fireConfetti(particleCount: number) {
-  void import("canvas-confetti").then(({ default: confetti }) =>
+  void import('canvas-confetti').then(({ default: confetti }) =>
     confetti({ particleCount, spread: 70, origin: { y: 0.6 } }),
   );
 }
@@ -44,14 +36,12 @@ export function DailyRecap() {
   const cards = useProgressStore((s) => s.cards);
 
   const [studyDays, setStudyDays] = useState<string[] | null>(null);
-  const [conversationCount, setConversationCount] = useState<number | null>(
-    null,
-  );
+  const [conversationCount, setConversationCount] = useState<number | null>(null);
   const [closedNow, setClosedNow] = useState(false);
   const [index, setIndex] = useState(0);
 
   const userId = user?.id ?? null;
-  const cooldownAvailable = useInfoPopupCooldown(userId ? "device" : null);
+  const cooldownAvailable = useInfoPopupCooldown(userId ? 'device' : null);
 
   useEffect(() => {
     if (!userId) return;
@@ -64,7 +54,7 @@ export function DailyRecap() {
   const today = dayKey();
   const seenKey = userId ? `${SEEN_KEY_PREFIX}${userId}` : null;
   const alreadyShownToday =
-    typeof window !== "undefined" && seenKey
+    typeof window !== 'undefined' && seenKey
       ? localStorage.getItem(seenKey) === today
       : true;
 
@@ -89,7 +79,7 @@ export function DailyRecap() {
 
   function close() {
     if (seenKey) localStorage.setItem(seenKey, today);
-    if (userId) markInfoPopupShown("device");
+    if (userId) markInfoPopupShown('device');
     setClosedNow(true);
   }
 
@@ -98,27 +88,23 @@ export function DailyRecap() {
   const allCards = Object.values(cards);
   const totalPhrases = getAllPhrases().length;
   const reviewed = countReviewedPhrases(allCards);
-  const pct =
-    totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100);
+  const pct = totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100);
   const study = computeStudyStats(studyDays ?? [], today);
   const conversations = conversationCount ?? 0;
 
   const slides = [
     {
       icon: Flame,
-      title:
-        study.streak > 0
-          ? `${study.streak}-day streak`
-          : "Start a streak today",
+      title: study.streak > 0 ? `${study.streak}-day streak` : 'Start a streak today',
       text:
         study.streak > 0
-          ? `You've studied ${study.streak} day${study.streak === 1 ? "" : "s"} in a row. Keep it going!`
-          : "Review a phrase today to start a new streak.",
+          ? `You've studied ${study.streak} day${study.streak === 1 ? '' : 's'} in a row. Keep it going!`
+          : 'Review a phrase today to start a new streak.',
     },
     {
       icon: CalendarCheck,
-      title: `${study.total} day${study.total === 1 ? "" : "s"} learning`,
-      text: `You've shown up to study ${study.total} day${study.total === 1 ? "" : "s"} so far. Every session counts.`,
+      title: `${study.total} day${study.total === 1 ? '' : 's'} learning`,
+      text: `You've shown up to study ${study.total} day${study.total === 1 ? '' : 's'} so far. Every session counts.`,
     },
     {
       icon: BookOpenCheck,
@@ -127,11 +113,11 @@ export function DailyRecap() {
     },
     {
       icon: MessageSquare,
-      title: `${conversations} conversation${conversations === 1 ? "" : "s"}`,
+      title: `${conversations} conversation${conversations === 1 ? '' : 's'}`,
       text:
         conversations > 0
-          ? `You've practised ${conversations} scenario${conversations === 1 ? "" : "s"} with the simulator.`
-          : "Try a live conversation with the simulator today.",
+          ? `You've practised ${conversations} scenario${conversations === 1 ? '' : 's'} with the simulator.`
+          : 'Try a live conversation with the simulator today.',
     },
   ];
 
@@ -160,9 +146,7 @@ export function DailyRecap() {
           aria-live="polite"
         >
           <p lang="ja" className="text-sm font-medium">
-            {userName
-              ? `${userName} さん、おかえりなさい！`
-              : "おかえりなさい！"}
+            {userName ? `${userName} さん、おかえりなさい！` : 'おかえりなさい！'}
           </p>
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-card/80">
             <Icon className="h-6 w-6" aria-hidden="true" />
@@ -178,8 +162,8 @@ export function DailyRecap() {
             <span
               key={s.title}
               className={cn(
-                "h-1.5 w-1.5 rounded-full transition-colors",
-                i === index ? "bg-foreground" : "bg-border",
+                'h-1.5 w-1.5 rounded-full transition-colors',
+                i === index ? 'bg-foreground' : 'bg-border',
               )}
             />
           ))}
@@ -198,8 +182,8 @@ export function DailyRecap() {
             >
               Back
             </Button>
-            <Button className="cursor-pointer" onClick={next}>
-              {isLast ? "Continue" : "Next"}
+            <Button className="dialog-primary-button cursor-pointer" onClick={next}>
+              {isLast ? 'Continue' : 'Next'}
             </Button>
           </div>
         </div>

@@ -4,14 +4,10 @@ import {
   SignInButton,
   SignUpButton,
   UserButton,
-} from "@clerk/nextjs";
-import { Suspense } from "react";
+} from '@clerk/nextjs';
+import { Suspense } from 'react';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>

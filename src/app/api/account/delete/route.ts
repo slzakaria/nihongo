@@ -1,6 +1,7 @@
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { currentServerUser } from "@/lib/auth/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { auth, clerkClient } from '@clerk/nextjs/server';
+import { currentServerUser } from '@/lib/auth/server';
+import { accountRateLimitHash } from '@/lib/rateLimit';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 // Permanently deletes the signed-in person's own account: every row they own across the app's
 // tables, plus their Clerk account itself. Only ever acts on the caller's own verified session —
@@ -9,33 +10,45 @@ export async function POST() {
   const { userId: clerkUserId } = await auth();
   const serverUser = await currentServerUser();
   if (!clerkUserId || !serverUser) {
-    return Response.json({ error: "Not signed in" }, { status: 401 });
+    return Response.json({ error: 'Not signed in' }, { status: 401 });
   }
 
   const dbId = serverUser.id;
   const supabase = createAdminClient();
 
-  // Avatars live in a public bucket under the user's own folder (see lib/supabase/avatar.ts) —
-  // list and remove whatever's there rather than guessing the file extension.
-  const { data: avatarFiles } = await supabase.storage
-    .from("avatars")
-    .list(dbId);
-  if (avatarFiles && avatarFiles.length > 0) {
-    await supabase.storage
-      .from("avatars")
-      .remove(avatarFiles.map((f) => `${dbId}/${f.name}`));
+  while (true) {
+    const { data: avatarFiles, error: listError } = await supabase.storage
+      .from('avatars')
+      .list(dbId, { limit: 100 });
+    if (listError) {
+      console.error('Could not list account avatars', listError);
+      return Response.json(
+        { error: 'Could not delete account data. Please retry.' },
+        { status: 500 },
+      );
+    }
+    if (!avatarFiles?.length) break;
+
+    const { error: removeError } = await supabase.storage
+      .from('avatars')
+      .remove(avatarFiles.map((file) => `${dbId}/${file.name}`));
+    if (removeError) {
+      console.error('Could not remove account avatars', removeError);
+      return Response.json(
+        { error: 'Could not delete account data. Please retry.' },
+        { status: 500 },
+      );
+    }
   }
 
-  const results = await Promise.all([
-    supabase.from("srs_cards").delete().eq("user_id", dbId),
-    supabase.from("study_activity").delete().eq("user_id", dbId),
-    supabase.from("simulator_conversations").delete().eq("user_id", dbId),
-    supabase.from("profiles").delete().eq("id", dbId),
-  ]);
-  const dbError = results.find((r) => r.error)?.error;
-  if (dbError) {
+  const { error: databaseError } = await supabase.rpc('delete_account_data', {
+    p_user_id: dbId,
+    p_rate_limit_identity_hash: accountRateLimitHash(dbId),
+  });
+  if (databaseError) {
+    console.error('Could not delete account database records', databaseError);
     return Response.json(
-      { error: "Could not delete account data" },
+      { error: 'Could not delete account data. Please retry.' },
       { status: 500 },
     );
   }
@@ -43,9 +56,14 @@ export async function POST() {
   try {
     const client = await clerkClient();
     await client.users.deleteUser(clerkUserId);
-  } catch {
-    // The person's data is already gone at this point; the Clerk account itself can be removed
-    // by them (or support) afterwards if this step fails, so this isn't treated as a hard failure.
+  } catch (error) {
+    console.error('Could not delete Clerk account', error);
+    return Response.json(
+      {
+        error: 'Your app data was deleted, but sign-in removal failed. Please retry.',
+      },
+      { status: 502 },
+    );
   }
 
   return Response.json({ ok: true });

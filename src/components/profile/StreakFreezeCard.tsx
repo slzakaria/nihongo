@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ShieldCheck } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { dayKey } from "@/lib/activity/studyDays";
-import { useStreakStore } from "@/store/streak";
-import { upsertProfile } from "@/lib/supabase/profile";
+import { useState } from 'react';
+import { ShieldCheck } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { dayKey } from '@/lib/activity/studyDays';
+import { useStreakStore } from '@/store/streak';
+import { upsertProfile } from '@/lib/supabase/profile';
 
 function formatDate(value: string): string {
   return new Date(`${value}T00:00:00`).toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
+    month: 'short',
+    day: 'numeric',
   });
 }
 
@@ -27,7 +27,7 @@ function addDays(base: Date, days: number): string {
 export function StreakFreezeCard({ userId }: { userId: string }) {
   const freezeUntil = useStreakStore((s) => s.freezeUntil);
   const setFreezeUntilState = useStreakStore((s) => s.setFreezeUntil);
-  const [draft, setDraft] = useState("");
+  const [draft, setDraft] = useState('');
   const [saving, setSaving] = useState(false);
   const today = dayKey();
 
@@ -44,7 +44,7 @@ export function StreakFreezeCard({ userId }: { userId: string }) {
   async function clear() {
     setSaving(true);
     setFreezeUntilState(null);
-    setDraft("");
+    setDraft('');
     await upsertProfile(userId, { streak_freeze_until: null });
     setSaving(false);
   }
@@ -61,11 +61,9 @@ export function StreakFreezeCard({ userId }: { userId: string }) {
         {active && freezeUntil ? (
           <>
             <p className="text-sm text-muted-foreground">
-              Your streak is protected through{" "}
-              <strong className="text-foreground">
-                {formatDate(freezeUntil)}
-              </strong>{" "}
-              — missed days until then won&apos;t break it.
+              Your streak is protected through{' '}
+              <strong className="text-foreground">{formatDate(freezeUntil)}</strong> —
+              missed days until then won&apos;t break it.
             </p>
             <Button
               variant="outline"
@@ -80,8 +78,7 @@ export function StreakFreezeCard({ userId }: { userId: string }) {
         ) : (
           <>
             <p className="text-sm text-muted-foreground">
-              Going away? Freeze your streak so a few missed days don&apos;t
-              reset it.
+              Going away? Freeze your streak so a few missed days don&apos;t reset it.
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <input
@@ -94,7 +91,7 @@ export function StreakFreezeCard({ userId }: { userId: string }) {
               />
               <Button
                 size="sm"
-                className="cursor-pointer"
+                className="solid-primary-button cursor-pointer"
                 disabled={!draft}
                 loading={saving}
                 onClick={save}

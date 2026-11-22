@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { ShieldCheck } from "lucide-react";
-import type { AdminUserRow } from "@/app/api/admin/users/route";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from 'react';
+import { ShieldCheck } from 'lucide-react';
+import type { AdminUserRow } from '@/app/api/admin/users/route';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 function formatDate(value: string | null): string {
-  if (!value) return "—";
+  if (!value) return '—';
   return new Date(value).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   });
 }
 
@@ -23,12 +23,11 @@ export function AdminUsersCard() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/admin/users")
+    fetch('/api/admin/users')
       .then(async (res) => {
         if (!res.ok)
           throw new Error(
-            (await res.json().catch(() => null))?.error ??
-              "Failed to load users",
+            (await res.json().catch(() => null))?.error ?? 'Failed to load users',
           );
         return res.json() as Promise<{ users: AdminUserRow[] }>;
       })
@@ -52,9 +51,7 @@ export function AdminUsersCard() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {error && (
-          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         {!error && !users && (
           <p className="text-sm text-muted-foreground">Loading users…</p>
         )}
@@ -62,58 +59,102 @@ export function AdminUsersCard() {
           <p className="text-sm text-muted-foreground">No users yet.</p>
         )}
         {users && users.length > 0 && (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-160 text-left text-sm">
-              <thead>
-                <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
-                  <th className="py-2 pr-3 font-medium">Name</th>
-                  <th className="py-2 pr-3 font-medium">Email</th>
-                  <th className="py-2 pr-3 font-medium">Joined</th>
-                  <th className="py-2 pr-3 font-medium">Last sign-in</th>
-                  <th className="py-2 pr-3 font-medium">Streak</th>
-                  <th className="py-2 pr-3 font-medium">Days studied</th>
-                  <th className="py-2 pr-3 font-medium">Phrases</th>
-                  <th className="py-2 pr-3 font-medium">Completed</th>
-                  <th className="py-2 font-medium">Convos</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((u) => (
-                  <tr
-                    key={u.id}
-                    className="border-b border-border last:border-0"
-                  >
-                    <td className="py-2 pr-3">{u.name || "—"}</td>
-                    <td className="truncate py-2 pr-3 text-muted-foreground">
-                      {u.email || "—"}
-                    </td>
-                    <td className="py-2 pr-3 text-muted-foreground">
-                      {formatDate(u.createdAt)}
-                    </td>
-                    <td className="py-2 pr-3 text-muted-foreground">
-                      {formatDate(u.lastSignInAt)}
-                    </td>
-                    <td className="py-2 pr-3">{u.studyStreak}</td>
-                    <td className="py-2 pr-3">{u.studyDays}</td>
-                    <td className="py-2 pr-3">{u.phrasesReviewed}</td>
-                    <td className="py-2 pr-3">
-                      {u.completedScenarios.length > 0 ? (
-                        <span
-                          className="cursor-help underline decoration-dotted underline-offset-2"
-                          title={u.completedScenarios.join(", ")}
-                        >
-                          {u.completedScenarios.length}
-                        </span>
-                      ) : (
-                        0
-                      )}
-                    </td>
-                    <td className="py-2">{u.conversations}</td>
+          <>
+            <ul className="flex flex-col gap-3 sm:hidden">
+              {users.map((u) => (
+                <li
+                  key={u.id}
+                  className="rounded-lg border border-border bg-background/50 p-3"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold">{u.name || '—'}</p>
+                    </div>
+                    <span className="shrink-0 rounded-full bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
+                      {u.studyStreak} day streak
+                    </span>
+                  </div>
+                  <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-xs">
+                    <div>
+                      <dt className="text-muted-foreground">Joined</dt>
+                      <dd className="font-medium">{formatDate(u.createdAt)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Last sign-in</dt>
+                      <dd className="font-medium">{formatDate(u.lastSignInAt)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Days studied</dt>
+                      <dd className="font-medium">{u.studyDays}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Phrases reviewed</dt>
+                      <dd className="font-medium">{u.phrasesReviewed}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Scenarios completed</dt>
+                      <dd
+                        className="font-medium"
+                        title={u.completedScenarios.join(', ') || undefined}
+                      >
+                        {u.completedScenarios.length}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Conversations</dt>
+                      <dd className="font-medium">{u.conversations}</dd>
+                    </div>
+                  </dl>
+                </li>
+              ))}
+            </ul>
+
+            <div className="hidden overflow-x-auto sm:block">
+              <table className="w-full min-w-160 text-left text-sm">
+                <thead>
+                  <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
+                    <th className="py-2 pr-3 font-medium">Name</th>
+                    <th className="py-2 pr-3 font-medium">Joined</th>
+                    <th className="py-2 pr-3 font-medium">Last sign-in</th>
+                    <th className="py-2 pr-3 font-medium">Streak</th>
+                    <th className="py-2 pr-3 font-medium">Days studied</th>
+                    <th className="py-2 pr-3 font-medium">Phrases</th>
+                    <th className="py-2 pr-3 font-medium">Completed</th>
+                    <th className="py-2 font-medium">Convos</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {users.map((u) => (
+                    <tr key={u.id} className="border-b border-border last:border-0">
+                      <td className="py-2 pr-3">{u.name || '—'}</td>
+                      <td className="py-2 pr-3 text-muted-foreground">
+                        {formatDate(u.createdAt)}
+                      </td>
+                      <td className="py-2 pr-3 text-muted-foreground">
+                        {formatDate(u.lastSignInAt)}
+                      </td>
+                      <td className="py-2 pr-3">{u.studyStreak}</td>
+                      <td className="py-2 pr-3">{u.studyDays}</td>
+                      <td className="py-2 pr-3">{u.phrasesReviewed}</td>
+                      <td className="py-2 pr-3">
+                        {u.completedScenarios.length > 0 ? (
+                          <span
+                            className="cursor-help underline decoration-dotted underline-offset-2"
+                            title={u.completedScenarios.join(', ')}
+                          >
+                            {u.completedScenarios.length}
+                          </span>
+                        ) : (
+                          0
+                        )}
+                      </td>
+                      <td className="py-2">{u.conversations}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </CardContent>
     </Card>

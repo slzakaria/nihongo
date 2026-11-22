@@ -20,21 +20,21 @@ const { userId } = await auth();
 Server Components:
 
 ```tsx
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from '@clerk/nextjs/server';
 ```
 
 Client Components:
 
 ```tsx
-"use client";
-import { useAuth, useUser } from "@clerk/nextjs";
+'use client';
+import { useAuth, useUser } from '@clerk/nextjs';
 ```
 
 ## Server Component
 
 ```tsx
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { Suspense } from "react";
+import { auth, currentUser } from '@clerk/nextjs/server';
+import { Suspense } from 'react';
 
 async function Welcome() {
   const { isAuthenticated } = await auth();
@@ -58,8 +58,8 @@ export default function DashboardPage() {
 ## Client Component
 
 ```tsx
-"use client";
-import { useUser, useAuth } from "@clerk/nextjs";
+'use client';
+import { useUser, useAuth } from '@clerk/nextjs';
 
 export function UserDashboard() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -82,9 +82,9 @@ export function UserDashboard() {
 Server: fetch initial data in `app/profile/page.tsx`.
 
 ```tsx
-import { currentUser } from "@clerk/nextjs/server";
-import { Suspense } from "react";
-import { ProfileForm } from "./ProfileForm";
+import { currentUser } from '@clerk/nextjs/server';
+import { Suspense } from 'react';
+import { ProfileForm } from './ProfileForm';
 
 async function Profile() {
   const user = await currentUser();
@@ -104,8 +104,8 @@ export default function ProfilePage() {
 Client: handle interactions in `ProfileForm.tsx`.
 
 ```tsx
-"use client";
-import { useUser } from "@clerk/nextjs";
+'use client';
+import { useUser } from '@clerk/nextjs';
 
 export function ProfileForm({ initialData }) {
   const { user } = useUser();
@@ -118,8 +118,8 @@ export function ProfileForm({ initialData }) {
 Use `<Show>` to render content based on auth state. In a Server Component, `<Show>` reads the session from the request, so wrap it in `<Suspense>`. In a Client Component, it reads client-side auth state and needs no boundary.
 
 ```tsx
-import { Show } from "@clerk/nextjs";
-import { Suspense } from "react";
+import { Show } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export function AuthenticatedDashboard() {
   return (

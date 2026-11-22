@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 // Streak-freeze date, synced to the `profiles.streak_freeze_until` column (see hydrateOnSignIn)
 // rather than persisted locally — it's a single small setting with no local-only history to lose,

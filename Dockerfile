@@ -51,6 +51,7 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-# Runtime secrets (CLERK_SECRET_KEY, SUPABASE_SERVICE_ROLE_KEY, CLAUDE_API_KEY, ELEVENLABS_API_KEY,
-# ...) must be passed via `docker run -e` / `--env-file`, never baked into the image.
+# Runtime secrets (CLERK_SECRET_KEY, SUPABASE_SERVICE_ROLE_KEY, RATE_LIMIT_SECRET,
+# CLAUDE_API_KEY, ELEVENLABS_API_KEY, ...) must be passed via `docker run -e` / `--env-file`,
+# never baked into the image.
 CMD ["node", "server.js"]

@@ -137,18 +137,18 @@ import { shadcn } from '@clerk/ui/themes'
 Also import shadcn CSS in your global styles:
 
 ```css
-@import "tailwindcss";
-@import "@clerk/ui/themes/shadcn.css";
+@import 'tailwindcss';
+@import '@clerk/ui/themes/shadcn.css';
 ```
 
 > **Core 2 ONLY (skip if current SDK):** Import from `@clerk/themes` and `@clerk/themes/shadcn.css`:
 >
 > ```typescript
-> import { shadcn } from "@clerk/themes";
+> import { shadcn } from '@clerk/themes';
 > ```
 >
 > ```css
-> @import "@clerk/themes/shadcn.css";
+> @import '@clerk/themes/shadcn.css';
 > ```
 
 ## Workflow

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { ChatMessage } from "@/types";
-import { useAudio } from "@/hooks/useAudio";
-import { AudioIconButton } from "@/components/phrases/AudioIconButton";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef } from 'react';
+import { ChatMessage } from '@/types';
+import { useAudio } from '@/hooks/useAudio';
+import { AudioIconButton } from '@/components/phrases/AudioIconButton';
+import { cn } from '@/lib/utils';
 
 export function SimulatorMessage({
   message,
@@ -13,7 +13,7 @@ export function SimulatorMessage({
   message: ChatMessage;
   autoPlay?: boolean;
 }) {
-  const isUser = message.role === "user";
+  const isUser = message.role === 'user';
   const hintMatch = message.content.match(/\[HINT:\s*([\s\S]*?)\]\s*$/);
   const mainText = hintMatch
     ? message.content.slice(0, hintMatch.index).trim()
@@ -29,18 +29,15 @@ export function SimulatorMessage({
   }, [autoPlay, mainText, play]);
 
   return (
-    <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
+    <div className={cn('flex', isUser ? 'justify-end' : 'justify-start')}>
       <div
         className={cn(
-          "flex max-w-[80%] flex-col gap-1 rounded-lg px-4 py-2.5",
-          isUser ? "bg-primary/15" : "bg-muted",
+          'flex max-w-[80%] flex-col gap-1 rounded-lg px-4 py-2.5',
+          isUser ? 'bg-primary/15' : 'bg-muted',
         )}
       >
         <div className="flex items-center gap-2">
-          <p
-            lang={isUser ? undefined : "ja"}
-            className="whitespace-pre-wrap text-sm"
-          >
+          <p lang={isUser ? undefined : 'ja'} className="whitespace-pre-wrap text-sm">
             {mainText}
           </p>
           {!isUser && mainText && (
@@ -53,9 +50,7 @@ export function SimulatorMessage({
             />
           )}
         </div>
-        {hintMatch && (
-          <p className="text-xs italic opacity-80">{hintMatch[1]}</p>
-        )}
+        {hintMatch && <p className="text-xs italic opacity-80">{hintMatch[1]}</p>}
       </div>
     </div>
   );

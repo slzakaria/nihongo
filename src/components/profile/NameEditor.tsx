@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useOnboardingStore } from "@/store/onboarding";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { useOnboardingStore } from '@/store/onboarding';
+import { Button } from '@/components/ui/button';
 
 const inputClass =
-  "w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm";
+  'w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm';
 const MAX_NAME_LENGTH = 40;
 
 // Inline name editor shown under the account card's name row

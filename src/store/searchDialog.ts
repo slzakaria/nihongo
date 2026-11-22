@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 // Lets the search bar on any page (or the navbar) open the shared search dialog.
 interface SearchDialogStore {

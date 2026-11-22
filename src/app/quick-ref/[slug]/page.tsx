@@ -1,9 +1,11 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
-import { loadContent } from "@/lib/data/content";
-import { PrintButton } from "@/components/layout/PrintButton";
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { ArrowLeft } from 'lucide-react';
+import { loadContent } from '@/lib/data/content';
+import { PrintButton } from '@/components/layout/PrintButton';
+import { BilingualText } from '@/components/layout/BilingualText';
+import { scenarioKana } from '@/lib/data/scenarioKana';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -48,13 +50,19 @@ export default async function QuickRefPage({
             Back to {scenario.label}
           </Link>
           <h1 className="min-w-0 text-xl font-semibold break-words">
-            {scenario.label} — Quick Reference
+            <BilingualText
+              english={<>{scenario.label} — Quick Reference</>}
+              japanese={`${scenarioKana(scenario.slug) ?? 'シナリオ'}・クイックリファレンス`}
+            />
           </h1>
         </div>
         <PrintButton />
       </div>
       <h1 className="mb-4 hidden text-xl font-semibold print:block">
-        {scenario.label}
+        <BilingualText
+          english={scenario.label}
+          japanese={scenarioKana(scenario.slug) ?? 'シナリオ'}
+        />
       </h1>
 
       <table className="w-full border-collapse text-sm">
@@ -63,13 +71,9 @@ export default async function QuickRefPage({
             <tr key={p.id} className="border-b border-border">
               <td className="py-2 pr-3 align-top" lang="ja">
                 {p.japanese}
-                {p.kanji && (
-                  <div className="text-muted-foreground">{p.kanji}</div>
-                )}
+                {p.kanji && <div className="text-muted-foreground">{p.kanji}</div>}
               </td>
-              <td className="py-2 pr-3 align-top text-muted-foreground">
-                {p.romaji}
-              </td>
+              <td className="py-2 pr-3 align-top text-muted-foreground">{p.romaji}</td>
               <td className="py-2 align-top">{p.english}</td>
             </tr>
           ))}

@@ -1,6 +1,6 @@
 ---
 name: clerk-backend-api
-description: "Clerk Backend REST API explorer and executor. Browse tags, inspect endpoint schemas, and execute authenticated requests. Use when listing users, managing organizations, or calling any Clerk API endpoint."
+description: 'Clerk Backend REST API explorer and executor. Browse tags, inspect endpoint schemas, and execute authenticated requests. Use when listing users, managing organizations, or calling any Clerk API endpoint.'
 allowed-tools: Bash, Read, Grep, Skill, WebFetch
 license: MIT
 compatibility: Requires CLERK_SECRET_KEY (sk_*) for Backend API calls.
@@ -66,25 +66,23 @@ curl -s -X POST "https://api.clerk.com/v1/organizations/${ORG_ID}/invitations" \
 ### SDK equivalent (for Next.js / TypeScript projects with `@clerk/nextjs` or `@clerk/backend`)
 
 ```typescript
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from '@clerk/nextjs/server';
 // OR if using @clerk/backend directly:
 // import { createClerkClient } from '@clerk/backend'
 // const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
 // Step 1: Create organization
 const org = await clerkClient.organizations.createOrganization({
-  name: "Acme Corp",
+  name: 'Acme Corp',
   createdBy: userId, // required — the ID of the user creating the org
 });
 
 // Step 2: Invite member to the org
-const invitation = await clerkClient.organizations.createOrganizationInvitation(
-  {
-    organizationId: org.id,
-    emailAddress: "user@example.com",
-    role: "org:admin", // or 'org:member'
-  },
-);
+const invitation = await clerkClient.organizations.createOrganizationInvitation({
+  organizationId: org.id,
+  emailAddress: 'user@example.com',
+  role: 'org:admin', // or 'org:member'
+});
 ```
 
 ### Update user metadata
@@ -110,11 +108,11 @@ curl -s -X PATCH "https://api.clerk.com/v1/users/${USER_ID}" \
 **SDK equivalent:**
 
 ```typescript
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from '@clerk/nextjs/server';
 // OR: import { createClerkClient } from '@clerk/backend'
 
 await clerkClient.users.updateUser(userId, {
-  publicMetadata: { plan: "pro", onboarded: true }, // readable by client, writable server-only
+  publicMetadata: { plan: 'pro', onboarded: true }, // readable by client, writable server-only
   // privateMetadata: { stripeId: 'cus_xxx' },         // server-only read AND write
   // unsafeMetadata: { step: 'welcome' },              // client-writable, avoid sensitive data
 });
@@ -298,7 +296,7 @@ Wrong:
 
 ```typescript
 await clerkClient.users.updateUser(userId, {
-  publicMetadata: { newField: "value" },
+  publicMetadata: { newField: 'value' },
 });
 ```
 
@@ -309,7 +307,7 @@ Right:
 ```typescript
 const user = await clerkClient.users.getUser(userId);
 await clerkClient.users.updateUser(userId, {
-  publicMetadata: { ...user.publicMetadata, newField: "value" },
+  publicMetadata: { ...user.publicMetadata, newField: 'value' },
 });
 ```
 

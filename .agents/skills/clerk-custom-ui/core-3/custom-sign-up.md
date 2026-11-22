@@ -5,7 +5,7 @@ Build a custom sign-up experience using the `useSignUp()` hook.
 ## Hook API
 
 ```typescript
-import { useSignUp } from "@clerk/nextjs"; // or @clerk/react, @clerk/expo
+import { useSignUp } from '@clerk/nextjs'; // or @clerk/react, @clerk/expo
 
 const { signUp, errors, fetchStatus } = useSignUp();
 ```
@@ -22,10 +22,10 @@ const { signUp, errors, fetchStatus } = useSignUp();
 
 ```typescript
 const { error } = await signUp.password({
-  emailAddress: "user@example.com",
-  password: "securePassword123",
-  firstName: "Jane", // optional
-  lastName: "Doe", // optional
+  emailAddress: 'user@example.com',
+  password: 'securePassword123',
+  firstName: 'Jane', // optional
+  lastName: 'Doe', // optional
 });
 ```
 
@@ -33,16 +33,16 @@ const { error } = await signUp.password({
 
 ```typescript
 const { error } = await signUp.sso({
-  strategy: "oauth_google", // or 'oauth_github', etc.
-  redirectUrl: "/dashboard", // where to go after SSO completes
-  redirectCallbackUrl: "/sso-callback", // intermediate callback route
+  strategy: 'oauth_google', // or 'oauth_github', etc.
+  redirectUrl: '/dashboard', // where to go after SSO completes
+  redirectCallbackUrl: '/sso-callback', // intermediate callback route
 });
 ```
 
 ### Web3
 
 ```typescript
-const { error } = await signUp.web3({ strategy: "web3_solana_signature" });
+const { error } = await signUp.web3({ strategy: 'web3_solana_signature' });
 ```
 
 ### Update (add fields to existing sign-up)
@@ -51,9 +51,9 @@ Use `update()` to add optional fields (name, metadata, legal acceptance, locale)
 
 ```typescript
 const { error } = await signUp.update({
-  firstName: "Jane",
-  lastName: "Doe",
-  unsafeMetadata: { referralSource: "twitter" },
+  firstName: 'Jane',
+  lastName: 'Doe',
+  unsafeMetadata: { referralSource: 'twitter' },
   legalAccepted: true,
 });
 ```
@@ -70,7 +70,7 @@ const { error } = await signUp.verifications.sendEmailCode();
 
 // Verify the code
 const { error } = await signUp.verifications.verifyEmailCode({
-  code: "123456",
+  code: '123456',
 });
 ```
 
@@ -82,7 +82,7 @@ const { error } = await signUp.verifications.sendPhoneCode();
 
 // Verify the code
 const { error } = await signUp.verifications.verifyPhoneCode({
-  code: "123456",
+  code: '123456',
 });
 ```
 
@@ -91,7 +91,7 @@ const { error } = await signUp.verifications.verifyPhoneCode({
 ```typescript
 // verificationUrl: where the user lands after clicking the email link (relative or absolute)
 const { error } = await signUp.verifications.sendEmailLink({
-  verificationUrl: "/verify",
+  verificationUrl: '/verify',
 });
 // User clicks the link in their email to verify
 ```
@@ -105,10 +105,10 @@ await signUp.finalize({
   navigate: async ({ session, decorateUrl }) => {
     const destination = session.currentTask
       ? `/sign-up/tasks/${session.currentTask.key}`
-      : "/";
+      : '/';
     const url = decorateUrl(destination);
     // decorateUrl may return an absolute URL for Safari ITP
-    if (url.startsWith("http")) {
+    if (url.startsWith('http')) {
       window.location.href = url;
     } else {
       router.push(url);
@@ -157,11 +157,11 @@ errors?.raw; // ClerkError[] | null
 From [the docs](https://clerk.com/docs/guides/development/custom-flows/authentication/email-sms-otp). Uses phone OTP with inline comments for adapting to email OTP.
 
 ```tsx
-"use client";
+'use client';
 
-import * as React from "react";
-import { useAuth, useSignUp } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import * as React from 'react';
+import { useAuth, useSignUp } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
   const { signUp, errors, fetchStatus } = useSignUp();
@@ -170,7 +170,7 @@ export default function SignUpPage() {
 
   const handleSubmit = async (formData: FormData) => {
     // For email OTP: collect the email address instead of the phone number
-    const phoneNumber = formData.get("phoneNumber") as string;
+    const phoneNumber = formData.get('phoneNumber') as string;
 
     // For email OTP: change create({ phoneNumber }) to create({ emailAddress })
     const error = await signUp.create({ phoneNumber });
@@ -180,12 +180,12 @@ export default function SignUpPage() {
   };
 
   const handleVerify = async (formData: FormData) => {
-    const code = formData.get("code") as string;
+    const code = formData.get('code') as string;
 
     // For email OTP: change verifyPhoneCode() to verifyEmailCode()
     await signUp.verifications.verifyPhoneCode({ code });
 
-    if (signUp.status === "complete") {
+    if (signUp.status === 'complete') {
       await signUp.finalize({
         navigate: ({ session, decorateUrl }) => {
           if (session?.currentTask) {
@@ -195,8 +195,8 @@ export default function SignUpPage() {
             return;
           }
 
-          const url = decorateUrl("/");
-          if (url.startsWith("http")) {
+          const url = decorateUrl('/');
+          if (url.startsWith('http')) {
             window.location.href = url;
           } else {
             router.push(url);
@@ -206,14 +206,14 @@ export default function SignUpPage() {
     }
   };
 
-  if (signUp.status === "complete" || isSignedIn) {
+  if (signUp.status === 'complete' || isSignedIn) {
     return null;
   }
 
   if (
-    signUp.status === "missing_requirements" &&
+    signUp.status === 'missing_requirements' &&
     // For email OTP: check for phone_number instead of email_address
-    signUp.unverifiedFields.includes("phone_number") &&
+    signUp.unverifiedFields.includes('phone_number') &&
     signUp.missingFields.length === 0
   ) {
     return (
@@ -225,7 +225,7 @@ export default function SignUpPage() {
             <input id="code" name="code" type="text" />
           </div>
           {errors.fields.code && <p>{errors.fields.code.message}</p>}
-          <button type="submit" disabled={fetchStatus === "fetching"}>
+          <button type="submit" disabled={fetchStatus === 'fetching'}>
             Verify
           </button>
         </form>
@@ -245,11 +245,9 @@ export default function SignUpPage() {
         <div>
           <label htmlFor="phoneNumber">Phone number</label>
           <input id="phoneNumber" name="phoneNumber" type="tel" />
-          {errors.fields.phoneNumber && (
-            <p>{errors.fields.phoneNumber.message}</p>
-          )}
+          {errors.fields.phoneNumber && <p>{errors.fields.phoneNumber.message}</p>}
         </div>
-        <button type="submit" disabled={fetchStatus === "fetching"}>
+        <button type="submit" disabled={fetchStatus === 'fetching'}>
           Continue
         </button>
       </form>

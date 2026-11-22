@@ -1,5 +1,5 @@
-import type { Phrase, Scenario } from "@/types";
-import { getContent } from "./content";
+import type { Phrase, Scenario } from '@/types';
+import { getContent } from './content';
 
 // Synchronous helpers over the current content. Client code reads the database copy once it has loaded.
 export function getAllScenarios(): Scenario[] {
@@ -24,6 +24,5 @@ export function getPhraseById(id: string): Phrase | undefined {
 
 // Which scenario a phrase belongs to, used when initializing SRS cards
 export function getScenarioSlugForPhrase(phraseId: string): string | undefined {
-  return getAllScenarios().find((s) => s.phrases.some((p) => p.id === phraseId))
-    ?.slug;
+  return getAllScenarios().find((s) => s.phrases.some((p) => p.id === phraseId))?.slug;
 }

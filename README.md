@@ -4,7 +4,7 @@
 
 ## Features
 
-- **Scenario phrasebook:** 38 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies. Phrases include romaji, usage notes, kanji where available, and common replies.
+- **Scenario phrasebook:** 36 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies, plus two learning/reference categories. Phrases include romaji, usage notes, kanji where available, and common replies.
 - **Spaced-repetition flashcards:** scenario-based SM-2 review decks that bring phrases back when they are due, with progress for each deck. Bookmark phrases and review them in a focused saved-phrase queue.
 - **Kana study:** hiragana and katakana, organised by row, with a separate practice flow for kana due for review.
 - **Offline practice:** phrase and kana flashcards work from bundled content, save progress on the device, and queue signed-in changes to sync when reconnected. Open Offline practice once while online to cache its app shell.
@@ -55,7 +55,14 @@ Copy `.env.example` to `.env`, then fill in the values supplied by the project o
 | `SUPABASE_DB_URL`, `SUPABASE_APP_URL`, `SUPABASE_ID`, `DB_PW`      | Supabase database and project details                                                        |
 | `CLAUDE_API_KEY`                                                   | Simulator replies                                                                            |
 | `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, `ELEVENLABS_MODEL_ID` | Text-to-speech and speech-to-text                                                            |
-| `RATE_LIMIT_SECRET`                                                | Optional secret for signing guest rate-limit cookies                                         |
+| `RATE_LIMIT_SECRET`                                                | Recommended stable secret for server-side API rate-limit identity hashing                    |
+
+Production guest API limits use the client IP forwarded by the ingress proxy. Configure the
+proxy to overwrite `X-Forwarded-For` or `X-Real-IP`; do not expose the app directly with
+client-controlled forwarding headers. Daily limits reset at UTC midnight: guests can make 20
+requests per provider per IP, while signed-in accounts can make 100 per provider per account.
+When a trusted client IP is available, signed-in requests also share a 200-request-per-provider
+IP cap.
 
 ### 3. Database
 
@@ -112,7 +119,7 @@ Route details are listed in [`.claude/pages.md`](.claude/pages.md), with the cur
 
 ## Content
 
-Phrases live in `src/lib/data/phrases.json`, with kana in `hiragana.json` and `katakana.json`. Each scenario has an `icon` (emoji), a label, and a list of phrases with `responses`. After editing the JSON, run the seed script to update the database.
+Phrases live in `src/lib/data/phrases.json`, with kana in `hiragana.json` and `katakana.json`. Each scenario has an `icon` (emoji), a label, and a list of phrases with `responses`. See the [phrase catalog](docs/phrase-catalog.md) for the current category list and counts. After editing the JSON, run the seed script to update the database.
 
 ## Known limitations
 

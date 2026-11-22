@@ -3,17 +3,16 @@
 // position in whichever grid it happens to be rendered in. Used by ScenarioCard, ScenarioMiniCard
 // and the flashcards picker list.
 const ACCENTS = [
-  "text-primary",
-  "text-secondary-foreground",
-  "text-accent-foreground",
+  'text-primary',
+  'text-secondary-foreground',
+  'text-accent-foreground',
 ] as const;
 // Same hue, used as a soft icon-badge background so the badge and title tie together visually.
-const TINTS = ["bg-primary/15", "bg-secondary/15", "bg-accent/15"] as const;
+const TINTS = ['bg-primary/15', 'bg-secondary/15', 'bg-accent/15'] as const;
 
 function hashSlug(slug: string): number {
   let hash = 0;
-  for (let i = 0; i < slug.length; i++)
-    hash = (hash * 31 + slug.charCodeAt(i)) | 0;
+  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) | 0;
   return Math.abs(hash);
 }
 

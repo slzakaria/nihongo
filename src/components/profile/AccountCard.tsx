@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import { Camera, Loader2 } from "lucide-react";
-import { useAuthStore } from "@/store/auth";
-import { useOnboardingStore } from "@/store/onboarding";
-import { uploadAvatar, AVATAR_TYPES } from "@/lib/supabase/avatar";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar } from "@/components/ui/avatar";
-import { NameEditor } from "@/components/profile/NameEditor";
+import { useRef, useState } from 'react';
+import { Camera, Loader2 } from 'lucide-react';
+import { useAuthStore } from '@/store/auth';
+import { useOnboardingStore } from '@/store/onboarding';
+import { uploadAvatar, AVATAR_TYPES } from '@/lib/supabase/avatar';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar } from '@/components/ui/avatar';
+import { NameEditor } from '@/components/profile/NameEditor';
 
-type EditableField = "name";
+type EditableField = 'name';
 
 function formatDate(value: string | null | undefined, withTime = false) {
-  if (!value) return "—";
+  if (!value) return '—';
   const date = new Date(value);
   return withTime
     ? date.toLocaleString(undefined, {
-        dateStyle: "medium",
-        timeStyle: "short",
+        dateStyle: 'medium',
+        timeStyle: 'short',
       })
-    : date.toLocaleDateString(undefined, { dateStyle: "long" });
+    : date.toLocaleDateString(undefined, { dateStyle: 'long' });
 }
 
 // Account details: name, email, avatar, and the dates tied to this sign-in
@@ -44,26 +44,26 @@ export function AccountCard() {
       setAvatarUrl(await uploadAvatar(user.id, file));
     } catch (err) {
       setUploadError(
-        err instanceof Error ? err.message : "Upload failed. Please try again.",
+        err instanceof Error ? err.message : 'Upload failed. Please try again.',
       );
     } finally {
       setUploading(false);
-      if (fileInput.current) fileInput.current.value = "";
+      if (fileInput.current) fileInput.current.value = '';
     }
   }
 
   const rows: { key: EditableField | null; label: string; value: string }[] = [
-    { key: "name", label: "Registered name", value: userName || "—" },
-    { key: null, label: "Email", value: user.email ?? "—" },
+    { key: 'name', label: 'Registered name', value: userName || '—' },
+    { key: null, label: 'Email', value: user.email ?? '—' },
     {
       key: null,
-      label: "Phone",
-      value: user.phone ? `+${user.phone.replace(/^\+/, "")}` : "—",
+      label: 'Phone',
+      value: user.phone ? `+${user.phone.replace(/^\+/, '')}` : '—',
     },
-    { key: null, label: "Joined", value: formatDate(user.createdAt) },
+    { key: null, label: 'Joined', value: formatDate(user.createdAt) },
     {
       key: null,
-      label: "Last sign-in",
+      label: 'Last sign-in',
       value: formatDate(user.lastSignInAt, true),
     },
   ];
@@ -78,7 +78,7 @@ export function AccountCard() {
         <div className="relative">
           <Avatar
             url={avatarUrl}
-            label={userName || user.email || user.phone || "?"}
+            label={userName || user.email || user.phone || '?'}
             className="h-16 w-16 text-xl shadow-sm"
           />
           {uploading && (
@@ -88,9 +88,7 @@ export function AccountCard() {
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-lg font-semibold">
-            {userName || "Traveller"}
-          </p>
+          <p className="truncate text-lg font-semibold">{userName || 'Traveller'}</p>
           <p className="truncate text-sm text-muted-foreground">
             {user.email ?? user.phone}
           </p>
@@ -105,12 +103,12 @@ export function AccountCard() {
             onClick={() => fileInput.current?.click()}
           >
             <Camera className="h-3.5 w-3.5" />
-            {avatarUrl ? "Change photo" : "Upload photo"}
+            {avatarUrl ? 'Change photo' : 'Upload photo'}
           </Button>
           <input
             ref={fileInput}
             type="file"
-            accept={AVATAR_TYPES.join(",")}
+            accept={AVATAR_TYPES.join(',')}
             className="hidden"
             onChange={(e) => void handleFile(e.target.files?.[0])}
           />
@@ -123,8 +121,8 @@ export function AccountCard() {
             <div
               key={row.label}
               className={cn(
-                "flex flex-col gap-1",
-                editing === row.key && row.key && "sm:col-span-2",
+                'flex flex-col gap-1',
+                editing === row.key && row.key && 'sm:col-span-2',
               )}
             >
               <div className="flex items-center justify-between gap-2">
@@ -142,7 +140,7 @@ export function AccountCard() {
                 )}
               </div>
               <dd className="text-sm font-medium">{row.value}</dd>
-              {row.key === "name" && editing === "name" && (
+              {row.key === 'name' && editing === 'name' && (
                 <NameEditor onDone={closeEditor} />
               )}
             </div>

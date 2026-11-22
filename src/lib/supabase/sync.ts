@@ -1,23 +1,23 @@
-import { useOnboardingStore } from "@/store/onboarding";
-import { useSettingsStore } from "@/store/settings";
-import { useProgressStore, type PendingCardWrite } from "@/store/progress";
-import { useGoalsStore } from "@/store/goals";
-import { useBadgesStore } from "@/store/badges";
-import { useStreakStore } from "@/store/streak";
-import { useBookmarkStore, type PendingBookmarkWrite } from "@/store/bookmarks";
-import { fetchProfile, upsertProfile } from "@/lib/supabase/profile";
+import { useOnboardingStore } from '@/store/onboarding';
+import { useSettingsStore } from '@/store/settings';
+import { useProgressStore, type PendingCardWrite } from '@/store/progress';
+import { useGoalsStore } from '@/store/goals';
+import { useBadgesStore } from '@/store/badges';
+import { useStreakStore } from '@/store/streak';
+import { useBookmarkStore, type PendingBookmarkWrite } from '@/store/bookmarks';
+import { fetchProfile, upsertProfile } from '@/lib/supabase/profile';
 import {
   deleteScenarioCards,
   fetchServerCards,
   upsertCards,
-} from "@/lib/supabase/progress";
+} from '@/lib/supabase/progress';
 import {
   fetchBookmarks,
   deleteBookmarks,
   upsertBookmarks,
-} from "@/lib/supabase/bookmarks";
-import { recordStudyDays } from "@/lib/supabase/activity";
-import { mergeCards } from "@/lib/srs/merge";
+} from '@/lib/supabase/bookmarks';
+import { recordStudyDays } from '@/lib/supabase/activity';
+import { mergeCards } from '@/lib/srs/merge';
 
 const hydratedUsers = new Set<string>();
 const activeSyncs = new Map<string, Promise<void>>();
@@ -26,7 +26,7 @@ const retryCounts = new Map<string, number>();
 const rerunAfterSync = new Set<string>();
 
 function isOnline(): boolean {
-  return typeof navigator === "undefined" || navigator.onLine;
+  return typeof navigator === 'undefined' || navigator.onLine;
 }
 
 function hasPendingWrites(userId: string): boolean {
@@ -47,7 +47,7 @@ function retryDelay(userId: string): number {
 }
 
 export function scheduleSync(userId: string, delay = 400): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
   const existing = queuedSyncs.get(userId);
   if (existing !== undefined) window.clearTimeout(existing);
   const timer = window.setTimeout(() => {
@@ -62,8 +62,7 @@ export function forgetUser(userId: string): void {
   retryCounts.delete(userId);
   rerunAfterSync.delete(userId);
   const timer = queuedSyncs.get(userId);
-  if (timer !== undefined && typeof window !== "undefined")
-    window.clearTimeout(timer);
+  if (timer !== undefined && typeof window !== 'undefined') window.clearTimeout(timer);
   queuedSyncs.delete(userId);
 }
 
@@ -91,16 +90,13 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
 
   if (resetSnapshot.length > 0) {
     const resetSucceeded = await attempt(
-      "scenario resets",
+      'scenario resets',
       () =>
         deleteScenarioCards(
           userId,
           resetSnapshot.map((item) => item.scenarioSlug),
         ),
-      () =>
-        useProgressStore
-          .getState()
-          .acknowledgeScenarioResets(userId, resetSnapshot),
+      () => useProgressStore.getState().acknowledgeScenarioResets(userId, resetSnapshot),
     );
     succeeded = resetSucceeded && succeeded;
   }
@@ -117,27 +113,24 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
       useBookmarkStore.getState().pendingByUser[userId] ?? {},
     ).map(([phraseId, pending]) => ({ phraseId, ...pending }));
     const addBookmarks = bookmarkSnapshot.filter((item) => item.isBookmarked);
-    const removeBookmarks = bookmarkSnapshot.filter(
-      (item) => !item.isBookmarked,
-    );
+    const removeBookmarks = bookmarkSnapshot.filter((item) => !item.isBookmarked);
 
     if (cardSnapshot.length > 0) {
       const ok = await attempt(
-        "review progress",
+        'review progress',
         () =>
           upsertCards(
             userId,
             cardSnapshot.map((item) => item.card),
           ),
-        () =>
-          useProgressStore.getState().acknowledgeCards(userId, cardSnapshot),
+        () => useProgressStore.getState().acknowledgeCards(userId, cardSnapshot),
       );
       succeeded = ok && succeeded;
     }
 
     if (addBookmarks.length > 0) {
       const ok = await attempt(
-        "saved phrases",
+        'saved phrases',
         () =>
           upsertBookmarks(
             userId,
@@ -150,7 +143,7 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
 
     if (removeBookmarks.length > 0) {
       const ok = await attempt(
-        "removed saved phrases",
+        'removed saved phrases',
         () =>
           deleteBookmarks(
             userId,
@@ -163,12 +156,9 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
 
     if (daysSnapshot.length > 0) {
       const ok = await attempt(
-        "study days",
+        'study days',
         () => recordStudyDays(userId, daysSnapshot),
-        () =>
-          useProgressStore
-            .getState()
-            .acknowledgeStudyDays(userId, daysSnapshot),
+        () => useProgressStore.getState().acknowledgeStudyDays(userId, daysSnapshot),
       );
       succeeded = ok && succeeded;
     }
@@ -179,9 +169,8 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
 
 function hasPendingResets(userId: string): boolean {
   return (
-    Object.keys(
-      useProgressStore.getState().pendingScenarioResetsByUser[userId] ?? {},
-    ).length > 0
+    Object.keys(useProgressStore.getState().pendingScenarioResetsByUser[userId] ?? {})
+      .length > 0
   );
 }
 
@@ -201,7 +190,7 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
       profileLoaded = true;
     } catch (error) {
       console.error(
-        "Unable to load the account profile; practice data will still synchronize.",
+        'Unable to load the account profile; practice data will still synchronize.',
         error,
       );
     }
@@ -223,9 +212,7 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
 
       const localBadges = Object.keys(useBadgesStore.getState().celebrated);
       const serverBadges = profile.celebrated_badges ?? [];
-      const mergedBadges = Array.from(
-        new Set([...localBadges, ...serverBadges]),
-      );
+      const mergedBadges = Array.from(new Set([...localBadges, ...serverBadges]));
       useBadgesStore.setState({
         celebrated: Object.fromEntries(mergedBadges.map((id) => [id, true])),
       });
@@ -236,9 +223,7 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
       const { hasOnboarded, userName } = useOnboardingStore.getState();
       const { romajiMode } = useSettingsStore.getState();
       const { weeklyGoal } = useGoalsStore.getState();
-      const celebratedBadges = Object.keys(
-        useBadgesStore.getState().celebrated,
-      );
+      const celebratedBadges = Object.keys(useBadgesStore.getState().celebrated);
       await upsertProfile(userId, {
         user_name: userName,
         has_onboarded: hasOnboarded,
@@ -251,15 +236,13 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
     const progressStore = useProgressStore.getState();
     const localCards = progressStore.cards;
     const { merged, localOnly } = mergeCards(serverCards, localCards);
-    if (localOnly.length > 0)
-      progressStore.queueCardsForSync(userId, localOnly);
+    if (localOnly.length > 0) progressStore.queueCardsForSync(userId, localOnly);
     const pendingResets =
       useProgressStore.getState().pendingScenarioResetsByUser[userId] ?? {};
     for (const [phraseId, card] of Object.entries(merged)) {
       if (pendingResets[card.scenarioSlug]) delete merged[phraseId];
     }
-    const pendingCards =
-      useProgressStore.getState().pendingCardsByUser[userId] ?? {};
+    const pendingCards = useProgressStore.getState().pendingCardsByUser[userId] ?? {};
     for (const [phraseId, pending] of Object.entries(pendingCards)) {
       merged[phraseId] = pending.card;
     }
@@ -267,10 +250,7 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
 
     const bookmarkStore = useBookmarkStore.getState();
     const serverBookmarkSet = new Set(serverBookmarks);
-    const mergedBookmarks = new Set([
-      ...serverBookmarks,
-      ...bookmarkStore.phraseIds,
-    ]);
+    const mergedBookmarks = new Set([...serverBookmarks, ...bookmarkStore.phraseIds]);
     const pendingBookmarks = bookmarkStore.pendingByUser[userId] ?? {};
     for (const [phraseId, pending] of Object.entries(pendingBookmarks)) {
       if (pending.isBookmarked) mergedBookmarks.add(phraseId);
@@ -288,10 +268,7 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
     hydratedUsers.add(userId);
     return true;
   } catch (error) {
-    console.error(
-      "Unable to load account data; local practice data was kept.",
-      error,
-    );
+    console.error('Unable to load account data; local practice data was kept.', error);
     return false;
   } finally {
     useOnboardingStore.setState({ synced: true });
