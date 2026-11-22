@@ -57,7 +57,7 @@ export default async function ScenarioDetailPage({
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-1 gap-8 px-4 py-10 sm:px-6">
+    <div className="mx-auto flex w-full max-w-6xl flex-1 gap-8 px-4 py-10 sm:px-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
