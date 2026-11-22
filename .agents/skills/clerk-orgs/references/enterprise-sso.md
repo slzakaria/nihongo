@@ -19,7 +19,7 @@ Permission required to manage: `org:sys_domains:manage`.
 
 ```typescript
 // Current SDK (Core 3+)
-strategy: "enterprise_sso";
+strategy: 'enterprise_sso';
 ```
 
 Used in `signIn.supportedFirstFactors` when building custom sign-in flows.
@@ -31,7 +31,7 @@ Used in `signIn.supportedFirstFactors` when building custom sign-in flows.
 `provider` and protocol metadata live on the nested `enterpriseConnection`, not directly on the enterprise account. Correct paths:
 
 ```typescript
-import { currentUser } from "@clerk/nextjs/server";
+import { currentUser } from '@clerk/nextjs/server';
 
 const user = await currentUser();
 const ssoAccount = user?.enterpriseAccounts?.[0];
@@ -90,10 +90,10 @@ Typical pattern (Core 3 canonical):
 const { signIn } = useSignIn();
 
 const { error } = await signIn.sso({
-  strategy: "enterprise_sso",
+  strategy: 'enterprise_sso',
   identifier: emailAddress,
-  redirectUrl: "/dashboard", // where to land on successful sign-in
-  redirectCallbackUrl: "/sign-in/callback", // where to land when additional requirements are needed
+  redirectUrl: '/dashboard', // where to land on successful sign-in
+  redirectCallbackUrl: '/sign-in/callback', // where to land when additional requirements are needed
 });
 ```
 

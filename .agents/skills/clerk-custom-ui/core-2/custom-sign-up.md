@@ -7,7 +7,7 @@ Build a custom sign-up experience using the `useSignUp()` hook.
 ## Hook API
 
 ```typescript
-import { useSignUp } from "@clerk/nextjs"; // or @clerk/clerk-react, @clerk/clerk-expo
+import { useSignUp } from '@clerk/nextjs'; // or @clerk/clerk-react, @clerk/clerk-expo
 
 const { signUp, isLoaded, setActive } = useSignUp();
 ```
@@ -24,10 +24,10 @@ const { signUp, isLoaded, setActive } = useSignUp();
 
 ```typescript
 const result = await signUp.create({
-  emailAddress: "user@example.com",
-  password: "securePassword123",
-  firstName: "Jane", // optional
-  lastName: "Doe", // optional
+  emailAddress: 'user@example.com',
+  password: 'securePassword123',
+  firstName: 'Jane', // optional
+  lastName: 'Doe', // optional
 });
 ```
 
@@ -37,7 +37,7 @@ Send a verification code to the user's email or phone:
 
 ```typescript
 await signUp.prepareVerification({
-  strategy: "email_code", // or 'phone_code', 'email_link'
+  strategy: 'email_code', // or 'phone_code', 'email_link'
 });
 ```
 
@@ -47,8 +47,8 @@ Verify the code the user received:
 
 ```typescript
 const result = await signUp.attemptVerification({
-  strategy: "email_code",
-  code: "123456",
+  strategy: 'email_code',
+  code: '123456',
 });
 ```
 
@@ -64,9 +64,9 @@ await setActive({ session: signUp.createdSessionId });
 
 ```typescript
 await signUp.authenticateWithRedirect({
-  strategy: "oauth_google",
-  redirectUrl: "/sso-callback",
-  redirectUrlComplete: "/",
+  strategy: 'oauth_google',
+  redirectUrl: '/sso-callback',
+  redirectUrlComplete: '/',
 });
 ```
 
@@ -75,7 +75,7 @@ await signUp.authenticateWithRedirect({
 Use try/catch with `isClerkAPIResponseError()`:
 
 ```typescript
-import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
+import { isClerkAPIResponseError } from '@clerk/nextjs/errors';
 
 try {
   await signUp.create({ emailAddress, password });
@@ -93,61 +93,61 @@ try {
 ## Complete Example: Email/Password with Email Verification
 
 ```tsx
-"use client";
-import { useState } from "react";
-import { useSignUp } from "@clerk/nextjs";
-import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
-import { useRouter } from "next/navigation";
+'use client';
+import { useState } from 'react';
+import { useSignUp } from '@clerk/nextjs';
+import { isClerkAPIResponseError } from '@clerk/nextjs/errors';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
   const { signUp, isLoaded, setActive } = useSignUp();
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [step, setStep] = useState<"register" | "verify">("register");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
+  const [step, setStep] = useState<'register' | 'verify'>('register');
+  const [error, setError] = useState('');
 
   if (!isLoaded) return <div>Loading...</div>;
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
       await signUp.create({ emailAddress: email, password });
-      await signUp.prepareVerification({ strategy: "email_code" });
-      setStep("verify");
+      await signUp.prepareVerification({ strategy: 'email_code' });
+      setStep('verify');
     } catch (err) {
       if (isClerkAPIResponseError(err)) {
-        setError(err.errors[0]?.message || "Sign up failed");
+        setError(err.errors[0]?.message || 'Sign up failed');
       }
     }
   }
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
       const result = await signUp.attemptVerification({
-        strategy: "email_code",
+        strategy: 'email_code',
         code,
       });
 
-      if (result.status === "complete") {
+      if (result.status === 'complete') {
         await setActive({ session: result.createdSessionId });
-        router.push("/");
+        router.push('/');
       }
     } catch (err) {
       if (isClerkAPIResponseError(err)) {
-        setError(err.errors[0]?.message || "Verification failed");
+        setError(err.errors[0]?.message || 'Verification failed');
       }
     }
   }
 
-  if (step === "verify") {
+  if (step === 'verify') {
     return (
       <form onSubmit={handleVerify}>
         <p>Check your email for a verification code.</p>

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 // Drives the full-screen loading overlay while a page navigation or server request is waiting
 interface BusyStore {

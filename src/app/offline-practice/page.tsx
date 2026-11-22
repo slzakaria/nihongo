@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { FlashcardDeck } from "@/components/flashcards/FlashcardDeck";
-import { loadKana, useContentStore } from "@/lib/data/content";
-import { useProgressStore } from "@/store/progress";
+import Link from 'next/link';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
+import { loadKana, useContentStore } from '@/lib/data/content';
+import { useProgressStore } from '@/store/progress';
 
-type PracticeMode = "phrases" | "kana";
+type PracticeMode = 'phrases' | 'kana';
 
 export default function OfflinePracticePage() {
   const scenarios = useContentStore((s) => s.content.phrases);
@@ -16,30 +16,23 @@ export default function OfflinePracticePage() {
   const katakana = useContentStore((s) => s.content.katakana);
   const initScenario = useProgressStore((s) => s.initScenario);
   const initKana = useProgressStore((s) => s.initKana);
-  const [mode, setMode] = useState<PracticeMode>("phrases");
-  const [scenarioSlug, setScenarioSlug] = useState("");
+  const [mode, setMode] = useState<PracticeMode>('phrases');
+  const [scenarioSlug, setScenarioSlug] = useState('');
   const [kanaError, setKanaError] = useState(false);
 
   useEffect(() => {
-    if (!scenarioSlug && scenarios.length > 0)
-      setScenarioSlug(scenarios[0].slug);
+    if (!scenarioSlug && scenarios.length > 0) setScenarioSlug(scenarios[0].slug);
   }, [scenarioSlug, scenarios]);
 
   useEffect(() => {
     void loadKana().catch((error) => {
-      console.error("Unable to load kana practice data.", error);
+      console.error('Unable to load kana practice data.', error);
       setKanaError(true);
     });
   }, []);
 
-  const kanaRows = useMemo(
-    () => [...hiragana, ...katakana],
-    [hiragana, katakana],
-  );
-  const kanaPhrases = useMemo(
-    () => kanaRows.flatMap((row) => row.phrases),
-    [kanaRows],
-  );
+  const kanaRows = useMemo(() => [...hiragana, ...katakana], [hiragana, katakana]);
+  const kanaPhrases = useMemo(() => kanaRows.flatMap((row) => row.phrases), [kanaRows]);
   const initializeKana = useCallback(() => {
     for (const row of kanaRows)
       initKana(
@@ -61,33 +54,31 @@ export default function OfflinePracticePage() {
           <ArrowLeft className="h-3.5 w-3.5" />
           Flashcards
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Offline practice
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Offline practice</h1>
         <p className="text-sm text-muted-foreground">
-          Open this page while connected once to cache its practice files.
-          Reviews save on this device and sync when you reconnect.
+          Open this page while connected once to cache its practice files. Reviews save on
+          this device and sync when you reconnect.
         </p>
       </div>
 
       <div className="flex gap-2">
         <Button
           type="button"
-          variant={mode === "phrases" ? "default" : "outline"}
-          onClick={() => setMode("phrases")}
+          variant={mode === 'phrases' ? 'default' : 'outline'}
+          onClick={() => setMode('phrases')}
         >
           Phrases
         </Button>
         <Button
           type="button"
-          variant={mode === "kana" ? "default" : "outline"}
-          onClick={() => setMode("kana")}
+          variant={mode === 'kana' ? 'default' : 'outline'}
+          onClick={() => setMode('kana')}
         >
           Kana
         </Button>
       </div>
 
-      {mode === "phrases" ? (
+      {mode === 'phrases' ? (
         <>
           <label className="flex flex-col gap-2 text-sm font-medium">
             Choose a scenario
@@ -113,8 +104,8 @@ export default function OfflinePracticePage() {
         </>
       ) : kanaError ? (
         <p role="alert" className="text-sm text-muted-foreground">
-          Kana data is not available in this offline session. Reconnect once and
-          reopen this page to cache it.
+          Kana data is not available in this offline session. Reconnect once and reopen
+          this page to cache it.
         </p>
       ) : kanaRows.length === 0 ? (
         <p role="status" className="text-sm text-muted-foreground">

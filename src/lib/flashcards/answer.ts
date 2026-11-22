@@ -1,19 +1,17 @@
 // Japanese answers are compared as hiragana, so typing katakana or hiragana both count
 function toHiragana(text: string): string {
-  return text.replace(/[ァ-ヶ]/g, (ch) =>
-    String.fromCharCode(ch.charCodeAt(0) - 0x60),
-  );
+  return text.replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60));
 }
 
 export function normalizeAnswer(text: string): string {
   return toHiragana(
     text
-      .normalize("NFKC")
+      .normalize('NFKC')
       .toLowerCase()
-      .replace(/[\s\p{P}]/gu, "")
+      .replace(/[\s\p{P}]/gu, '')
       .replace(
         /[āēīōū]/g,
-        (ch) => ({ ā: "a", ē: "e", ī: "i", ō: "o", ū: "u" })[ch] ?? ch,
+        (ch) => ({ ā: 'a', ē: 'e', ī: 'i', ō: 'o', ū: 'u' })[ch] ?? ch,
       ),
   );
 }
@@ -25,7 +23,7 @@ export function isAnswerCorrect(
 ): boolean {
   const typed = normalizeAnswer(input);
   if (!typed) return false;
-  return [target.japanese, target.kanji ?? "", target.romaji].some(
+  return [target.japanese, target.kanji ?? '', target.romaji].some(
     (option) => option && normalizeAnswer(option) === typed,
   );
 }

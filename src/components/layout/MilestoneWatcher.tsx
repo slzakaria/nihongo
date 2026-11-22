@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useAuthStore } from "@/store/auth";
-import { useProgressStore } from "@/store/progress";
-import { useContentStore } from "@/lib/data/content";
-import { useBadgesStore } from "@/store/badges";
-import { fetchStudyDays } from "@/lib/supabase/activity";
-import { fetchConversationSummaries } from "@/lib/supabase/simulator";
-import { dayKey } from "@/lib/activity/studyDays";
-import { computeBadgeStats, getBadge, unlockedBadgeIds } from "@/lib/badges";
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '@/store/auth';
+import { useProgressStore } from '@/store/progress';
+import { useContentStore } from '@/lib/data/content';
+import { useBadgesStore } from '@/store/badges';
+import { fetchStudyDays } from '@/lib/supabase/activity';
+import { fetchConversationSummaries } from '@/lib/supabase/simulator';
+import { dayKey } from '@/lib/activity/studyDays';
+import { computeBadgeStats, getBadge, unlockedBadgeIds } from '@/lib/badges';
 
 // Lazily loaded so confetti never ships in the initial bundle for people who never earn a badge
 function fireConfetti(particleCount: number) {
-  void import("canvas-confetti").then(({ default: confetti }) =>
+  void import('canvas-confetti').then(({ default: confetti }) =>
     confetti({ particleCount, spread: 100, origin: { y: 0.6 } }),
   );
 }
@@ -29,9 +29,7 @@ export function MilestoneWatcher() {
   const markCelebrated = useBadgesStore((s) => s.markCelebrated);
 
   const [studyDays, setStudyDays] = useState<string[] | null>(null);
-  const [conversationCount, setConversationCount] = useState<number | null>(
-    null,
-  );
+  const [conversationCount, setConversationCount] = useState<number | null>(null);
   const [queue, setQueue] = useState<string[]>([]);
   const [current, setCurrent] = useState<string | null>(null);
 
@@ -54,9 +52,7 @@ export function MilestoneWatcher() {
       conversationCount,
       today: dayKey(),
     });
-    const newlyUnlocked = unlockedBadgeIds(stats).filter(
-      (id) => !celebrated[id],
-    );
+    const newlyUnlocked = unlockedBadgeIds(stats).filter((id) => !celebrated[id]);
     if (newlyUnlocked.length === 0) return;
     for (const id of newlyUnlocked) markCelebrated(id);
     setQueue((q) => [...q, ...newlyUnlocked.filter((id) => !q.includes(id))]);

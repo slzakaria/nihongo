@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Speaking Practice",
+  title: 'Speaking Practice',
   robots: { index: false, follow: false },
 };
 
-export default function SpeakingLayout({ children }: LayoutProps<"/speaking">) {
+export default function SpeakingLayout({ children }: LayoutProps<'/speaking'>) {
   return children;
 }

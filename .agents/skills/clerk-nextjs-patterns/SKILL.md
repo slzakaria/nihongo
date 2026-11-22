@@ -59,8 +59,8 @@ Key properties from `auth()`:
 
 ```tsx
 // Server Component
-import { auth } from "@clerk/nextjs/server";
-import { Suspense } from "react";
+import { auth } from '@clerk/nextjs/server';
+import { Suspense } from 'react';
 
 async function Greeting() {
   const { isAuthenticated, userId } = await auth(); // MUST await!
@@ -88,8 +88,8 @@ export default function Page() {
 **Authentication check:**
 
 ```tsx
-import { Show } from "@clerk/nextjs";
-import { Suspense } from "react";
+import { Show } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export function AuthenticatedDashboard() {
   return (
@@ -129,11 +129,7 @@ export function AuthenticatedDashboard() {
 **Callback for complex logic:**
 
 ```tsx
-<Show
-  when={(has) =>
-    has({ role: "org:admin" }) || has({ role: "org:billing_manager" })
-  }
->
+<Show when={(has) => has({ role: 'org:admin' }) || has({ role: 'org:billing_manager' })}>
   <BillingActions />
 </Show>
 ```
@@ -174,14 +170,14 @@ Pass a custom JWT to third-party services (Hasura, Supabase, etc.) using JWT tem
 **Server-side (Server Component or Route Handler)**:
 
 ```tsx
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server';
 
 export async function ExternalData() {
   const { getToken } = await auth();
-  const token = await getToken({ template: "hasura" });
+  const token = await getToken({ template: 'hasura' });
   if (!token) return <p>Not authenticated</p>;
 
-  const res = await fetch("https://api.example.com/graphql", {
+  const res = await fetch('https://api.example.com/graphql', {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await res.json();
@@ -243,10 +239,10 @@ For standalone API servers that receive Clerk session tokens from the `Authoriza
 **Using `@clerk/backend` `verifyToken`** (recommended):
 
 ```typescript
-import { verifyToken } from "@clerk/backend";
+import { verifyToken } from '@clerk/backend';
 
-const token = req.headers.authorization?.replace("Bearer ", "");
-if (!token) return res.status(401).json({ error: "No token" });
+const token = req.headers.authorization?.replace('Bearer ', '');
+if (!token) return res.status(401).json({ error: 'No token' });
 
 try {
   const claims = await verifyToken(token, {
@@ -254,27 +250,27 @@ try {
   });
   // claims.sub = userId
 } catch {
-  return res.status(401).json({ error: "Invalid token" });
+  return res.status(401).json({ error: 'Invalid token' });
 }
 ```
 
 **Using `jsonwebtoken`** (when you can't use `@clerk/backend`):
 
 ```typescript
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
-const publicKey = process.env.CLERK_PEM_PUBLIC_KEY!.replace(/\\n/g, "\n");
-const token = req.headers.authorization?.replace("Bearer ", "");
-if (!token) return res.status(401).json({ error: "No token" });
+const publicKey = process.env.CLERK_PEM_PUBLIC_KEY!.replace(/\\n/g, '\n');
+const token = req.headers.authorization?.replace('Bearer ', '');
+if (!token) return res.status(401).json({ error: 'No token' });
 
 try {
   const claims = jwt.verify(token, publicKey, {
-    algorithms: ["RS256"],
+    algorithms: ['RS256'],
   }) as jwt.JwtPayload;
   // Manually check exp and nbf (jsonwebtoken does this automatically, but verify azp if needed)
   // claims.sub = userId
 } catch {
-  return res.status(401).json({ error: "Invalid or expired token" });
+  return res.status(401).json({ error: 'Invalid or expired token' });
 }
 ```
 

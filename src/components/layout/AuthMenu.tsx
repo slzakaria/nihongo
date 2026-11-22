@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { LogOut, User, UserRound } from "lucide-react";
-import Link from "next/link";
-import { useClerk } from "@clerk/nextjs";
-import { useAuthStore } from "@/store/auth";
-import { useOnboardingStore } from "@/store/onboarding";
-import { Button } from "@/components/ui/button";
-import { useSignInDialogStore } from "@/store/signInDialog";
-import { Avatar } from "@/components/ui/avatar";
+import { useEffect, useRef, useState } from 'react';
+import { LogOut, User, UserRound } from 'lucide-react';
+import Link from 'next/link';
+import { useClerk } from '@clerk/nextjs';
+import { useAuthStore } from '@/store/auth';
+import { useOnboardingStore } from '@/store/onboarding';
+import { Button } from '@/components/ui/button';
+import { useSignInDialogStore } from '@/store/signInDialog';
+import { Avatar } from '@/components/ui/avatar';
 
 export function AuthMenu() {
   const user = useAuthStore((s) => s.user);
@@ -22,11 +22,10 @@ export function AuthMenu() {
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node))
-        setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
+    document.addEventListener('mousedown', onClickOutside);
+    return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
   async function signOut() {
@@ -52,7 +51,7 @@ export function AuthMenu() {
         {user ? (
           <Avatar
             url={avatarUrl}
-            label={userName || user.email || user.phone || "?"}
+            label={userName || user.email || user.phone || '?'}
             className="h-7 w-7 text-xs"
           />
         ) : (
@@ -67,9 +66,7 @@ export function AuthMenu() {
               <p className="px-1 text-xs font-medium text-muted-foreground">
                 Signed in as
               </p>
-              <p className="truncate px-1 text-sm">
-                {user.email ?? user.phone}
-              </p>
+              <p className="truncate px-1 text-sm">{user.email ?? user.phone}</p>
               <Button
                 asChild
                 type="button"
@@ -92,7 +89,7 @@ export function AuthMenu() {
                 loading={signingOut}
               >
                 <LogOut className="h-3.5 w-3.5" />
-                {signingOut ? "Signing out…" : "Sign out"}
+                {signingOut ? 'Signing out…' : 'Sign out'}
               </Button>
             </div>
           ) : null}

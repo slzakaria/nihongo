@@ -1,4 +1,4 @@
-import { SRSCard } from "@/types";
+import { SRSCard } from '@/types';
 
 function dateKey(ts: number): string {
   const d = new Date(ts);

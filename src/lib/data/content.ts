@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import type { Phrase, PhraseResponse, Scenario } from "@/types";
-import phrasesRaw from "./phrases.json";
+import { create } from 'zustand';
+import type { Phrase, PhraseResponse, Scenario } from '@/types';
+import phrasesRaw from './phrases.json';
 
 export interface ContentSet {
   phrases: Scenario[];
@@ -8,8 +8,8 @@ export interface ContentSet {
   katakana: Scenario[];
 }
 
-type StrippedScenario = Omit<Scenario, "phrases"> & {
-  phrases: Omit<Phrase, "responses">[];
+type StrippedScenario = Omit<Scenario, 'phrases'> & {
+  phrases: Omit<Phrase, 'responses'>[];
 };
 
 // Bundled phrase list without responses (see loadPhraseResponses). Used until the database loads, and whenever it is unreachable.
@@ -38,19 +38,15 @@ export function getContent(): ContentSet {
 }
 
 const TABLES: Record<keyof ContentSet, string> = {
-  phrases: "phrase_scenarios",
-  hiragana: "hiragana_rows",
-  katakana: "katakana_rows",
+  phrases: 'phrase_scenarios',
+  hiragana: 'hiragana_rows',
+  katakana: 'katakana_rows',
 };
 
 // Reads the content tables through PostgREST with plain fetch. A supabase-js client here would create
 // a second GoTrueClient in the browser, which shares the auth storage key with the app's auth client.
 // The one-hour revalidate lets server renders reuse the cached response instead of querying on every request.
-async function fetchTable(
-  table: string,
-  url: string,
-  key: string,
-): Promise<Scenario[]> {
+async function fetchTable(table: string, url: string, key: string): Promise<Scenario[]> {
   const res = await fetch(
     `${url}/rest/v1/${table}?select=slug,label,icon,phrases&order=sort_order.asc`,
     {
@@ -79,8 +75,7 @@ export async function fetchContent(): Promise<ContentSet | null> {
   try {
     const entries = await Promise.all(
       (Object.keys(TABLES) as (keyof ContentSet)[]).map(
-        async (name) =>
-          [name, await fetchTable(TABLES[name], url, key)] as const,
+        async (name) => [name, await fetchTable(TABLES[name], url, key)] as const,
       ),
     );
     return Object.fromEntries(entries) as unknown as ContentSet;
@@ -94,9 +89,7 @@ type ResponseMap = Record<string, PhraseResponse[]>;
 // Imported only when something needs responses, so the JSON stays out of the initial bundle
 let responseMap: Promise<ResponseMap> | undefined;
 function getResponseMap(): Promise<ResponseMap> {
-  responseMap ??= import("./phrase-responses.json").then(
-    (m) => m.default as ResponseMap,
-  );
+  responseMap ??= import('./phrase-responses.json').then((m) => m.default as ResponseMap);
   return responseMap;
 }
 
@@ -125,16 +118,15 @@ export function loadPhraseResponses(): Promise<void> {
 
 let kanaLoaded: Promise<void> | undefined;
 export function loadKana(): Promise<void> {
-  kanaLoaded ??= Promise.all([
-    import("./hiragana.json"),
-    import("./katakana.json"),
-  ]).then(([hiragana, katakana]) => {
-    useContentStore.getState().setContent({
-      ...getContent(),
-      hiragana: hiragana.default.scenarios as Scenario[],
-      katakana: katakana.default.scenarios as Scenario[],
-    });
-  });
+  kanaLoaded ??= Promise.all([import('./hiragana.json'), import('./katakana.json')]).then(
+    ([hiragana, katakana]) => {
+      useContentStore.getState().setContent({
+        ...getContent(),
+        hiragana: hiragana.default.scenarios as Scenario[],
+        katakana: katakana.default.scenarios as Scenario[],
+      });
+    },
+  );
   return kanaLoaded;
 }
 

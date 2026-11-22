@@ -1,5 +1,5 @@
-import { Lightbulb } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Lightbulb } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 // Practical etiquette for a scenario, shown above its phrase list
 export function EtiquetteCard({ tips }: { tips: string[] }) {

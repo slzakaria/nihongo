@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useCallback, useMemo } from "react";
-import { ArrowLeft, Bookmark } from "lucide-react";
-import { FlashcardDeck } from "@/components/flashcards/FlashcardDeck";
-import { Button } from "@/components/ui/button";
-import { useContentStore } from "@/lib/data/content";
-import { useProgressStore } from "@/store/progress";
-import { useBookmarkStore } from "@/store/bookmarks";
+import Link from 'next/link';
+import { useCallback, useMemo } from 'react';
+import { ArrowLeft, Bookmark } from 'lucide-react';
+import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
+import { Button } from '@/components/ui/button';
+import { useContentStore } from '@/lib/data/content';
+import { useProgressStore } from '@/store/progress';
+import { useBookmarkStore } from '@/store/bookmarks';
 
 export default function BookmarkedFlashcardsPage() {
   const scenarios = useContentStore((s) => s.content.phrases);
@@ -45,11 +45,7 @@ export default function BookmarkedFlashcardsPage() {
       </div>
 
       {phrases.length > 0 ? (
-        <FlashcardDeck
-          slug="bookmarks"
-          phrases={phrases}
-          onInit={initializeCards}
-        />
+        <FlashcardDeck slug="bookmarks" phrases={phrases} onInit={initializeCards} />
       ) : (
         <div className="flex flex-col items-center gap-3 py-16 text-center">
           <p className="text-lg font-medium">No saved phrases yet</p>

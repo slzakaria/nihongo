@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 // Lets any control (navbar icon, sign-in banner) open the centered sign-in dialog
 interface SignInDialogStore {

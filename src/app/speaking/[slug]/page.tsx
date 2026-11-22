@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useState } from "react";
-import { ArrowLeft, Eye, EyeOff, Mic, MicOff, RotateCcw } from "lucide-react";
-import { useContentStore } from "@/lib/data/content";
-import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
-import { AudioButton } from "@/components/phrases/AudioButton";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
-import { trackBusy } from "@/store/busy";
-import { showGuestLimitDialog } from "@/store/rateLimitDialog";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
+import { ArrowLeft, Eye, EyeOff, Mic, MicOff, RotateCcw } from 'lucide-react';
+import { useContentStore } from '@/lib/data/content';
+import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
+import { AudioButton } from '@/components/phrases/AudioButton';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
+import { trackBusy } from '@/store/busy';
+import { showRateLimitDialog } from '@/store/rateLimitDialog';
 
 interface Score {
   score: number;
@@ -23,15 +23,13 @@ interface Score {
 // Listening and speaking drill: hear the phrase, say it back, and see which words were missed
 export default function SpeakingDrillPage() {
   const { slug } = useParams<{ slug: string }>();
-  const scenario = useContentStore((s) =>
-    s.content.phrases.find((x) => x.slug === slug),
-  );
+  const scenario = useContentStore((s) => s.content.phrases.find((x) => x.slug === slug));
   const phrases = scenario?.phrases ?? [];
 
   const [index, setIndex] = useState(0);
   const [showMeaning, setShowMeaning] = useState(false);
   const [result, setResult] = useState<Score | null>(null);
-  const [heard, setHeard] = useState("");
+  const [heard, setHeard] = useState('');
   const [scoring, setScoring] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const {
@@ -45,9 +43,7 @@ export default function SpeakingDrillPage() {
 
   if (!scenario) {
     return (
-      <p className="px-4 py-10 text-sm text-muted-foreground">
-        Scenario not found.
-      </p>
+      <p className="px-4 py-10 text-sm text-muted-foreground">Scenario not found.</p>
     );
   }
 
@@ -61,9 +57,9 @@ export default function SpeakingDrillPage() {
     setError(null);
     try {
       const res = await trackBusy(
-        fetch("/api/practice/score", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetch('/api/practice/score', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             target: {
               japanese: phrase.japanese,
@@ -75,11 +71,11 @@ export default function SpeakingDrillPage() {
         }),
       );
       const data = (await res.json()) as Score & { error?: string };
-      if (res.status === 429) showGuestLimitDialog(data.error);
-      if (!res.ok) throw new Error(data.error ?? "Scoring failed");
+      if (res.status === 429) showRateLimitDialog(data.error);
+      if (!res.ok) throw new Error(data.error ?? 'Scoring failed');
       setResult(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Scoring failed");
+      setError(err instanceof Error ? err.message : 'Scoring failed');
     } finally {
       setScoring(false);
     }
@@ -89,13 +85,13 @@ export default function SpeakingDrillPage() {
     setIndex((i) => i + 1);
     setShowMeaning(false);
     setResult(null);
-    setHeard("");
+    setHeard('');
     setError(null);
   }
 
   function retry() {
     setResult(null);
-    setHeard("");
+    setHeard('');
     setError(null);
   }
 
@@ -109,9 +105,7 @@ export default function SpeakingDrillPage() {
           <ArrowLeft className="h-3.5 w-3.5" />
           {scenario.label}
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Speaking practice
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Speaking practice</h1>
         <p className="text-muted-foreground">
           Listen, say the phrase out loud, then check how you did.
         </p>
@@ -185,10 +179,10 @@ export default function SpeakingDrillPage() {
                       <Mic className="h-4 w-4" />
                     ))}
                   {isListening
-                    ? "Stop recording"
+                    ? 'Stop recording'
                     : scoring
-                      ? "Checking…"
-                      : "Record my reply"}
+                      ? 'Checking…'
+                      : 'Record my reply'}
                 </Button>
               ) : (
                 <p className="text-sm text-muted-foreground">
@@ -202,7 +196,7 @@ export default function SpeakingDrillPage() {
               )}
               {(micError || error) && (
                 <p className="text-xs text-red-500">
-                  {error ?? "We could not hear you. Please try again."}
+                  {error ?? 'We could not hear you. Please try again.'}
                 </p>
               )}
             </div>
@@ -220,15 +214,13 @@ export default function SpeakingDrillPage() {
                 <div className="flex flex-col items-center gap-1">
                   <p
                     className={cn(
-                      "text-4xl font-semibold",
-                      result.score >= 80 ? "text-primary" : "text-foreground",
+                      'text-4xl font-semibold',
+                      result.score >= 80 ? 'text-primary' : 'text-foreground',
                     )}
                   >
                     {result.score}%
                   </p>
-                  <p className="text-xs text-muted-foreground">
-                    match with the target
-                  </p>
+                  <p className="text-xs text-muted-foreground">match with the target</p>
                 </div>
                 <div
                   className="flex flex-wrap justify-center gap-2"
@@ -239,10 +231,10 @@ export default function SpeakingDrillPage() {
                       key={i}
                       lang="ja"
                       className={cn(
-                        "rounded-full px-3 py-1 text-sm font-medium",
+                        'rounded-full px-3 py-1 text-sm font-medium',
                         w.heard
-                          ? "bg-accent text-accent-foreground"
-                          : "border border-red-400 text-red-500 line-through",
+                          ? 'bg-accent text-accent-foreground'
+                          : 'border border-red-400 text-red-500 line-through',
                       )}
                     >
                       {w.word}
@@ -263,11 +255,7 @@ export default function SpeakingDrillPage() {
                   >
                     <RotateCcw className="h-3.5 w-3.5" /> Try again
                   </Button>
-                  <Button
-                    type="button"
-                    className="cursor-pointer"
-                    onClick={next}
-                  >
+                  <Button type="button" className="cursor-pointer" onClick={next}>
                     Next phrase
                   </Button>
                 </div>

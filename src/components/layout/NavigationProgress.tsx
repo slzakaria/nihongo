@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
-import { useBusyStore } from "@/store/busy";
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { useBusyStore } from '@/store/busy';
 
 // Stops the overlay if a navigation never completes (e.g. a click on a link that fails to load)
 const GIVE_UP_MS = 15000;
@@ -14,15 +14,10 @@ export function NavigationProgress() {
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
-        return;
-      const anchor = (e.target as Element | null)?.closest?.("a[href]") as
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const anchor = (e.target as Element | null)?.closest?.('a[href]') as
         HTMLAnchorElement | null | undefined;
-      if (
-        !anchor ||
-        anchor.target === "_blank" ||
-        anchor.hasAttribute("download")
-      )
+      if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download'))
         return;
       const url = new URL(anchor.href);
       if (
@@ -40,8 +35,8 @@ export function NavigationProgress() {
     }
 
     // Capture phase runs before Next's Link handler, so the click is seen even though Link prevents the default
-    document.addEventListener("click", onClick, true);
-    return () => document.removeEventListener("click", onClick, true);
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
   }, []);
 
   // Runs when the route changes: the pending navigation is finished, so cancel its timer and clear the overlay

@@ -1,78 +1,130 @@
-import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
-import { NextRequest } from "next/server";
+import { createHmac, randomBytes } from 'node:crypto';
+import { isIP } from 'node:net';
+import type { NextRequest } from 'next/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
-// Shared anonymous-caller cap. Signed-in users (checked by callers via currentServerUser())
-// skip this entirely — this only throttles guests.
 export const ANON_DAILY_LIMIT = 20;
-const DAY_SECONDS = 3600;
-
-// Signs the cookie so a client can't edit its own count back down (e.g. `today:0`) or replay a
-// cookie minted for a different route. Prefer a dedicated secret; fall back to secrets already
-// required in production so no new env var is needed there. In local dev, where none of those
-// may be set, fall back to a random per-process secret — existing cookies simply stop verifying
-// (and guests get a fresh count) after a restart, which is harmless.
-const SECRET =
-  process.env.RATE_LIMIT_SECRET ??
-  process.env.CLERK_SECRET_KEY ??
-  process.env.SUPABASE_SERVICE_ROLE_KEY ??
-  randomBytes(32).toString("hex");
-
-function todayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function sign(payload: string): string {
-  return createHmac("sha256", SECRET)
-    .update(payload)
-    .digest("hex")
-    .slice(0, 32);
-}
-
-function verify(payload: string, signature: string): boolean {
-  const expected = Buffer.from(sign(payload));
-  const actual = Buffer.from(signature);
-  return expected.length === actual.length && timingSafeEqual(expected, actual);
-}
+export const USER_DAILY_LIMIT = 100;
+const IP_DAILY_LIMIT = 200;
+const DEVELOPMENT_SECRET =
+  process.env.NODE_ENV === 'production' ? undefined : randomBytes(32).toString('hex');
 
 export interface RateLimitResult {
   limited: boolean;
-  setCookie?: string;
+  unavailable?: boolean;
 }
 
-// Hard per-day cap for anonymous requests, tracked via a signed HttpOnly cookie
-// (`date:count.signature`). The signature covers the cookie name too, so a value can't be
-// edited down or copied onto a different endpoint's cookie. Any cookie that fails to verify is
-// treated as already over the limit rather than reset to zero — resetting it would hand an
-// attacker an easy way to defeat the cap by sending a slightly-tweaked value each time.
-export function checkAndBumpDailyLimit(
+function clientIp(req: NextRequest): string | undefined {
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  const candidates = [
+    ...(forwardedFor?.split(',') ?? []),
+    req.headers.get('x-real-ip') ?? '',
+  ];
+
+  const forwardedIp = candidates
+    .map((candidate) => candidate.trim())
+    .find((ip) => isIP(ip));
+  if (forwardedIp) return forwardedIp;
+  return process.env.NODE_ENV === 'production' ? undefined : '127.0.0.1';
+}
+
+function rateLimitSecret(): string | undefined {
+  return [
+    process.env.RATE_LIMIT_SECRET,
+    process.env.CLERK_SECRET_KEY,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    DEVELOPMENT_SECRET,
+  ].find((secret) => Boolean(secret?.trim()));
+}
+
+function identityHash(identity: string, secret: string): string {
+  return createHmac('sha256', secret).update(identity).digest('hex');
+}
+
+export function accountRateLimitHash(userId: string): string | null {
+  const secret = rateLimitSecret();
+  return secret ? identityHash(`user:${userId}`, secret) : null;
+}
+
+function retryAfterSeconds(): number {
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.ceil((millisecondsPerDay - (Date.now() % millisecondsPerDay)) / 1000);
+}
+
+export function rateLimitResponse(result: RateLimitResult): Response | undefined {
+  if (result.unavailable) {
+    return Response.json(
+      { error: 'Usage limits are temporarily unavailable. Please try again.' },
+      { status: 503, headers: { 'Retry-After': '30' } },
+    );
+  }
+
+  if (!result.limited) return undefined;
+
+  return Response.json(
+    {
+      error: "Today's usage limit has been reached. Please try again tomorrow.",
+    },
+    {
+      status: 429,
+      headers: { 'Retry-After': String(retryAfterSeconds()) },
+    },
+  );
+}
+
+export async function checkAndBumpDailyLimit(
   req: NextRequest,
-  cookieName: string,
-  limit: number,
-): RateLimitResult {
-  const raw = req.cookies.get(cookieName)?.value ?? "";
-  const today = todayKey();
+  provider: 'anthropic' | 'elevenlabs',
+  userId: string | null,
+  anonymousLimit = ANON_DAILY_LIMIT,
+): Promise<RateLimitResult> {
+  const secret = rateLimitSecret();
+  const ip = clientIp(req);
+  if (!secret || (!userId && !ip)) {
+    console.error('API rate limiting is missing a stable secret or client IP');
+    return { limited: false, unavailable: true };
+  }
 
-  let count = 0;
-  if (raw) {
-    const dot = raw.lastIndexOf(".");
-    const payload = dot === -1 ? raw : raw.slice(0, dot);
-    const signature = dot === -1 ? "" : raw.slice(dot + 1);
+  const supabase = createAdminClient();
+  const checks = userId
+    ? [
+        {
+          bucket: `${provider}:user`,
+          identity: `user:${userId}`,
+          limit: USER_DAILY_LIMIT,
+        },
+        ...(ip
+          ? [
+              {
+                bucket: `${provider}:ip`,
+                identity: `ip:${ip}`,
+                limit: IP_DAILY_LIMIT,
+              },
+            ]
+          : []),
+      ]
+    : [
+        {
+          bucket: provider,
+          identity: `ip:${ip}`,
+          limit: anonymousLimit,
+        },
+      ];
 
-    if (!verify(`${cookieName}:${payload}`, signature)) {
-      return { limited: true };
+  for (const check of checks) {
+    const { data, error } = await supabase.rpc('consume_api_daily_limit', {
+      p_bucket: check.bucket,
+      p_identity_hash: identityHash(check.identity, secret),
+      p_limit: check.limit,
+    });
+
+    if (error || typeof data !== 'boolean') {
+      console.error('API rate-limit check failed', error);
+      return { limited: false, unavailable: true };
     }
 
-    const [storedDate, storedCount] = payload.split(":");
-    count = storedDate === today ? parseInt(storedCount || "0", 10) || 0 : 0;
+    if (!data) return { limited: true };
   }
 
-  if (count >= limit) {
-    return { limited: true };
-  }
-
-  const payload = `${today}:${count + 1}`;
-  const value = `${payload}.${sign(`${cookieName}:${payload}`)}`;
-  const isProd = process.env.NODE_ENV === "production";
-  const setCookie = `${cookieName}=${value}; Path=/; Max-Age=${DAY_SECONDS}; SameSite=Lax; HttpOnly${isProd ? "; Secure" : ""}`;
-  return { limited: false, setCookie };
+  return { limited: false };
 }

@@ -75,13 +75,13 @@ This applies regardless of role assignment. See `clerk-billing` skill for the fu
 Via Backend API:
 
 ```typescript
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from '@clerk/nextjs/server';
 
 const clerk = await clerkClient();
 await clerk.organizations.updateOrganizationMembership({
-  organizationId: "org_123",
-  userId: "user_123",
-  role: "org:admin",
+  organizationId: 'org_123',
+  userId: 'user_123',
+  role: 'org:admin',
 });
 ```
 
@@ -95,31 +95,31 @@ Three surfaces, same semantics:
 
 ```typescript
 // Server (Next.js)
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server';
 const { has } = await auth();
-has({ role: "org:admin" });
-has({ permission: "org:invoices:create" }); // custom Permissions only
+has({ role: 'org:admin' });
+has({ permission: 'org:invoices:create' }); // custom Permissions only
 ```
 
 On the server, `has({ permission })` works only with custom Permissions: System Permissions (`org:sys_*`) aren't in the session token, so checking one there always returns `false`. To require a System Permission, check a role that carries it.
 
 ```tsx
 // Client (any React-based SDK)
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from '@clerk/nextjs';
 const { has, isLoaded } = useAuth();
 if (!isLoaded) return null;
-has?.({ role: "org:admin" });
+has?.({ role: 'org:admin' });
 ```
 
 ```tsx
 // JSX conditional
-import { Show } from "@clerk/nextjs";
-import { Suspense } from "react";
+import { Show } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export function AdminOnly() {
   return (
     <Suspense>
-      <Show when={{ role: "org:admin" }}>
+      <Show when={{ role: 'org:admin' }}>
         <AdminPanel />
       </Show>
     </Suspense>

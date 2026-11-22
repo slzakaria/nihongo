@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const COOLDOWN_MS = 24 * 60 * 60 * 1000;
-const STORAGE_PREFIX = "nihongo-info-popup-last-shown:";
-const CHANGE_EVENT = "nihongo:info-popup-shown";
+const STORAGE_PREFIX = 'nihongo-info-popup-last-shown:';
+const CHANGE_EVENT = 'nihongo:info-popup-shown';
 
 export function isInfoPopupCooldownComplete(
   lastShownAt: number | null,
@@ -38,12 +38,12 @@ export function useInfoPopupCooldown(scope: string | null): boolean {
 
     update();
     window.addEventListener(CHANGE_EVENT, update);
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("focus", update);
+    window.addEventListener('storage', onStorage);
+    window.addEventListener('focus', update);
     return () => {
       window.removeEventListener(CHANGE_EVENT, update);
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("focus", update);
+      window.removeEventListener('storage', onStorage);
+      window.removeEventListener('focus', update);
     };
   }, [scope]);
 

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   getSpeechRecognitionCtor,
   isSpeechRecognitionSupported,
   type SpeechRecognitionLike,
-} from "@/lib/speech/recognition";
-import { showGuestLimitDialog } from "@/store/rateLimitDialog";
+} from '@/lib/speech/recognition';
+import { showRateLimitDialog } from '@/store/rateLimitDialog';
 
 function isMediaRecordingSupported(): boolean {
   return (
-    typeof window !== "undefined" &&
+    typeof window !== 'undefined' &&
     !!navigator.mediaDevices?.getUserMedia &&
-    typeof MediaRecorder !== "undefined"
+    typeof MediaRecorder !== 'undefined'
   );
 }
 
@@ -30,80 +30,71 @@ export function useSpeechRecognition() {
   useEffect(() => {
     // Mount-only feature detection — the standard fix for SSR/hydration mismatches
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsSupported(
-      isSpeechRecognitionSupported() || isMediaRecordingSupported(),
-    );
+    setIsSupported(isSpeechRecognitionSupported() || isMediaRecordingSupported());
   }, []);
 
   // Records with the mic and sends the clip to our own /api/stt (ElevenLabs) route —
   // used when the browser's built-in Web Speech API is unavailable or unreachable
   // (e.g. its direct network call to Google's speech servers gets blocked).
-  const startServerRecording = useCallback(
-    async (onResult: (text: string) => void) => {
-      if (!isMediaRecordingSupported()) {
+  const startServerRecording = useCallback(async (onResult: (text: string) => void) => {
+    if (!isMediaRecordingSupported()) {
+      setIsListening(false);
+      setError('not-supported');
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus'
+        : 'audio/webm';
+      const recorder = new MediaRecorder(stream, { mimeType });
+      const chunks: BlobPart[] = [];
+
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+      recorder.onstop = async () => {
+        stream.getTracks().forEach((t) => t.stop());
+        recorderRef.current = null;
         setIsListening(false);
-        setError("not-supported");
-        return;
-      }
+        if (chunks.length === 0) return;
 
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
-        const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-          ? "audio/webm;codecs=opus"
-          : "audio/webm";
-        const recorder = new MediaRecorder(stream, { mimeType });
-        const chunks: BlobPart[] = [];
-
-        recorder.ondataavailable = (e) => {
-          if (e.data.size > 0) chunks.push(e.data);
-        };
-        recorder.onstop = async () => {
-          stream.getTracks().forEach((t) => t.stop());
-          recorderRef.current = null;
-          setIsListening(false);
-          if (chunks.length === 0) return;
-
-          setIsTranscribing(true);
-          try {
-            const form = new FormData();
-            form.append(
-              "file",
-              new Blob(chunks, { type: mimeType }),
-              "speech.webm",
-            );
-            const res = await fetch("/api/stt", { method: "POST", body: form });
-            if (res.status === 429) {
-              const data = (await res.json().catch(() => null)) as {
-                error?: string;
-              } | null;
-              showGuestLimitDialog(data?.error);
-              setError("rate-limited");
-              return;
-            }
-            if (!res.ok) throw new Error("stt-failed");
-            const data = (await res.json()) as { text?: string };
-            if (data.text) onResult(data.text);
-            else setError("no-speech");
-          } catch {
-            setError("stt-failed");
-          } finally {
-            setIsTranscribing(false);
+        setIsTranscribing(true);
+        try {
+          const form = new FormData();
+          form.append('file', new Blob(chunks, { type: mimeType }), 'speech.webm');
+          const res = await fetch('/api/stt', { method: 'POST', body: form });
+          if (res.status === 429) {
+            const data = (await res.json().catch(() => null)) as {
+              error?: string;
+            } | null;
+            showRateLimitDialog(data?.error);
+            setError('rate-limited');
+            return;
           }
-        };
+          if (!res.ok) throw new Error('stt-failed');
+          const data = (await res.json()) as { text?: string };
+          if (data.text) onResult(data.text);
+          else setError('no-speech');
+        } catch {
+          setError('stt-failed');
+        } finally {
+          setIsTranscribing(false);
+        }
+      };
 
-        recorderRef.current = recorder;
-        setError(null);
-        setIsListening(true);
-        recorder.start();
-      } catch {
-        setIsListening(false);
-        setError("not-allowed");
-      }
-    },
-    [],
-  );
+      recorderRef.current = recorder;
+      setError(null);
+      setIsListening(true);
+      recorder.start();
+    } catch {
+      setIsListening(false);
+      setError('not-allowed');
+    }
+  }, []);
 
   const start = useCallback(
     (onResult: (text: string) => void) => {
@@ -125,7 +116,7 @@ export function useSpeechRecognition() {
       recognition.interimResults = false;
 
       recognition.onresult = (event) => {
-        const transcript = event.results[0]?.[0]?.transcript ?? "";
+        const transcript = event.results[0]?.[0]?.transcript ?? '';
         if (transcript) onResult(transcript);
       };
       recognition.onend = () => {
@@ -136,7 +127,7 @@ export function useSpeechRecognition() {
         recognitionRef.current = null;
         // The user clicking "stop" themselves also surfaces as an 'aborted' error —
         // treat that as a normal stop rather than a failure needing a fallback.
-        if (event.error === "aborted" && manualStopRef.current) {
+        if (event.error === 'aborted' && manualStopRef.current) {
           manualStopRef.current = false;
           setIsListening(false);
           return;
@@ -144,12 +135,12 @@ export function useSpeechRecognition() {
         // Chrome reports an unreachable/disabled speech backend as either 'network'
         // or 'aborted' depending on version — fall back to recording the clip
         // ourselves and transcribing it server-side in both cases.
-        if (event.error === "network" || event.error === "aborted") {
+        if (event.error === 'network' || event.error === 'aborted') {
           void startServerRecording(onResult);
           return;
         }
         setIsListening(false);
-        setError(event.error || "unknown-error");
+        setError(event.error || 'unknown-error');
       };
 
       try {

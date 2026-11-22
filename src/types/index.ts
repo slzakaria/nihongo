@@ -14,7 +14,7 @@ export interface Phrase {
   kanji?: string;
   romaji: string;
   english: string;
-  difficulty: "core" | "extra";
+  difficulty: 'core' | 'extra';
   notes: string;
   responses: PhraseResponse[];
 }
@@ -39,11 +39,11 @@ export interface SRSCard {
 
 export type SRSGrade = 0 | 1 | 2 | 3 | 4 | 5;
 
-export type RomajiMode = "always" | "reveal" | "never";
+export type RomajiMode = 'always' | 'reveal' | 'never';
 
 export type TtsSpeed = 1 | 0.75 | 0.5;
 
 export interface ChatMessage {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
 }

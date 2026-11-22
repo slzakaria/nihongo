@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Volume2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Volume2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export function AudioIconButton({
   isLoading,
@@ -25,10 +25,7 @@ export function AudioIconButton({
       aria-label="Play pronunciation"
       loading={isLoading}
       disabled={disabled}
-      className={cn(
-        isPlaying && "text-primary-foreground bg-primary",
-        className,
-      )}
+      className={cn(isPlaying && 'text-primary-foreground bg-primary', className)}
       onClick={onClick}
     >
       <Volume2 className="h-4 w-4" />

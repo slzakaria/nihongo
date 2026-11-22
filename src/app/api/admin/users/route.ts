@@ -1,8 +1,8 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { isAdminEmail } from "@/lib/admin";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { computeStudyStats, dayKey } from "@/lib/activity/studyDays";
-import phrasesRaw from "@/lib/data/phrases.json";
+import { currentUser } from '@clerk/nextjs/server';
+import { isAdminEmail } from '@/lib/admin';
+import { createAdminClient } from '@/lib/supabase/admin';
+import { computeStudyStats, dayKey } from '@/lib/activity/studyDays';
+import phrasesRaw from '@/lib/data/phrases.json';
 
 export interface AdminUserRow {
   id: string;
@@ -23,9 +23,7 @@ export interface AdminUserRow {
 const SCENARIO_TOTALS = new Map(
   phrasesRaw.scenarios.map((s) => [s.slug, s.phrases.length]),
 );
-const SCENARIO_LABELS = new Map(
-  phrasesRaw.scenarios.map((s) => [s.slug, s.label]),
-);
+const SCENARIO_LABELS = new Map(phrasesRaw.scenarios.map((s) => [s.slug, s.label]));
 
 // Admin-only: every signed-up person's profile, activity and progress, for the owner's dashboard
 // in /profile. The email check here is the real security boundary — it re-derives the caller's
@@ -34,7 +32,7 @@ export async function GET() {
   const user = await currentUser();
   const email = user?.primaryEmailAddress?.emailAddress ?? null;
   if (!isAdminEmail(email)) {
-    return Response.json({ error: "Not authorized" }, { status: 403 });
+    return Response.json({ error: 'Not authorized' }, { status: 403 });
   }
 
   const supabase = createAdminClient();
@@ -45,16 +43,14 @@ export async function GET() {
     { data: studyRows },
     { data: conversations },
   ] = await Promise.all([
-    supabase
-      .from("profiles")
-      .select("id, user_name, email, created_at, last_sign_in_at"),
-    supabase.from("srs_cards").select("user_id, scenario_slug, last_review"),
-    supabase.from("study_activity").select("user_id, day"),
-    supabase.from("simulator_conversations").select("user_id"),
+    supabase.from('profiles').select('id, user_name, email, created_at, last_sign_in_at'),
+    supabase.from('srs_cards').select('user_id, scenario_slug, last_review'),
+    supabase.from('study_activity').select('user_id, day'),
+    supabase.from('simulator_conversations').select('user_id'),
   ]);
 
   if (profilesError) {
-    return Response.json({ error: "Could not load users" }, { status: 500 });
+    return Response.json({ error: 'Could not load users' }, { status: 500 });
   }
 
   const reviewedByUser = new Map<string, number>();
@@ -63,8 +59,7 @@ export async function GET() {
   for (const c of cards ?? []) {
     if (!c.last_review) continue;
     reviewedByUser.set(c.user_id, (reviewedByUser.get(c.user_id) ?? 0) + 1);
-    const byScenario =
-      reviewedByUserScenario.get(c.user_id) ?? new Map<string, number>();
+    const byScenario = reviewedByUserScenario.get(c.user_id) ?? new Map<string, number>();
     byScenario.set(c.scenario_slug, (byScenario.get(c.scenario_slug) ?? 0) + 1);
     reviewedByUserScenario.set(c.user_id, byScenario);
   }
@@ -75,8 +70,7 @@ export async function GET() {
     const labels: string[] = [];
     for (const [slug, count] of byScenario) {
       const total = SCENARIO_TOTALS.get(slug);
-      if (total && count >= total)
-        labels.push(SCENARIO_LABELS.get(slug) ?? slug);
+      if (total && count >= total) labels.push(SCENARIO_LABELS.get(slug) ?? slug);
     }
     return labels;
   }
@@ -90,10 +84,7 @@ export async function GET() {
 
   const conversationsByUser = new Map<string, number>();
   for (const row of conversations ?? []) {
-    conversationsByUser.set(
-      row.user_id,
-      (conversationsByUser.get(row.user_id) ?? 0) + 1,
-    );
+    conversationsByUser.set(row.user_id, (conversationsByUser.get(row.user_id) ?? 0) + 1);
   }
 
   const today = dayKey();
@@ -114,9 +105,7 @@ export async function GET() {
   });
 
   // Most recently active first
-  users.sort((a, b) =>
-    (b.lastSignInAt ?? "").localeCompare(a.lastSignInAt ?? ""),
-  );
+  users.sort((a, b) => (b.lastSignInAt ?? '').localeCompare(a.lastSignInAt ?? ''));
 
   return Response.json({ users });
 }

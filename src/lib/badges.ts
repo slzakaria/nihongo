@@ -5,13 +5,13 @@ import {
   MapPinned,
   MessageSquare,
   type LucideIcon,
-} from "lucide-react";
-import type { Scenario, SRSCard } from "@/types";
-import { countReviewedPhrases } from "@/lib/srs/milestones";
-import { computeStudyStats } from "@/lib/activity/studyDays";
+} from 'lucide-react';
+import type { Scenario, SRSCard } from '@/types';
+import { countReviewedPhrases } from '@/lib/srs/milestones';
+import { computeStudyStats } from '@/lib/activity/studyDays';
 
 export type BadgeCategory =
-  "phrases" | "streak" | "studyDays" | "scenarios" | "simulator";
+  'phrases' | 'streak' | 'studyDays' | 'scenarios' | 'simulator';
 
 export interface BadgeDef {
   id: string;
@@ -30,166 +30,166 @@ export const CATEGORY_ICON: Record<BadgeCategory, LucideIcon> = {
 };
 
 export const CATEGORY_LABEL: Record<BadgeCategory, string> = {
-  phrases: "Phrases reviewed",
-  streak: "Study streak",
-  studyDays: "Days learning",
-  scenarios: "Scenarios completed",
-  simulator: "Simulator conversations",
+  phrases: 'Phrases reviewed',
+  streak: 'Study streak',
+  studyDays: 'Days learning',
+  scenarios: 'Scenarios completed',
+  simulator: 'Simulator conversations',
 };
 
 // Every badge in the app, across five categories. Thresholds climb gradually so there's always a
 // near-term one to aim for, not just a couple of big round numbers.
 export const BADGES: BadgeDef[] = [
   {
-    id: "phrases-10",
-    category: "phrases",
+    id: 'phrases-10',
+    category: 'phrases',
     threshold: 10,
-    label: "First Steps",
-    description: "10 phrases reviewed",
+    label: 'First Steps',
+    description: '10 phrases reviewed',
   },
   {
-    id: "phrases-25",
-    category: "phrases",
+    id: 'phrases-25',
+    category: 'phrases',
     threshold: 25,
-    label: "Getting Going",
-    description: "25 phrases reviewed",
+    label: 'Getting Going',
+    description: '25 phrases reviewed',
   },
   {
-    id: "phrases-50",
-    category: "phrases",
+    id: 'phrases-50',
+    category: 'phrases',
     threshold: 50,
-    label: "Half Century",
-    description: "50 phrases reviewed",
+    label: 'Half Century',
+    description: '50 phrases reviewed',
   },
   {
-    id: "phrases-100",
-    category: "phrases",
+    id: 'phrases-100',
+    category: 'phrases',
     threshold: 100,
-    label: "Centurion",
-    description: "100 phrases reviewed",
+    label: 'Centurion',
+    description: '100 phrases reviewed',
   },
   {
-    id: "phrases-250",
-    category: "phrases",
+    id: 'phrases-250',
+    category: 'phrases',
     threshold: 250,
-    label: "Dedicated",
-    description: "250 phrases reviewed",
+    label: 'Dedicated',
+    description: '250 phrases reviewed',
   },
   {
-    id: "phrases-500",
-    category: "phrases",
+    id: 'phrases-500',
+    category: 'phrases',
     threshold: 500,
-    label: "Phrase Master",
-    description: "500 phrases reviewed",
+    label: 'Phrase Master',
+    description: '500 phrases reviewed',
   },
 
   {
-    id: "streak-3",
-    category: "streak",
+    id: 'streak-3',
+    category: 'streak',
     threshold: 3,
-    label: "Warming Up",
-    description: "3-day streak",
+    label: 'Warming Up',
+    description: '3-day streak',
   },
   {
-    id: "streak-7",
-    category: "streak",
+    id: 'streak-7',
+    category: 'streak',
     threshold: 7,
-    label: "One Week Strong",
-    description: "7-day streak",
+    label: 'One Week Strong',
+    description: '7-day streak',
   },
   {
-    id: "streak-14",
-    category: "streak",
+    id: 'streak-14',
+    category: 'streak',
     threshold: 14,
-    label: "Two Weeks In",
-    description: "14-day streak",
+    label: 'Two Weeks In',
+    description: '14-day streak',
   },
   {
-    id: "streak-30",
-    category: "streak",
+    id: 'streak-30',
+    category: 'streak',
     threshold: 30,
-    label: "Monthly Habit",
-    description: "30-day streak",
+    label: 'Monthly Habit',
+    description: '30-day streak',
   },
   {
-    id: "streak-100",
-    category: "streak",
+    id: 'streak-100',
+    category: 'streak',
     threshold: 100,
-    label: "Unstoppable",
-    description: "100-day streak",
+    label: 'Unstoppable',
+    description: '100-day streak',
   },
 
   {
-    id: "days-7",
-    category: "studyDays",
+    id: 'days-7',
+    category: 'studyDays',
     threshold: 7,
-    label: "A Week of Learning",
-    description: "7 days studied",
+    label: 'A Week of Learning',
+    description: '7 days studied',
   },
   {
-    id: "days-30",
-    category: "studyDays",
+    id: 'days-30',
+    category: 'studyDays',
     threshold: 30,
-    label: "A Month of Learning",
-    description: "30 days studied",
+    label: 'A Month of Learning',
+    description: '30 days studied',
   },
   {
-    id: "days-100",
-    category: "studyDays",
+    id: 'days-100',
+    category: 'studyDays',
     threshold: 100,
-    label: "Seasoned Learner",
-    description: "100 days studied",
+    label: 'Seasoned Learner',
+    description: '100 days studied',
   },
 
   {
-    id: "scenarios-1",
-    category: "scenarios",
+    id: 'scenarios-1',
+    category: 'scenarios',
     threshold: 1,
-    label: "First Scenario",
-    description: "1 scenario completed",
+    label: 'First Scenario',
+    description: '1 scenario completed',
   },
   {
-    id: "scenarios-5",
-    category: "scenarios",
+    id: 'scenarios-5',
+    category: 'scenarios',
     threshold: 5,
-    label: "Scenario Explorer",
-    description: "5 scenarios completed",
+    label: 'Scenario Explorer',
+    description: '5 scenarios completed',
   },
   {
-    id: "scenarios-10",
-    category: "scenarios",
+    id: 'scenarios-10',
+    category: 'scenarios',
     threshold: 10,
-    label: "Scenario Pro",
-    description: "10 scenarios completed",
+    label: 'Scenario Pro',
+    description: '10 scenarios completed',
   },
   {
-    id: "scenarios-20",
-    category: "scenarios",
+    id: 'scenarios-20',
+    category: 'scenarios',
     threshold: 20,
-    label: "Scenario Veteran",
-    description: "20 scenarios completed",
+    label: 'Scenario Veteran',
+    description: '20 scenarios completed',
   },
 
   {
-    id: "simulator-1",
-    category: "simulator",
+    id: 'simulator-1',
+    category: 'simulator',
     threshold: 1,
-    label: "First Conversation",
-    description: "1 simulator conversation",
+    label: 'First Conversation',
+    description: '1 simulator conversation',
   },
   {
-    id: "simulator-5",
-    category: "simulator",
+    id: 'simulator-5',
+    category: 'simulator',
     threshold: 5,
-    label: "Conversationalist",
-    description: "5 simulator conversations",
+    label: 'Conversationalist',
+    description: '5 simulator conversations',
   },
   {
-    id: "simulator-10",
-    category: "simulator",
+    id: 'simulator-10',
+    category: 'simulator',
     threshold: 10,
-    label: "Fluent Chatter",
-    description: "10 simulator conversations",
+    label: 'Fluent Chatter',
+    description: '10 simulator conversations',
   },
 ];
 
@@ -207,15 +207,15 @@ export interface BadgeStats {
 
 function statFor(category: BadgeCategory, stats: BadgeStats): number {
   switch (category) {
-    case "phrases":
+    case 'phrases':
       return stats.phrases;
-    case "streak":
+    case 'streak':
       return stats.streak;
-    case "studyDays":
+    case 'studyDays':
       return stats.studyDays;
-    case "scenarios":
+    case 'scenarios':
       return stats.scenariosCompleted;
-    case "simulator":
+    case 'simulator':
       return stats.conversations;
   }
 }
@@ -248,7 +248,7 @@ export function computeBadgeStats({
 
   const reviewedByScenario = new Map<string, number>();
   for (const c of cards) {
-    if (!c.lastReview || c.scenarioSlug.startsWith("kana:")) continue;
+    if (!c.lastReview || c.scenarioSlug.startsWith('kana:')) continue;
     reviewedByScenario.set(
       c.scenarioSlug,
       (reviewedByScenario.get(c.scenarioSlug) ?? 0) + 1,
@@ -256,8 +256,7 @@ export function computeBadgeStats({
   }
   const scenariosCompleted = scenarios.filter(
     (s) =>
-      s.phrases.length > 0 &&
-      (reviewedByScenario.get(s.slug) ?? 0) >= s.phrases.length,
+      s.phrases.length > 0 && (reviewedByScenario.get(s.slug) ?? 0) >= s.phrases.length,
   ).length;
 
   return {

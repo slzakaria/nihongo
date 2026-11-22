@@ -1,12 +1,12 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { ArrowLeft, BookOpen, Mic } from "lucide-react";
-import { loadContent } from "@/lib/data/content";
-import { PhraseList } from "@/components/phrases/PhraseList";
-import { ScenarioSidebar } from "@/components/layout/ScenarioSidebar";
-import { EtiquetteCard } from "@/components/scenarios/EtiquetteCard";
-import { getEtiquetteTips } from "@/lib/data/etiquette";
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { ArrowLeft, BookOpen, Mic } from 'lucide-react';
+import { loadContent } from '@/lib/data/content';
+import { PhraseList } from '@/components/phrases/PhraseList';
+import { ScenarioSidebar } from '@/components/layout/ScenarioSidebar';
+import { EtiquetteCard } from '@/components/scenarios/EtiquetteCard';
+import { getEtiquetteTips } from '@/lib/data/etiquette';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -41,12 +41,12 @@ export default async function ScenarioDetailPage({
 
   // Escapes "<" so phrase text can't close the script tag early
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
     name: scenario.label,
     numberOfItems: scenario.phrases.length,
     itemListElement: scenario.phrases.map((p, i) => ({
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: i + 1,
       name: p.japanese,
       alternateName: p.romaji,
@@ -59,7 +59,7 @@ export default async function ScenarioDetailPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <ScenarioSidebar currentSlug={scenario.slug} basePath="/scenarios" />
@@ -77,9 +77,7 @@ export default async function ScenarioDetailPage({
             <h1 className="text-2xl font-semibold tracking-tight break-words">
               {scenario.label}
             </h1>
-            <p className="text-muted-foreground">
-              {scenario.phrases.length} phrases
-            </p>
+            <p className="text-muted-foreground">{scenario.phrases.length} phrases</p>
           </div>
           <div className="flex flex-wrap gap-2 sm:shrink-0 sm:justify-end">
             <Link

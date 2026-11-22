@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
-import { loadContent } from "@/lib/data/content";
-import { PrintButton } from "@/components/layout/PrintButton";
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { ArrowLeft } from 'lucide-react';
+import { loadContent } from '@/lib/data/content';
+import { PrintButton } from '@/components/layout/PrintButton';
 
 export async function generateStaticParams() {
   const { phrases } = await loadContent();
@@ -53,9 +53,7 @@ export default async function QuickRefPage({
         </div>
         <PrintButton />
       </div>
-      <h1 className="mb-4 hidden text-xl font-semibold print:block">
-        {scenario.label}
-      </h1>
+      <h1 className="mb-4 hidden text-xl font-semibold print:block">{scenario.label}</h1>
 
       <table className="w-full border-collapse text-sm">
         <tbody>
@@ -63,13 +61,9 @@ export default async function QuickRefPage({
             <tr key={p.id} className="border-b border-border">
               <td className="py-2 pr-3 align-top" lang="ja">
                 {p.japanese}
-                {p.kanji && (
-                  <div className="text-muted-foreground">{p.kanji}</div>
-                )}
+                {p.kanji && <div className="text-muted-foreground">{p.kanji}</div>}
               </td>
-              <td className="py-2 pr-3 align-top text-muted-foreground">
-                {p.romaji}
-              </td>
+              <td className="py-2 pr-3 align-top text-muted-foreground">{p.romaji}</td>
               <td className="py-2 align-top">{p.english}</td>
             </tr>
           ))}

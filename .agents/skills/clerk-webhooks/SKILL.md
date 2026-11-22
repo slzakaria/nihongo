@@ -35,9 +35,9 @@ Webhook deliveries carry no user session. `verifyWebhook()` is the only check th
 
 ```typescript
 // app/api/webhooks/route.ts
-import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { NextRequest } from "next/server";
-import { db } from "@/lib/db";
+import { verifyWebhook } from '@clerk/nextjs/webhooks';
+import { NextRequest } from 'next/server';
+import { db } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
   // ALWAYS verify - never skip, even for notification-only handlers
@@ -45,18 +45,18 @@ export async function POST(req: NextRequest) {
   try {
     evt = await verifyWebhook(req); // uses CLERK_WEBHOOK_SIGNING_SECRET automatically
   } catch (err) {
-    console.error("Webhook verification failed:", err);
-    return new Response("Verification failed", { status: 400 });
+    console.error('Webhook verification failed:', err);
+    return new Response('Verification failed', { status: 400 });
   }
 
-  if (evt.type === "user.created") {
+  if (evt.type === 'user.created') {
     const { id, email_addresses, first_name, last_name } = evt.data;
     const email = email_addresses[0]?.email_address;
-    const name = `${first_name ?? ""} ${last_name ?? ""}`.trim();
+    const name = `${first_name ?? ''} ${last_name ?? ''}`.trim();
     await db.users.create({ data: { clerkId: id, email, name } });
   }
 
-  if (evt.type === "user.updated") {
+  if (evt.type === 'user.updated') {
     const { id, email_addresses, first_name, last_name } = evt.data;
     const email = email_addresses[0]?.email_address;
     await db.users.update({
@@ -65,26 +65,26 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  if (evt.type === "user.deleted") {
+  if (evt.type === 'user.deleted') {
     const { id } = evt.data;
     await db.users.delete({ where: { clerkId: id } });
   }
 
-  if (evt.type === "organizationMembership.created") {
+  if (evt.type === 'organizationMembership.created') {
     const { organization, public_user_data, role } = evt.data;
     const orgId = organization.id;
     const userId = public_user_data.user_id;
     await db.teamMembers.create({ data: { orgId, userId, role } });
   }
 
-  if (evt.type === "organizationMembership.deleted") {
+  if (evt.type === 'organizationMembership.deleted') {
     const { organization, public_user_data } = evt.data;
     const orgId = organization.id;
     const userId = public_user_data.user_id;
     await db.teamMembers.delete({ where: { orgId_userId: { orgId, userId } } });
   }
 
-  return new Response("OK", { status: 200 });
+  return new Response('OK', { status: 200 });
 }
 ```
 
@@ -94,9 +94,9 @@ Notification-only handlers still verify the signature. Same pattern as the datab
 
 ```typescript
 // app/api/webhooks/route.ts
-import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { NextRequest } from "next/server";
-import { Resend } from "resend";
+import { verifyWebhook } from '@clerk/nextjs/webhooks';
+import { NextRequest } from 'next/server';
+import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -106,29 +106,29 @@ export async function POST(req: NextRequest) {
   try {
     evt = await verifyWebhook(req); // uses CLERK_WEBHOOK_SIGNING_SECRET env var
   } catch (err) {
-    console.error("Webhook verification failed:", err);
-    return new Response("Verification failed", { status: 400 });
+    console.error('Webhook verification failed:', err);
+    return new Response('Verification failed', { status: 400 });
   }
 
   // Step 2: Listen for user.created event
-  if (evt.type === "user.created") {
+  if (evt.type === 'user.created') {
     // Step 3: Extract user email and name from webhook payload
     const { id, email_addresses, first_name, last_name } = evt.data;
     const email = email_addresses[0]?.email_address;
-    const name = `${first_name ?? ""} ${last_name ?? ""}`.trim();
+    const name = `${first_name ?? ''} ${last_name ?? ''}`.trim();
 
     // Step 4: Call Resend API to send welcome email
     await resend.emails.send({
-      from: "noreply@yourdomain.com",
+      from: 'noreply@yourdomain.com',
       to: email,
-      subject: "Welcome!",
+      subject: 'Welcome!',
       html: `<p>Hi ${name}, welcome to our app!</p>`,
     });
 
     // Step 5: Post notification to Slack channel
     await fetch(process.env.SLACK_WEBHOOK_URL!, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         text: `New user signed up: ${name} (${email})`,
       }),
@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Always return 200 to acknowledge receipt
-  return new Response("OK", { status: 200 });
+  return new Response('OK', { status: 200 });
 }
 ```
 
@@ -144,9 +144,9 @@ export async function POST(req: NextRequest) {
 
 ```typescript
 // app/api/webhooks/route.ts
-import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { NextRequest } from "next/server";
-import { db } from "@/lib/db"; // your database client
+import { verifyWebhook } from '@clerk/nextjs/webhooks';
+import { NextRequest } from 'next/server';
+import { db } from '@/lib/db'; // your database client
 
 export async function POST(req: NextRequest) {
   // ALWAYS verify signature - never skip, even for simple handlers
@@ -154,18 +154,18 @@ export async function POST(req: NextRequest) {
   try {
     evt = await verifyWebhook(req); // uses CLERK_WEBHOOK_SIGNING_SECRET env var
   } catch (err) {
-    console.error("Webhook verification failed:", err);
-    return new Response("Verification failed", { status: 400 });
+    console.error('Webhook verification failed:', err);
+    return new Response('Verification failed', { status: 400 });
   }
 
-  if (evt.type === "organization.created") {
+  if (evt.type === 'organization.created') {
     const { id, name } = evt.data;
     await db.workspaces.create({
       data: { orgId: id, name, createdAt: new Date() },
     });
   }
 
-  if (evt.type === "organizationMembership.created") {
+  if (evt.type === 'organizationMembership.created') {
     // Extract organization ID, user ID, and role from payload
     const { organization, public_user_data, role } = evt.data;
     const orgId = organization.id;
@@ -182,7 +182,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  if (evt.type === "organizationMembership.deleted") {
+  if (evt.type === 'organizationMembership.deleted') {
     // Extract organization ID and user ID from payload
     const { organization, public_user_data } = evt.data;
     const orgId = organization.id;
@@ -200,7 +200,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Return 200 status on success
-  return new Response("OK", { status: 200 });
+  return new Response('OK', { status: 200 });
 }
 ```
 
@@ -217,7 +217,7 @@ See `references/frameworks.md` for full handler examples per framework.
 ```typescript
 const evt = await verifyWebhook(req);
 
-if (evt.type === "user.created") {
+if (evt.type === 'user.created') {
   // evt.data is now UserJSON, autocompletes id, email_addresses, etc.
   console.log(evt.data.id);
 }

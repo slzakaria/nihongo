@@ -6,16 +6,16 @@ export function revisitInfo(
   updatedAt: string | undefined,
   now: number,
 ): { due: boolean; label: string } {
-  if (!updatedAt) return { due: false, label: "Not started yet" };
+  if (!updatedAt) return { due: false, label: 'Not started yet' };
   const days = Math.floor((now - Date.parse(updatedAt)) / DAY_MS);
   if (days >= REVISIT_AFTER_DAYS)
     return {
       due: true,
       label: `Time to revisit · last practised ${days} days ago`,
     };
-  if (days <= 0) return { due: false, label: "Practised today" };
+  if (days <= 0) return { due: false, label: 'Practised today' };
   return {
     due: false,
-    label: `Practised ${days} ${days === 1 ? "day" : "days"} ago`,
+    label: `Practised ${days} ${days === 1 ? 'day' : 'days'} ago`,
   };
 }

@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AlertTriangle, Download } from "lucide-react";
-import { useAuthStore } from "@/store/auth";
-import { useOnboardingStore } from "@/store/onboarding";
-import { useProgressStore } from "@/store/progress";
-import { fetchStudyDays } from "@/lib/supabase/activity";
-import { fetchConversationSummaries } from "@/lib/supabase/simulator";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { AlertTriangle, Download } from 'lucide-react';
+import { useAuthStore } from '@/store/auth';
+import { useOnboardingStore } from '@/store/onboarding';
+import { useProgressStore } from '@/store/progress';
+import { fetchStudyDays } from '@/lib/supabase/activity';
+import { fetchConversationSummaries } from '@/lib/supabase/simulator';
+import { clearDeviceData } from '@/lib/account/deviceData';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 // Self-service data export and account deletion. Deletion is a two-step confirm (not a native
 // `confirm()` dialog, so it matches the rest of the app's UI) and calls a server route that
@@ -44,12 +45,12 @@ export function DangerZoneCard() {
         simulatorConversations: conversations,
       };
       const blob = new Blob([JSON.stringify(payload, null, 2)], {
-        type: "application/json",
+        type: 'application/json',
       });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
-      a.download = "hanazono-data.json";
+      a.download = 'hanazono-data.json';
       a.click();
       URL.revokeObjectURL(url);
     } finally {
@@ -61,12 +62,16 @@ export function DangerZoneCard() {
     setDeleting(true);
     setError(null);
     try {
-      const res = await fetch("/api/account/delete", { method: "POST" });
-      if (!res.ok)
-        throw new Error("Could not delete your account. Please try again.");
-      window.location.href = "/";
+      const res = await fetch('/api/account/delete', { method: 'POST' });
+      if (!res.ok) {
+        const body = (await res.json()) as { error?: string };
+        throw new Error(body.error ?? 'Could not delete your account.');
+      }
+      useAuthStore.getState().setUser(null);
+      clearDeviceData();
+      window.location.href = '/';
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong");
+      setError(e instanceof Error ? e.message : 'Something went wrong');
       setDeleting(false);
     }
   }
@@ -108,8 +113,8 @@ export function DangerZoneCard() {
           <div>
             <p className="text-sm font-medium">Delete my account</p>
             <p className="text-xs text-muted-foreground">
-              Permanently deletes your progress, conversations and sign-in. This
-              can&apos;t be undone.
+              Permanently deletes your saved practice data, conversations and sign-in.
+              This can&apos;t be undone.
             </p>
           </div>
           {confirming ? (
@@ -142,9 +147,7 @@ export function DangerZoneCard() {
             </Button>
           )}
         </div>
-        {error && (
-          <p className="text-xs text-red-600 dark:text-red-400">{error}</p>
-        )}
+        {error && <p className="text-xs text-red-600 dark:text-red-400">{error}</p>}
       </CardContent>
     </Card>
   );

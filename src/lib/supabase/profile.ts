@@ -1,6 +1,6 @@
-import type { AppUser } from "@/store/auth";
-import { createClient } from "@/lib/supabase/client";
-import { RomajiMode } from "@/types";
+import type { AppUser } from '@/store/auth';
+import { createClient } from '@/lib/supabase/client';
+import { RomajiMode } from '@/types';
 
 export interface ProfileRow {
   id: string;
@@ -21,9 +21,9 @@ export interface ProfileRow {
 export async function fetchProfile(userId: string): Promise<ProfileRow | null> {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", userId)
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
     .maybeSingle();
   if (error) throw error;
   return data as ProfileRow | null;
@@ -31,12 +31,10 @@ export async function fetchProfile(userId: string): Promise<ProfileRow | null> {
 
 export async function upsertProfile(
   userId: string,
-  fields: Partial<Omit<ProfileRow, "id">>,
+  fields: Partial<Omit<ProfileRow, 'id'>>,
 ) {
   const supabase = createClient();
-  const { error } = await supabase
-    .from("profiles")
-    .upsert({ id: userId, ...fields });
+  const { error } = await supabase.from('profiles').upsert({ id: userId, ...fields });
   if (error) console.error(error);
 }
 
@@ -44,7 +42,7 @@ export async function upsertProfile(
 export async function syncAccountFields(user: AppUser) {
   await upsertProfile(user.id, {
     email: user.email,
-    phone: user.phone ? `+${user.phone.replace(/^\+/, "")}` : null,
+    phone: user.phone ? `+${user.phone.replace(/^\+/, '')}` : null,
     last_sign_in_at: user.lastSignInAt,
   });
 }

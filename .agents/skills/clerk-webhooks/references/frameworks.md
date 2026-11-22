@@ -7,41 +7,37 @@ Same `WebhookEvent` payload shape across all frameworks. See SKILL.md for payloa
 ## Express
 
 ```typescript
-import { verifyWebhook } from "@clerk/express/webhooks";
-import express from "express";
+import { verifyWebhook } from '@clerk/express/webhooks';
+import express from 'express';
 
 const app = express();
 
 // Use express.raw() not express.json() for the webhook route -
 // signature verification requires the raw body bytes.
-app.post(
-  "/api/webhooks",
-  express.raw({ type: "application/json" }),
-  async (req, res) => {
-    try {
-      const evt = await verifyWebhook(req);
+app.post('/api/webhooks', express.raw({ type: 'application/json' }), async (req, res) => {
+  try {
+    const evt = await verifyWebhook(req);
 
-      if (evt.type === "user.created") {
-        const { id, email_addresses, first_name, last_name } = evt.data;
-        const email = email_addresses[0]?.email_address;
-        console.log(`New user: ${first_name} ${last_name} (${email})`);
-      }
-
-      return res.send("Webhook received");
-    } catch (err) {
-      console.error("Error verifying webhook:", err);
-      return res.status(400).send("Error verifying webhook");
+    if (evt.type === 'user.created') {
+      const { id, email_addresses, first_name, last_name } = evt.data;
+      const email = email_addresses[0]?.email_address;
+      console.log(`New user: ${first_name} ${last_name} (${email})`);
     }
-  },
-);
+
+    return res.send('Webhook received');
+  } catch (err) {
+    console.error('Error verifying webhook:', err);
+    return res.status(400).send('Error verifying webhook');
+  }
+});
 ```
 
 ## Astro
 
 ```typescript
 // src/pages/api/webhooks.ts
-import { verifyWebhook } from "@clerk/astro/webhooks";
-import type { APIRoute } from "astro";
+import { verifyWebhook } from '@clerk/astro/webhooks';
+import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -49,16 +45,16 @@ export const POST: APIRoute = async ({ request }) => {
       signingSecret: import.meta.env.CLERK_WEBHOOK_SIGNING_SECRET,
     });
 
-    if (evt.type === "user.created") {
+    if (evt.type === 'user.created') {
       const { id, email_addresses } = evt.data;
       const email = email_addresses[0]?.email_address;
       console.log(`New user: ${id} (${email})`);
     }
 
-    return new Response("Webhook received", { status: 200 });
+    return new Response('Webhook received', { status: 200 });
   } catch (err) {
-    console.error("Error verifying webhook:", err);
-    return new Response("Error verifying webhook", { status: 400 });
+    console.error('Error verifying webhook:', err);
+    return new Response('Error verifying webhook', { status: 400 });
   }
 };
 ```
@@ -68,24 +64,24 @@ Astro requires explicit `signingSecret` since `import.meta.env` is not auto-read
 ## Fastify
 
 ```typescript
-import { verifyWebhook } from "@clerk/fastify/webhooks";
-import Fastify from "fastify";
+import { verifyWebhook } from '@clerk/fastify/webhooks';
+import Fastify from 'fastify';
 
 const fastify = Fastify();
 
-fastify.post("/api/webhooks", async (request, reply) => {
+fastify.post('/api/webhooks', async (request, reply) => {
   try {
     const evt = await verifyWebhook(request);
 
-    if (evt.type === "user.created") {
+    if (evt.type === 'user.created') {
       const { id } = evt.data;
       console.log(`New user: ${id}`);
     }
 
-    return "Webhook received";
+    return 'Webhook received';
   } catch (err) {
-    console.error("Error verifying webhook:", err);
-    return reply.code(400).send("Error verifying webhook");
+    console.error('Error verifying webhook:', err);
+    return reply.code(400).send('Error verifying webhook');
   }
 });
 ```
@@ -94,22 +90,22 @@ fastify.post("/api/webhooks", async (request, reply) => {
 
 ```typescript
 // server/api/webhooks.post.ts
-import { verifyWebhook } from "@clerk/nuxt/webhooks";
+import { verifyWebhook } from '@clerk/nuxt/webhooks';
 
 export default defineEventHandler(async (event) => {
   try {
     const evt = await verifyWebhook(event);
 
-    if (evt.type === "user.created") {
+    if (evt.type === 'user.created') {
       const { id } = evt.data;
       console.log(`New user: ${id}`);
     }
 
-    return "Webhook received";
+    return 'Webhook received';
   } catch (err) {
-    console.error("Error verifying webhook:", err);
+    console.error('Error verifying webhook:', err);
     setResponseStatus(event, 400);
-    return "Error verifying webhook";
+    return 'Error verifying webhook';
   }
 });
 ```
@@ -122,7 +118,7 @@ When tunneling via ngrok in dev, allow the host in `nuxt.config.ts`:
 export default defineNuxtConfig({
   vite: {
     server: {
-      allowedHosts: ["fawn-two-nominally.ngrok-free.app"],
+      allowedHosts: ['fawn-two-nominally.ngrok-free.app'],
     },
   },
 });
@@ -132,22 +128,22 @@ export default defineNuxtConfig({
 
 ```typescript
 // app/routes/webhooks.ts
-import { verifyWebhook } from "@clerk/react-router/webhooks";
-import type { Route } from "./+types/webhooks";
+import { verifyWebhook } from '@clerk/react-router/webhooks';
+import type { Route } from './+types/webhooks';
 
 export const action = async ({ request }: Route.ActionArgs) => {
   try {
     const evt = await verifyWebhook(request);
 
-    if (evt.type === "user.created") {
+    if (evt.type === 'user.created') {
       const { id } = evt.data;
       console.log(`New user: ${id}`);
     }
 
-    return new Response("Webhook received", { status: 200 });
+    return new Response('Webhook received', { status: 200 });
   } catch (err) {
-    console.error("Error verifying webhook:", err);
-    return new Response("Error verifying webhook", { status: 400 });
+    console.error('Error verifying webhook:', err);
+    return new Response('Error verifying webhook', { status: 400 });
   }
 };
 ```
@@ -155,11 +151,11 @@ export const action = async ({ request }: Route.ActionArgs) => {
 Register the route in `router.ts`:
 
 ```typescript
-import { type RouteConfig, route, index } from "@react-router/dev/routes";
+import { type RouteConfig, route, index } from '@react-router/dev/routes';
 
 export default [
-  index("routes/home.tsx"),
-  route("api/webhooks", "routes/webhooks.ts"),
+  index('routes/home.tsx'),
+  route('api/webhooks', 'routes/webhooks.ts'),
 ] satisfies RouteConfig;
 ```
 
@@ -168,7 +164,7 @@ When tunneling via ngrok in dev, allow the host in `vite.config.ts`:
 ```typescript
 export default defineConfig({
   server: {
-    allowedHosts: ["fawn-two-nominally.ngrok-free.app"],
+    allowedHosts: ['fawn-two-nominally.ngrok-free.app'],
   },
 });
 ```
@@ -177,25 +173,25 @@ export default defineConfig({
 
 ```typescript
 // src/routes/api/webhooks.ts
-import { verifyWebhook } from "@clerk/tanstack-react-start/webhooks";
-import { createFileRoute } from "@tanstack/react-router";
+import { verifyWebhook } from '@clerk/tanstack-react-start/webhooks';
+import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/api/webhooks")({
+export const Route = createFileRoute('/api/webhooks')({
   server: {
     handlers: {
       POST: async ({ request }) => {
         try {
           const evt = await verifyWebhook(request);
 
-          if (evt.type === "user.created") {
+          if (evt.type === 'user.created') {
             const { id } = evt.data;
             console.log(`New user: ${id}`);
           }
 
-          return new Response("Webhook received", { status: 200 });
+          return new Response('Webhook received', { status: 200 });
         } catch (err) {
-          console.error("Error verifying webhook:", err);
-          return new Response("Error verifying webhook", { status: 400 });
+          console.error('Error verifying webhook:', err);
+          return new Response('Error verifying webhook', { status: 400 });
         }
       },
     },
@@ -206,14 +202,14 @@ export const Route = createFileRoute("/api/webhooks")({
 When tunneling via ngrok in dev, allow the host in `vite.config.ts`:
 
 ```typescript
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import viteReact from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [tanstackStart(), viteReact()],
   server: {
-    allowedHosts: ["fawn-two-nominally.ngrok-free.app"],
+    allowedHosts: ['fawn-two-nominally.ngrok-free.app'],
   },
 });
 ```

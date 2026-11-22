@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import type { Scenario } from "@/types";
-import { CardContent } from "@/components/ui/card";
-import { LinkCard } from "@/components/ui/link-card";
-import { Progress } from "@/components/ui/progress";
-import { useProgressStore } from "@/store/progress";
-import { scenarioKana } from "@/lib/data/scenarioKana";
-import { scenarioAccent } from "@/lib/data/scenarioAccent";
+import Image from 'next/image';
+import type { Scenario } from '@/types';
+import { CardContent } from '@/components/ui/card';
+import { LinkCard } from '@/components/ui/link-card';
+import { Progress } from '@/components/ui/progress';
+import { useProgressStore } from '@/store/progress';
+import { scenarioKana } from '@/lib/data/scenarioKana';
+import { scenarioAccent } from '@/lib/data/scenarioAccent';
 
 // One scenario tile, shared by the Scenarios page and the landing page so they always match.
 // Each scenario has a matching illustration in /public/scenarios/{slug}.png.
@@ -40,20 +40,18 @@ export function ScenarioCard({
           src={`/scenarios/${scenario.slug}.png`}
           alt=""
           fill
-          sizes="(min-width: 480px) 33vw, 50vw"
-          loading={eager ? "eager" : "lazy"}
+          sizes="(min-width: 1088px) 315px, (min-width: 640px) calc((100vw - 80px) / 3), (min-width: 480px) calc((100vw - 64px) / 3), calc((100vw - 48px) / 2)"
+          loading={eager ? 'eager' : 'lazy'}
           className="object-cover transition duration-500 group-hover:scale-105"
         />
       </div>
       <div className="flex flex-col gap-0.5 px-4 py-2">
-        <h3
-          className={`truncate text-sm font-semibold ${scenarioAccent(scenario.slug)}`}
-        >
+        <h3 className={`truncate text-sm font-semibold ${scenarioAccent(scenario.slug)}`}>
           {scenario.label}
         </h3>
         <p className="truncate text-xs text-muted-foreground">
           {kana && <span lang="ja">{kana} · </span>}
-          {total} phrase{total === 1 ? "" : "s"}
+          {total} phrase{total === 1 ? '' : 's'}
         </p>
       </div>
       <CardContent className="flex flex-col gap-1.5 p-3 pt-1">

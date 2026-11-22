@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
-import { useBusyStore } from "@/store/busy";
+import { useEffect, useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { useBusyStore } from '@/store/busy';
 
 // Quick navigations and requests finish before this, so the overlay doesn't flash on them
 const SHOW_AFTER_MS = 150;
@@ -28,10 +28,7 @@ export function LoadingOverlay() {
       aria-label="Loading"
       className="fixed inset-0 z-[60] flex cursor-wait items-center justify-center bg-background/60 backdrop-blur-sm"
     >
-      <Loader2
-        className="h-10 w-10 animate-spin text-primary"
-        aria-hidden="true"
-      />
+      <Loader2 className="h-10 w-10 animate-spin text-primary" aria-hidden="true" />
     </div>
   );
 }

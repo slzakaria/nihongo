@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ProgressBar } from "@/components/flashcards/ProgressBar";
-import { FlashcardFace } from "@/components/flashcards/FlashcardFace";
-import { SyncStatus } from "@/components/flashcards/SyncStatus";
-import { useFlashcardSession } from "@/hooks/useFlashcardSession";
-import { useProgressStore } from "@/store/progress";
-import { useContentStore } from "@/lib/data/content";
-import { isAnswerCorrect } from "@/lib/flashcards/answer";
-import { Phrase, SRSGrade } from "@/types";
-import { cn } from "@/lib/utils";
+import { useEffect, useMemo, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ProgressBar } from '@/components/flashcards/ProgressBar';
+import { FlashcardFace } from '@/components/flashcards/FlashcardFace';
+import { SyncStatus } from '@/components/flashcards/SyncStatus';
+import { useFlashcardSession } from '@/hooks/useFlashcardSession';
+import { useProgressStore } from '@/store/progress';
+import { useContentStore } from '@/lib/data/content';
+import { isAnswerCorrect } from '@/lib/flashcards/answer';
+import { Phrase, SRSGrade } from '@/types';
+import { cn } from '@/lib/utils';
 
-const GRADE_KEYS: Record<string, SRSGrade> = { "1": 0, "2": 3, "3": 4, "4": 5 };
+const GRADE_KEYS: Record<string, SRSGrade> = { '1': 0, '2': 3, '3': 4, '4': 5 };
 
 export function FlashcardDeck({
   slug,
@@ -47,33 +47,30 @@ export function FlashcardDeck({
     text: string;
     correct: boolean | null;
   }>({
-    phraseId: "",
-    text: "",
+    phraseId: '',
+    text: '',
     correct: null,
   });
   const current =
     attempt.phraseId === phrase?.id
       ? attempt
-      : { phraseId: phrase?.id ?? "", text: "", correct: null };
+      : { phraseId: phrase?.id ?? '', text: '', correct: null };
 
   // Space reveals the card; 1 to 4 grade it (Again, Hard, Good, Easy). Ignored while typing.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!phrase) return;
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement
-      )
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
         return;
-      if (!showBack && e.key === " ") {
+      if (!showBack && e.key === ' ') {
         e.preventDefault();
         setShowBack(true);
       } else if (showBack && e.key in GRADE_KEYS) {
         grade(GRADE_KEYS[e.key]);
       }
     }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [phrase, showBack, setShowBack, grade]);
 
   if (total === 0) {
@@ -82,8 +79,7 @@ export function FlashcardDeck({
         <SyncStatus />
         <p className="text-lg font-medium">Nothing due right now</p>
         <p className="text-sm text-muted-foreground">
-          Cards come back for review as their interval elapses — or practice
-          them all now.
+          Cards come back for review as their interval elapses — or practice them all now.
         </p>
         <Button
           className="cursor-pointer"
@@ -101,9 +97,7 @@ export function FlashcardDeck({
       <div className="flex flex-col items-center gap-2 py-16 text-center">
         <SyncStatus />
         <p className="text-lg font-medium">Session complete 🎉</p>
-        <p className="text-sm text-muted-foreground">
-          You reviewed {total} card(s).
-        </p>
+        <p className="text-sm text-muted-foreground">You reviewed {total} card(s).</p>
       </div>
     );
   }
@@ -154,13 +148,13 @@ export function FlashcardDeck({
       {showBack && current.correct !== null && (
         <p
           className={cn(
-            "text-center text-sm",
-            current.correct ? "text-primary" : "text-red-500",
+            'text-center text-sm',
+            current.correct ? 'text-primary' : 'text-red-500',
           )}
         >
           {current.correct
-            ? "Correct! Rate how easy it felt."
-            : "Not quite. Compare with the answer above, then rate it."}
+            ? 'Correct! Rate how easy it felt.'
+            : 'Not quite. Compare with the answer above, then rate it.'}
         </p>
       )}
 

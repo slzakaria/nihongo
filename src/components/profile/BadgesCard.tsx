@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Award, ChevronDown, ChevronUp, Lock } from "lucide-react";
+import { useState } from 'react';
+import { Award, ChevronDown, ChevronUp, Lock } from 'lucide-react';
 import {
   BADGES,
   CATEGORY_ICON,
@@ -9,17 +9,17 @@ import {
   isBadgeUnlocked,
   type BadgeCategory,
   type BadgeStats,
-} from "@/lib/badges";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+} from '@/lib/badges';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const CATEGORIES: BadgeCategory[] = [
-  "phrases",
-  "streak",
-  "studyDays",
-  "scenarios",
-  "simulator",
+  'phrases',
+  'streak',
+  'studyDays',
+  'scenarios',
+  'simulator',
 ];
 // How many badges to show before the section is collapsed behind "See more"
 const COLLAPSED_COUNT = 6;
@@ -35,8 +35,8 @@ function BadgeTile({
   return (
     <div
       className={cn(
-        "flex flex-col items-center gap-1 rounded-lg border border-border p-3 text-center",
-        unlocked ? "gradient-brand" : "opacity-60",
+        'flex flex-col items-center gap-1 rounded-lg border border-border p-3 text-center',
+        unlocked ? 'gradient-brand' : 'opacity-60',
       )}
     >
       {unlocked ? (
@@ -71,9 +71,7 @@ export function BadgesCard({ stats }: { stats: BadgeStats }) {
           CATEGORIES.map((category) => {
             const Icon = CATEGORY_ICON[category];
             const badges = BADGES.filter((b) => b.category === category);
-            const unlockedCount = badges.filter((b) =>
-              isBadgeUnlocked(b, stats),
-            ).length;
+            const unlockedCount = badges.filter((b) => isBadgeUnlocked(b, stats)).length;
             return (
               <div key={category} className="flex flex-col gap-2">
                 <p className="flex items-center gap-2 text-sm font-medium">

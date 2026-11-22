@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { CherryBlossom } from "@/components/marketing/CherryBlossom";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CherryBlossom } from '@/components/marketing/CherryBlossom';
 
 export function HeroBanner({
   phrasesReviewed,
@@ -10,9 +11,7 @@ export function HeroBanner({
   totalPhrases: number;
 }) {
   const progress =
-    totalPhrases > 0
-      ? Math.min(100, (phrasesReviewed / totalPhrases) * 100)
-      : 0;
+    totalPhrases > 0 ? Math.min(100, (phrasesReviewed / totalPhrases) * 100) : 0;
 
   return (
     <section className="hero-banner relative min-h-[320px] overflow-hidden rounded-2xl px-5 py-8 sm:px-10 sm:py-12">
@@ -23,8 +22,16 @@ export function HeroBanner({
         <h1 className="mb-3">
           <span
             lang="ja"
-            className="hero-title-ja block text-4xl leading-tight sm:text-[42px]"
+            className="hero-title-ja flex items-center gap-2.5 text-4xl leading-tight sm:text-[42px]"
           >
+            <Image
+              src="/hanazono.svg"
+              alt=""
+              width={40}
+              height={40}
+              className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
+              priority
+            />
             はなぞの
           </span>
           <span className="hero-title-en mt-1 block text-xl font-medium leading-snug sm:text-[22px]">
@@ -32,16 +39,12 @@ export function HeroBanner({
           </span>
         </h1>
         <p className="hero-description mb-6 max-w-[380px] text-sm leading-relaxed sm:mb-7">
-          Phrases for real situations, spaced-repetition drills, and a live chat
-          simulator — everything you need for bars, shops, and small talk in
-          Japan.
+          Phrases for real situations, spaced-repetition drills, and a live chat simulator
+          — everything you need for bars, shops, and small talk in Japan.
         </p>
 
         <div className="mb-6 flex flex-wrap gap-2.5 sm:mb-7">
-          <Button
-            asChild
-            className="hero-primary-cta cursor-pointer rounded-[10px] px-5"
-          >
+          <Button asChild className="hero-primary-cta cursor-pointer rounded-[10px] px-5">
             <Link href="/flashcards">Start flashcards</Link>
           </Button>
           <Button
@@ -77,23 +80,26 @@ export function HeroBanner({
       </div>
 
       <CherryBlossom />
+      <VocabPill jp="かんたん" en="Easy" tone="pink" className="right-5 top-12" />
+      <VocabPill jp="きれい" en="Pretty" tone="blue" className="bottom-20 right-5" />
+      <VocabPill jp="かんぱい！" en="Cheers" tone="peach" className="bottom-8 right-32" />
       <VocabPill
-        jp="かんたん"
-        en="Easy"
-        tone="pink"
-        className="right-5 top-12"
-      />
-      <VocabPill
-        jp="きれい"
-        en="Pretty"
+        jp="おいしい"
+        en="Delicious"
         tone="blue"
-        className="bottom-20 right-5"
+        className="right-44 top-[42%] hidden lg:block"
       />
       <VocabPill
-        jp="かんぱい！"
-        en="Cheers"
+        jp="ありがとう"
+        en="Thank you"
+        tone="pink"
+        className="right-36 top-[70%] hidden lg:block"
+      />
+      <VocabPill
+        jp="またね"
+        en="See you"
         tone="peach"
-        className="bottom-8 right-32"
+        className="right-52 top-[22%] hidden lg:block"
       />
     </section>
   );
@@ -107,7 +113,7 @@ function VocabPill({
 }: {
   jp: string;
   en: string;
-  tone: "pink" | "blue" | "peach";
+  tone: 'pink' | 'blue' | 'peach';
   className: string;
 }) {
   return (
@@ -115,7 +121,7 @@ function VocabPill({
       className={`hero-vocab-pill hero-vocab-pill--${tone} absolute z-20 rounded-full border px-3.5 py-1.5 text-xs font-medium ${className}`}
     >
       {jp}
-      <span className="ml-1 opacity-60">· {en}</span>
+      <span className="ml-1">· {en}</span>
     </div>
   );
 }

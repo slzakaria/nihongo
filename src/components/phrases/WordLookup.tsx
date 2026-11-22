@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useMemo, useState, type ReactNode } from "react";
-import { X, Loader2 } from "lucide-react";
-import { getAllPhrases } from "@/lib/data/phrases";
-import { Button } from "@/components/ui/button";
-import { trackBusy } from "@/store/busy";
-import { showGuestLimitDialog } from "@/store/rateLimitDialog";
+import { useMemo, useState, type ReactNode } from 'react';
+import { X, Loader2 } from 'lucide-react';
+import { getAllPhrases } from '@/lib/data/phrases';
+import { Button } from '@/components/ui/button';
+import { trackBusy } from '@/store/busy';
+import { showRateLimitDialog } from '@/store/rateLimitDialog';
 
 interface Lookup {
   reading: string;
@@ -24,7 +24,7 @@ export function WordLookup({
   context: string;
   children: ReactNode;
 }) {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
   const [result, setResult] = useState<Lookup | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,9 +33,7 @@ export function WordLookup({
     () =>
       selected
         ? getAllPhrases().filter(
-            (p) =>
-              p.japanese.includes(selected) ||
-              (p.kanji ?? "").includes(selected),
+            (p) => p.japanese.includes(selected) || (p.kanji ?? '').includes(selected),
           ).length
         : 0,
     [selected],
@@ -53,26 +51,26 @@ export function WordLookup({
     setLoading(true);
     try {
       const res = await trackBusy(
-        fetch("/api/word", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetch('/api/word', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word: term, context }),
         }),
       );
       const data = (await res.json()) as Lookup & { error?: string };
-      if (res.status === 429) showGuestLimitDialog(data.error);
-      if (!res.ok) throw new Error(data.error ?? "Lookup failed");
+      if (res.status === 429) showRateLimitDialog(data.error);
+      if (!res.ok) throw new Error(data.error ?? 'Lookup failed');
       cache.set(term, data);
       setResult(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Lookup failed");
+      setError(err instanceof Error ? err.message : 'Lookup failed');
     } finally {
       setLoading(false);
     }
   }
 
   function onSelectionEnd() {
-    const text = window.getSelection()?.toString().trim() ?? "";
+    const text = window.getSelection()?.toString().trim() ?? '';
     if (!text || text === selected) return;
     void lookup(text);
   }
@@ -102,7 +100,7 @@ export function WordLookup({
               className="h-6 w-6 cursor-pointer"
               aria-label="Close word lookup"
               onClick={() => {
-                setSelected("");
+                setSelected('');
                 setResult(null);
               }}
             >
@@ -124,8 +122,7 @@ export function WordLookup({
             </>
           )}
           <p className="text-xs text-muted-foreground">
-            Appears in {appearsIn} {appearsIn === 1 ? "phrase" : "phrases"} in
-            the app
+            Appears in {appearsIn} {appearsIn === 1 ? 'phrase' : 'phrases'} in the app
           </p>
         </div>
       )}

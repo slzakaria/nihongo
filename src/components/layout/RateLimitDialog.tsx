@@ -1,15 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { LogIn, X } from "lucide-react";
-import { useAuthStore } from "@/store/auth";
-import { useRateLimitDialogStore } from "@/store/rateLimitDialog";
-import { useSignInDialogStore } from "@/store/signInDialog";
-import { Button } from "@/components/ui/button";
+import { useEffect } from 'react';
+import { LogIn, X } from 'lucide-react';
+import { useAuthStore } from '@/store/auth';
+import { useRateLimitDialogStore } from '@/store/rateLimitDialog';
+import { useSignInDialogStore } from '@/store/signInDialog';
+import { Button } from '@/components/ui/button';
 
-// Centered popup shown whenever a guest hits an anonymous rate limit (TTS, STT, word lookup,
-// simulator, scoring...). Closes on Escape, backdrop click, or the close button, and hands off
-// to the sign-in dialog so the user can remove the limit entirely.
+// Centered popup shown when an API daily limit is reached. Guests can sign in for a
+// higher allowance; signed-in users can dismiss it and retry after the daily reset.
 export function RateLimitDialog() {
   const open = useRateLimitDialogStore((s) => s.open);
   const message = useRateLimitDialogStore((s) => s.message);
@@ -20,18 +19,13 @@ export function RateLimitDialog() {
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") hide();
+      if (e.key === 'Escape') hide();
     }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
   }, [open, hide]);
 
-  // Signing in removes the limit entirely, so close this if it opens up behind the sign-in flow
-  useEffect(() => {
-    if (user) hide();
-  }, [user, hide]);
-
-  if (!open || user) return null;
+  if (!open) return null;
 
   return (
     <div
@@ -48,7 +42,7 @@ export function RateLimitDialog() {
       >
         <div className="gradient-brand px-6 py-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Guest limit reached
+            {user ? 'Daily limit reached' : 'Guest limit reached'}
           </p>
           <h2 id="rate-limit-title" className="text-xl font-semibold">
             Slow down a little
@@ -57,28 +51,31 @@ export function RateLimitDialog() {
         <div className="flex flex-col gap-4 px-6 py-5">
           <p className="text-sm text-muted-foreground">{message}</p>
           <p className="text-sm">
-            Sign in for free to remove this limit and sync your progress across
-            devices.
+            {user
+              ? 'Your allowance will reset at UTC midnight.'
+              : 'Sign in for free for a higher daily allowance and to sync your progress across devices.'}
           </p>
           <div className="flex flex-col gap-2 sm:flex-row-reverse">
-            <Button
-              type="button"
-              className="cursor-pointer"
-              onClick={() => {
-                hide();
-                showSignIn();
-              }}
-            >
-              <LogIn className="h-4 w-4" />
-              Sign in
-            </Button>
+            {!user && (
+              <Button
+                type="button"
+                className="cursor-pointer"
+                onClick={() => {
+                  hide();
+                  showSignIn();
+                }}
+              >
+                <LogIn className="h-4 w-4" />
+                Sign in
+              </Button>
+            )}
             <Button
               type="button"
               variant="outline"
               className="cursor-pointer"
               onClick={hide}
             >
-              Maybe later
+              {user ? 'Close' : 'Maybe later'}
             </Button>
           </div>
         </div>

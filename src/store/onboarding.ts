@@ -1,11 +1,11 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { useAuthStore } from "@/store/auth";
-import type * as profileApi from "@/lib/supabase/profile";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { useAuthStore } from '@/store/auth';
+import type * as profileApi from '@/lib/supabase/profile';
 
 // Supabase code loads on the first write, keeping it out of the first-paint bundle
 const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
-  (await import("@/lib/supabase/profile")).upsertProfile(...args);
+  (await import('@/lib/supabase/profile')).upsertProfile(...args);
 
 interface OnboardingStore {
   hasOnboarded: boolean;
@@ -28,7 +28,7 @@ export const useOnboardingStore = create<OnboardingStore>()(
   persist(
     (set) => ({
       hasOnboarded: false,
-      userName: "",
+      userName: '',
       avatarUrl: null,
       synced: false,
       profileIntroSeen: false,
@@ -36,8 +36,7 @@ export const useOnboardingStore = create<OnboardingStore>()(
       completeOnboarding: (name) => {
         set({ hasOnboarded: true, userName: name });
         const userId = useAuthStore.getState().user?.id;
-        if (userId)
-          void upsertProfile(userId, { user_name: name, has_onboarded: true });
+        if (userId) void upsertProfile(userId, { user_name: name, has_onboarded: true });
       },
       setUserName: (name) => {
         set({ userName: name });
@@ -57,7 +56,7 @@ export const useOnboardingStore = create<OnboardingStore>()(
       },
     }),
     {
-      name: "nihongo-onboarding",
+      name: 'nihongo-onboarding',
       partialize: ({ hasOnboarded, userName, avatarUrl }) => ({
         hasOnboarded,
         userName,

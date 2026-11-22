@@ -1,7 +1,7 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 // A whole card that links somewhere, with the same hover treatment across the app.
 // Pass `index` in a grid to stagger the entrance animation. Pass `onClick` instead of `href`
@@ -20,7 +20,7 @@ export function LinkCard({
   index?: number;
 }) {
   const cardClassName = cn(
-    "h-full transition-all group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md",
+    'h-full transition-all group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md',
     className,
   );
 

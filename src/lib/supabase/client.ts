@@ -1,7 +1,7 @@
 import {
   createClient as createSupabaseClient,
   type SupabaseClient,
-} from "@supabase/supabase-js";
+} from '@supabase/supabase-js';
 
 interface ClerkGlobal {
   session?: {
@@ -15,7 +15,7 @@ async function clerkSupabaseToken(): Promise<string | null> {
   const clerk = (window as unknown as { Clerk?: ClerkGlobal }).Clerk;
   if (!clerk?.session) return null;
   try {
-    return await clerk.session.getToken({ template: "supabase" });
+    return await clerk.session.getToken({ template: 'supabase' });
   } catch {
     return null;
   }

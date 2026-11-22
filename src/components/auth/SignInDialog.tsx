@@ -1,39 +1,33 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { Loader2, X } from "lucide-react";
-import { useAuthStore } from "@/store/auth";
-import { useSignInDialogStore } from "@/store/signInDialog";
-import {
-  ClerkFailed,
-  ClerkLoaded,
-  ClerkLoading,
-  SignIn,
-  useUser,
-} from "@clerk/nextjs";
+import { useEffect } from 'react';
+import { Loader2, X } from 'lucide-react';
+import { useAuthStore } from '@/store/auth';
+import { useSignInDialogStore } from '@/store/signInDialog';
+import { ClerkFailed, ClerkLoaded, ClerkLoading, SignIn, useUser } from '@clerk/nextjs';
 
 // Clerk's card sits inside our dialog, so it drops its own card styling and heading, and uses the app's theme classes
 // so it follows light and dark mode.
 const clerkAppearance = {
   elements: {
-    rootBox: "w-full! max-w-full",
-    cardBox: "w-full! max-w-full",
-    card: "w-full! max-w-full bg-transparent p-0 shadow-none border-0",
-    headerTitle: "hidden",
-    headerSubtitle: "hidden",
+    rootBox: 'w-full! max-w-full',
+    cardBox: 'w-full! max-w-full',
+    card: 'w-full! max-w-full bg-transparent p-0 shadow-none border-0',
+    headerTitle: 'hidden',
+    headerSubtitle: 'hidden',
     socialButtonsBlockButton:
-      "border-border bg-background text-foreground hover:bg-muted shadow-none",
-    socialButtonsBlockButtonText: "text-foreground",
-    dividerLine: "bg-border",
-    dividerText: "text-muted-foreground",
-    formFieldLabel: "text-foreground",
-    formFieldInput: "bg-background text-foreground border-border shadow-none",
+      'border-border bg-background text-foreground hover:bg-muted shadow-none',
+    socialButtonsBlockButtonText: 'text-foreground',
+    dividerLine: 'bg-border',
+    dividerText: 'text-muted-foreground',
+    formFieldLabel: 'text-foreground',
+    formFieldInput: 'bg-background text-foreground border-border shadow-none',
     formButtonPrimary:
-      "bg-primary text-primary-foreground hover:bg-primary/90 shadow-none",
-    identityPreviewText: "text-foreground",
-    footer: "bg-transparent",
-    footerActionText: "text-muted-foreground",
-    footerActionLink: "text-primary hover:text-primary/80",
+      'bg-primary text-primary-foreground hover:bg-primary/90 shadow-none',
+    identityPreviewText: 'text-foreground',
+    footer: 'bg-transparent',
+    footerActionText: 'text-muted-foreground',
+    footerActionLink: 'text-primary hover:text-primary/80',
   },
 };
 
@@ -51,10 +45,10 @@ export function SignInDialog() {
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") hide();
+      if (e.key === 'Escape') hide();
     }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
   }, [open, hide]);
 
   useEffect(() => {

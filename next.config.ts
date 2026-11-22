@@ -1,20 +1,20 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // Produces a self-contained .next/standalone server for lean Docker images
-  output: "standalone",
+  output: 'standalone',
   async headers() {
     return [
       {
-        source: "/sw.js",
+        source: '/sw.js',
         headers: [
           {
-            key: "Content-Type",
-            value: "application/javascript; charset=utf-8",
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
           },
           {
-            key: "Cache-Control",
-            value: "no-cache, no-store, must-revalidate",
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
           },
         ],
       },

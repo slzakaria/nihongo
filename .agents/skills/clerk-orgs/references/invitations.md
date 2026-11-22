@@ -17,15 +17,15 @@ Send, list, revoke. Backend API methods live on `clerkClient().organizations.*`.
 ## Create Invitation
 
 ```typescript
-import { clerkClient, auth } from "@clerk/nextjs/server";
+import { clerkClient, auth } from '@clerk/nextjs/server';
 
 export async function inviteMember(emailAddress: string, role: string) {
   const { userId, orgId, has } = await auth();
-  if (!userId || !orgId) throw new Error("No active organization");
+  if (!userId || !orgId) throw new Error('No active organization');
   // Inviting needs the System Permission org:sys_memberships:manage, which
   // has() can't check, so check a role that carries it.
-  if (!has({ role: "org:admin" })) {
-    throw new Error("Not authorized");
+  if (!has({ role: 'org:admin' })) {
+    throw new Error('Not authorized');
   }
 
   const clerk = await clerkClient();
@@ -34,8 +34,8 @@ export async function inviteMember(emailAddress: string, role: string) {
     inviterUserId: userId,
     emailAddress,
     role,
-    redirectUrl: "https://yourapp.com/accept-invite",
-    publicMetadata: { invitedFrom: "admin-panel" },
+    redirectUrl: 'https://yourapp.com/accept-invite',
+    publicMetadata: { invitedFrom: 'admin-panel' },
   });
 }
 ```
@@ -59,8 +59,8 @@ Takes the `organizationId` as its first positional arg and an array of per-invit
 
 ```typescript
 await clerk.organizations.createOrganizationInvitationBulk(organizationId, [
-  { inviterUserId: userId, emailAddress: "alice@acme.com", role: "org:admin" },
-  { inviterUserId: userId, emailAddress: "bob@acme.com", role: "org:member" },
+  { inviterUserId: userId, emailAddress: 'alice@acme.com', role: 'org:admin' },
+  { inviterUserId: userId, emailAddress: 'bob@acme.com', role: 'org:member' },
 ]);
 ```
 
@@ -69,13 +69,12 @@ Each item accepts the same optional fields as a single `createOrganizationInvita
 ## List Invitations
 
 ```typescript
-const { data, totalCount } =
-  await clerk.organizations.getOrganizationInvitationList({
-    organizationId,
-    status: ["pending", "accepted", "revoked", "expired"], // any subset; defaults to ['pending']
-    limit: 50, // max 500
-    offset: 0,
-  });
+const { data, totalCount } = await clerk.organizations.getOrganizationInvitationList({
+  organizationId,
+  status: ['pending', 'accepted', 'revoked', 'expired'], // any subset; defaults to ['pending']
+  limit: 50, // max 500
+  offset: 0,
+});
 ```
 
 Returns a `PaginatedResourceResponse<OrganizationInvitation[]>` — access the array via `data` and the total via `totalCount`.
@@ -109,8 +108,8 @@ Zero-code path — `<OrganizationProfile />` includes a full members tab with in
 
 ```tsx
 // app/org-settings/[[...rest]]/page.tsx
-import { OrganizationProfile } from "@clerk/nextjs";
-import { Suspense } from "react";
+import { OrganizationProfile } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export default function OrgSettings() {
   return (

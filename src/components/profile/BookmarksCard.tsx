@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Bookmark } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useContentStore } from "@/lib/data/content";
-import { useBookmarkStore } from "@/store/bookmarks";
+import Link from 'next/link';
+import { Bookmark } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useContentStore } from '@/lib/data/content';
+import { useBookmarkStore } from '@/store/bookmarks';
 
 export function BookmarksCard() {
   const phraseIds = useBookmarkStore((s) => s.phraseIds);
@@ -46,7 +46,7 @@ export function BookmarksCard() {
             {savedPhrases.length > 4 && (
               <p className="text-xs text-muted-foreground">
                 And {savedPhrases.length - 4} more saved phrase
-                {savedPhrases.length - 4 === 1 ? "" : "s"}.
+                {savedPhrases.length - 4 === 1 ? '' : 's'}.
               </p>
             )}
           </>
@@ -58,17 +58,11 @@ export function BookmarksCard() {
 
         <Button
           asChild
-          variant={savedPhrases.length > 0 ? "default" : "outline"}
+          variant={savedPhrases.length > 0 ? 'default' : 'outline'}
           className="w-fit cursor-pointer"
         >
-          <Link
-            href={
-              savedPhrases.length > 0 ? "/flashcards/bookmarks" : "/scenarios"
-            }
-          >
-            {savedPhrases.length > 0
-              ? "Review saved phrases"
-              : "Browse scenarios"}
+          <Link href={savedPhrases.length > 0 ? '/flashcards/bookmarks' : '/scenarios'}>
+            {savedPhrases.length > 0 ? 'Review saved phrases' : 'Browse scenarios'}
           </Link>
         </Button>
       </CardContent>

@@ -185,7 +185,7 @@ Examples use `@clerk/nextjs` by default. For other frameworks swap the import to
 Server-side access to active organization:
 
 ```typescript
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server';
 
 const { orgId, orgSlug, orgRole } = await auth();
 if (!orgId) {
@@ -235,8 +235,8 @@ if (!has({ role: 'org:admin' })) {
 Permission checks use the same `has()` surface, for custom Permissions you create in the Dashboard:
 
 ```typescript
-if (!has({ permission: "org:invoices:create" })) {
-  redirect("/unauthorized");
+if (!has({ permission: 'org:invoices:create' })) {
+  redirect('/unauthorized');
 }
 ```
 
@@ -256,17 +256,17 @@ Do NOT invent names like `org:create`, `org:manage_members`, `org:update_metadat
 In a Next.js Server Component, `<Show>` reads the session from the request, so wrap it in `<Suspense>`. In a Client Component, it reads client-side auth state and needs no boundary.
 
 ```tsx
-import { Show } from "@clerk/nextjs";
-import { Suspense } from "react";
+import { Show } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export function AdminControls() {
   return (
     <Suspense>
-      <Show when={{ role: "org:admin" }}>
+      <Show when={{ role: 'org:admin' }}>
         <AdminPanel />
       </Show>
 
-      <Show when={{ permission: "org:invoices:create" }}>
+      <Show when={{ permission: 'org:invoices:create' }}>
         <NewInvoiceButton />
       </Show>
     </Suspense>
@@ -287,7 +287,7 @@ Astro template syntax for the same component (imported from `@clerk/astro/compon
 ### 5. OrganizationSwitcher
 
 ```tsx
-import { OrganizationSwitcher } from "@clerk/nextjs";
+import { OrganizationSwitcher } from '@clerk/nextjs';
 
 export function OrgSwitcher() {
   return (
@@ -314,8 +314,8 @@ When `Membership required` is enabled (the default), users without an org are ro
 
 ```tsx
 // app/layout.tsx
-import { ClerkProvider } from "@clerk/nextjs";
-import type { ReactNode } from "react";
+import { ClerkProvider } from '@clerk/nextjs';
+import type { ReactNode } from 'react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -323,7 +323,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <ClerkProvider
           taskUrls={{
-            "choose-organization": "/session-tasks/choose-organization",
+            'choose-organization': '/session-tasks/choose-organization',
           }}
         >
           {children}
@@ -336,7 +336,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 ```tsx
 // app/session-tasks/choose-organization/page.tsx
-import { TaskChooseOrganization } from "@clerk/nextjs";
+import { TaskChooseOrganization } from '@clerk/nextjs';
 
 export default function Page() {
   return <TaskChooseOrganization redirectUrlComplete="/dashboard" />;
@@ -358,8 +358,8 @@ The default roles are `org:admin` and `org:member`. Read [roles and permissions]
 ```typescript
 const { has } = await auth();
 
-has({ plan: "gold" }); // subscription plan
-has({ feature: "widgets" }); // feature entitlement
+has({ plan: 'gold' }); // subscription plan
+has({ feature: 'widgets' }); // feature entitlement
 ```
 
 > **Core 2 ONLY (skip if current SDK):** `has()` only supports `role` and `permission`. Billing checks aren't available.
@@ -372,7 +372,7 @@ Per-org SAML/OIDC. Configured in Dashboard → Configure → Enterprise Connecti
 
 ```typescript
 // Strategy name for Enterprise SSO (Core 3)
-strategy: "enterprise_sso";
+strategy: 'enterprise_sso';
 ```
 
 > **Core 2 ONLY (skip if current SDK):** Uses `strategy: 'saml'` and `user.samlAccounts` instead of `user.enterpriseAccounts`.
@@ -384,7 +384,7 @@ strategy: "enterprise_sso";
 ```typescript
 const clerk = await clerkClient();
 await clerk.organizations.createOrganization({
-  name: "Acme Corp",
+  name: 'Acme Corp',
   createdBy: userId,
   maxAllowedMemberships: 10,
 });
@@ -410,7 +410,7 @@ const org = await clerk.organizations.getOrganization({
   organizationId: orgId,
 });
 await clerk.organizations.updateOrganization(orgId, {
-  publicMetadata: { ...org.publicMetadata, newField: "value" },
+  publicMetadata: { ...org.publicMetadata, newField: 'value' },
 });
 ```
 

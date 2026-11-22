@@ -1,11 +1,11 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { SRSCard, SRSGrade } from "@/types";
-import { createCard, sm2 } from "@/lib/srs/sm2";
-import { getAllPhrases, getScenarioSlugForPhrase } from "@/lib/data/phrases";
-import { useAuthStore } from "@/store/auth";
-import { useGoalsStore } from "@/store/goals";
-import { dayKey } from "@/lib/activity/studyDays";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { SRSCard, SRSGrade } from '@/types';
+import { createCard, sm2 } from '@/lib/srs/sm2';
+import { getAllPhrases, getScenarioSlugForPhrase } from '@/lib/data/phrases';
+import { useAuthStore } from '@/store/auth';
+import { useGoalsStore } from '@/store/goals';
+import { dayKey } from '@/lib/activity/studyDays';
 
 export interface PendingCardWrite {
   operationId: string;
@@ -13,7 +13,7 @@ export interface PendingCardWrite {
 }
 
 function operationId(): string {
-  return typeof crypto !== "undefined" && "randomUUID" in crypto
+  return typeof crypto !== 'undefined' && 'randomUUID' in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
@@ -291,8 +291,7 @@ export const useProgressStore = create<ProgressStore>()(
           if (!userId) return { cards };
           const pendingCards = { ...state.pendingCardsByUser[userId] };
           for (const [phraseId, pending] of Object.entries(pendingCards)) {
-            if (pending.card.scenarioSlug === scenarioSlug)
-              delete pendingCards[phraseId];
+            if (pending.card.scenarioSlug === scenarioSlug) delete pendingCards[phraseId];
           }
           return {
             cards,
@@ -311,6 +310,6 @@ export const useProgressStore = create<ProgressStore>()(
         });
       },
     }),
-    { name: "nihongo-progress" },
+    { name: 'nihongo-progress' },
   ),
 );

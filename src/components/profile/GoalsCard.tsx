@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Target } from "lucide-react";
-import { useGoalsStore, reviewsToday, reviewsThisWeek } from "@/store/goals";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import { Target } from 'lucide-react';
+import { useGoalsStore, reviewsToday, reviewsThisWeek } from '@/store/goals';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 
 // Overall progress plus daily and weekly targets — one combined card rather than a separate
 // "Overall" card above it. Badges now live in their own BadgesCard, since there are enough of
@@ -26,8 +26,7 @@ export function GoalsCard({
   const thisWeek = useGoalsStore((s) => reviewsThisWeek(s));
   const dailyPct = Math.min(100, Math.round((today / dailyGoal) * 100));
   const weeklyPct = Math.min(100, Math.round((thisWeek / weeklyGoal) * 100));
-  const overallPct =
-    totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100);
+  const overallPct = totalPhrases === 0 ? 0 : Math.round((reviewed / totalPhrases) * 100);
 
   return (
     <Card>

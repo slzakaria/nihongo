@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { ShieldCheck } from "lucide-react";
-import type { AdminUserRow } from "@/app/api/admin/users/route";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from 'react';
+import { ShieldCheck } from 'lucide-react';
+import type { AdminUserRow } from '@/app/api/admin/users/route';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 function formatDate(value: string | null): string {
-  if (!value) return "—";
+  if (!value) return '—';
   return new Date(value).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   });
 }
 
@@ -23,12 +23,11 @@ export function AdminUsersCard() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/admin/users")
+    fetch('/api/admin/users')
       .then(async (res) => {
         if (!res.ok)
           throw new Error(
-            (await res.json().catch(() => null))?.error ??
-              "Failed to load users",
+            (await res.json().catch(() => null))?.error ?? 'Failed to load users',
           );
         return res.json() as Promise<{ users: AdminUserRow[] }>;
       })
@@ -52,9 +51,7 @@ export function AdminUsersCard() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {error && (
-          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         {!error && !users && (
           <p className="text-sm text-muted-foreground">Loading users…</p>
         )}
@@ -79,13 +76,10 @@ export function AdminUsersCard() {
               </thead>
               <tbody>
                 {users.map((u) => (
-                  <tr
-                    key={u.id}
-                    className="border-b border-border last:border-0"
-                  >
-                    <td className="py-2 pr-3">{u.name || "—"}</td>
+                  <tr key={u.id} className="border-b border-border last:border-0">
+                    <td className="py-2 pr-3">{u.name || '—'}</td>
                     <td className="truncate py-2 pr-3 text-muted-foreground">
-                      {u.email || "—"}
+                      {u.email || '—'}
                     </td>
                     <td className="py-2 pr-3 text-muted-foreground">
                       {formatDate(u.createdAt)}
@@ -100,7 +94,7 @@ export function AdminUsersCard() {
                       {u.completedScenarios.length > 0 ? (
                         <span
                           className="cursor-help underline decoration-dotted underline-offset-2"
-                          title={u.completedScenarios.join(", ")}
+                          title={u.completedScenarios.join(', ')}
                         >
                           {u.completedScenarios.length}
                         </span>

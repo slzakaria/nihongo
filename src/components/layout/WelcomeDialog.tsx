@@ -1,37 +1,36 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useOnboardingStore } from "@/store/onboarding";
-import { useAuthStore } from "@/store/auth";
-import { useAudio } from "@/hooks/useAudio";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from 'react';
+import { useOnboardingStore } from '@/store/onboarding';
+import { useAuthStore } from '@/store/auth';
+import { useAudio } from '@/hooks/useAudio';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 // Case-insensitive, trimmed match against our small VIP list
 const SPECIAL_NAMES = [
-  "rimane",
-  "riri",
-  "youssra",
-  "youyou",
-  "narimane",
-  "youss",
-  "yous",
-  "zackari",
-  "zachari",
-  "hamza",
-  "lamy",
-  "lamiae",
+  'rimane',
+  'riri',
+  'youssra',
+  'youyou',
+  'narimane',
+  'youss',
+  'yous',
+  'zackari',
+  'zachari',
+  'hamza',
+  'lamy',
+  'lamiae',
 ];
 
 // NOTE: the specific message requested for the VIP list contained profanity
-const SPECIAL_MESSAGE =
-  "SEYEBT LIKOM ZBEL DEBRO KRRKOM TEMA, KOLA YNECH ALA KBALTO. 👋";
+const SPECIAL_MESSAGE = 'SEYEBT LIKOM ZBEL DEBRO KRRKOM TEMA, KOLA YNECH ALA KBALTO. 👋';
 const SPECIAL_VOICE_MESSAGE = (name: string) =>
   `ようこそ、${name}さん！日本語の勉強、頑張ってね！`;
 const DEFAULT_MESSAGE = (name: string) =>
-  `Happy learning${name ? `, ${name}` : ""}! 頑張って 🎌`;
+  `Happy learning${name ? `, ${name}` : ''}! 頑張って 🎌`;
 
-const GREETED_KEY = "nihongo-greeted-at";
+const GREETED_KEY = 'nihongo-greeted-at';
 
 // Plays the VIP greeting once per sign-in. The sign-in timestamp is the key, so reloads don't replay it
 // but the next sign-in does.
@@ -43,7 +42,7 @@ function greetSpecialUser(
   if (!signedInAt || localStorage.getItem(GREETED_KEY) === signedInAt) return;
   localStorage.setItem(GREETED_KEY, signedInAt);
   void play(SPECIAL_VOICE_MESSAGE(name));
-  void import("canvas-confetti").then(({ default: confetti }) =>
+  void import('canvas-confetti').then(({ default: confetti }) =>
     confetti({ particleCount: 550, spread: 150, origin: { y: 0.6 } }),
   );
 }
@@ -55,7 +54,7 @@ export function WelcomeDialog() {
   const synced = useOnboardingStore((s) => s.synced);
   const completeOnboarding = useOnboardingStore((s) => s.completeOnboarding);
   const { play } = useAudio();
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Returning users: greet once the saved profile has loaded, so the name is the server copy
@@ -90,9 +89,7 @@ export function WelcomeDialog() {
         >
           <div>
             <h2 className="text-lg font-semibold">ようこそ！ Welcome</h2>
-            <p className="text-sm text-muted-foreground">
-              What should we call you?
-            </p>
+            <p className="text-sm text-muted-foreground">What should we call you?</p>
           </div>
           <input
             autoFocus
@@ -115,13 +112,7 @@ export function WelcomeDialog() {
   ) : null;
 }
 
-function Toast({
-  message,
-  onDismiss,
-}: {
-  message: string;
-  onDismiss: () => void;
-}) {
+function Toast({ message, onDismiss }: { message: string; onDismiss: () => void }) {
   useEffect(() => {
     const timer = setTimeout(onDismiss, 5000);
     return () => clearTimeout(timer);
@@ -130,8 +121,8 @@ function Toast({
   return (
     <div
       className={cn(
-        "fixed bottom-12 left-1/2 z-50 -translate-x-1/2 rounded-md border border-border",
-        "bg-card px-4 py-3 text-md shadow-lg animate-bounce",
+        'fixed bottom-12 left-1/2 z-50 -translate-x-1/2 rounded-md border border-border',
+        'bg-card px-4 py-3 text-md shadow-lg animate-bounce',
       )}
     >
       {message}

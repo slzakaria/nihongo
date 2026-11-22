@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useCallback, useEffect, useMemo } from "react";
-import { ArrowLeft } from "lucide-react";
-import { loadKana, useContentStore } from "@/lib/data/content";
-import { useProgressStore } from "@/store/progress";
-import { FlashcardDeck } from "@/components/flashcards/FlashcardDeck";
+import Link from 'next/link';
+import { useCallback, useEffect, useMemo } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { loadKana, useContentStore } from '@/lib/data/content';
+import { useProgressStore } from '@/store/progress';
+import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
 
 // Spaced-repetition review of every hiragana and katakana character
 export default function KanaPracticePage() {

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useContentStore } from "@/lib/data/content";
-import { useAuthStore } from "@/store/auth";
+import { useEffect, useState } from 'react';
+import { useContentStore } from '@/lib/data/content';
+import { useAuthStore } from '@/store/auth';
 import {
   fetchConversationSummaries,
   type ConversationSummary,
-} from "@/lib/supabase/simulator";
-import { revisitInfo } from "@/lib/simulator/revisit";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { SearchTrigger } from "@/components/search/SearchTrigger";
-import { ScenarioMiniCard } from "@/components/scenarios/ScenarioMiniCard";
+} from '@/lib/supabase/simulator';
+import { revisitInfo } from '@/lib/simulator/revisit';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { SearchTrigger } from '@/components/search/SearchTrigger';
+import { ScenarioMiniCard } from '@/components/scenarios/ScenarioMiniCard';
 
 export default function SimulatorPickerPage() {
   const scenarios = useContentStore((s) => s.content.phrases);
@@ -23,9 +23,7 @@ export default function SimulatorPickerPage() {
     void fetchConversationSummaries(userId).then(setSummaries);
   }, [userId]);
 
-  const updatedBySlug = new Map(
-    summaries.map((s) => [s.scenarioSlug, s.updatedAt]),
-  );
+  const updatedBySlug = new Map(summaries.map((s) => [s.scenarioSlug, s.updatedAt]));
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
@@ -40,7 +38,7 @@ export default function SimulatorPickerPage() {
         {scenarios.map((s, i) => {
           const info = userId
             ? revisitInfo(updatedBySlug.get(s.slug), now)
-            : { due: false, label: "Start conversation" };
+            : { due: false, label: 'Start conversation' };
           return (
             <ScenarioMiniCard
               key={s.slug}
@@ -52,8 +50,8 @@ export default function SimulatorPickerPage() {
               <span
                 className={
                   info.due
-                    ? "text-xs font-medium text-primary"
-                    : "text-xs text-muted-foreground"
+                    ? 'text-xs font-medium text-primary'
+                    : 'text-xs text-muted-foreground'
                 }
               >
                 {info.label}

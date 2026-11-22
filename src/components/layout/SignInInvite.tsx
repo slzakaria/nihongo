@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-import { useAuthStore } from "@/store/auth";
-import { useSignInDialogStore } from "@/store/signInDialog";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useAuthStore } from '@/store/auth';
+import { useSignInDialogStore } from '@/store/signInDialog';
+import { Button } from '@/components/ui/button';
 
-const DISMISS_COUNT_KEY = "nihongo-signin-invite-dismiss-count";
+const DISMISS_COUNT_KEY = 'nihongo-signin-invite-dismiss-count';
 // After this many "Not now" clicks (counted across all visits, not just this tab), stop showing
 // the invite for good instead of nagging on every page forever.
 const MAX_DISMISSALS = 6;
 
 function readDismissCount(): number {
-  if (typeof window === "undefined") return 0;
-  return parseInt(localStorage.getItem(DISMISS_COUNT_KEY) ?? "0", 10) || 0;
+  if (typeof window === 'undefined') return 0;
+  return parseInt(localStorage.getItem(DISMISS_COUNT_KEY) ?? '0', 10) || 0;
 }
 
 // Invites signed-out visitors to sign in once they navigate past the homepage. Reappears on each
@@ -33,8 +33,8 @@ export function SignInInvite() {
     !user &&
     !permanentlyDismissed &&
     hiddenForPath !== pathname &&
-    pathname !== "/" &&
-    !pathname.startsWith("/auth");
+    pathname !== '/' &&
+    !pathname.startsWith('/auth');
   if (!shouldShow) return null;
 
   function dismiss() {
@@ -59,12 +59,7 @@ export function SignInInvite() {
           <Button size="sm" className="cursor-pointer" onClick={showSignIn}>
             Sign in
           </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="cursor-pointer"
-            onClick={dismiss}
-          >
+          <Button size="sm" variant="ghost" className="cursor-pointer" onClick={dismiss}>
             Not now
           </Button>
         </div>

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Phrase } from "@/types";
-import { AudioButton } from "@/components/phrases/AudioButton";
-import { useSettingsStore } from "@/store/settings";
-import { cn } from "@/lib/utils";
+import { Phrase } from '@/types';
+import { AudioButton } from '@/components/phrases/AudioButton';
+import { useSettingsStore } from '@/store/settings';
+import { cn } from '@/lib/utils';
 
 export function FlashcardFace({
   phrase,
@@ -15,7 +15,7 @@ export function FlashcardFace({
   onFlip: () => void;
 }) {
   const romajiMode = useSettingsStore((s) => s.romajiMode);
-  const showRomaji = romajiMode === "always" || romajiMode === "reveal";
+  const showRomaji = romajiMode === 'always' || romajiMode === 'reveal';
 
   return (
     <div
@@ -30,10 +30,7 @@ export function FlashcardFace({
             <p lang="ja" className="text-2xl font-medium">
               {phrase.japanese}
             </p>
-            <span
-              className="cursor-pointer"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <span className="cursor-pointer" onClick={(e) => e.stopPropagation()}>
               <AudioButton text={phrase.japanese} />
             </span>
           </div>
@@ -42,20 +39,16 @@ export function FlashcardFace({
               {phrase.kanji}
             </p>
           )}
-          {showRomaji && (
-            <p className="text-sm text-muted-foreground">{phrase.romaji}</p>
-          )}
+          {showRomaji && <p className="text-sm text-muted-foreground">{phrase.romaji}</p>}
           <p className="text-sm text-muted-foreground">{phrase.english}</p>
           {phrase.notes && (
-            <p className={cn("mt-2 max-w-sm text-xs text-muted-foreground")}>
+            <p className={cn('mt-2 max-w-sm text-xs text-muted-foreground')}>
               {phrase.notes}
             </p>
           )}
         </div>
       )}
-      {!showBack && (
-        <p className="text-xs text-muted-foreground">Tap to reveal</p>
-      )}
+      {!showBack && <p className="text-xs text-muted-foreground">Tap to reveal</p>}
     </div>
   );
 }

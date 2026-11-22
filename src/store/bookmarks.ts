@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { useAuthStore } from "@/store/auth";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { useAuthStore } from '@/store/auth';
 
 export interface PendingBookmarkWrite {
   operationId: string;
@@ -8,7 +8,7 @@ export interface PendingBookmarkWrite {
 }
 
 function operationId(): string {
-  return typeof crypto !== "undefined" && "randomUUID" in crypto
+  return typeof crypto !== 'undefined' && 'randomUUID' in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
@@ -93,7 +93,7 @@ export const useBookmarkStore = create<BookmarkStore>()(
       clear: () => set({ phraseIds: [] }),
     }),
     {
-      name: "nihongo-bookmarks",
+      name: 'nihongo-bookmarks',
       partialize: ({ phraseIds, pendingByUser }) => ({
         phraseIds,
         pendingByUser,

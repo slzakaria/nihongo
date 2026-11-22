@@ -1,5 +1,5 @@
-import { createClient } from "@/lib/supabase/client";
-import { SRSCard } from "@/types";
+import { createClient } from '@/lib/supabase/client';
+import { SRSCard } from '@/types';
 
 interface CardRow {
   phrase_id: string;
@@ -32,47 +32,39 @@ function toRow(userId: string, card: SRSCard) {
     repetitions: card.repetitions,
     ease_factor: card.easeFactor,
     next_review: new Date(card.nextReview).toISOString(),
-    last_review: card.lastReview
-      ? new Date(card.lastReview).toISOString()
-      : null,
+    last_review: card.lastReview ? new Date(card.lastReview).toISOString() : null,
   };
 }
 
-export async function fetchServerCards(
-  userId: string,
-): Promise<Record<string, SRSCard>> {
+export async function fetchServerCards(userId: string): Promise<Record<string, SRSCard>> {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("srs_cards")
-    .select("*")
-    .eq("user_id", userId);
+    .from('srs_cards')
+    .select('*')
+    .eq('user_id', userId);
   if (error) throw error;
   const cards: Record<string, SRSCard> = {};
-  for (const row of (data ?? []) as CardRow[])
-    cards[row.phrase_id] = toCard(row);
+  for (const row of (data ?? []) as CardRow[]) cards[row.phrase_id] = toCard(row);
   return cards;
 }
 
 export async function upsertCards(userId: string, cards: SRSCard[]) {
   if (cards.length === 0) return;
   const supabase = createClient();
-  const { error } = await supabase.from("srs_cards").upsert(
+  const { error } = await supabase.from('srs_cards').upsert(
     cards.map((c) => toRow(userId, c)),
-    { onConflict: "user_id,phrase_id" },
+    { onConflict: 'user_id,phrase_id' },
   );
   if (error) throw error;
 }
 
-export async function deleteScenarioCards(
-  userId: string,
-  scenarioSlugs: string[],
-) {
+export async function deleteScenarioCards(userId: string, scenarioSlugs: string[]) {
   if (scenarioSlugs.length === 0) return;
   const supabase = createClient();
   const { error } = await supabase
-    .from("srs_cards")
+    .from('srs_cards')
     .delete()
-    .eq("user_id", userId)
-    .in("scenario_slug", scenarioSlugs);
+    .eq('user_id', userId)
+    .in('scenario_slug', scenarioSlugs);
   if (error) throw error;
 }

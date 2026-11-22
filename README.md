@@ -55,7 +55,14 @@ Copy `.env.example` to `.env`, then fill in the values supplied by the project o
 | `SUPABASE_DB_URL`, `SUPABASE_APP_URL`, `SUPABASE_ID`, `DB_PW`      | Supabase database and project details                                                        |
 | `CLAUDE_API_KEY`                                                   | Simulator replies                                                                            |
 | `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, `ELEVENLABS_MODEL_ID` | Text-to-speech and speech-to-text                                                            |
-| `RATE_LIMIT_SECRET`                                                | Optional secret for signing guest rate-limit cookies                                         |
+| `RATE_LIMIT_SECRET`                                                | Recommended stable secret for server-side API rate-limit identity hashing                    |
+
+Production guest API limits use the client IP forwarded by the ingress proxy. Configure the
+proxy to overwrite `X-Forwarded-For` or `X-Real-IP`; do not expose the app directly with
+client-controlled forwarding headers. Daily limits reset at UTC midnight: guests can make 20
+requests per provider per IP, while signed-in accounts can make 100 per provider per account.
+When a trusted client IP is available, signed-in requests also share a 200-request-per-provider
+IP cap.
 
 ### 3. Database
 

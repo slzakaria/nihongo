@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --radius: 0.575rem;
@@ -9,14 +9,14 @@
   --card: #ffffff;
   --card-foreground: #2d2520;
 
-  --primary: #d4537e;
+  --primary: #b43e63;
   --primary-foreground: #ffffff;
 
   --secondary: #fce4ee;
   --secondary-foreground: #993556;
 
   --muted: #fdf6f0;
-  --muted-foreground: #8a7470;
+  --muted-foreground: #806963;
 
   --accent: #faeada;
   --accent-foreground: #8a5030;
@@ -50,8 +50,7 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-sans:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-serif-jp: var(--font-noto-serif-jp);
 }
@@ -64,7 +63,7 @@
   --card-foreground: #e8eaf6;
 
   --primary: #378add;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #12151f;
 
   --secondary: #2d1f28;
   --secondary-foreground: #ed93b1;
@@ -91,8 +90,7 @@ body {
   background: linear-gradient(135deg, #faf7f4 0%, #fdf6f0 52%, #f4f0fc 100%);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
 
@@ -101,7 +99,7 @@ body {
 }
 
 .navbar-logo {
-  color: #d4537e;
+  color: var(--primary);
   font-family: var(--font-noto-serif-jp), serif;
 }
 
@@ -326,11 +324,11 @@ body {
 }
 
 .simulator-bubble--assistant .simulator-translation {
-  color: #378add;
+  color: #185fa5;
 }
 
 .simulator-bubble--user .simulator-translation {
-  color: #d4537e;
+  color: #993556;
 }
 
 .dark .simulator-bubble--assistant {
@@ -359,12 +357,12 @@ body {
 .simulator-chat-input > div {
   border-color: #f0d8cc;
   background-color: #ffffff;
-  color: #b8a09a;
+  color: var(--muted-foreground);
 }
 
 .simulator-send-button:disabled {
-  background-color: #d4537e;
-  color: #ffffff;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
   opacity: 1;
 }
 
@@ -492,7 +490,7 @@ body {
 
 @layer base {
   button:not(:disabled),
-  [role="button"],
+  [role='button'],
   summary,
   select {
     cursor: pointer;
@@ -618,21 +616,9 @@ body {
 .starry-sky {
   opacity: 1;
   background-image:
-    radial-gradient(
-      ellipse 70% 55% at 12% 8%,
-      var(--star-glow-a),
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 88% 15%,
-      var(--star-glow-c),
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 65% 55% at 20% 92%,
-      var(--star-glow-b),
-      transparent 72%
-    ),
+    radial-gradient(ellipse 70% 55% at 12% 8%, var(--star-glow-a), transparent 72%),
+    radial-gradient(ellipse 60% 50% at 88% 15%, var(--star-glow-c), transparent 72%),
+    radial-gradient(ellipse 65% 55% at 20% 92%, var(--star-glow-b), transparent 72%),
     radial-gradient(2.5px 2.5px at 83.4% 48%, var(--star-b), transparent),
     radial-gradient(1.5px 1.5px at 84.2% 98.3%, var(--star-b), transparent),
     radial-gradient(3px 2px at 41.7% 36.2%, var(--star-b), transparent),
@@ -740,11 +726,11 @@ body {
   --hero-border: #f0d8cc;
   --hero-title-ja: #d4537e;
   --hero-title-en: #2d2520;
-  --hero-subtitle: #8a7470;
-  --hero-kicker: #b08a80;
-  --hero-primary: #d4537e;
+  --hero-subtitle: #806963;
+  --hero-kicker: #806158;
+  --hero-primary: #b43e63;
   --hero-primary-foreground: #fff;
-  --hero-secondary: #d4537e;
+  --hero-secondary: #b43e63;
   --hero-secondary-hover: #fce4ee;
   --hero-track: #edd8c8;
   --hero-pink-soft: #fce4ee;
@@ -778,9 +764,9 @@ body {
   --hero-title-ja: #85b7eb;
   --hero-title-en: #e8eaf6;
   --hero-subtitle: #8893b0;
-  --hero-kicker: #5a6480;
+  --hero-kicker: #8893b0;
   --hero-primary: #378add;
-  --hero-primary-foreground: #fff;
+  --hero-primary-foreground: #12151f;
   --hero-secondary: #85b7eb;
   --hero-secondary-hover: #1a2a3e;
   --hero-track: #2a3250;
@@ -813,15 +799,13 @@ body {
 .hero-title-en,
 .hero-page-title {
   color: var(--hero-title-en);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-description,
 .hero-page-description {
   color: var(--hero-subtitle);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-banner .hero-primary-cta {
@@ -853,8 +837,7 @@ body {
 
 .hero-progress-label {
   color: var(--hero-kicker);
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-progress-track {
@@ -867,8 +850,7 @@ body {
 }
 
 .hero-vocab-pill {
-  font-family:
-    var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-vocab-pill--pink {
