@@ -46,6 +46,14 @@ function retryDelay(userId: string): number {
   return Math.min(60_000, 1_000 * 2 ** Math.min(attempt - 1, 6));
 }
 
+// Schedules the backoff retry after a failed sync. During a Meticulous replay, requests that
+// don't match the recording fail, so retrying would loop for the whole replay; skip it there.
+// The failed writes stay queued in the store.
+function scheduleRetry(userId: string): void {
+  if (typeof window !== 'undefined' && window.Meticulous?.isRunningAsTest) return;
+  scheduleSync(userId, retryDelay(userId));
+}
+
 export function scheduleSync(userId: string, delay = 400): void {
   if (typeof window === 'undefined') return;
   const existing = queuedSyncs.get(userId);
@@ -289,13 +297,13 @@ export async function syncForUser(userId: string): Promise<void> {
 
   const task = (async () => {
     if (!hydratedUsers.has(userId) && !(await hydrateOnSignIn(userId))) {
-      scheduleSync(userId, retryDelay(userId));
+      scheduleRetry(userId);
       return;
     }
 
     const succeeded = await flushPendingWrites(userId);
     if (!succeeded) {
-      scheduleSync(userId, retryDelay(userId));
+      scheduleRetry(userId);
       return;
     }
 
