@@ -103,6 +103,14 @@ function attachResponses(scenarios: Scenario[], byId: ResponseMap): Scenario[] {
   }));
 }
 
+export async function loadPhraseResponsesFor(phrases: Phrase[]): Promise<Phrase[]> {
+  const byId = await getResponseMap();
+  return phrases.map((phrase) => ({
+    ...phrase,
+    responses: byId[phrase.id] ?? phrase.responses ?? [],
+  }));
+}
+
 // Fills responses into the client store. Only the search page renders them there.
 let responsesLoaded: Promise<void> | undefined;
 export function loadPhraseResponses(): Promise<void> {

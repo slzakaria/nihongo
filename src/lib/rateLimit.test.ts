@@ -41,30 +41,28 @@ describe('API daily limits', () => {
     expect(JSON.stringify(rpc.mock.calls)).not.toContain('192.0.2.10');
   });
 
-  it('limits signed-in users and the shared client IP', async () => {
+  it('does not rate limit signed-in users or their shared client IP', async () => {
     const req = new NextRequest('https://example.test/api', {
       headers: { 'x-real-ip': '192.0.2.10' },
     });
 
-    await checkAndBumpDailyLimit(req, 'elevenlabs', 'user-123');
+    await expect(checkAndBumpDailyLimit(req, 'elevenlabs', 'user-123')).resolves.toEqual({
+      limited: false,
+    });
 
-    expect(rpc).toHaveBeenNthCalledWith(
-      1,
-      'consume_api_daily_limit',
-      expect.objectContaining({
-        p_bucket: 'elevenlabs:user',
-        p_limit: 100,
-      }),
-    );
-    expect(rpc).toHaveBeenNthCalledWith(
-      2,
-      'consume_api_daily_limit',
-      expect.objectContaining({
-        p_bucket: 'elevenlabs:ip',
-        p_limit: 200,
-      }),
-    );
+    expect(rpc).not.toHaveBeenCalled();
     expect(accountRateLimitHash('user-123')).toMatch(/^[0-9a-f]{64}$/);
+  });
+
+  it('does not require rate-limit configuration for signed-in users', async () => {
+    vi.stubEnv('RATE_LIMIT_SECRET', '');
+    vi.stubEnv('NODE_ENV', 'production');
+    const req = new NextRequest('https://example.test/api');
+
+    await expect(checkAndBumpDailyLimit(req, 'anthropic', 'user-123')).resolves.toEqual({
+      limited: false,
+    });
+    expect(rpc).not.toHaveBeenCalled();
   });
 
   it('fails closed when the shared counter cannot be checked', async () => {

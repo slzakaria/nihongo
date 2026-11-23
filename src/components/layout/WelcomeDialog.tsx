@@ -20,6 +20,7 @@ const SPECIAL_NAMES = [
   'zackari',
   'zachari',
   'hamza',
+  'bounaim',
   'lamy',
   'lamiae',
 ];
