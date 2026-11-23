@@ -77,6 +77,20 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       className={`${inter.variable} ${notoSerifJP.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        {/*
+          Meticulous recorder: must be the first script in <head>, a native <script> (not next/script),
+          with no async/defer. Only rendered in local development and Vercel preview deployments.
+        */}
+        {(process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') && (
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script
+            data-recording-token="9AosHNt8Krs7GiN37FCv7zKJ33Zw534lWAEvAzxr"
+            data-is-production-environment="false"
+            src="https://snippet.meticulous.ai/v1/meticulous.js"
+          />
+        )}
+      </head>
       <body className="min-h-full flex flex-col">
         <ClerkProvider ui={ui}>
           {/* beforeInteractive injects this into the server HTML, so it runs before paint without React rendering a <script> */}

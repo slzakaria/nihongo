@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
+import { isAdminEmail } from '@/lib/admin';
 import { useAuthStore, type AppUser } from '@/store/auth';
 import { useProgressStore } from '@/store/progress';
 import { useBookmarkStore } from '@/store/bookmarks';
@@ -27,6 +28,7 @@ export function AuthSync() {
     if (!isLoaded) return;
     const owner = localStorage.getItem(DEVICE_OWNER_KEY);
     if (!userKey) {
+      window.Meticulous?.context.recordCustomContext('signedIn', false);
       useAuthStore.getState().setUser(null);
       if (owner) {
         clearDeviceData();
@@ -47,6 +49,11 @@ export function AuthSync() {
       lastSignInAt,
     };
     useAuthStore.getState().setUser(appUser);
+    window.Meticulous?.context.recordUserId(appUser.id);
+    if (email) window.Meticulous?.context.recordUserEmail(email);
+    window.Meticulous?.context.recordCustomContext('signedIn', true);
+    // Admins get the admin dashboard on /profile
+    window.Meticulous?.context.recordCustomContext('userRole', isAdminEmail(email) ? 'admin' : 'user');
     // Supabase code loads only for signed-in people, so guests never download it
     void import('@/lib/supabase/sync')
       .then((m) => m.syncForUser(appUser.id))
