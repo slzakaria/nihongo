@@ -441,12 +441,12 @@
         },
         {
           "id": "rs-09b",
-          "japanese": "おみずを〇つおねがいします",
-          "romaji": "Omizu wo [X]-tsu onegaishimasu",
-          "english": "Water for ___ people please",
+          "japanese": "おみずをふたつおねがいします",
+          "romaji": "Omizu wo futatsu onegaishimasu",
+          "english": "Two waters, please",
           "difficulty": "medium",
-          "notes": "Ordering water for your group all at once. Hold up fingers to match the number.",
-          "kanji": "お水を〇つお願いします"
+          "notes": "This example orders two waters at once. Hold up two fingers when you say it.",
+          "kanji": "お水を二つお願いします"
         },
         {
           "id": "rs-10",
@@ -774,12 +774,12 @@
         },
         {
           "id": "rs-46",
-          "japanese": "〇〇 をぬいてもらえますか？",
-          "romaji": "[ingredient] wo nuite moraemasu ka?",
-          "english": "Could you leave out [ingredient]?",
+          "japanese": "たまごをぬいてもらえますか？",
+          "romaji": "Tamago wo nuite moraemasu ka?",
+          "english": "Could you leave out the egg?",
           "difficulty": "easy",
-          "notes": "Replace the placeholder with an ingredient. For a serious allergy, explain the allergy clearly and confirm preparation details with staff.",
-          "kanji": "〇〇を抜いてもらえますか？"
+          "notes": "This example uses たまご (egg). Replace it with the ingredient you need omitted. For a serious allergy, explain it clearly and confirm preparation details with staff.",
+          "kanji": "卵を抜いてもらえますか？"
         },
         {
           "id": "rs-47",
@@ -1159,12 +1159,12 @@
         },
         {
           "id": "ht-01b",
-          "japanese": "〇めいでよやくした〜です",
-          "romaji": "[X]-mei de yoyaku shita [name] desu",
-          "english": "I have a reservation for ___ people under [name]",
+          "japanese": "にめいでよやくしたやまだです",
+          "romaji": "Ni-mei de yoyaku shita Yamada desu",
+          "english": "I'm Yamada; I have a reservation for two",
           "difficulty": "easy",
-          "notes": "Combine the number of guests with your name when checking in as a group. めい (名, mei) is the formal counter for people used in hotels and restaurants.",
-          "kanji": "〇 名で予約した〜です"
+          "notes": "This example is for two guests under the name Yamada. めい (名, mei) is the formal counter for people used in hotels and restaurants.",
+          "kanji": "二名で予約した山田です"
         },
         {
           "id": "ht-02",
@@ -1345,12 +1345,12 @@
         },
         {
           "id": "ba-01b",
-          "japanese": "〇にんでテーブルにすわれますか？",
-          "romaji": "[X]-nin de teeburu ni suwaremasu ka?",
-          "english": "Can ___ of us sit at a table?",
+          "japanese": "ふたりでテーブルにすわれますか？",
+          "romaji": "Futari de teeburu ni suwaremasu ka?",
+          "english": "Can two of us sit at a table?",
           "difficulty": "easy",
           "notes": "Use this when entering a bar as a group. Some standing bars (立ち飲み/tachinomi) may only have counter seating.",
-          "kanji": "〇人でテーブルに座れますか？"
+          "kanji": "二人でテーブルに座れますか？"
         },
         {
           "id": "ba-02",
@@ -3072,11 +3072,11 @@
         },
         {
           "id": "ph-09",
-          "japanese": "〇〇にアレルギーがあります",
-          "romaji": "[thing] ni arerugii ga arimasu",
-          "english": "I'm allergic to ___",
+          "japanese": "たまごにアレルギーがあります",
+          "romaji": "Tamago ni arerugii ga arimasu",
+          "english": "I'm allergic to eggs",
           "difficulty": "medium",
-          "notes": "Useful for both pharmacies and restaurants. Common fillers: ピーナッツ (peanuts), たまご (卵, tamago) / eggs, こむぎ (小麦, komugi) / wheat, こうかくるい (甲殻類, koukakurui) / shellfish."
+          "notes": "This example uses たまご (卵, tamago) / eggs. Other common allergens include ピーナッツ (peanuts), こむぎ (小麦, komugi) / wheat, and こうかくるい (甲殻類, koukakurui) / shellfish."
         },
         {
           "id": "ph-10",
@@ -3258,39 +3258,39 @@
       "phrases": [
         {
           "id": "am-01",
-          "japanese": "はじめまして、わたしのなまえは〇〇です",
-          "romaji": "Hajimemashite, watashi no namae wa [name] desu",
-          "english": "Nice to meet you, my name is ___",
+          "japanese": "はじめまして、わたしのなまえはやまだです",
+          "romaji": "Hajimemashite, watashi no namae wa Yamada desu",
+          "english": "Nice to meet you, my name is Yamada",
           "difficulty": "easy",
-          "notes": "Swap 〇〇 for your name. Standard way to open a self-introduction.",
-          "kanji": "はじめまして、私の名前は〇〇です"
+          "notes": "Replace 山田 (Yamada) with your own name. Standard way to open a self-introduction.",
+          "kanji": "はじめまして、私の名前は山田です"
         },
         {
           "id": "am-02",
-          "japanese": "わたしは〇〇じんです",
-          "romaji": "Watashi wa [nationality]-jin desu",
-          "english": "I am ___ (nationality)",
+          "japanese": "わたしはアメリカじんです",
+          "romaji": "Watashi wa Amerika-jin desu",
+          "english": "I am American",
           "difficulty": "easy",
-          "notes": "Add じん (人, jin) after your country's adjective form, e.g. アメリカあめりかん (人, American), イギリスbりちsh (人, British), フランスfれんch (人, French), カナダかなぢあん (人, Canadian).",
-          "kanji": "私は〇〇人です"
+          "notes": "Add じん (人, jin) after a country name: アメリカじん (American), イギリスじん (British), フランスじん (French), or カナダじん (Canadian).",
+          "kanji": "私はアメリカ人です"
         },
         {
           "id": "am-03",
-          "japanese": "しごとは〇〇です",
-          "romaji": "Shigoto wa [job] desu",
-          "english": "My job is ___",
+          "japanese": "しごとはエンジニアです",
+          "romaji": "Shigoto wa enjinia desu",
+          "english": "I'm an engineer",
           "difficulty": "easy",
-          "notes": "Common jobs: エンジニア (engineer), デザイナー (designer), てあちぇr (先生, teacher), おっふぃけをrけr (会社員, office worker), sつでんt (学生, student).",
-          "kanji": "仕事は〇〇です"
+          "notes": "Common jobs: エンジニア (engineer), デザイナー (designer), 先生 (teacher), 会社員 (office worker), 学生 (student).",
+          "kanji": "仕事はエンジニアです"
         },
         {
           "id": "am-04",
-          "japanese": "〇〇ではたらいています",
-          "romaji": "[company/field] de hataraite imasu",
-          "english": "I work at/in ___",
+          "japanese": "びょういんではたらいています",
+          "romaji": "Byouin de hataraite imasu",
+          "english": "I work at a hospital",
           "difficulty": "medium",
-          "notes": "Use for a company name or industry, e.g. ITいtこmぱんy (企業, IT company), ほsぴたl (病院, hospital).",
-          "kanji": "〇〇で働いています"
+          "notes": "Use this for a company or industry. This example means 'I work at a hospital': 病院 (びょういん).",
+          "kanji": "病院で働いています"
         },
         {
           "id": "am-05",
@@ -3303,21 +3303,21 @@
         },
         {
           "id": "am-06",
-          "japanese": "こどもが〇にんいます",
-          "romaji": "Kodomo ga [number] nin imasu",
-          "english": "I have ___ children",
+          "japanese": "こどもがさんにんいます",
+          "romaji": "Kodomo ga san-nin imasu",
+          "english": "I have three children",
           "difficulty": "medium",
           "notes": "No kids? Say こどもわいません (子供はいません, Kodomo wa imasen). ひとり (一人, hitori)=1, ふたり (二人, futari)=2, さんにん (三人, san-nin)=3.",
-          "kanji": "子供が〇人います"
+          "kanji": "子供が三人います"
         },
         {
           "id": "am-07",
-          "japanese": "にほんの〇〇がだいすきです",
-          "romaji": "Nihon no [thing] ga daisuki desu",
-          "english": "I love Japan's ___",
+          "japanese": "にほんのたべものがだいすきです",
+          "romaji": "Nihon no tabemono ga daisuki desu",
+          "english": "I love Japanese food",
           "difficulty": "easy",
           "notes": "Great compliment and conversation starter. Fill in たべもの (食べ物, tabemono) / food, ぶんか (文化, bunka) / culture, しぜん (自然, shizen) / nature, ひと (人, hito) / people.",
-          "kanji": "日本の〇〇が大好きです"
+          "kanji": "日本の食べ物が大好きです"
         },
         {
           "id": "am-08",

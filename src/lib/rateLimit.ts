@@ -4,8 +4,6 @@ import type { NextRequest } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 export const ANON_DAILY_LIMIT = 20;
-export const USER_DAILY_LIMIT = 100;
-const IP_DAILY_LIMIT = 200;
 const DEVELOPMENT_SECRET =
   process.env.NODE_ENV === 'production' ? undefined : randomBytes(32).toString('hex');
 
@@ -78,53 +76,26 @@ export async function checkAndBumpDailyLimit(
   userId: string | null,
   anonymousLimit = ANON_DAILY_LIMIT,
 ): Promise<RateLimitResult> {
+  if (userId) return { limited: false };
+
   const secret = rateLimitSecret();
   const ip = clientIp(req);
-  if (!secret || (!userId && !ip)) {
+  if (!secret || !ip) {
     console.error('API rate limiting is missing a stable secret or client IP');
     return { limited: false, unavailable: true };
   }
 
   const supabase = createAdminClient();
-  const checks = userId
-    ? [
-        {
-          bucket: `${provider}:user`,
-          identity: `user:${userId}`,
-          limit: USER_DAILY_LIMIT,
-        },
-        ...(ip
-          ? [
-              {
-                bucket: `${provider}:ip`,
-                identity: `ip:${ip}`,
-                limit: IP_DAILY_LIMIT,
-              },
-            ]
-          : []),
-      ]
-    : [
-        {
-          bucket: provider,
-          identity: `ip:${ip}`,
-          limit: anonymousLimit,
-        },
-      ];
+  const { data, error } = await supabase.rpc('consume_api_daily_limit', {
+    p_bucket: provider,
+    p_identity_hash: identityHash(`ip:${ip}`, secret),
+    p_limit: anonymousLimit,
+  });
 
-  for (const check of checks) {
-    const { data, error } = await supabase.rpc('consume_api_daily_limit', {
-      p_bucket: check.bucket,
-      p_identity_hash: identityHash(check.identity, secret),
-      p_limit: check.limit,
-    });
-
-    if (error || typeof data !== 'boolean') {
-      console.error('API rate-limit check failed', error);
-      return { limited: false, unavailable: true };
-    }
-
-    if (!data) return { limited: true };
+  if (error || typeof data !== 'boolean') {
+    console.error('API rate-limit check failed', error);
+    return { limited: false, unavailable: true };
   }
 
-  return { limited: false };
+  return { limited: !data };
 }

@@ -1130,11 +1130,11 @@
       "kanji": "はい、ホットかアイスをお選びください"
     },
     {
-      "japanese": "コーヒーは、プラス〇円になります",
-      "romaji": "Koohii wa, purasu [X] en ni narimasu",
-      "english": "Coffee is an extra [X] yen",
-      "listen_for": "プラス (purasu) = plus / extra. 〇 is where the price goes.",
-      "kanji": "コーヒーは、プラス〇円になります"
+      "japanese": "コーヒーは、プラスごひゃくえんになります",
+      "romaji": "Koohii wa, purasu gohyaku-en ni narimasu",
+      "english": "Coffee is an extra 500 yen",
+      "listen_for": "プラス (purasu) = plus / extra. ごひゃくえん (500 yen) is the example price.",
+      "kanji": "コーヒーは、プラス500円になります"
     }
   ],
   "rs-40": [
@@ -1879,11 +1879,11 @@
       "kanji": "はい、朝食付きプランに変更できます"
     },
     {
-      "japanese": "ちょうしょくは〇かいでろくじからです",
-      "romaji": "Choushoku wa [X] kai de rokuji kara desu",
-      "english": "Breakfast is on floor [X] from 6am",
-      "listen_for": "かい (階, kai) = floor number.",
-      "kanji": "朝食は〇階で6時からです"
+      "japanese": "ちょうしょくはにかいでろくじからです",
+      "romaji": "Choushoku wa ni-kai de rokuji kara desu",
+      "english": "Breakfast is on the second floor from 6am",
+      "listen_for": "にかい (二階, ni-kai) = second floor.",
+      "kanji": "朝食は2階で6時からです"
     }
   ],
   "ht-14": [
@@ -4830,29 +4830,29 @@
   ],
   "am-01": [
     {
-      "japanese": "はじめまして、〇〇です。よろしくおねがいします",
-      "romaji": "Hajimemashite, [name] desu. Yoroshiku onegaishimasu",
-      "english": "Nice to meet you too, I'm ___. Pleased to meet you",
+      "japanese": "はじめまして、やまだです。よろしくおねがいします",
+      "romaji": "Hajimemashite, Yamada desu. Yoroshiku onegaishimasu",
+      "english": "Nice to meet you too, I'm Yamada. Pleased to meet you",
       "listen_for": "They'll introduce themselves back — remember their name if you can.",
-      "kanji": "はじめまして、〇〇です。よろしくお願いします"
+      "kanji": "はじめまして、山田です。よろしくお願いします"
     }
   ],
   "am-02": [
     {
-      "japanese": "そうですか、〇〇からきたんですね！",
-      "romaji": "Sou desu ka, [country] kara kitan desu ne!",
-      "english": "Oh I see, so you came from ___!",
-      "listen_for": "からからきた (来た, kara kita) = came from. They're confirming your home country.",
-      "kanji": "そうですか、〇〇から来たんですね！"
+      "japanese": "そうですか、アメリカからきたんですね！",
+      "romaji": "Sou desu ka, Amerika kara kitan desu ne!",
+      "english": "Oh, I see—you came from America!",
+      "listen_for": "からきた (来た, kara kita) = came from. They're confirming your home country.",
+      "kanji": "そうですか、アメリカから来たんですね！"
     }
   ],
   "am-03": [
     {
-      "japanese": "〇〇のおしごとですか、すごいですね！",
-      "romaji": "[job] no oshigoto desu ka, sugoi desu ne!",
-      "english": "Oh, you work as ___? That's great!",
+      "japanese": "エンジニアのおしごとですか、すごいですね！",
+      "romaji": "Enjinia no oshigoto desu ka, sugoi desu ne!",
+      "english": "Oh, you're an engineer? That's great!",
       "listen_for": "すごい (sugoi) = amazing/impressive. A common polite compliment.",
-      "kanji": "〇〇のお仕事ですか、すごいですね！"
+      "kanji": "エンジニアのお仕事ですか、すごいですね！"
     }
   ],
   "am-04": [
