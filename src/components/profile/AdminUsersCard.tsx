@@ -92,6 +92,16 @@ export function AdminUsersCard() {
                       <dd className="font-medium">{u.phrasesReviewed}</dd>
                     </div>
                     <div>
+                      <dt className="text-muted-foreground">Flashcards completed</dt>
+                      <dd className="font-medium">{u.flashcardsCompleted}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Accuracy</dt>
+                      <dd className="font-medium">
+                        {u.accuracyPct === null ? '—' : `${u.accuracyPct}%`}
+                      </dd>
+                    </div>
+                    <div>
                       <dt className="text-muted-foreground">Scenarios completed</dt>
                       <dd
                         className="font-medium"
@@ -119,8 +129,10 @@ export function AdminUsersCard() {
                     <th className="py-2 pr-3 font-medium">Streak</th>
                     <th className="py-2 pr-3 font-medium">Days studied</th>
                     <th className="py-2 pr-3 font-medium">Phrases</th>
+                    <th className="py-2 pr-3 font-medium">Flashcards</th>
+                    <th className="py-2 pr-3 font-medium">Accuracy</th>
                     <th className="py-2 pr-3 font-medium">Completed</th>
-                    <th className="py-2 font-medium">Convos</th>
+                    <th className="py-2 font-medium">Simulations</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -136,6 +148,10 @@ export function AdminUsersCard() {
                       <td className="py-2 pr-3">{u.studyStreak}</td>
                       <td className="py-2 pr-3">{u.studyDays}</td>
                       <td className="py-2 pr-3">{u.phrasesReviewed}</td>
+                      <td className="py-2 pr-3">{u.flashcardsCompleted}</td>
+                      <td className="py-2 pr-3">
+                        {u.accuracyPct === null ? '—' : `${u.accuracyPct}%`}
+                      </td>
                       <td className="py-2 pr-3">
                         {u.completedScenarios.length > 0 ? (
                           <span

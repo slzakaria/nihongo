@@ -10,10 +10,12 @@ import { fetchConversationSummaries } from '@/lib/supabase/simulator';
 import { dayKey } from '@/lib/activity/studyDays';
 import { computeBadgeStats, getBadge, unlockedBadgeIds } from '@/lib/badges';
 
-// Lazily loaded so confetti never ships in the initial bundle for people who never earn a badge
+// Lazily loaded so confetti never ships in the initial bundle for people who never earn a badge.
+// Origin sits just above the toast (fixed bottom-6, i.e. near the very bottom of the viewport) so
+// the burst visibly comes from the toast instead of popping up mid-screen.
 function fireConfetti(particleCount: number) {
   void import('canvas-confetti').then(({ default: confetti }) =>
-    confetti({ particleCount, spread: 100, origin: { y: 0.6 } }),
+    confetti({ particleCount, spread: 100, origin: { x: 0.5, y: 0.92 } }),
   );
 }
 
@@ -56,6 +58,9 @@ export function MilestoneWatcher() {
     if (newlyUnlocked.length === 0) return;
     for (const id of newlyUnlocked) markCelebrated(id);
     setQueue((q) => [...q, ...newlyUnlocked.filter((id) => !q.includes(id))]);
+    // One burst per batch of newly-unlocked badges, not one per toast — several badges can
+    // unlock at once and are shown one at a time, which would otherwise fire repeatedly.
+    fireConfetti(220);
     // Only re-run when the underlying data actually changes, not on every celebrated/queue update
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, cards, scenarios, studyDays, conversationCount]);
@@ -65,7 +70,6 @@ export function MilestoneWatcher() {
     const [next, ...rest] = queue;
     setQueue(rest);
     setCurrent(next);
-    fireConfetti(220);
   }, [queue, current]);
 
   useEffect(() => {

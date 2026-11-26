@@ -9,6 +9,8 @@ interface CardRow {
   ease_factor: number;
   next_review: string;
   last_review: string | null;
+  total_reviews: number;
+  correct_reviews: number;
 }
 
 function toCard(row: CardRow): SRSCard {
@@ -20,6 +22,8 @@ function toCard(row: CardRow): SRSCard {
     easeFactor: row.ease_factor,
     nextReview: new Date(row.next_review).getTime(),
     lastReview: row.last_review ? new Date(row.last_review).getTime() : null,
+    totalReviews: row.total_reviews,
+    correctReviews: row.correct_reviews,
   };
 }
 
@@ -33,6 +37,8 @@ function toRow(userId: string, card: SRSCard) {
     ease_factor: card.easeFactor,
     next_review: new Date(card.nextReview).toISOString(),
     last_review: card.lastReview ? new Date(card.lastReview).toISOString() : null,
+    total_reviews: card.totalReviews,
+    correct_reviews: card.correctReviews,
   };
 }
 

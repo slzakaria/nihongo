@@ -5,7 +5,8 @@ import { getCachedAudio, setCachedAudio } from './audioCache';
 import { showRateLimitDialog } from '@/store/rateLimitDialog';
 
 // Matches the server's CACHE_VERSION so browsers drop audio generated before the language fix
-const CACHE_VERSION = 'ja-v2';
+// (bumped again to drop near-silent clips cached for very short phrases, e.g. いいえ)
+const CACHE_VERSION = 'ja-v3';
 
 const blobUrlCache = new Map<string, string>();
 const inFlight = new Map<string, Promise<string>>();
