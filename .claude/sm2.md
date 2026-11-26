@@ -1,37 +1,3 @@
-// lib/srs/sm2.ts
-import { SRSCard } from '@/types'
+# Retired SM-2 notes
 
-export function sm2(card: SRSCard, grade: 0 | 1 | 2 | 3 | 4 | 5): SRSCard {
-// grade: 0-2 = fail, 3 = hard, 4 = good, 5 = easy
-
-let { interval, repetitions, easeFactor } = card
-
-if (grade < 3) {
-// Failed — reset repetitions, short interval
-repetitions = 0
-interval = 1
-} else {
-// Passed
-if (repetitions === 0) interval = 1
-else if (repetitions === 1) interval = 6
-else interval = Math.round(interval * easeFactor)
-
-    repetitions += 1
-
-}
-
-// Adjust ease factor (never go below 1.3)
-easeFactor = Math.max(
-1.3,
-easeFactor + 0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02)
-)
-
-return {
-...card,
-interval,
-repetitions,
-easeFactor,
-lastReview: Date.now(),
-nextReview: Date.now() + interval * 24 * 60 * 60 * 1000
-}
-}
+The flashcard app no longer uses SM-2 or numeric grades. Use the fixed-step schedule documented in [srs.md](./srs.md); do not change scenario progress or scenario difficulty labels when changing flashcard scheduling.

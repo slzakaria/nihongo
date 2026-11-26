@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 
 const COOLDOWN_MS = 24 * 60 * 60 * 1000;
 const STORAGE_PREFIX = 'nihongo-info-popup-last-shown:';
@@ -18,36 +18,32 @@ export function isInfoPopupCooldownComplete(
 }
 
 export function useInfoPopupCooldown(scope: string | null): boolean {
-  const [available, setAvailable] = useState(false);
+  const key = scope ? `${STORAGE_PREFIX}${scope}` : null;
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      if (!key) return () => {};
+      const onStorage = (event: StorageEvent) => {
+        if (event.key === key) onChange();
+      };
+      window.addEventListener(CHANGE_EVENT, onChange);
+      window.addEventListener('storage', onStorage);
+      window.addEventListener('focus', onChange);
+      return () => {
+        window.removeEventListener(CHANGE_EVENT, onChange);
+        window.removeEventListener('storage', onStorage);
+        window.removeEventListener('focus', onChange);
+      };
+    },
+    [key],
+  );
+  const getSnapshot = useCallback(() => {
+    if (!key) return false;
+    const value = window.localStorage.getItem(key);
+    const lastShownAt = value === null ? null : Number(value);
+    return isInfoPopupCooldownComplete(lastShownAt, Date.now());
+  }, [key]);
 
-  useEffect(() => {
-    if (!scope) {
-      setAvailable(false);
-      return;
-    }
-
-    const key = `${STORAGE_PREFIX}${scope}`;
-    const update = () => {
-      const value = window.localStorage.getItem(key);
-      const lastShownAt = value === null ? null : Number(value);
-      setAvailable(isInfoPopupCooldownComplete(lastShownAt, Date.now()));
-    };
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === key) update();
-    };
-
-    update();
-    window.addEventListener(CHANGE_EVENT, update);
-    window.addEventListener('storage', onStorage);
-    window.addEventListener('focus', update);
-    return () => {
-      window.removeEventListener(CHANGE_EVENT, update);
-      window.removeEventListener('storage', onStorage);
-      window.removeEventListener('focus', update);
-    };
-  }, [scope]);
-
-  return available;
+  return useSyncExternalStore(subscribe, getSnapshot, () => false);
 }
 
 export function markInfoPopupShown(scope: string): void {

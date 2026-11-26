@@ -12,6 +12,10 @@ const WelcomeDialog = dynamic(
   () => import('@/components/layout/WelcomeDialog').then((m) => m.WelcomeDialog),
   { ssr: false },
 );
+const MajorUpdateNotice = dynamic(
+  () => import('@/components/layout/MajorUpdateNotice').then((m) => m.MajorUpdateNotice),
+  { ssr: false },
+);
 const FeatureTour = dynamic(
   () => import('@/components/layout/FeatureTour').then((m) => m.FeatureTour),
   { ssr: false },
@@ -37,6 +41,7 @@ export function DeferredGlobals() {
 
   return (
     <>
+      <MajorUpdateNotice />
       <WelcomeDialog />
       <FeatureTour />
       <ProfileIntro />

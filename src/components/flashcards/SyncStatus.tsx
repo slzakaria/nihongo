@@ -10,6 +10,9 @@ export function SyncStatus() {
   const pendingCards = useProgressStore(
     (s) => Object.keys(s.pendingCardsByUser[userId ?? ''] ?? {}).length,
   );
+  const pendingScenarioProgress = useProgressStore(
+    (s) => Object.keys(s.pendingScenarioProgressByUser?.[userId ?? ''] ?? {}).length,
+  );
   const pendingDays = useProgressStore(
     (s) => Object.keys(s.pendingStudyDaysByUser[userId ?? ''] ?? {}).length,
   );
@@ -32,7 +35,13 @@ export function SyncStatus() {
     };
   }, []);
 
-  const hasPending = pendingCards + pendingDays + pendingResets + pendingBookmarks > 0;
+  const hasPending =
+    pendingCards +
+      pendingScenarioProgress +
+      pendingDays +
+      pendingResets +
+      pendingBookmarks >
+    0;
   if (online !== false && !hasPending) return null;
 
   return (

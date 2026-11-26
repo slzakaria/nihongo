@@ -32,16 +32,16 @@ export interface Scenario {
 export interface SRSCard {
   phraseId: string;
   scenarioSlug: string;
-  interval: number; // days until next review
-  repetitions: number; // times answered correctly in a row
-  easeFactor: number; // SM-2 ease factor (starts at 2.5)
+  interval: number; // whole days until review; zero indicates a learning step
+  repetitions: number; // consecutive Good/Easy reviews
+  easeFactor: number; // retained for compatibility with stored cards
   nextReview: number; // timestamp
   lastReview: number | null;
   totalReviews: number; // total graded reviews ever, pass or fail — unlike `repetitions` this never resets
-  correctReviews: number; // total graded reviews that passed (grade >= 3) — never resets, for accuracy stats
+  correctReviews: number; // total Good/Easy reviews — never resets, for accuracy stats
 }
 
-export type SRSGrade = 0 | 1 | 2 | 3 | 4 | 5;
+export type SRSGrade = 'again' | 'hard' | 'good' | 'easy';
 
 export type RomajiMode = 'always' | 'reveal' | 'never';
 

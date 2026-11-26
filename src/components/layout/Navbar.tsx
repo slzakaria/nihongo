@@ -7,33 +7,30 @@ import { Menu, Search, X } from 'lucide-react';
 import { SettingsMenu } from '@/components/layout/SettingsMenu';
 import { AuthMenu } from '@/components/layout/AuthMenu';
 import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/store/auth';
 import { useSearchDialogStore } from '@/store/searchDialog';
 import { cn } from '@/lib/utils';
 
 export const navLinks = [
   { href: '/scenarios', label: 'Scenarios' },
-  { href: '/kana', label: 'Kana' },
-  { href: '/offline-practice', label: 'Offline' },
   { href: '/flashcards', label: 'Flashcards' },
   { href: '/simulator', label: 'Simulator' },
+  { href: '/kana', label: 'Kana' },
+  { href: '/offline-practice', label: 'Offline' },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
-  const user = useAuthStore((s) => s.user);
   const showSearch = useSearchDialogStore((s) => s.show);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  const [mobileOpenPath, setMobileOpenPath] = useState<string | null>(null);
+  const mobileOpen = mobileOpenPath === pathname;
+  const closeMobileMenu = () => setMobileOpenPath(null);
   const headerRef = useRef<HTMLElement>(null);
   const visibleLinks = navLinks;
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
       if (headerRef.current && !headerRef.current.contains(e.target as Node))
-        setMobileOpen(false);
+        closeMobileMenu();
     }
     document.addEventListener('mousedown', onClickOutside);
     return () => document.removeEventListener('mousedown', onClickOutside);
@@ -61,7 +58,7 @@ export function Navbar() {
 
         <div className="header-actions flex items-center gap-1 sm:hidden">
           <AuthMenu />
-          <SettingsMenu onOpen={() => setMobileOpen(false)} />
+          <SettingsMenu onOpen={closeMobileMenu} />
           <Button
             type="button"
             variant="ghost"
@@ -69,7 +66,9 @@ export function Navbar() {
             className="h-7 w-7 cursor-pointer p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() =>
+              setMobileOpenPath((current) => (current === pathname ? null : pathname))
+            }
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
@@ -123,7 +122,7 @@ export function Navbar() {
                   active && 'bg-secondary/20 font-semibold hover:bg-secondary/25',
                 )}
               >
-                <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                <Link href={link.href} onClick={closeMobileMenu}>
                   {link.label}
                 </Link>
               </Button>
@@ -134,7 +133,7 @@ export function Navbar() {
             size="default"
             className="w-full justify-start cursor-pointer gap-2"
             onClick={() => {
-              setMobileOpen(false);
+              closeMobileMenu();
               showSearch();
             }}
           >

@@ -19,21 +19,22 @@ function fireConfetti(particleCount: number) {
   );
 }
 
-// Watches every badge category (phrases, streak, days learning, scenarios completed, simulator
-// conversations) and celebrates each one — once, ever — with a toast and a confetti burst. Shown
+// Watches every badge category (flashcards, kana, streak, days learning, scenario exploration,
+// simulator conversations) and celebrates each one — once, ever — with a toast and a confetti burst. Shown
 // one at a time from a small queue, since reviewing a single phrase can sometimes cross more than
 // one threshold at once (e.g. a phrase count milestone and a scenario completion together).
 export function MilestoneWatcher() {
   const user = useAuthStore((s) => s.user);
   const cards = useProgressStore((s) => s.cards);
+  const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
   const scenarios = useContentStore((s) => s.content.phrases);
   const celebrated = useBadgesStore((s) => s.celebrated);
-  const markCelebrated = useBadgesStore((s) => s.markCelebrated);
+  const pendingCelebrations = useBadgesStore((s) => s.pendingCelebrations);
+  const enqueueCelebrations = useBadgesStore((s) => s.enqueueCelebrations);
+  const dequeueCelebration = useBadgesStore((s) => s.dequeueCelebration);
 
   const [studyDays, setStudyDays] = useState<string[] | null>(null);
   const [conversationCount, setConversationCount] = useState<number | null>(null);
-  const [queue, setQueue] = useState<string[]>([]);
-  const [current, setCurrent] = useState<string | null>(null);
 
   const userId = user?.id ?? null;
 
@@ -49,6 +50,7 @@ export function MilestoneWatcher() {
     if (!userId || studyDays === null || conversationCount === null) return;
     const stats = computeBadgeStats({
       cards: Object.values(cards),
+      scenarioProgress,
       scenarios,
       studyDays,
       conversationCount,
@@ -56,27 +58,28 @@ export function MilestoneWatcher() {
     });
     const newlyUnlocked = unlockedBadgeIds(stats).filter((id) => !celebrated[id]);
     if (newlyUnlocked.length === 0) return;
-    for (const id of newlyUnlocked) markCelebrated(id);
-    setQueue((q) => [...q, ...newlyUnlocked.filter((id) => !q.includes(id))]);
+    if (!enqueueCelebrations(newlyUnlocked)) return;
     // One burst per batch of newly-unlocked badges, not one per toast — several badges can
     // unlock at once and are shown one at a time, which would otherwise fire repeatedly.
     fireConfetti(220);
-    // Only re-run when the underlying data actually changes, not on every celebrated/queue update
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, cards, scenarios, studyDays, conversationCount]);
+  }, [
+    userId,
+    cards,
+    scenarioProgress,
+    scenarios,
+    studyDays,
+    conversationCount,
+    celebrated,
+    enqueueCelebrations,
+  ]);
 
   useEffect(() => {
-    if (current || queue.length === 0) return;
-    const [next, ...rest] = queue;
-    setQueue(rest);
-    setCurrent(next);
-  }, [queue, current]);
-
-  useEffect(() => {
-    if (!current) return;
-    const timer = setTimeout(() => setCurrent(null), 3000);
+    if (pendingCelebrations.length === 0) return;
+    const timer = setTimeout(dequeueCelebration, 3000);
     return () => clearTimeout(timer);
-  }, [current]);
+  }, [dequeueCelebration, pendingCelebrations]);
+
+  const current = pendingCelebrations[0] ?? null;
 
   if (!current) return null;
   const badge = getBadge(current);

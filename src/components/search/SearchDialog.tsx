@@ -15,6 +15,12 @@ const MAX_RESULTS = 30;
 // Each result is a plain link to its scenario, so clicking it actually navigates there.
 export function SearchDialog() {
   const open = useSearchDialogStore((s) => s.open);
+  if (!open) return null;
+
+  return <OpenSearchDialog />;
+}
+
+function OpenSearchDialog() {
   const hide = useSearchDialogStore((s) => s.hide);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,12 +32,10 @@ export function SearchDialog() {
   );
 
   useEffect(() => {
-    if (open) void loadPhraseResponses();
-  }, [open]);
+    void loadPhraseResponses();
+  }, []);
 
   useEffect(() => {
-    if (!open) return;
-    setQuery('');
     const frame = requestAnimationFrame(() => inputRef.current?.focus());
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') hide();
@@ -41,7 +45,7 @@ export function SearchDialog() {
       cancelAnimationFrame(frame);
       document.removeEventListener('keydown', onKey);
     };
-  }, [open, hide]);
+  }, [hide]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -56,8 +60,6 @@ export function SearchDialog() {
       )
       .slice(0, MAX_RESULTS);
   }, [allEntries, query]);
-
-  if (!open) return null;
 
   return (
     <div

@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware';
 import { useAuthStore } from '@/store/auth';
 import type * as profileApi from '@/lib/supabase/profile';
 
+export const FEATURE_TOUR_VERSION = 2;
+
 // Supabase code loads on the first write, keeping it out of the first-paint bundle
 const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
   (await import('@/lib/supabase/profile')).upsertProfile(...args);
@@ -17,6 +19,8 @@ interface OnboardingStore {
   profileIntroSeen: boolean;
   // Whether the person has seen the feature tour after signing in. Loaded from the server. Not persisted.
   featureTourSeen: boolean;
+  // Version of the feature tour last completed by the signed-in user. Not persisted.
+  featureTourVersion: number;
   completeOnboarding: (name: string) => void;
   setUserName: (name: string) => void;
   setAvatarUrl: (url: string | null) => void;
@@ -33,6 +37,7 @@ export const useOnboardingStore = create<OnboardingStore>()(
       synced: false,
       profileIntroSeen: false,
       featureTourSeen: false,
+      featureTourVersion: 0,
       completeOnboarding: (name) => {
         set({ hasOnboarded: true, userName: name });
         const userId = useAuthStore.getState().user?.id;
@@ -50,9 +55,13 @@ export const useOnboardingStore = create<OnboardingStore>()(
         if (userId) void upsertProfile(userId, { profile_intro_seen: true });
       },
       markFeatureTourSeen: () => {
-        set({ featureTourSeen: true });
+        set({ featureTourSeen: true, featureTourVersion: FEATURE_TOUR_VERSION });
         const userId = useAuthStore.getState().user?.id;
-        if (userId) void upsertProfile(userId, { feature_tour_seen: true });
+        if (userId)
+          void upsertProfile(userId, {
+            feature_tour_seen: true,
+            feature_tour_version: FEATURE_TOUR_VERSION,
+          });
       },
     }),
     {

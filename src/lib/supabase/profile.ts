@@ -11,6 +11,7 @@ export interface ProfileRow {
   last_sign_in_at: string | null;
   profile_intro_seen: boolean;
   feature_tour_seen: boolean;
+  feature_tour_version: number;
   has_onboarded: boolean;
   romaji_mode: RomajiMode;
   weekly_goal: number;

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { SRSCard, SRSGrade } from '@/types';
-import { createCard, sm2 } from '@/lib/srs/sm2';
+import { createCard, scheduleCard } from '@/lib/srs/scheduler';
 import { getAllPhrases, getScenarioSlugForPhrase } from '@/lib/data/phrases';
 import { useAuthStore } from '@/store/auth';
 import { useGoalsStore } from '@/store/goals';
@@ -12,6 +12,28 @@ export interface PendingCardWrite {
   card: SRSCard;
 }
 
+export interface ScenarioPhraseProgress {
+  scenarioSlug: string;
+  exploredAt: number;
+}
+
+export interface PendingScenarioPhraseWrite extends ScenarioPhraseProgress {
+  operationId: string;
+}
+
+export interface PendingReviewEvent {
+  operationId: string;
+  phraseId: string;
+  scenarioSlug: string;
+  rating: SRSGrade;
+  reviewedAt: number;
+}
+
+export interface FlashcardProgressResetState {
+  version: number;
+  resetAt: number;
+}
+
 function operationId(): string {
   return typeof crypto !== 'undefined' && 'randomUUID' in crypto
     ? crypto.randomUUID()
@@ -20,26 +42,42 @@ function operationId(): string {
 
 interface ProgressStore {
   cards: Record<string, SRSCard>; // keyed by phraseId
+  scenarioProgress: Record<string, ScenarioPhraseProgress>; // keyed by phraseId
   pendingCardsByUser: Record<string, Record<string, PendingCardWrite>>;
+  pendingScenarioProgressByUser: Record<
+    string,
+    Record<string, PendingScenarioPhraseWrite>
+  >;
+  pendingReviewEventsByUser: Record<string, Record<string, PendingReviewEvent>>;
   pendingStudyDaysByUser: Record<string, Record<string, true>>;
   pendingScenarioResetsByUser: Record<string, Record<string, string>>;
+  flashcardProgressResetByUser: Record<string, FlashcardProgressResetState>;
   initCard: (phraseId: string) => void;
   initScenario: (scenarioSlug: string) => void;
   initKana: (rowSlug: string, phraseIds: string[]) => void;
   gradeCard: (phraseId: string, grade: SRSGrade) => void;
-  markReviewed: (phraseId: string) => void;
+  markScenarioPhraseExplored: (scenarioSlug: string, phraseId: string) => void;
   queueCardsForSync: (userId: string, cards: SRSCard[]) => void;
+  queueScenarioProgressForSync: (
+    userId: string,
+    progress: Array<{ phraseId: string; value: ScenarioPhraseProgress }>,
+  ) => void;
   acknowledgeCards: (
     userId: string,
     sent: Array<{ phraseId: string; operationId: string }>,
   ) => void;
+  acknowledgeScenarioProgress: (
+    userId: string,
+    sent: Array<{ phraseId: string; operationId: string }>,
+  ) => void;
+  acknowledgeReviewEvents: (userId: string, sent: Array<{ operationId: string }>) => void;
   acknowledgeStudyDays: (userId: string, sentDays: string[]) => void;
   acknowledgeScenarioResets: (
     userId: string,
     sent: Array<{ scenarioSlug: string; operationId: string }>,
   ) => void;
   getDueCards: (scenarioSlug?: string) => SRSCard[];
-  getCompletion: (scenarioSlug: string) => number; // 0-1, share of phrases reviewed at least once
+  getFlashcardCompletion: (scenarioSlug: string) => number;
   resetScenario: (scenarioSlug: string) => void;
 }
 
@@ -47,9 +85,13 @@ export const useProgressStore = create<ProgressStore>()(
   persist(
     (set, get) => ({
       cards: {},
+      scenarioProgress: {},
       pendingCardsByUser: {},
+      pendingScenarioProgressByUser: {},
+      pendingReviewEventsByUser: {},
       pendingStudyDaysByUser: {},
       pendingScenarioResetsByUser: {},
+      flashcardProgressResetByUser: {},
 
       initCard: (phraseId) => {
         if (get().cards[phraseId]) return;
@@ -132,10 +174,20 @@ export const useProgressStore = create<ProgressStore>()(
       gradeCard: (phraseId, grade) => {
         const card = get().cards[phraseId];
         if (!card) return;
-        const updated = sm2(card, grade);
+        const reviewedAt = Date.now();
+        const updated = scheduleCard(card, grade, reviewedAt);
         useGoalsStore.getState().recordReview();
         const userId = useAuthStore.getState().user?.id;
         const today = dayKey();
+        const reviewEvent = userId
+          ? {
+              operationId: operationId(),
+              phraseId,
+              scenarioSlug: card.scenarioSlug,
+              rating: grade,
+              reviewedAt,
+            }
+          : null;
         set((state) => ({
           cards: { ...state.cards, [phraseId]: updated },
           ...(userId && {
@@ -144,6 +196,15 @@ export const useProgressStore = create<ProgressStore>()(
               [userId]: {
                 ...state.pendingCardsByUser[userId],
                 [phraseId]: { operationId: operationId(), card: updated },
+              },
+            },
+            pendingReviewEventsByUser: {
+              ...state.pendingReviewEventsByUser,
+              [userId]: {
+                ...state.pendingReviewEventsByUser[userId],
+                ...(reviewEvent && {
+                  [reviewEvent.operationId]: reviewEvent,
+                }),
               },
             },
             pendingStudyDaysByUser: {
@@ -157,22 +218,25 @@ export const useProgressStore = create<ProgressStore>()(
         }));
       },
 
-      // Marks a phrase as reviewed from passive exposure (audio played / answers opened), without affecting SRS scheduling
-      markReviewed: (phraseId) => {
-        const card = get().cards[phraseId];
-        if (!card || card.lastReview !== null) return;
-        const updated = { ...card, lastReview: Date.now() };
-        useGoalsStore.getState().recordReview();
+      markScenarioPhraseExplored: (scenarioSlug, phraseId) => {
+        if (get().scenarioProgress?.[phraseId]) return;
+        const progress = { scenarioSlug, exploredAt: Date.now() };
         const userId = useAuthStore.getState().user?.id;
         const today = dayKey();
         set((state) => ({
-          cards: { ...state.cards, [phraseId]: updated },
+          scenarioProgress: {
+            ...(state.scenarioProgress ?? {}),
+            [phraseId]: progress,
+          },
           ...(userId && {
-            pendingCardsByUser: {
-              ...state.pendingCardsByUser,
+            pendingScenarioProgressByUser: {
+              ...(state.pendingScenarioProgressByUser ?? {}),
               [userId]: {
-                ...state.pendingCardsByUser[userId],
-                [phraseId]: { operationId: operationId(), card: updated },
+                ...state.pendingScenarioProgressByUser?.[userId],
+                [phraseId]: {
+                  ...progress,
+                  operationId: operationId(),
+                },
               },
             },
             pendingStudyDaysByUser: {
@@ -202,6 +266,27 @@ export const useProgressStore = create<ProgressStore>()(
         });
       },
 
+      queueScenarioProgressForSync: (userId, progress) => {
+        if (progress.length === 0) return;
+        set((state) => {
+          const pending = {
+            ...state.pendingScenarioProgressByUser?.[userId],
+          };
+          for (const item of progress) {
+            pending[item.phraseId] = {
+              ...item.value,
+              operationId: operationId(),
+            };
+          }
+          return {
+            pendingScenarioProgressByUser: {
+              ...(state.pendingScenarioProgressByUser ?? {}),
+              [userId]: pending,
+            },
+          };
+        });
+      },
+
       acknowledgeCards: (userId, sent) => {
         set((state) => {
           const pending = { ...state.pendingCardsByUser[userId] };
@@ -216,6 +301,48 @@ export const useProgressStore = create<ProgressStore>()(
           return {
             pendingCardsByUser: {
               ...state.pendingCardsByUser,
+              [userId]: pending,
+            },
+          };
+        });
+      },
+
+      acknowledgeScenarioProgress: (userId, sent) => {
+        set((state) => {
+          const pending = {
+            ...state.pendingScenarioProgressByUser?.[userId],
+          };
+          let changed = false;
+          for (const item of sent) {
+            if (pending[item.phraseId]?.operationId === item.operationId) {
+              delete pending[item.phraseId];
+              changed = true;
+            }
+          }
+          if (!changed) return state;
+          return {
+            pendingScenarioProgressByUser: {
+              ...(state.pendingScenarioProgressByUser ?? {}),
+              [userId]: pending,
+            },
+          };
+        });
+      },
+
+      acknowledgeReviewEvents: (userId, sent) => {
+        set((state) => {
+          const pending = { ...state.pendingReviewEventsByUser[userId] };
+          let changed = false;
+          for (const item of sent) {
+            if (pending[item.operationId]) {
+              delete pending[item.operationId];
+              changed = true;
+            }
+          }
+          if (!changed) return state;
+          return {
+            pendingReviewEventsByUser: {
+              ...state.pendingReviewEventsByUser,
               [userId]: pending,
             },
           };
@@ -270,7 +397,7 @@ export const useProgressStore = create<ProgressStore>()(
         });
       },
 
-      getCompletion: (scenarioSlug) => {
+      getFlashcardCompletion: (scenarioSlug) => {
         const total = getAllPhrases().filter(
           (p) => getScenarioSlugForPhrase(p.id) === scenarioSlug,
         ).length;
@@ -310,6 +437,27 @@ export const useProgressStore = create<ProgressStore>()(
         });
       },
     }),
-    { name: 'nihongo-progress' },
+    {
+      name: 'nihongo-progress',
+      version: 2,
+      migrate: (persistedState, version) => {
+        if (typeof persistedState === 'object' && persistedState) {
+          const previous = persistedState as Record<string, unknown>;
+          return {
+            ...previous,
+            cards: version === 0 ? {} : (previous.cards ?? {}),
+            scenarioProgress: previous.scenarioProgress ?? {},
+            pendingCardsByUser: version === 0 ? {} : (previous.pendingCardsByUser ?? {}),
+            pendingScenarioProgressByUser: previous.pendingScenarioProgressByUser ?? {},
+            pendingReviewEventsByUser: previous.pendingReviewEventsByUser ?? {},
+            pendingStudyDaysByUser: previous.pendingStudyDaysByUser ?? {},
+            pendingScenarioResetsByUser:
+              version === 0 ? {} : (previous.pendingScenarioResetsByUser ?? {}),
+            flashcardProgressResetByUser: previous.flashcardProgressResetByUser ?? {},
+          };
+        }
+        return {};
+      },
+    },
   ),
 );

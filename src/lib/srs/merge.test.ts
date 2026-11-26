@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { mergeCards } from './merge';
-import { createCard } from './sm2';
+import { cardsAfterFlashcardReset, mergeCards } from './merge';
+import { createCard } from './scheduler';
 
 describe('mergeCards', () => {
   it('returns server cards untouched when local has nothing new', () => {
@@ -8,6 +8,20 @@ describe('mergeCards', () => {
     const { merged, localOnly } = mergeCards(server, {});
     expect(merged).toEqual(server);
     expect(localOnly).toEqual([]);
+  });
+
+  describe('cardsAfterFlashcardReset', () => {
+    it('drops pre-reset reviews and unreviewed placeholders but keeps newer reviews', () => {
+      const cards = {
+        old: { ...createCard('old', 'greetings'), lastReview: 1_000 },
+        recent: { ...createCard('recent', 'greetings'), lastReview: 3_000 },
+        unreviewed: createCard('unreviewed', 'greetings'),
+      };
+
+      expect(cardsAfterFlashcardReset(cards, 2_000)).toEqual({
+        recent: cards.recent,
+      });
+    });
   });
 
   it('adds local-only cards not present on the server', () => {

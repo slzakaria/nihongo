@@ -2819,17 +2819,114 @@
       ]
     },
     {
-      "slug": "sento",
-      "label": "Sento (Public Bath)",
-      "icon": "🛁",
+      "slug": "small-talk",
+      "label": "Small Talk & Socializing",
+      "icon": "🗣️",
       "phrases": [
+        {
+          "id": "st-01",
+          "japanese": "〜からきました",
+          "romaji": "[country] kara kimashita",
+          "english": "I came from [country]",
+          "difficulty": "easy",
+          "notes": "Standard reply when asked where you are from.",
+          "kanji": "〜から来ました"
+        },
+        {
+          "id": "st-02",
+          "japanese": "にほんははじめてです",
+          "romaji": "Nihon wa hajimete desu",
+          "english": "This is my first time in Japan",
+          "difficulty": "easy",
+          "notes": "If it's your second time, say: 2にかいめです (回目です, Nikaime desu).",
+          "kanji": "日本は初めてです"
+        },
+        {
+          "id": "st-03",
+          "japanese": "にほんのごはんはとてもおいしいです",
+          "romaji": "Nihon no gohan wa totemo oishii desu",
+          "english": "Japanese food is very delicious",
+          "difficulty": "easy",
+          "notes": "Guaranteed warm smile from locals.",
+          "kanji": "日本のご飯はとても美味しいです"
+        },
+        {
+          "id": "st-04",
+          "japanese": "きょうはさむいですね",
+          "romaji": "Kyou wa samui desu ne",
+          "english": "It's cold today, isn't it?",
+          "difficulty": "medium",
+          "notes": "Great winter icebreaker in December.",
+          "kanji": "今日は寒いですね"
+        }
+      ]
+    },
+    {
+      "slug": "onsen",
+      "label": "Onsen & Public Baths",
+      "icon": "♨️",
+      "phrases": [
+        {
+          "id": "on-01",
+          "japanese": "タトゥーはだいじょうぶですか？",
+          "romaji": "Tatou wa daijoubu desu ka?",
+          "english": "Are tattoos okay?",
+          "difficulty": "easy",
+          "notes": "Check policies beforehand if you have visible ink.",
+          "kanji": "タトゥーは大丈夫ですか？"
+        },
+        {
+          "id": "on-02",
+          "japanese": "ろてんぶろはどこですか？",
+          "romaji": "Rotenburo wa doko desu ka?",
+          "english": "Where is the outdoor bath?",
+          "difficulty": "medium",
+          "notes": "ろてんぶろ (露天風呂, rotenburo) = outdoor open-air bath.",
+          "kanji": "露天風呂はどこですか？"
+        },
+        {
+          "id": "on-03",
+          "japanese": "タトゥーがあってもいれますか？",
+          "romaji": "Tatoo ga atte mo hairemasu ka?",
+          "english": "Can I enter even if I have a tattoo?",
+          "difficulty": "easy",
+          "notes": "More direct than a general check — useful when you already know you have visible ink. Many public onsen still ban tattoos due to their old association with the yakuza, though this is slowly changing, especially in tourist areas.",
+          "kanji": "タトゥーがあっても入れますか？"
+        },
+        {
+          "id": "on-04",
+          "japanese": "タトゥーをかくすシールはありますか？",
+          "romaji": "Tatoo wo kakusu shiiru wa arimasu ka?",
+          "english": "Do you have stickers to cover tattoos?",
+          "difficulty": "medium",
+          "notes": "Many tattoo-friendly onsen and sento sell or lend cover-up patches (シール/パッチ) at the front desk for guests with small tattoos.",
+          "kanji": "タトゥーを隠すシールはありますか？"
+        },
+        {
+          "id": "on-05",
+          "japanese": "かしきりふろはありますか？",
+          "romaji": "Kashikiri-buro wa arimasu ka?",
+          "english": "Do you have a private bath?",
+          "difficulty": "easy",
+          "notes": "かしきりぶろ (貸切風呂, kashikiri-buro) = a private/reservable bath, often booked by the hour — the easiest workaround if a facility doesn't allow visible tattoos in the shared baths.",
+          "kanji": "貸切風呂はありますか？"
+        },
+        {
+          "id": "on-06",
+          "japanese": "かしきりふろはなんにんまでいれますか？",
+          "romaji": "Kashikiri-buro wa nan-nin made hairemasu ka?",
+          "english": "How many people can use the private bath?",
+          "difficulty": "medium",
+          "notes": "Private baths (貸切風呂/家族風呂) are often capped at 2–4 people and booked in time slots — ask at check-in.",
+          "kanji": "貸切風呂は何人まで入れますか？"
+        },
         {
           "id": "se-01",
           "japanese": "せんとうにはいりたいです",
           "romaji": "Sentou ni hairitai desu",
           "english": "I'd like to go to a public bath",
           "difficulty": "easy",
-          "notes": "銭湯 (sentou) = public bath. Unlike onsen, sento are usually in the city and cost a small fee."
+          "notes": "銭湯 (sentou) = public bath. Sento are usually in the city and cost a small fee, unlike natural hot-spring onsen."
         },
         {
           "id": "se-02",
@@ -2886,110 +2983,6 @@
           "english": "Are there other things I should be careful about?",
           "difficulty": "medium",
           "notes": "気をつける (ki wo tsukeru) = to be careful. Tattoos may not be allowed, so check the sign at the entrance."
-        }
-      ]
-    },
-    {
-      "slug": "small-talk",
-      "label": "Small Talk & Socializing",
-      "icon": "🗣️",
-      "phrases": [
-        {
-          "id": "st-01",
-          "japanese": "〜からきました",
-          "romaji": "[country] kara kimashita",
-          "english": "I came from [country]",
-          "difficulty": "easy",
-          "notes": "Standard reply when asked where you are from.",
-          "kanji": "〜から来ました"
-        },
-        {
-          "id": "st-02",
-          "japanese": "にほんははじめてです",
-          "romaji": "Nihon wa hajimete desu",
-          "english": "This is my first time in Japan",
-          "difficulty": "easy",
-          "notes": "If it's your second time, say: 2にかいめです (回目です, Nikaime desu).",
-          "kanji": "日本は初めてです"
-        },
-        {
-          "id": "st-03",
-          "japanese": "にほんのごはんはとてもおいしいです",
-          "romaji": "Nihon no gohan wa totemo oishii desu",
-          "english": "Japanese food is very delicious",
-          "difficulty": "easy",
-          "notes": "Guaranteed warm smile from locals.",
-          "kanji": "日本のご飯はとても美味しいです"
-        },
-        {
-          "id": "st-04",
-          "japanese": "きょうはさむいですね",
-          "romaji": "Kyou wa samui desu ne",
-          "english": "It's cold today, isn't it?",
-          "difficulty": "medium",
-          "notes": "Great winter icebreaker in December.",
-          "kanji": "今日は寒いですね"
-        }
-      ]
-    },
-    {
-      "slug": "onsen",
-      "label": "Onsen & Hot Springs",
-      "icon": "♨️",
-      "phrases": [
-        {
-          "id": "on-01",
-          "japanese": "タトゥーはだいじょうぶですか？",
-          "romaji": "Tatou wa daijoubu desu ka?",
-          "english": "Are tattoos okay?",
-          "difficulty": "easy",
-          "notes": "Check policies beforehand if you have visible ink.",
-          "kanji": "タトゥーは大丈夫ですか？"
-        },
-        {
-          "id": "on-02",
-          "japanese": "ろてんぶろはどこですか？",
-          "romaji": "Rotenburo wa doko desu ka?",
-          "english": "Where is the outdoor bath?",
-          "difficulty": "medium",
-          "notes": "ろてんぶろ (露天風呂, rotenburo) = outdoor open-air bath.",
-          "kanji": "露天風呂はどこですか？"
-        },
-        {
-          "id": "on-03",
-          "japanese": "タトゥーがあってもいれますか？",
-          "romaji": "Tatoo ga atte mo hairemasu ka?",
-          "english": "Can I enter even if I have a tattoo?",
-          "difficulty": "easy",
-          "notes": "More direct than a general check — useful when you already know you have visible ink. Many public onsen still ban tattoos due to their old association with the yakuza, though this is slowly changing, especially in tourist areas.",
-          "kanji": "タトゥーがあっても入れますか？"
-        },
-        {
-          "id": "on-04",
-          "japanese": "タトゥーをかくすシールはありますか？",
-          "romaji": "Tatoo wo kakusu shiiru wa arimasu ka?",
-          "english": "Do you have stickers to cover tattoos?",
-          "difficulty": "medium",
-          "notes": "Many tattoo-friendly onsen and sento sell or lend cover-up patches (シール/パッチ) at the front desk for guests with small tattoos.",
-          "kanji": "タトゥーを隠すシールはありますか？"
-        },
-        {
-          "id": "on-05",
-          "japanese": "かしきりふろはありますか？",
-          "romaji": "Kashikiri-buro wa arimasu ka?",
-          "english": "Do you have a private bath?",
-          "difficulty": "easy",
-          "notes": "かしきりぶろ (貸切風呂, kashikiri-buro) = a private/reservable bath, often booked by the hour — the easiest workaround if a facility doesn't allow visible tattoos in the shared baths.",
-          "kanji": "貸切風呂はありますか？"
-        },
-        {
-          "id": "on-06",
-          "japanese": "かしきりふろはなんにんまでいれますか？",
-          "romaji": "Kashikiri-buro wa nan-nin made hairemasu ka?",
-          "english": "How many people can use the private bath?",
-          "difficulty": "medium",
-          "notes": "Private baths (貸切風呂/家族風呂) are often capped at 2–4 people and booked in time slots — ask at check-in.",
-          "kanji": "貸切風呂は何人まで入れますか？"
         }
       ]
     },

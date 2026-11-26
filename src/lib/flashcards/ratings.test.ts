@@ -10,11 +10,10 @@ describe('flashcard ratings', () => {
         shortcut,
       })),
     ).toEqual([
-      { label: 'Again', grade: 0, shortcut: '1' },
-      { label: 'Hard', grade: 2, shortcut: '2' },
-      { label: 'Medium', grade: 3, shortcut: '3' },
-      { label: 'Easy', grade: 4, shortcut: '4' },
-      { label: 'Expert', grade: 5, shortcut: '5' },
+      { label: 'Again', grade: 'again', shortcut: '1' },
+      { label: 'Hard', grade: 'hard', shortcut: '2' },
+      { label: 'Good', grade: 'good', shortcut: '3' },
+      { label: 'Easy', grade: 'easy', shortcut: '4' },
     ]);
   });
 });

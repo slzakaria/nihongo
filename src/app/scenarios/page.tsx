@@ -66,7 +66,6 @@ const SCENARIO_GROUPS = [
     slugs: [
       'shrine-temple',
       'onsen',
-      'sento',
       'karaoke',
       'entertainment-complex',
       'tickets-games',

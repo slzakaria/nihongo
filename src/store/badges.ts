@@ -12,27 +12,43 @@ const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
 // a single linear "highest milestone reached" number.
 interface BadgesStore {
   celebrated: Record<string, true>;
-  markCelebrated: (id: string) => void;
+  pendingCelebrations: string[];
+  enqueueCelebrations: (ids: string[]) => boolean;
+  dequeueCelebration: () => void;
 }
 
 export const useBadgesStore = create<BadgesStore>()(
   persist(
     (set, get) => ({
       celebrated: {},
-      markCelebrated: (id) => {
-        if (get().celebrated[id]) return;
-        const celebrated: Record<string, true> = {
-          ...get().celebrated,
-          [id]: true,
+      pendingCelebrations: [],
+      enqueueCelebrations: (ids) => {
+        const state = get();
+        const newIds = ids.filter((id) => !state.celebrated[id]);
+        if (newIds.length === 0) return false;
+        const celebrated = {
+          ...state.celebrated,
+          ...Object.fromEntries(newIds.map((id) => [id, true as const])),
         };
-        set({ celebrated });
+        set({
+          celebrated,
+          pendingCelebrations: [...state.pendingCelebrations, ...newIds],
+        });
         const userId = useAuthStore.getState().user?.id;
         if (userId)
           void upsertProfile(userId, {
             celebrated_badges: Object.keys(celebrated),
           });
+        return true;
       },
+      dequeueCelebration: () =>
+        set((state) => ({
+          pendingCelebrations: state.pendingCelebrations.slice(1),
+        })),
     }),
-    { name: 'nihongo-badges' },
+    {
+      name: 'nihongo-badges',
+      partialize: (state) => ({ celebrated: state.celebrated }),
+    },
   ),
 );

@@ -3,12 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { navLinks } from '@/components/layout/Navbar';
-import { useAuthStore } from '@/store/auth';
 
 // Logo and nav grouped together as one row, signature line centered below — kept as a tight
 // cluster rather than spread edge-to-edge, so there's no big empty gap between them.
 export function Footer() {
-  const user = useAuthStore((s) => s.user);
   const links = navLinks;
   const year = new Date().getFullYear();
 

@@ -9,14 +9,17 @@ import { SearchTrigger } from '@/components/search/SearchTrigger';
 import { ScenarioMiniCard } from '@/components/scenarios/ScenarioMiniCard';
 import { useProgressStore } from '@/store/progress';
 import { useBookmarkStore } from '@/store/bookmarks';
+import { FlashcardScenarioIntro } from '@/components/scenarios/ScenarioLearningPrompts';
 
 export default function FlashcardsPage() {
   const scenarios = useContentStore((s) => s.content.phrases);
   const cards = useProgressStore((s) => s.cards);
+  const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
   const savedCount = useBookmarkStore((s) => s.phraseIds.length);
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
+      <FlashcardScenarioIntro scenarios={scenarios} scenarioProgress={scenarioProgress} />
       <PageHeader
         title="Flashcards"
         titleKana="フラッシュカード"

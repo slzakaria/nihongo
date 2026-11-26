@@ -15,14 +15,26 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const CATEGORIES: BadgeCategory[] = [
-  'phrases',
+  'scenarios',
+  'flashcards',
+  'kana',
+  'simulator',
   'streak',
   'studyDays',
-  'scenarios',
-  'simulator',
 ];
 // How many badges to show before the section is collapsed behind "See more"
 const COLLAPSED_COUNT = 6;
+const FEATURED_BADGE_IDS = [
+  'scenarios-1',
+  'phrases-10',
+  'kana-10',
+  'simulator-1',
+  'streak-3',
+  'days-7',
+] as const;
+const FEATURED_BADGES = FEATURED_BADGE_IDS.map((id) =>
+  BADGES.find((badge) => badge.id === id),
+).filter((badge): badge is (typeof BADGES)[number] => Boolean(badge));
 
 function BadgeTile({
   badge,
@@ -91,7 +103,7 @@ export function BadgesCard({ stats }: { stats: BadgeStats }) {
           })
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {BADGES.slice(0, COLLAPSED_COUNT).map((badge) => (
+            {FEATURED_BADGES.slice(0, COLLAPSED_COUNT).map((badge) => (
               <BadgeTile key={badge.id} badge={badge} stats={stats} />
             ))}
           </div>

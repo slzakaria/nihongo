@@ -1,7 +1,7 @@
 # Phrase catalog
 
-The bundled phrase catalog currently contains **38 categories and 653 phrase
-entries**: 36 travel scenarios and two learning/reference categories. Counts are
+The bundled phrase catalog currently contains **37 categories and 653 phrase
+entries**: 35 travel scenarios and two learning/reference categories. Counts are
 phrase entries in `scenarios` from
 [`src/lib/data/phrases.json`](../src/lib/data/phrases.json); a phrase used in
 more than one context counts once in each category.
@@ -43,9 +43,8 @@ the content difficulty badges: Again, Hard, Medium, Easy, and Expert.
 | Post, Parcels & Lost Property          | `lost-property-post`    |      14 |
 | Supermarket & Izakaya                  | `supermarket-izakaya`   |       8 |
 | Karaoke                                | `karaoke`               |       8 |
-| Sento (Public Bath)                    | `sento`                 |       8 |
 | Small Talk & Socializing               | `small-talk`            |       4 |
-| Onsen & Hot Springs                    | `onsen`                 |       6 |
+| Onsen & Public Baths                   | `onsen`                 |      14 |
 | Pharmacy & Health                      | `pharmacy-health`       |      28 |
 | About Me                               | `about-me`              |       8 |
 | Tickets & Games                        | `tickets-games`         |       9 |
@@ -74,10 +73,10 @@ the content difficulty badges: Again, Hard, Medium, Easy, and Expert.
 
 ## Coverage review
 
-- The smallest categories are Small Talk & Socializing (4), Directions (5), and
-  Onsen & Hot Springs (6). Airport & Arrival, Money & Banking, Supermarket &
-  Izakaya, Karaoke, Sento, and About Me each have eight phrases. These may be
-  intentionally concise, but are the clearest candidates for expansion.
+- The smallest categories are Small Talk & Socializing (4) and Directions (5).
+  Airport & Arrival, Money & Banking, Supermarket & Izakaya, Karaoke, and About
+  Me each have eight phrases. These may be intentionally concise, but are the
+  clearest candidates for expansion.
 - The 53-phrase restaurant category now includes vegan, stock, ingredient
   exclusion, peanut-allergy, and shrimp/crab-allergy questions in addition to
   the existing egg, wheat, and vegetarian phrases. Allergy wording should still
@@ -123,7 +122,7 @@ phrase-level study state.
   Property, and Coin Laundry.
 - **Health & safety** (_けんこう・あんぜん_): Emergencies & Police, Pharmacy & Health, and Weather &
   Natural Events.
-- **Culture & activities** (_ぶんか・アクティビティ_): Sightseeing & Shrines, Onsen, Sento, Karaoke, Game
+- **Culture & activities** (_ぶんか・アクティビティ_): Sightseeing & Shrines, Onsen & Public Baths, Karaoke, Game
   Centers, Tickets & Games, Manga & Anime Shops, Gym & Fitness, and Hair
   Salon & Barber.
 - **Learning & reference** (_まなび・さんこう_): Grammar Connectors and Essential Vocabulary &

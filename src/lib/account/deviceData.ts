@@ -10,9 +10,12 @@ export const LAST_ACTIVITY_SYNC_KEY = 'nihongo-last-active-sync';
 export function clearDeviceData() {
   useProgressStore.setState({
     cards: {},
+    scenarioProgress: {},
     pendingCardsByUser: {},
+    pendingScenarioProgressByUser: {},
     pendingStudyDaysByUser: {},
     pendingScenarioResetsByUser: {},
+    flashcardProgressResetByUser: {},
   });
   useBookmarkStore.setState({ phraseIds: [], pendingByUser: {} });
   useGoalsStore.setState({
@@ -23,7 +26,7 @@ export function clearDeviceData() {
     week: '',
     reviewedThisWeek: 0,
   });
-  useBadgesStore.setState({ celebrated: {} });
+  useBadgesStore.setState({ celebrated: {}, pendingCelebrations: [] });
   useOnboardingStore.setState({
     hasOnboarded: false,
     userName: '',
@@ -31,6 +34,7 @@ export function clearDeviceData() {
     synced: false,
     profileIntroSeen: false,
     featureTourSeen: false,
+    featureTourVersion: 0,
   });
 
   for (const key of [

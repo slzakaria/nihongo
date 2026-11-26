@@ -4,17 +4,16 @@ import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ProgressBar } from '@/components/flashcards/ProgressBar';
 import { SyncStatus } from '@/components/flashcards/SyncStatus';
-import { AudioButton } from '@/components/phrases/AudioButton';
+import { ReviewWaitState } from '@/components/flashcards/ReviewWaitState';
 import { useFlashcardSession } from '@/hooks/useFlashcardSession';
 import { BilingualText } from '@/components/layout/BilingualText';
 import { Phrase } from '@/types';
 import { cn } from '@/lib/utils';
 
 const CHOICE_COUNT = 4;
-// Correct-on-first-try maps to the SM-2 "Medium" pass grade (schedules a normal
-// review interval); a wrong pick maps to "Again" (resets the streak, due tomorrow).
-const CORRECT_GRADE = 3;
-const INCORRECT_GRADE = 0;
+// Correct answers are scheduled as Good; wrong answers re-enter the Again learning step.
+const CORRECT_GRADE = 'good';
+const INCORRECT_GRADE = 'again';
 
 function pickChoices(phrase: Phrase, pool: Phrase[]): string[] {
   const distractors = pool
@@ -49,26 +48,25 @@ export function KanaQuizDeck({
     onInit?.();
   }, [onInit]);
 
-  const { phrase, grade, total, currentIndex, done } = useFlashcardSession(
-    phrases,
-    force,
-  );
+  const { phrase, grade, total, currentIndex, done, waiting, remainingMs } =
+    useFlashcardSession(phrases, force);
 
   const choices = useMemo(
     () => (phrase ? pickChoices(phrase, phrases) : []),
     [phrase, phrases],
   );
 
-  const [picked, setPicked] = useState<{ phraseId: string; answer: string } | null>(
-    null,
-  );
+  const [picked, setPicked] = useState<{ phraseId: string; answer: string } | null>(null);
 
   // Reset the picked answer whenever the card changes, then advance after a short
   // pause so the user can see the correct/incorrect feedback before the next card.
   useEffect(() => {
     if (!picked) return;
     const correct = picked.answer === phrase?.romaji;
-    const timeout = setTimeout(() => grade(correct ? CORRECT_GRADE : INCORRECT_GRADE), 900);
+    const timeout = setTimeout(
+      () => grade(correct ? CORRECT_GRADE : INCORRECT_GRADE),
+      900,
+    );
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picked]);
@@ -100,6 +98,15 @@ export function KanaQuizDeck({
     );
   }
 
+  if (waiting) {
+    return (
+      <ReviewWaitState
+        remainingMs={remainingMs}
+        onPracticeAnyway={() => setForce(true)}
+      />
+    );
+  }
+
   if (done || !phrase) {
     return (
       <div className="flex flex-col items-center gap-2 py-16 text-center">
@@ -128,16 +135,10 @@ export function KanaQuizDeck({
       <SyncStatus />
       <ProgressBar current={currentIndex} total={total} />
 
-      <div className="flex flex-col items-center gap-3 rounded-lg border border-border bg-card py-10">
-        <div className="flex items-center gap-2">
-          <span className="text-6xl">{phrase.japanese}</span>
-          <AudioButton text={phrase.japanese} />
-        </div>
-        {phrase.english && (
-          <p className="max-w-xs px-4 text-center text-xs text-muted-foreground">
-            {phrase.english}
-          </p>
-        )}
+      <div className="flex items-center justify-center rounded-lg border border-border bg-card py-10">
+        <span lang="ja" className="text-6xl">
+          {phrase.japanese}
+        </span>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -153,7 +154,9 @@ export function KanaQuizDeck({
               onClick={() => setPicked({ phraseId: phrase.id, answer: choice })}
               className={cn(
                 'h-12 cursor-pointer text-base',
-                isAnswered && isThisCorrect && 'border-primary bg-primary/10 text-primary',
+                isAnswered &&
+                  isThisCorrect &&
+                  'border-primary bg-primary/10 text-primary',
                 isAnswered &&
                   isThisPicked &&
                   !isThisCorrect &&
