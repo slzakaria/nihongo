@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { loadKana, useContentStore } from '@/lib/data/content';
 import { useProgressStore } from '@/store/progress';
-import { FlashcardDeck } from '@/components/flashcards/FlashcardDeck';
+import { KanaQuizDeck } from '@/components/kana/KanaQuizDeck';
 import { BilingualText } from '@/components/layout/BilingualText';
 
 // Spaced-repetition review of every hiragana and katakana character
@@ -50,7 +50,7 @@ export default function KanaPracticePage() {
         </p>
       </div>
 
-      <FlashcardDeck slug="kana" phrases={kanaPhrases} onInit={onInit} />
+      <KanaQuizDeck phrases={kanaPhrases} onInit={onInit} />
     </div>
   );
 }

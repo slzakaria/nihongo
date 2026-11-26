@@ -11,6 +11,8 @@ export function createCard(phraseId: string, scenarioSlug: string): SRSCard {
     easeFactor: 2.5,
     nextReview: Date.now(),
     lastReview: null,
+    totalReviews: 0,
+    correctReviews: 0,
   };
 }
 
@@ -41,5 +43,7 @@ export function sm2(card: SRSCard, grade: SRSGrade): SRSCard {
     easeFactor,
     lastReview: Date.now(),
     nextReview: Date.now() + interval * DAY_MS,
+    totalReviews: card.totalReviews + 1,
+    correctReviews: card.correctReviews + (grade >= 3 ? 1 : 0),
   };
 }

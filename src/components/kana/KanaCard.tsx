@@ -1,6 +1,7 @@
 import { Phrase } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { AudioButton } from '@/components/phrases/AudioButton';
 
 export function KanaCard({ kana }: { kana: Phrase }) {
   return (
@@ -23,6 +24,7 @@ export function KanaCard({ kana }: { kana: Phrase }) {
             >
               {kana.difficulty}
             </Badge>
+            <AudioButton text={kana.japanese} />
           </div>
         </div>
 

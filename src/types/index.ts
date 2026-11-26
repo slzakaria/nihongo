@@ -37,6 +37,8 @@ export interface SRSCard {
   easeFactor: number; // SM-2 ease factor (starts at 2.5)
   nextReview: number; // timestamp
   lastReview: number | null;
+  totalReviews: number; // total graded reviews ever, pass or fail — unlike `repetitions` this never resets
+  correctReviews: number; // total graded reviews that passed (grade >= 3) — never resets, for accuracy stats
 }
 
 export type SRSGrade = 0 | 1 | 2 | 3 | 4 | 5;

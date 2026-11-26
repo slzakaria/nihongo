@@ -11,6 +11,8 @@ export interface AdminUserRow {
   createdAt: string | null;
   lastSignInAt: string | null;
   phrasesReviewed: number;
+  flashcardsCompleted: number;
+  accuracyPct: number | null;
   studyStreak: number;
   studyDays: number;
   conversations: number;
@@ -44,7 +46,9 @@ export async function GET() {
     { data: conversations },
   ] = await Promise.all([
     supabase.from('profiles').select('id, user_name, email, created_at, last_sign_in_at'),
-    supabase.from('srs_cards').select('user_id, scenario_slug, last_review'),
+    supabase
+      .from('srs_cards')
+      .select('user_id, scenario_slug, last_review, total_reviews, correct_reviews'),
     supabase.from('study_activity').select('user_id, day'),
     supabase.from('simulator_conversations').select('user_id'),
   ]);
@@ -54,9 +58,13 @@ export async function GET() {
   }
 
   const reviewedByUser = new Map<string, number>();
+  const completedByUser = new Map<string, number>();
+  const correctByUser = new Map<string, number>();
   // user_id -> scenario_slug -> reviewed count, to work out per-scenario completion below
   const reviewedByUserScenario = new Map<string, Map<string, number>>();
   for (const c of cards ?? []) {
+    completedByUser.set(c.user_id, (completedByUser.get(c.user_id) ?? 0) + c.total_reviews);
+    correctByUser.set(c.user_id, (correctByUser.get(c.user_id) ?? 0) + c.correct_reviews);
     if (!c.last_review) continue;
     reviewedByUser.set(c.user_id, (reviewedByUser.get(c.user_id) ?? 0) + 1);
     const byScenario = reviewedByUserScenario.get(c.user_id) ?? new Map<string, number>();
@@ -97,6 +105,12 @@ export async function GET() {
       createdAt: p.created_at,
       lastSignInAt: p.last_sign_in_at,
       phrasesReviewed: reviewedByUser.get(p.id) ?? 0,
+      flashcardsCompleted: completedByUser.get(p.id) ?? 0,
+      accuracyPct: (() => {
+        const total = completedByUser.get(p.id) ?? 0;
+        if (total === 0) return null;
+        return Math.round(((correctByUser.get(p.id) ?? 0) / total) * 100);
+      })(),
       studyStreak: study.streak,
       studyDays: study.total,
       conversations: conversationsByUser.get(p.id) ?? 0,

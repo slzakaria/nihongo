@@ -34,11 +34,6 @@ export function FlashcardFace({
               <AudioButton text={phrase.japanese} />
             </span>
           </div>
-          {showRomaji && phrase.kanji && (
-            <p lang="ja" className="text-sm text-muted-foreground">
-              {phrase.kanji}
-            </p>
-          )}
           {showRomaji && <p className="text-sm text-muted-foreground">{phrase.romaji}</p>}
           <p className="text-sm text-muted-foreground">{phrase.english}</p>
           {phrase.notes && (

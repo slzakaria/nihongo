@@ -62,7 +62,7 @@
   --foreground: #e8eaf6;
   --kana-color: #85b7eb;
 
-  --card: #1e1e2e;
+  --card: #191927;
   --card-foreground: #e8eaf6;
 
   --primary: #378add;
@@ -647,7 +647,7 @@ body {
    Painted as one background-image so it's a single lightweight layer rather than dozens of DOM
    nodes. */
 .starry-sky {
-  opacity: 1;
+  opacity: .32;
   background-image:
     radial-gradient(ellipse 70% 55% at 12% 8%, var(--star-glow-a), transparent 72%),
     radial-gradient(ellipse 60% 50% at 88% 15%, var(--star-glow-c), transparent 72%),
@@ -750,7 +750,8 @@ body {
 }
 
 .dark .starry-sky {
-  animation: twinkle 4s ease-in-out infinite alternate;
+  opacity: .22;
+  animation: twinkle 3s ease-in-out infinite alternate;
 }
 
 /* Warm sakura and ink-blue palette scoped to homepage and page-header banners. */

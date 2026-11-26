@@ -11,6 +11,8 @@ describe('createCard', () => {
     expect(card.easeFactor).toBe(2.5);
     expect(card.lastReview).toBeNull();
     expect(card.nextReview).toBeLessThanOrEqual(Date.now());
+    expect(card.totalReviews).toBe(0);
+    expect(card.correctReviews).toBe(0);
   });
 });
 
@@ -59,5 +61,31 @@ describe('sm2', () => {
     const graded = sm2(card, 5);
     expect(graded.lastReview).toBeGreaterThanOrEqual(before);
     expect(graded.nextReview).toBeGreaterThan(before);
+  });
+
+  it('increments totalReviews on every grade, including failures, and never resets it', () => {
+    const card = createCard('gr-01', 'greetings');
+    const passed = sm2(card, 4);
+    expect(passed.totalReviews).toBe(1);
+
+    const failed = sm2(passed, 0);
+    expect(failed.totalReviews).toBe(2);
+    expect(failed.repetitions).toBe(0); // repetitions resets on failure, totalReviews does not
+
+    const passedAgain = sm2(failed, 4);
+    expect(passedAgain.totalReviews).toBe(3);
+  });
+
+  it('increments correctReviews only on passing grades (>= 3), and never resets it', () => {
+    const card = createCard('gr-01', 'greetings');
+    const passed = sm2(card, 4);
+    expect(passed.correctReviews).toBe(1);
+
+    const failed = sm2(passed, 0);
+    expect(failed.correctReviews).toBe(1);
+    expect(failed.totalReviews).toBe(2);
+
+    const passedAgain = sm2(failed, 3);
+    expect(passedAgain.correctReviews).toBe(2);
   });
 });

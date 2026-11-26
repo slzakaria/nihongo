@@ -12,8 +12,19 @@ const MODEL_ID = 'eleven_turbo_v2_5'; // v4 Turbo — fast, Japanese support, fr
 // browsers/devices or a cleared client cache — phrases are a finite, static set.
 const CACHE_DIR = path.join(process.cwd(), '.cache', 'tts');
 // Bump when the request changes so previously cached audio is regenerated
-const CACHE_VERSION = 'ja-v2';
+const CACHE_VERSION = 'ja-v3';
 const MAX_TEXT_LENGTH = 1000;
+// ElevenLabs sometimes returns near-silent/clipped audio for very short, unpunctuated inputs
+// (e.g. a single word like いいえ) because the model has nothing to pace the utterance against.
+// Giving it a trailing full stop fixes this without changing what's shown or cached under.
+const SHORT_TEXT_THRESHOLD = 8;
+const SENTENCE_ENDING = /[。！？.!?」』]$/;
+
+function withPacingPunctuation(text: string): string {
+  return text.length <= SHORT_TEXT_THRESHOLD && !SENTENCE_ENDING.test(text)
+    ? `${text}。`
+    : text;
+}
 
 function cacheKeyFor(text: string, voiceId: string) {
   return createHash('sha256')
@@ -77,7 +88,7 @@ export async function POST(req: NextRequest) {
       Accept: 'audio/mpeg',
     },
     body: JSON.stringify({
-      text: cleanText,
+      text: withPacingPunctuation(cleanText),
       model_id: MODEL_ID,
       // Without this the model guesses the language, which made Japanese read as English
       language_code: 'ja',
