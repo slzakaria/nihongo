@@ -5,7 +5,6 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Geist_Mono, Inter, Noto_Serif_JP } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
-import { StarrySky } from '@/components/layout/StarrySky';
 import { NavigationProgress } from '@/components/layout/NavigationProgress';
 import { LoadingOverlay } from '@/components/layout/LoadingOverlay';
 import { ThemeSync } from '@/components/layout/ThemeSync';
@@ -106,7 +105,6 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
               __html: serviceWorkerRegistrationScript,
             }}
           />
-          <StarrySky />
           <Navbar />
           <NavigationProgress />
           <LoadingOverlay />

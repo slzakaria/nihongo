@@ -5,6 +5,18 @@ export interface MergeResult {
   localOnly: SRSCard[];
 }
 
+export function cardsAfterFlashcardReset(
+  cards: Record<string, SRSCard>,
+  resetAt: number,
+): Record<string, SRSCard> {
+  if (resetAt <= 0) return cards;
+  return Object.fromEntries(
+    Object.entries(cards).filter(
+      ([, card]) => card.lastReview !== null && card.lastReview >= resetAt,
+    ),
+  );
+}
+
 // Prefer the most recently reviewed card when merging guest progress on sign-in. Pending
 // signed-in writes are overlaid separately by the sync flow and always stay local-authoritative.
 export function mergeCards(

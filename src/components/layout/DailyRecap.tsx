@@ -74,7 +74,6 @@ export function DailyRecap() {
   useEffect(() => {
     if (open) fireConfetti(35);
     // Fires once when the dialog first appears, not on every re-render while it's open
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   function close() {

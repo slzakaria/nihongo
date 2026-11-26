@@ -17,9 +17,9 @@ export function ScenarioSidebar({
 }) {
   const scenarios = useContentStore((s) => s.content.phrases);
   const cards = useProgressStore((s) => s.cards);
+  const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
 
-  // One pass over the cards, instead of one scan per scenario
-  const reviewedByScenario = useMemo(() => {
+  const flashcardProgressByScenario = useMemo(() => {
     const counts = new Map<string, number>();
     for (const c of Object.values(cards)) {
       if (c.lastReview === null) continue;
@@ -31,9 +31,12 @@ export function ScenarioSidebar({
   return (
     <nav className="hidden w-[240px] shrink-0 flex-col gap-1 md:flex lg:w-[260px] xl:w-[300px]">
       {scenarios.map((s) => {
-        const reviewed = reviewedByScenario.get(s.slug) ?? 0;
+        const completed =
+          basePath === '/scenarios'
+            ? s.phrases.filter((phrase) => scenarioProgress[phrase.id]).length
+            : (flashcardProgressByScenario.get(s.slug) ?? 0);
         const pct =
-          s.phrases.length === 0 ? 0 : Math.round((reviewed / s.phrases.length) * 100);
+          s.phrases.length === 0 ? 0 : Math.round((completed / s.phrases.length) * 100);
         const active = s.slug === currentSlug;
         return (
           <Link

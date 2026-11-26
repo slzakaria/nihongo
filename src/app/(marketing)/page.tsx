@@ -37,6 +37,9 @@ const FEATURED_SLUGS = [
   'getting-around',
   'bar-cocktails',
   'hotel',
+  'directions',
+  'language-barrier',
+  'konbini-food',
 ];
 
 // Tiles without an `href` open the search dialog; icon tones match their card surfaces.
@@ -45,28 +48,18 @@ const EXPLORE_TILES = [
     href: '/scenarios',
     label: 'Scenarios',
     labelKana: 'シナリオ',
-    description: 'Phrases for real situations, from bars to banks.',
-    descriptionKana: 'バーやぎんこうなど、さまざまなばめんのフレーズ。',
+    description: 'Explore phrases for real-life situations.',
+    descriptionKana: 'ばめんのフレーズをみて、つかいかたをまなびます。',
     icon: MessagesSquare,
     tone: 'explore-icon--pink',
     surface: 'explore-card--pink',
   },
   {
-    href: '/kana',
-    label: 'Kana',
-    labelKana: 'かな',
-    description: 'Learn hiragana and katakana one character at a time.',
-    descriptionKana: 'ひらがなとカタカナを、ひとつずつまなびます。',
-    icon: Languages,
-    tone: 'explore-icon--blue',
-    surface: 'explore-card--blue',
-  },
-  {
     href: '/flashcards',
     label: 'Flashcards',
     labelKana: 'フラッシュカード',
-    description: 'Spaced-repetition drills that bring phrases back when you need them.',
-    descriptionKana: 'ひつようなときにフレーズがもどってくる、くりかえしれんしゅう。',
+    description: 'Review the phrases you explored with spaced repetition.',
+    descriptionKana: 'みたフレーズをくりかえしれんしゅうします。',
     icon: Layers,
     tone: 'explore-icon--peach',
     surface: 'explore-card--peach',
@@ -75,11 +68,21 @@ const EXPLORE_TILES = [
     href: '/simulator',
     label: 'Simulator',
     labelKana: 'シミュレーター',
-    description: 'Practice a live conversation with a Japanese role-play partner.',
+    description: 'Use what you learned in a live role-play.',
     descriptionKana: 'にほんごのあいてと、リアルタイムでかいわをれんしゅう。',
     icon: Bot,
     tone: 'explore-icon--blue',
     surface: 'explore-card--blue',
+  },
+  {
+    href: '/kana',
+    label: 'Kana',
+    labelKana: 'かな',
+    description: 'Learn hiragana and katakana one character at a time.',
+    descriptionKana: 'ひらがなとカタカナを、ひとつずつまなびます。',
+    icon: Languages,
+    tone: 'explore-icon--pink',
+    surface: 'explore-card--pink',
   },
   {
     href: undefined,
@@ -88,8 +91,8 @@ const EXPLORE_TILES = [
     description: 'Find any phrase, word or translation in seconds.',
     descriptionKana: 'フレーズやことば、やくをすぐにみつける。',
     icon: Search,
-    tone: 'explore-icon--pink',
-    surface: 'explore-card--pink',
+    tone: 'explore-icon--peach',
+    surface: 'explore-card--peach',
   },
 ];
 
@@ -110,9 +113,6 @@ export default function Home() {
     () => Object.values(cards).filter((c) => c.lastReview !== null).length,
     [cards],
   );
-  const overallPct =
-    totalPhrases === 0 ? 0 : Math.round((reviewedCount / totalPhrases) * 100);
-
   const featured = useMemo(
     () =>
       FEATURED_SLUGS.map((slug) => scenarios.find((s) => s.slug === slug)).filter(
@@ -132,8 +132,8 @@ export default function Home() {
           descriptionKana:
             'がくしゅうのすすみぐあいと、つぎにふくしゅうすることをかくにん。',
           icon: TrendingUp,
-          tone: 'explore-icon--peach',
-          surface: 'explore-card--peach',
+          tone: 'explore-icon--blue',
+          surface: 'explore-card--blue',
         },
       ]
     : EXPLORE_TILES;
@@ -176,7 +176,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col gap-14 px-4 py-10 sm:px-6">
+    <div className="relative isolate mx-auto flex w-full max-w-5xl flex-1 flex-col gap-14 px-4 py-10 sm:px-6">
       <FloatingPhrases />
 
       <HeroBanner phrasesReviewed={reviewedCount} totalPhrases={totalPhrases} />
@@ -188,7 +188,7 @@ export default function Home() {
             kickerKana="さがす"
             title="Explore the app features"
             titleKana="みてみよう"
-            description="Everything in one place, from phrases to flashcards."
+            description="Follow the path: scenarios, flashcards, then simulator."
           />
           <div className="flex shrink-0 gap-2">
             {canScrollExploreLeft && (
@@ -238,6 +238,11 @@ export default function Home() {
                   className={`explore-card ${tile.surface}`}
                 >
                   <CardContent className="explore-card-content flex flex-col gap-2 p-3 sm:p-4">
+                    {i < 3 && (
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        Step {i + 1}
+                      </span>
+                    )}
                     <span
                       className={cn(
                         'explore-card-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-lg shadow-sm transition duration-300 group-hover:-rotate-6 group-hover:scale-110',

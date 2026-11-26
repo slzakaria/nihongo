@@ -9,24 +9,43 @@ import {
   Download,
   Layers,
   Mic,
+  Route,
   Sparkles,
+  type LucideIcon,
   UserRound,
 } from 'lucide-react';
 import { useAuthStore } from '@/store/auth';
-import { useOnboardingStore } from '@/store/onboarding';
+import { FEATURE_TOUR_VERSION, useOnboardingStore } from '@/store/onboarding';
 import { markInfoPopupShown, useInfoPopupCooldown } from '@/hooks/useInfoPopupCooldown';
 import { isAdminEmail } from '@/lib/admin';
 import { Button } from '@/components/ui/button';
 import { BilingualText } from '@/components/layout/BilingualText';
 import { cn } from '@/lib/utils';
 
-const GUEST_TOUR_COOKIE = 'nihongo-feature-tour-seen';
+const GUEST_TOUR_COOKIE = `nihongo-feature-tour-seen-v${FEATURE_TOUR_VERSION}`;
 
-const SLIDES = [
+const LEARNING_STEPS = [
+  { icon: BookOpen, label: 'Scenarios' },
+  { icon: Layers, label: 'Flashcards' },
+  { icon: Mic, label: 'Simulator' },
+];
+
+const SLIDES: {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+  learningFlow?: boolean;
+}[] = [
   {
     icon: Sparkles,
     title: 'Welcome to Hanazono',
     text: 'Build practical Japanese skills with short lessons, phrase review, and speaking practice.',
+  },
+  {
+    icon: Route,
+    title: 'Your learning path',
+    text: 'Explore a scenario, review its phrases with flashcards, then use them in a live simulator conversation. Completion prompts will guide you to the next step.',
+    learningFlow: true,
   },
   {
     icon: BookOpen,
@@ -71,10 +90,13 @@ export function FeatureTour() {
   const user = useAuthStore((s) => s.user);
   const synced = useOnboardingStore((s) => s.synced);
   const hasOnboarded = useOnboardingStore((s) => s.hasOnboarded);
-  const featureTourSeen = useOnboardingStore((s) => s.featureTourSeen);
+  const featureTourVersion = useOnboardingStore((s) => s.featureTourVersion);
   const markFeatureTourSeen = useOnboardingStore((s) => s.markFeatureTourSeen);
-  const [index, setIndex] = useState(0);
-  const [guestTourSeen, setGuestTourSeen] = useState<boolean | null>(null);
+  const [tourProgress, setTourProgress] = useState<{
+    scope: string | null;
+    index: number;
+  }>({ scope: null, index: 0 });
+  const [guestDismissed, setGuestDismissed] = useState(false);
   const scope = isSignedIn
     ? user
       ? `user:${user.id}`
@@ -82,50 +104,41 @@ export function FeatureTour() {
     : isLoaded
       ? 'guest'
       : null;
-  const cooldownAvailable = useInfoPopupCooldown(isLoaded ? 'device' : null);
-
-  useEffect(() => {
-    if (!isLoaded || isSignedIn) {
-      setGuestTourSeen(null);
-      return;
-    }
-    setGuestTourSeen(guestTourWasSeen());
-  }, [isLoaded, isSignedIn]);
+  const cooldownScope = scope ? `feature-tour-v${FEATURE_TOUR_VERSION}:${scope}` : null;
+  const cooldownAvailable = useInfoPopupCooldown(cooldownScope);
+  const index = tourProgress.scope === scope ? tourProgress.index : 0;
+  const setIndex = (nextIndex: number) => setTourProgress({ scope, index: nextIndex });
+  const guestTourSeen =
+    isLoaded && !isSignedIn ? guestDismissed || guestTourWasSeen() : null;
 
   const eligible = Boolean(
     isLoaded &&
     cooldownAvailable &&
     (isSignedIn
-      ? user && synced && hasOnboarded && !featureTourSeen
+      ? user && synced && hasOnboarded && featureTourVersion < FEATURE_TOUR_VERSION
       : !user && guestTourSeen === false),
   );
-  const [delayElapsed, setDelayElapsed] = useState(false);
+  const [delayElapsedFor, setDelayElapsedFor] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!eligible) {
-      setDelayElapsed(false);
-      return;
-    }
-    const timer = window.setTimeout(() => setDelayElapsed(true), 6_000);
+    if (!eligible || !scope) return;
+    const timer = window.setTimeout(() => setDelayElapsedFor(scope), 3_000);
     return () => window.clearTimeout(timer);
   }, [eligible, scope]);
 
-  useEffect(() => {
-    if (eligible) setIndex(0);
-  }, [eligible, scope]);
-
   const finishTour = useCallback(() => {
-    if (!scope) return;
+    if (!scope || !cooldownScope) return;
+    markInfoPopupShown(cooldownScope);
     markInfoPopupShown('device');
     if (isSignedIn) {
       markFeatureTourSeen();
     } else {
       document.cookie = `${GUEST_TOUR_COOKIE}=1; max-age=31536000; path=/; samesite=lax`;
-      setGuestTourSeen(true);
+      setGuestDismissed(true);
     }
-  }, [isSignedIn, markFeatureTourSeen, scope]);
+  }, [cooldownScope, isSignedIn, markFeatureTourSeen, scope]);
 
-  const open = eligible && delayElapsed;
+  const open = eligible && delayElapsedFor === scope;
   const slides =
     user && isAdminEmail(user.email)
       ? [
@@ -178,6 +191,28 @@ export function FeatureTour() {
           </h2>
           <p className="min-h-[4.5rem] text-sm text-muted-foreground">{slide.text}</p>
         </div>
+
+        {slide.learningFlow && (
+          <div
+            className="grid grid-cols-3 gap-2 px-6 pb-6"
+            aria-label="Scenarios, then flashcards, then simulator"
+            role="list"
+          >
+            {LEARNING_STEPS.map(({ icon: StepIcon, label }, stepIndex) => (
+              <div
+                key={label}
+                role="listitem"
+                className="flex min-w-0 flex-col items-center gap-1 rounded-lg border border-border bg-background/60 p-2 text-center"
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Step {stepIndex + 1}
+                </span>
+                <StepIcon className="h-4 w-4 text-primary" aria-hidden="true" />
+                <span className="text-xs font-medium">{label}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="flex justify-center gap-1.5 pb-4" aria-hidden="true">
           {slides.map((s, i) => (

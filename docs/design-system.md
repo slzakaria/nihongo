@@ -62,7 +62,7 @@ The header, footer, and homepage sections should blend with this shared page sur
 
 - Use the shared `Button` component and its existing variants for CTAs. Avoid mixing unrelated filled, ghost, and gradient treatments within one control group.
 - Site titles and subtitles show English first, followed by a smaller kana reading in the Japanese serif font. The kana accent color switches from pink in light mode to blue in dark mode.
-- Flashcard ratings share an outlined shape and use coordinated Again/Hard/Medium/Easy/Expert colors; their labels and grade meaning must remain clear without color alone. Again and Hard both reset the review streak and schedule the card for the next day.
+- Flashcard ratings share an outlined shape and use coordinated Again/Hard/Good/Easy colors; their labels and grade meaning must remain clear without color alone. Again repeats after 30 seconds and Hard after 10 minutes within the active session; Good schedules the next review in 1 day and Easy in 3 days. Scenario difficulty and completion remain separate from flashcard ratings and progress.
 - Explore cards use related pink, blue, and peach tints. Their icon background should match the card’s tone.
 - Preserve visible keyboard focus, accessible labels for icon-only controls, and sufficient contrast in both themes.
 

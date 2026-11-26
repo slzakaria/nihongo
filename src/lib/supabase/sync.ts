@@ -1,10 +1,10 @@
 import { useOnboardingStore } from '@/store/onboarding';
 import { useSettingsStore } from '@/store/settings';
-import { useProgressStore, type PendingCardWrite } from '@/store/progress';
+import { useProgressStore, type ScenarioPhraseProgress } from '@/store/progress';
 import { useGoalsStore } from '@/store/goals';
 import { useBadgesStore } from '@/store/badges';
 import { useStreakStore } from '@/store/streak';
-import { useBookmarkStore, type PendingBookmarkWrite } from '@/store/bookmarks';
+import { useBookmarkStore } from '@/store/bookmarks';
 import { fetchProfile, upsertProfile } from '@/lib/supabase/profile';
 import {
   deleteScenarioCards,
@@ -17,7 +17,13 @@ import {
   upsertBookmarks,
 } from '@/lib/supabase/bookmarks';
 import { recordStudyDays } from '@/lib/supabase/activity';
-import { mergeCards } from '@/lib/srs/merge';
+import {
+  fetchServerScenarioProgress,
+  upsertScenarioProgress,
+} from '@/lib/supabase/scenarioProgress';
+import { fetchFlashcardProgressResetState } from '@/lib/supabase/flashcardProgressState';
+import { upsertSRSReviewEvents } from '@/lib/supabase/reviewEvents';
+import { cardsAfterFlashcardReset, mergeCards } from '@/lib/srs/merge';
 
 const hydratedUsers = new Set<string>();
 const activeSyncs = new Map<string, Promise<void>>();
@@ -34,6 +40,8 @@ function hasPendingWrites(userId: string): boolean {
   const bookmarks = useBookmarkStore.getState();
   return Boolean(
     Object.keys(progress.pendingCardsByUser[userId] ?? {}).length ||
+    Object.keys(progress.pendingReviewEventsByUser[userId] ?? {}).length ||
+    Object.keys(progress.pendingScenarioProgressByUser?.[userId] ?? {}).length ||
     Object.keys(progress.pendingStudyDaysByUser[userId] ?? {}).length ||
     Object.keys(progress.pendingScenarioResetsByUser[userId] ?? {}).length ||
     Object.keys(bookmarks.pendingByUser[userId] ?? {}).length,
@@ -114,6 +122,12 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
     const cardSnapshot = Object.entries(
       currentProgress.pendingCardsByUser[userId] ?? {},
     ).map(([phraseId, pending]) => ({ phraseId, ...pending }));
+    const reviewEventSnapshot = Object.entries(
+      currentProgress.pendingReviewEventsByUser[userId] ?? {},
+    ).map(([, event]) => event);
+    const scenarioProgressSnapshot = Object.entries(
+      currentProgress.pendingScenarioProgressByUser?.[userId] ?? {},
+    ).map(([phraseId, pending]) => ({ phraseId, ...pending }));
     const daysSnapshot = Object.keys(
       currentProgress.pendingStudyDaysByUser[userId] ?? {},
     );
@@ -132,6 +146,50 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
             cardSnapshot.map((item) => item.card),
           ),
         () => useProgressStore.getState().acknowledgeCards(userId, cardSnapshot),
+      );
+      succeeded = ok && succeeded;
+    }
+
+    if (reviewEventSnapshot.length > 0) {
+      const ok = await attempt(
+        'flashcard rating analytics',
+        () =>
+          upsertSRSReviewEvents(
+            userId,
+            reviewEventSnapshot.map(
+              ({ operationId, phraseId, scenarioSlug, rating, reviewedAt }) => ({
+                id: operationId,
+                phraseId,
+                scenarioSlug,
+                rating,
+                reviewedAt,
+              }),
+            ),
+          ),
+        () =>
+          useProgressStore.getState().acknowledgeReviewEvents(
+            userId,
+            reviewEventSnapshot.map(({ operationId }) => ({ operationId })),
+          ),
+      );
+      succeeded = ok && succeeded;
+    }
+
+    if (scenarioProgressSnapshot.length > 0) {
+      const ok = await attempt(
+        'scenario phrase progress',
+        () =>
+          upsertScenarioProgress(
+            userId,
+            scenarioProgressSnapshot.map(({ phraseId, scenarioSlug, exploredAt }) => ({
+              phraseId,
+              value: { scenarioSlug, exploredAt },
+            })),
+          ),
+        () =>
+          useProgressStore
+            .getState()
+            .acknowledgeScenarioProgress(userId, scenarioProgressSnapshot),
       );
       succeeded = ok && succeeded;
     }
@@ -186,10 +244,13 @@ function hasPendingResets(userId: string): boolean {
 async function hydrateOnSignIn(userId: string): Promise<boolean> {
   useOnboardingStore.setState({ synced: false });
   try {
-    const [serverCards, serverBookmarks] = await Promise.all([
-      fetchServerCards(userId),
-      fetchBookmarks(userId),
-    ]);
+    const [serverCards, serverScenarioProgress, serverBookmarks, flashcardResetState] =
+      await Promise.all([
+        fetchServerCards(userId),
+        fetchServerScenarioProgress(userId),
+        fetchBookmarks(userId),
+        fetchFlashcardProgressResetState(),
+      ]);
 
     let profile: Awaited<ReturnType<typeof fetchProfile>> = null;
     let profileLoaded = false;
@@ -211,6 +272,7 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
         avatarUrl: profile.avatar_url ?? null,
         profileIntroSeen: profile.profile_intro_seen ?? false,
         featureTourSeen: profile.feature_tour_seen ?? false,
+        featureTourVersion: profile.feature_tour_version ?? 0,
       });
       useSettingsStore.setState({ romajiMode: profile.romaji_mode });
       useGoalsStore.setState({ weeklyGoal: profile.weekly_goal ?? 50 });
@@ -242,8 +304,38 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
     }
 
     const progressStore = useProgressStore.getState();
-    const localCards = progressStore.cards;
-    const { merged, localOnly } = mergeCards(serverCards, localCards);
+    const previousResetState = progressStore.flashcardProgressResetByUser?.[userId];
+    const resetVersionAdvanced =
+      flashcardResetState.version > (previousResetState?.version ?? 0);
+    const resetAt = flashcardResetState.version > 0 ? flashcardResetState.resetAt : 0;
+    const serverCardsAfterReset = cardsAfterFlashcardReset(serverCards, resetAt);
+    const localCardsAfterReset = cardsAfterFlashcardReset(progressStore.cards, resetAt);
+    const pendingCardWrites = progressStore.pendingCardsByUser?.[userId] ?? {};
+    const pendingCardsAfterReset = Object.fromEntries(
+      Object.entries(pendingCardWrites).filter(
+        ([, pending]) =>
+          resetAt <= 0 ||
+          (pending.card.lastReview !== null && pending.card.lastReview >= resetAt),
+      ),
+    );
+    useProgressStore.setState({
+      pendingCardsByUser: {
+        ...progressStore.pendingCardsByUser,
+        [userId]: pendingCardsAfterReset,
+      },
+      ...(resetVersionAdvanced && {
+        pendingScenarioResetsByUser: {
+          ...progressStore.pendingScenarioResetsByUser,
+          [userId]: {},
+        },
+      }),
+      flashcardProgressResetByUser: {
+        ...progressStore.flashcardProgressResetByUser,
+        [userId]: flashcardResetState,
+      },
+    });
+
+    const { merged, localOnly } = mergeCards(serverCardsAfterReset, localCardsAfterReset);
     if (localOnly.length > 0) progressStore.queueCardsForSync(userId, localOnly);
     const pendingResets =
       useProgressStore.getState().pendingScenarioResetsByUser[userId] ?? {};
@@ -255,6 +347,31 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
       merged[phraseId] = pending.card;
     }
     useProgressStore.setState({ cards: merged });
+
+    const scenarioProgressStore = useProgressStore.getState();
+    const localScenarioProgress = scenarioProgressStore.scenarioProgress ?? {};
+    const mergedScenarioProgress: Record<string, ScenarioPhraseProgress> = {
+      ...serverScenarioProgress,
+      ...localScenarioProgress,
+    };
+    const localOnlyScenarioProgress = Object.entries(localScenarioProgress)
+      .filter(([phraseId]) => !serverScenarioProgress[phraseId])
+      .map(([phraseId, value]) => ({ phraseId, value }));
+    if (localOnlyScenarioProgress.length > 0) {
+      scenarioProgressStore.queueScenarioProgressForSync(
+        userId,
+        localOnlyScenarioProgress,
+      );
+    }
+    const pendingScenarioProgress =
+      useProgressStore.getState().pendingScenarioProgressByUser?.[userId] ?? {};
+    for (const [phraseId, pending] of Object.entries(pendingScenarioProgress)) {
+      mergedScenarioProgress[phraseId] = {
+        scenarioSlug: pending.scenarioSlug,
+        exploredAt: pending.exploredAt,
+      };
+    }
+    useProgressStore.setState({ scenarioProgress: mergedScenarioProgress });
 
     const bookmarkStore = useBookmarkStore.getState();
     const serverBookmarkSet = new Set(serverBookmarks);

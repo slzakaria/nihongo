@@ -44,25 +44,25 @@ export function HeroBanner({
         <p className="hero-description mb-6 max-w-[380px] text-sm leading-relaxed sm:mb-7">
           <span className="flex flex-col gap-1">
             <span>
-              Phrases for real situations, spaced-repetition drills, and a live chat
-              simulator — everything you need for bars, shops, and small talk in Japan.
+              Explore real-life scenarios, review their phrases with spaced repetition,
+              then use them in a live chat simulator.
             </span>
             <span lang="ja" className="kana-text text-[0.82em] leading-relaxed">
-              たびでつかえるフレーズ、くりかえしれんしゅう、リアルタイムのかいわ。バーやおみせでつかえるにほんごをまなびましょう。
+              シナリオでフレーズをまなび、カードでふくしゅうして、シミュレーターでかいわをれんしゅうしましょう。
             </span>
           </span>
         </p>
 
         <div className="mb-6 flex flex-wrap gap-2.5 sm:mb-7">
           <Button asChild className="hero-primary-cta cursor-pointer rounded-[10px] px-5">
-            <Link href="/flashcards">Start flashcards</Link>
+            <Link href="/scenarios">Start with scenarios</Link>
           </Button>
           <Button
             asChild
             variant="outline"
             className="hero-secondary-cta cursor-pointer rounded-[10px] px-5"
           >
-            <Link href="/scenarios">Browse scenarios</Link>
+            <Link href="/flashcards">Go to flashcards</Link>
           </Button>
         </div>
 

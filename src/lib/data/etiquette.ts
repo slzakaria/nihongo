@@ -58,12 +58,7 @@ export const ETIQUETTE: Record<string, string[]> = {
     'Wash thoroughly at the seated washing stations before you enter the bath.',
     'Keep the small towel out of the water. Many people fold it on their head or place it on the edge.',
     'Tattoos are often not allowed. Check the signs or ask before you go in.',
-    'Tie up long hair, keep splashing to a minimum, and stay quiet.',
-  ],
-  sento: [
-    'Wash thoroughly at the seated washing stations before you enter the bath.',
-    'Keep the small towel out of the water.',
-    'Keep your voice low. A sento is a quiet place for relaxing.',
+    'Tie up long hair, keep splashing to a minimum, and keep your voice low in these quiet places.',
   ],
   'shrine-temple': [
     'At a shrine, purify your hands at the chōzuya: left hand, right hand, then rinse your mouth without touching the ladle to your lips.',

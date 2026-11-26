@@ -1,9 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useId, useRef } from 'react';
 import { loadAudio } from '@/lib/tts/speak';
 import { useSettingsStore } from '@/store/settings';
-import { useAudioStore, nextAudioId } from '@/store/audio';
+import { useAudioStore } from '@/store/audio';
 
 // Safety valve: if a play() never settles for any reason (network stall, a browser's autoplay
 // policy silently blocking playback without rejecting the promise, etc.), the shared lock would
@@ -11,9 +11,7 @@ import { useAudioStore, nextAudioId } from '@/store/audio';
 const STUCK_LOCK_TIMEOUT_MS = 6000;
 
 export function useAudio() {
-  const idRef = useRef<number | null>(null);
-  if (idRef.current === null) idRef.current = nextAudioId();
-  const id = idRef.current;
+  const id = useId();
 
   const activeId = useAudioStore((s) => s.activeId);
   const status = useAudioStore((s) => s.status);

@@ -7,7 +7,7 @@ export function useSRS(scenarioSlug?: string) {
   const dueCards = useProgressStore((s) => s.getDueCards(scenarioSlug));
   const gradeCard = useProgressStore((s) => s.gradeCard);
   const completion = useProgressStore((s) =>
-    scenarioSlug ? s.getCompletion(scenarioSlug) : 0,
+    scenarioSlug ? s.getFlashcardCompletion(scenarioSlug) : 0,
   );
 
   return { dueCards, gradeCard, completion };

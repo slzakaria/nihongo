@@ -14,7 +14,6 @@ import { cn } from '@/lib/utils';
 import { trackBusy } from '@/store/busy';
 import { showRateLimitDialog } from '@/store/rateLimitDialog';
 import { BilingualText } from '@/components/layout/BilingualText';
-import { scenarioKana } from '@/lib/data/scenarioKana';
 
 interface Score {
   score: number;

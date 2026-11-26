@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ProgressBar } from '@/components/flashcards/ProgressBar';
 import { FlashcardFace } from '@/components/flashcards/FlashcardFace';
 import { SyncStatus } from '@/components/flashcards/SyncStatus';
+import { ReviewWaitState } from '@/components/flashcards/ReviewWaitState';
 import { useFlashcardSession } from '@/hooks/useFlashcardSession';
 import { useProgressStore } from '@/store/progress';
 import { useContentStore } from '@/lib/data/content';
@@ -12,6 +13,7 @@ import { isAnswerCorrect } from '@/lib/flashcards/answer';
 import { FLASHCARD_RATINGS } from '@/lib/flashcards/ratings';
 import { Phrase } from '@/types';
 import { BilingualText } from '@/components/layout/BilingualText';
+import { FlashcardSimulatorPrompt } from '@/components/scenarios/ScenarioLearningPrompts';
 import { cn } from '@/lib/utils';
 
 export function FlashcardDeck({
@@ -24,9 +26,8 @@ export function FlashcardDeck({
   onInit?: () => void;
 }) {
   const initScenario = useProgressStore((s) => s.initScenario);
-  const scenarioPhrases = useContentStore(
-    (s) => s.content.phrases.find((x) => x.slug === slug)?.phrases,
-  );
+  const scenario = useContentStore((s) => s.content.phrases.find((x) => x.slug === slug));
+  const scenarioPhrases = scenario?.phrases;
   const deckPhrases = useMemo(
     () => phrases ?? scenarioPhrases ?? [],
     [phrases, scenarioPhrases],
@@ -38,8 +39,17 @@ export function FlashcardDeck({
     else initScenario(slug);
   }, [slug, onInit, initScenario]);
 
-  const { phrase, showBack, setShowBack, grade, total, currentIndex, done } =
-    useFlashcardSession(deckPhrases, force);
+  const {
+    phrase,
+    showBack,
+    setShowBack,
+    grade,
+    total,
+    currentIndex,
+    done,
+    waiting,
+    remainingMs,
+  } = useFlashcardSession(deckPhrases, force);
 
   // Typed answer for the current card. Reset automatically when the card changes.
   const [attempt, setAttempt] = useState<{
@@ -101,6 +111,15 @@ export function FlashcardDeck({
     );
   }
 
+  if (waiting) {
+    return (
+      <ReviewWaitState
+        remainingMs={remainingMs}
+        onPracticeAnyway={() => setForce(true)}
+      />
+    );
+  }
+
   if (done || !phrase) {
     return (
       <div className="flex flex-col items-center gap-2 py-16 text-center">
@@ -117,6 +136,13 @@ export function FlashcardDeck({
             japanese={`${total}まいのカードをふくしゅうしました。`}
           />
         </p>
+        {scenario && (
+          <FlashcardSimulatorPrompt
+            complete={done}
+            scenarioSlug={slug}
+            scenarioLabel={scenario.label}
+          />
+        )}
       </div>
     );
   }
@@ -179,7 +205,7 @@ export function FlashcardDeck({
 
       {showBack && (
         <>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-5">
             {FLASHCARD_RATINGS.map(({ label, shortcut, grade: score, style }) => (
               <Button
                 key={label}
@@ -191,10 +217,28 @@ export function FlashcardDeck({
               </Button>
             ))}
           </div>
-          <p className="text-center text-xs text-muted-foreground">
-            Again and Hard both reset the review streak and schedule this card for
-            tomorrow.
-          </p>
+          <div className="rounded-md border border-border bg-card px-4 py-3 text-sm text-foreground">
+            <p className="font-semibold">When you’ll see each card again</p>
+            <ul className="mt-2 grid gap-2">
+              <li>
+                <strong>Again:</strong> Forgot it. Returns in 30 seconds, after the other
+                cards in this set.
+              </li>
+              <li>
+                <strong>Hard:</strong> Remembered with difficulty. Returns in 10 minutes.
+              </li>
+              <li>
+                <strong>Good:</strong> Remembered. Returns tomorrow.
+              </li>
+              <li>
+                <strong>Easy:</strong> Knew it well. Returns in 3 days.
+              </li>
+            </ul>
+            <p className="mt-2 text-foreground/80">
+              Again and Hard cards keep looping until you choose Good or Easy. Their due
+              times are saved if you leave.
+            </p>
+          </div>
         </>
       )}
     </div>

@@ -2,16 +2,18 @@ import {
   BookOpenCheck,
   CalendarCheck,
   Flame,
+  Languages,
   MapPinned,
   MessageSquare,
   type LucideIcon,
 } from 'lucide-react';
 import type { Scenario, SRSCard } from '@/types';
-import { countReviewedPhrases } from '@/lib/srs/milestones';
+import type { ScenarioPhraseProgress } from '@/store/progress';
+import { countReviewedKana, countReviewedPhrases } from '@/lib/srs/milestones';
 import { computeStudyStats } from '@/lib/activity/studyDays';
 
 export type BadgeCategory =
-  'phrases' | 'streak' | 'studyDays' | 'scenarios' | 'simulator';
+  'flashcards' | 'kana' | 'streak' | 'studyDays' | 'scenarios' | 'simulator';
 
 export interface BadgeDef {
   id: string;
@@ -22,7 +24,8 @@ export interface BadgeDef {
 }
 
 export const CATEGORY_ICON: Record<BadgeCategory, LucideIcon> = {
-  phrases: BookOpenCheck,
+  flashcards: BookOpenCheck,
+  kana: Languages,
   streak: Flame,
   studyDays: CalendarCheck,
   scenarios: MapPinned,
@@ -30,57 +33,86 @@ export const CATEGORY_ICON: Record<BadgeCategory, LucideIcon> = {
 };
 
 export const CATEGORY_LABEL: Record<BadgeCategory, string> = {
-  phrases: 'Phrases reviewed',
+  flashcards: 'Flashcard phrases reviewed',
+  kana: 'Kana reviewed',
   streak: 'Study streak',
   studyDays: 'Days learning',
-  scenarios: 'Scenarios completed',
+  scenarios: 'Scenarios fully explored',
   simulator: 'Simulator conversations',
 };
 
-// Every badge in the app, across five categories. Thresholds climb gradually so there's always a
+// Every badge in the app, across six categories. Thresholds climb gradually so there's always a
 // near-term one to aim for, not just a couple of big round numbers.
 export const BADGES: BadgeDef[] = [
   {
     id: 'phrases-10',
-    category: 'phrases',
+    category: 'flashcards',
     threshold: 10,
     label: 'First Steps',
-    description: '10 phrases reviewed',
+    description: '10 flashcard phrases reviewed',
   },
   {
     id: 'phrases-25',
-    category: 'phrases',
+    category: 'flashcards',
     threshold: 25,
     label: 'Getting Going',
-    description: '25 phrases reviewed',
+    description: '25 flashcard phrases reviewed',
   },
   {
     id: 'phrases-50',
-    category: 'phrases',
+    category: 'flashcards',
     threshold: 50,
     label: 'Half Century',
-    description: '50 phrases reviewed',
+    description: '50 flashcard phrases reviewed',
   },
   {
     id: 'phrases-100',
-    category: 'phrases',
+    category: 'flashcards',
     threshold: 100,
     label: 'Centurion',
-    description: '100 phrases reviewed',
+    description: '100 flashcard phrases reviewed',
   },
   {
     id: 'phrases-250',
-    category: 'phrases',
+    category: 'flashcards',
     threshold: 250,
     label: 'Dedicated',
-    description: '250 phrases reviewed',
+    description: '250 flashcard phrases reviewed',
   },
   {
     id: 'phrases-500',
-    category: 'phrases',
+    category: 'flashcards',
     threshold: 500,
     label: 'Phrase Master',
-    description: '500 phrases reviewed',
+    description: '500 flashcard phrases reviewed',
+  },
+  {
+    id: 'kana-10',
+    category: 'kana',
+    threshold: 10,
+    label: 'First Kana',
+    description: '10 kana characters reviewed',
+  },
+  {
+    id: 'kana-25',
+    category: 'kana',
+    threshold: 25,
+    label: 'Kana Collector',
+    description: '25 kana characters reviewed',
+  },
+  {
+    id: 'kana-50',
+    category: 'kana',
+    threshold: 50,
+    label: 'Kana Reader',
+    description: '50 kana characters reviewed',
+  },
+  {
+    id: 'kana-100',
+    category: 'kana',
+    threshold: 100,
+    label: 'Kana Master',
+    description: '100 kana characters reviewed',
   },
 
   {
@@ -146,28 +178,28 @@ export const BADGES: BadgeDef[] = [
     category: 'scenarios',
     threshold: 1,
     label: 'First Scenario',
-    description: '1 scenario completed',
+    description: '1 scenario fully explored',
   },
   {
     id: 'scenarios-5',
     category: 'scenarios',
     threshold: 5,
     label: 'Scenario Explorer',
-    description: '5 scenarios completed',
+    description: '5 scenarios fully explored',
   },
   {
     id: 'scenarios-10',
     category: 'scenarios',
     threshold: 10,
     label: 'Scenario Pro',
-    description: '10 scenarios completed',
+    description: '10 scenarios fully explored',
   },
   {
     id: 'scenarios-20',
     category: 'scenarios',
     threshold: 20,
     label: 'Scenario Veteran',
-    description: '20 scenarios completed',
+    description: '20 scenarios fully explored',
   },
 
   {
@@ -198,7 +230,8 @@ export function getBadge(id: string): BadgeDef | undefined {
 }
 
 export interface BadgeStats {
-  phrases: number;
+  flashcards: number;
+  kana: number;
   streak: number;
   studyDays: number;
   scenariosCompleted: number;
@@ -207,8 +240,10 @@ export interface BadgeStats {
 
 function statFor(category: BadgeCategory, stats: BadgeStats): number {
   switch (category) {
-    case 'phrases':
-      return stats.phrases;
+    case 'flashcards':
+      return stats.flashcards;
+    case 'kana':
+      return stats.kana;
     case 'streak':
       return stats.streak;
     case 'studyDays':
@@ -229,38 +264,35 @@ export function unlockedBadgeIds(stats: BadgeStats): string[] {
 }
 
 // Shared by MilestoneWatcher (to detect newly-unlocked badges) and BadgesCard (to render
-// progress), so both always agree on exactly how "scenarios completed" etc. are counted.
+// progress), so both always agree on how each separate activity is counted.
 export function computeBadgeStats({
   cards,
+  scenarioProgress = {},
   scenarios,
   studyDays,
   conversationCount,
   today,
 }: {
   cards: SRSCard[];
+  scenarioProgress?: Record<string, ScenarioPhraseProgress>;
   scenarios: Scenario[];
   studyDays: string[];
   conversationCount: number;
   today: string;
 }): BadgeStats {
   const reviewed = countReviewedPhrases(cards);
+  const kanaReviewed = countReviewedKana(cards);
   const study = computeStudyStats(studyDays, today);
 
-  const reviewedByScenario = new Map<string, number>();
-  for (const c of cards) {
-    if (!c.lastReview || c.scenarioSlug.startsWith('kana:')) continue;
-    reviewedByScenario.set(
-      c.scenarioSlug,
-      (reviewedByScenario.get(c.scenarioSlug) ?? 0) + 1,
-    );
-  }
   const scenariosCompleted = scenarios.filter(
     (s) =>
-      s.phrases.length > 0 && (reviewedByScenario.get(s.slug) ?? 0) >= s.phrases.length,
+      s.phrases.length > 0 &&
+      s.phrases.every((phrase) => scenarioProgress[phrase.id] !== undefined),
   ).length;
 
   return {
-    phrases: reviewed,
+    flashcards: reviewed,
+    kana: kanaReviewed,
     streak: study.streak,
     studyDays: study.total,
     scenariosCompleted,

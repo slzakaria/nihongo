@@ -6,7 +6,6 @@ import { isAdminEmail } from '@/lib/admin';
 import { useAuthStore, type AppUser } from '@/store/auth';
 import { useProgressStore } from '@/store/progress';
 import { useBookmarkStore } from '@/store/bookmarks';
-import { useOnboardingStore } from '@/store/onboarding';
 import { dayKey } from '@/lib/activity/studyDays';
 import {
   clearDeviceData,
@@ -78,6 +77,7 @@ export function AuthSync() {
     const unsubscribeProgress = useProgressStore.subscribe((state, previous) => {
       if (
         state.pendingCardsByUser !== previous.pendingCardsByUser ||
+        state.pendingScenarioProgressByUser !== previous.pendingScenarioProgressByUser ||
         state.pendingStudyDaysByUser !== previous.pendingStudyDaysByUser ||
         state.pendingScenarioResetsByUser !== previous.pendingScenarioResetsByUser
       ) {

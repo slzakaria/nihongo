@@ -9,13 +9,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import { AudioButton } from '@/components/phrases/AudioButton';
 import { WordLookup } from '@/components/phrases/WordLookup';
 import { useSettingsStore } from '@/store/settings';
-import { useProgressStore } from '@/store/progress';
 import { useBookmarkStore } from '@/store/bookmarks';
 import { cn } from '@/lib/utils';
 
-export function PhraseCard({ phrase }: { phrase: Phrase }) {
+export function PhraseCard({
+  phrase,
+  onExplore,
+}: {
+  phrase: Phrase;
+  onExplore: () => void;
+}) {
   const romajiMode = useSettingsStore((s) => s.romajiMode);
-  const markReviewed = useProgressStore((s) => s.markReviewed);
   const isBookmarked = useBookmarkStore((s) => s.phraseIds.includes(phrase.id));
   const toggleBookmark = useBookmarkStore((s) => s.toggleBookmark);
   const [revealed, setRevealed] = useState(false);
@@ -46,9 +50,12 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
               title={isBookmarked ? 'Remove bookmark' : 'Bookmark phrase'}
               onClick={() => toggleBookmark(phrase.id)}
             >
-              <Bookmark className="h-4 w-4" fill={isBookmarked ? 'currentColor' : 'none'} />
+              <Bookmark
+                className="h-4 w-4"
+                fill={isBookmarked ? 'currentColor' : 'none'}
+              />
             </Button>
-            <AudioButton text={phrase.japanese} onPlay={() => markReviewed(phrase.id)} />
+            <AudioButton text={phrase.japanese} onPlay={onExplore} />
           </div>
         </div>
         <div
@@ -79,7 +86,7 @@ export function PhraseCard({ phrase }: { phrase: Phrase }) {
           <details
             className="group"
             onToggle={(event) => {
-              if (event.currentTarget.open) markReviewed(phrase.id);
+              if (event.currentTarget.open) onExplore();
             }}
           >
             <summary className="flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-primary hover:underline">

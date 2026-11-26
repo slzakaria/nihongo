@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { computeStreak } from './streak';
-import { createCard } from './sm2';
+import { createCard } from './scheduler';
 import { SRSCard } from '@/types';
 
 const DAY_MS = 24 * 60 * 60 * 1000;

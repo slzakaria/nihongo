@@ -1,39 +1,14 @@
-// store/progress.ts
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import { SRSCard } from '@/types'
+# Flashcard spaced repetition
 
-interface ProgressStore {
-cards: Record<string, SRSCard> // keyed by phraseId
-initCard: (phraseId: string) => void
-gradeCard: (phraseId: string, grade: 0 | 1 | 2 | 3 | 4 | 5) => void
-getDueCards: (scenarioSlug?: string) => SRSCard[]
-resetScenario: (scenarioSlug: string) => void
-}
+Flashcard reviews use a fixed-step schedule, not SM-2:
 
-export const useProgressStore = create<ProgressStore>()(
-persist(
-(set, get) => ({
-cards: {},
-initCard: (phraseId) => { /* ... _/ },
-gradeCard: (phraseId, grade) => {
-const card = get().cards[phraseId]
-const updated = sm2(card, grade) // see sm2.ts below
-set(state => ({
-cards: { ...state.cards, [phraseId]: updated }
-}))
-},
-getDueCards: (slug) => {
-const now = Date.now()
-return Object.values(get().cards)
-.filter(c => {
-const dueNow = c.nextReview <= now
-if (!slug) return dueNow
-return dueNow && c.phraseId.startsWith(slug.slice(0, 2))
-})
-},
-resetScenario: (slug) => { /_ delete cards starting with slug prefix */ }
-}),
-{ name: 'nihongo-progress' }
-)
-)
+| Rating | Next review | Active-session behavior                  |
+| ------ | ----------- | ---------------------------------------- |
+| Again  | 30 seconds  | Repeat until rated Good or Easy          |
+| Hard   | 10 minutes  | Repeat until rated Good or Easy          |
+| Good   | 1 day       | Finish this card for the current session |
+| Easy   | 3 days      | Finish this card for the current session |
+
+Again and Hard cards wait until the rest of the initially available set has been attempted. If no card is ready, keep the session open and show a countdown. Scenario phrase progress and its difficulty labels are separate from flashcard SRS progress and ratings; only phrase content is shared.
+
+Scheduling logic belongs in `src/lib/srs/scheduler.ts`, session ordering in `src/lib/flashcards/sessionQueue.ts`, and session state in `src/hooks/useFlashcardSession.ts`.

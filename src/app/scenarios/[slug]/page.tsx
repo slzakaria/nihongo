@@ -109,7 +109,11 @@ export default async function ScenarioDetailPage({
 
         <EtiquetteCard tips={getEtiquetteTips(scenario.slug)} />
 
-        <PhraseList phrases={scenario.phrases} scenarioSlug={scenario.slug} />
+        <PhraseList
+          phrases={scenario.phrases}
+          scenarioSlug={scenario.slug}
+          scenarioLabel={scenario.label}
+        />
       </div>
     </div>
   );

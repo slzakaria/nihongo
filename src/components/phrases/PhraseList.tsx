@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { loadPhraseResponsesFor } from '@/lib/data/content';
 import { useProgressStore } from '@/store/progress';
 import { cn } from '@/lib/utils';
+import { ScenarioFlashcardPrompt } from '@/components/scenarios/ScenarioLearningPrompts';
 
 type Filter = 'all' | Difficulty;
 
@@ -15,15 +16,26 @@ const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard', 'expert'];
 export function PhraseList({
   phrases,
   scenarioSlug,
+  scenarioLabel,
 }: {
   phrases: Phrase[];
   scenarioSlug: string;
+  scenarioLabel: string;
 }) {
   const [filter, setFilter] = useState<Filter>('all');
-  const [hydratedPhrases, setHydratedPhrases] = useState<Phrase[] | null>(null);
-  const initScenario = useProgressStore((s) => s.initScenario);
+  const [hydratedPhrases, setHydratedPhrases] = useState<{
+    key: string;
+    phrases: Phrase[];
+  } | null>(null);
+  const markScenarioPhraseExplored = useProgressStore(
+    (s) => s.markScenarioPhraseExplored,
+  );
   const needsResponseHydration = phrases.some((phrase) => phrase.responses.length === 0);
-  const displayPhrases = hydratedPhrases ?? phrases;
+  const hydrationKey = phrases.map((phrase) => phrase.id).join('\u0000');
+  const displayPhrases =
+    needsResponseHydration && hydratedPhrases?.key === hydrationKey
+      ? hydratedPhrases.phrases
+      : phrases;
   const difficultyCounts = useMemo(() => {
     const counts: Record<Difficulty, number> = {
       easy: 0,
@@ -37,24 +49,16 @@ export function PhraseList({
   }, [phrases]);
 
   useEffect(() => {
-    initScenario(scenarioSlug);
-  }, [scenarioSlug, initScenario]);
-
-  useEffect(() => {
-    if (!needsResponseHydration) {
-      setHydratedPhrases(null);
-      return;
-    }
+    if (!needsResponseHydration) return;
 
     let active = true;
-    setHydratedPhrases(null);
     void loadPhraseResponsesFor(phrases).then((loaded) => {
-      if (active) setHydratedPhrases(loaded);
+      if (active) setHydratedPhrases({ key: hydrationKey, phrases: loaded });
     });
     return () => {
       active = false;
     };
-  }, [needsResponseHydration, phrases]);
+  }, [hydrationKey, needsResponseHydration, phrases]);
 
   const activeFilter = filter === 'all' || difficultyCounts[filter] > 0 ? filter : 'all';
   const filtered = useMemo(
@@ -75,6 +79,11 @@ export function PhraseList({
 
   return (
     <div className="flex flex-col gap-4">
+      <ScenarioFlashcardPrompt
+        scenarioSlug={scenarioSlug}
+        scenarioLabel={scenarioLabel}
+        phrases={phrases}
+      />
       <div className="flex flex-wrap gap-2">
         {filters.map(({ value, label, count }) => (
           <Button
@@ -91,7 +100,13 @@ export function PhraseList({
       </div>
       <div className="flex flex-col gap-3">
         {filtered.length > 0 ? (
-          filtered.map((p) => <PhraseCard key={p.id} phrase={p} />)
+          filtered.map((p) => (
+            <PhraseCard
+              key={p.id}
+              phrase={p}
+              onExplore={() => markScenarioPhraseExplored(scenarioSlug, p.id)}
+            />
+          ))
         ) : (
           <p className="text-sm text-muted-foreground">
             No phrases at this difficulty in this scenario.

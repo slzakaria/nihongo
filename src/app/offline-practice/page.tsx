@@ -20,10 +20,11 @@ export default function OfflinePracticePage() {
   const [mode, setMode] = useState<PracticeMode>('phrases');
   const [scenarioSlug, setScenarioSlug] = useState('');
   const [kanaError, setKanaError] = useState(false);
-
-  useEffect(() => {
-    if (!scenarioSlug && scenarios.length > 0) setScenarioSlug(scenarios[0].slug);
-  }, [scenarioSlug, scenarios]);
+  const selectedScenarioSlug = scenarios.some(
+    (scenario) => scenario.slug === scenarioSlug,
+  )
+    ? scenarioSlug
+    : (scenarios[0]?.slug ?? '');
 
   useEffect(() => {
     void loadKana().catch((error) => {
@@ -42,8 +43,8 @@ export default function OfflinePracticePage() {
       );
   }, [initKana, kanaRows]);
   const initializeScenario = useCallback(() => {
-    if (scenarioSlug) initScenario(scenarioSlug);
-  }, [initScenario, scenarioSlug]);
+    if (selectedScenarioSlug) initScenario(selectedScenarioSlug);
+  }, [initScenario, selectedScenarioSlug]);
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
@@ -88,7 +89,7 @@ export default function OfflinePracticePage() {
           <label className="flex flex-col gap-2 text-sm font-medium">
             Choose a scenario
             <select
-              value={scenarioSlug}
+              value={selectedScenarioSlug}
               onChange={(event) => setScenarioSlug(event.target.value)}
               className="h-10 rounded-md border border-border bg-card px-3 text-sm"
             >
@@ -99,10 +100,10 @@ export default function OfflinePracticePage() {
               ))}
             </select>
           </label>
-          {scenarioSlug && (
+          {selectedScenarioSlug && (
             <FlashcardDeck
-              key={`phrases:${scenarioSlug}`}
-              slug={scenarioSlug}
+              key={`phrases:${selectedScenarioSlug}`}
+              slug={selectedScenarioSlug}
               onInit={initializeScenario}
             />
           )}

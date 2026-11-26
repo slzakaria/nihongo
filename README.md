@@ -4,8 +4,8 @@
 
 ## Features
 
-- **Scenario phrasebook:** 36 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies, plus two learning/reference categories. Phrases include romaji, usage notes, kanji where available, and common replies.
-- **Spaced-repetition flashcards:** scenario-based SM-2 review decks that bring phrases back when they are due, with progress for each deck. Bookmark phrases and review them in a focused saved-phrase queue.
+- **Scenario phrasebook:** 35 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies, plus two learning/reference categories. Explore phrase progress is tracked separately from flashcard reviews.
+- **Spaced-repetition flashcards:** scenario-based review decks with fixed Again (30 seconds), Hard (10 minutes), Good (1 day) and Easy (3 days) intervals. Flashcard reviews are tracked independently from scenario phrase progress. Bookmark phrases and review them in a focused saved-phrase queue.
 - **Kana study:** hiragana and katakana, organised by row, with a separate practice flow for kana due for review.
 - **Offline practice:** phrase and kana flashcards work from bundled content, save progress on the device, and queue signed-in changes to sync when reconnected. Open Offline practice once while online to cache its app shell.
 - **Getting-started tour:** a shorter first-visit tour is shown to signed-in and anonymous visitors. Signed-in completion is saved to the account; anonymous completion is remembered in a first-party cookie. Informational popups are spaced at least 24 hours apart in the browser.
@@ -67,6 +67,8 @@ IP cap.
 ### 3. Database
 
 Run the migrations in `supabase/migrations` in order, using the Supabase SQL editor or the Supabase CLI. Each migration is safe to re-run.
+
+The scenario/flashcard separation migration clears existing `srs_cards` rows once because the previous data mixed phrasebook exploration with flashcard reviews and cannot be reliably split. New phrasebook exploration is stored in `scenario_phrase_progress`; new SRS rows represent flashcard reviews only.
 
 The phrase and kana JSON is bundled with the app, so database access is not required to load practice content. To seed the optional content tables:
 

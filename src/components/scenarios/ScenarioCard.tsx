@@ -20,13 +20,13 @@ export function ScenarioCard({
   index?: number;
   eager?: boolean;
 }) {
-  const cards = useProgressStore((s) => s.cards);
+  const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
 
-  const reviewed = Object.values(cards).filter(
-    (c) => c.scenarioSlug === scenario.slug && c.lastReview !== null,
+  const explored = scenario.phrases.filter((phrase) =>
+    Boolean(scenarioProgress[phrase.id]),
   ).length;
   const total = scenario.phrases.length;
-  const pct = total === 0 ? 0 : Math.round((reviewed / total) * 100);
+  const pct = total === 0 ? 0 : Math.round((explored / total) * 100);
   const kana = scenarioKana(scenario.slug);
 
   return (
@@ -63,7 +63,7 @@ export function ScenarioCard({
         <div className="flex items-baseline justify-between gap-2">
           <span className="text-xs font-semibold tracking-tight">{pct}%</span>
           <span className="text-xs text-muted-foreground">
-            {reviewed} of {total} reviewed
+            {explored} of {total} explored
           </span>
         </div>
         <Progress value={pct} className="h-1" />

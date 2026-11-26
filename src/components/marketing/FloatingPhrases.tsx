@@ -137,9 +137,8 @@ const TONE_CLASSES: Record<'primary' | 'secondary' | 'accent', string> = {
 // globals.css: each word gets an even third (9s) of the loop to itself.
 const WORD_DELAYS = [0, 9, 18];
 
-// Floating phrase chips stacked down the right edge of the landing page. Each slot quietly cycles
-// through a few words instead of bobbing in place, and the whole layer sits behind every section
-// (large screens only — there's no spare margin for this on mobile).
+// Floating phrase chips stacked down the right edge of pages that opt into the component. Each
+// slot quietly cycles through a few words instead of bobbing in place, behind the page content.
 export function FloatingPhrases() {
   return (
     <div

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { AlertTriangle, Download } from 'lucide-react';
 import { useAuthStore } from '@/store/auth';
 import { useOnboardingStore } from '@/store/onboarding';
@@ -15,9 +16,11 @@ import { Button } from '@/components/ui/button';
 // `confirm()` dialog, so it matches the rest of the app's UI) and calls a server route that
 // re-verifies the caller's own session before touching anything — see /api/account/delete.
 export function DangerZoneCard() {
+  const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const userName = useOnboardingStore((s) => s.userName);
   const cards = useProgressStore((s) => s.cards);
+  const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
   const [exporting, setExporting] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -41,6 +44,9 @@ export function DangerZoneCard() {
           lastSignInAt: user.lastSignInAt,
         },
         flashcards: Object.values(cards),
+        scenarioProgress: Object.entries(scenarioProgress).map(
+          ([phraseId, progress]) => ({ phraseId, ...progress }),
+        ),
         studyDays,
         simulatorConversations: conversations,
       };
@@ -69,7 +75,7 @@ export function DangerZoneCard() {
       }
       useAuthStore.getState().setUser(null);
       clearDeviceData();
-      window.location.href = '/';
+      router.replace('/');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong');
       setDeleting(false);
@@ -77,7 +83,7 @@ export function DangerZoneCard() {
   }
 
   return (
-    <Card className="border-red-500/40 bg-red-50/40 dark:border-red-500/30 dark:bg-red-950/10">
+    <Card className="border-2 border-red-600/70 dark:border-red-400/70">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
           <AlertTriangle
