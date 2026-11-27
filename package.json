@@ -14,7 +14,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
     "@clerk/nextjs": "^7.10.9",
-    "@clerk/ui": "1.44.3",
+    "@clerk/ui": "1.44.4",
     "@radix-ui/react-slot": "^1.5.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.2",

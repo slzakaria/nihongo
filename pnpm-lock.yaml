@@ -173,8 +173,8 @@ importers:
         specifier: ^7.10.9
         version: 7.10.9(next@16.4.6(@babel/core@7.29.13(supports-color@7.2.0))(@types/node@20.19.43)(babel-plugin-macros@3.1.0)(react-dom@19.2.9(react@19.2.9))(react@19.2.9))(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
       '@clerk/ui':
-        specifier: 1.44.3
-        version: 1.44.3(@types/react@19.3.3)(react-dom@19.2.9(react@19.2.9))(react@19.2.9)(supports-color@7.2.0)
+        specifier: 1.44.4
+        version: 1.44.4(@types/react@19.3.3)(react-dom@19.2.9(react@19.2.9))(react@19.2.9)(supports-color@7.2.0)
       '@radix-ui/react-slot':
         specifier: ^1.5.0
         version: 1.5.0(@types/react@19.3.3)(react@19.2.9)
@@ -353,8 +353,8 @@ packages:
     resolution: {integrity: sha512-rC9rZGW2asq2FunUZEBoI5WlNnGPhOgU3KC47rdmBw/l9LxuFQMIXFAUlqHXMK/vBpptQIw9CS7Cnpr2ZF6TsQ==}
     engines: {node: '>=20.9.0'}
 
-  '@clerk/localizations@4.27.0':
-    resolution: {integrity: sha512-v7EWKBvzPqXGaJKqu5bdfVW/Jg+CVckgLjU7c0mXt0xLzQMmChooUO2j/CElv9y1IRglSyiZnkrctOQV/nbbHw==}
+  '@clerk/localizations@4.26.3':
+    resolution: {integrity: sha512-qfuu/CJP7F0faOqsCexlV5rHTl6WPkxIuhR2lNajfEH0hDjo8DaOO6tMgu7i0QOadphMYtTSfRJPsPMVAa2M8Q==}
     engines: {node: '>=20.9.0'}
 
   '@clerk/nextjs@7.10.9':
@@ -372,6 +372,18 @@ packages:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
       react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
 
+  '@clerk/shared@4.48.3':
+    resolution: {integrity: sha512-lcwTiQkmmmcN3KjAwEfycFv0+fNyLJQJjhC4T+zr405QyypkTZmvaNkoBQW7QpRdX8UlNW63IoTrIX/vT37EhQ==}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+      react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   '@clerk/shared@4.49.0':
     resolution: {integrity: sha512-OI7+jr+Y481nBJJdAIt5NXJSo+wJAk9SYPYDpmcIOzyq8JnCtIdcd86wod2J3IY7UG6UxnBMT+IDbchFwJGs1Q==}
     engines: {node: '>=20.9.0'}
@@ -384,8 +396,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/ui@1.44.3':
-    resolution: {integrity: sha512-6g3diLYbFpjiS0/5p1Z7NN5Ho4P4IRgRTDN/zqAEFRXtYJ8AMfdsdf84euaszd5sMozxxlZfUiBUu3gQZ6Rotg==}
+  '@clerk/ui@1.44.4':
+    resolution: {integrity: sha512-DDqlSfgDhmjiIS5+8ZAff8fc3rr/PXKUJtFUbJnP6OEbDegEK+uYpGtVBVVLOIarH5+gXjALBMWFbKislm4u4g==}
     engines: {node: '>=20.9.0'}
     peerDependencies:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
@@ -1499,6 +1511,9 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
+  caniuse-lite@1.0.30001827:
+    resolution: {integrity: sha512-YWEDr46gSO81M8w6uPbaIy4++IXsirx2asUqvllNiD4BPf75ibxclUjWEqp8ObCenRv+UM2n5Y8xuRPT8V8FrQ==}
+
   caniuse-lite@1.0.30001828:
     resolution: {integrity: sha512-7MWeT+3DlrpuDybTWHl4Zb1Z80Z1fLLnOXuBjDXebzDVcqnEWUlV8JcbASg8B8BhcW8QT2UiR1KAtzYFIZHZYA==}
 
@@ -1630,8 +1645,8 @@ packages:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
 
-  electron-to-chromium@1.5.494:
-    resolution: {integrity: sha512-Tph7ohL4Xc0ft3DXElYEIVTmPI3H0MtPCTdgtz5AwWGZG6q+vMiT3IzJ3RJX/HJQ8pYzeimQyvi6SsBTOS0nyQ==}
+  electron-to-chromium@1.5.493:
+    resolution: {integrity: sha512-/Wto2sKd0EpepzMqwSP2il2TNc+rnBDF6k1poCvhRKpaSSD4sLGRBE+FydqHs2QwcW9cXKLVDqnauzJy1oByYw==}
 
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
@@ -3057,9 +3072,9 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/localizations@4.27.0(react-dom@19.2.9(react@19.2.9))(react@19.2.9)':
+  '@clerk/localizations@4.26.3(react-dom@19.2.9(react@19.2.9))(react@19.2.9)':
     dependencies:
-      '@clerk/shared': 4.49.0(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
+      '@clerk/shared': 4.48.3(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -3080,6 +3095,16 @@ snapshots:
       react: 19.2.9
       react-dom: 19.2.9(react@19.2.9)
 
+  '@clerk/shared@4.48.3(react-dom@19.2.9(react@19.2.9))(react@19.2.9)':
+    dependencies:
+      '@tanstack/query-core': 5.108.4
+      dequal: 2.0.3
+      glob-to-regexp: 0.4.1
+      js-cookie: 3.0.8
+    optionalDependencies:
+      react: 19.2.9
+      react-dom: 19.2.9(react@19.2.9)
+
   '@clerk/shared@4.49.0(react-dom@19.2.9(react@19.2.9))(react@19.2.9)':
     dependencies:
       '@tanstack/query-core': 5.108.4
@@ -3090,10 +3115,10 @@ snapshots:
       react: 19.2.9
       react-dom: 19.2.9(react@19.2.9)
 
-  '@clerk/ui@1.44.3(@types/react@19.3.3)(react-dom@19.2.9(react@19.2.9))(react@19.2.9)(supports-color@7.2.0)':
+  '@clerk/ui@1.44.4(@types/react@19.3.3)(react-dom@19.2.9(react@19.2.9))(react@19.2.9)(supports-color@7.2.0)':
     dependencies:
-      '@clerk/localizations': 4.27.0(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
-      '@clerk/shared': 4.49.0(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
+      '@clerk/localizations': 4.26.3(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
+      '@clerk/shared': 4.48.3(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@19.3.3)(react@19.2.9)(supports-color@7.2.0)
       '@floating-ui/react': 0.27.20(react-dom@19.2.9(react@19.2.9))(react@19.2.9)
@@ -3185,7 +3210,7 @@ snapshots:
       '@emotion/memoize': 0.9.0
       '@emotion/unitless': 0.10.0
       '@emotion/utils': 1.4.2
-      csstype: 3.1.3
+      csstype: 3.2.4
 
   '@emotion/sheet@1.4.0': {}
 
@@ -4034,8 +4059,8 @@ snapshots:
   browserslist@4.29.6:
     dependencies:
       baseline-browser-mapping: 2.11.39
-      caniuse-lite: 1.0.30001828
-      electron-to-chromium: 1.5.494
+      caniuse-lite: 1.0.30001827
+      electron-to-chromium: 1.5.493
       node-releases: 2.0.65
       update-browserslist-db: 1.4.0(browserslist@4.29.6)
 
@@ -4057,6 +4082,8 @@ snapshots:
       get-intrinsic: 1.3.0
 
   callsites@3.1.0: {}
+
+  caniuse-lite@1.0.30001827: {}
 
   caniuse-lite@1.0.30001828: {}
 
@@ -4179,7 +4206,7 @@ snapshots:
       es-errors: 1.3.0
       gopd: 1.2.0
 
-  electron-to-chromium@1.5.494: {}
+  electron-to-chromium@1.5.493: {}
 
   emoji-regex@9.2.2: {}
 
