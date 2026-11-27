@@ -39,7 +39,7 @@ export function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="relative z-50 border-b border-border bg-background shadow-none print:hidden"
+      className="site-navbar relative z-50 border-b border-border bg-background shadow-none print:hidden"
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-3 py-3 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center gap-2 whitespace-nowrap">
