@@ -14,9 +14,13 @@ export function SimulatorMessage({
   autoPlay?: boolean;
 }) {
   const isUser = message.role === 'user';
-  const hintMatch = message.content.match(/\[HINT:\s*([\s\S]*?)\]\s*$/);
-  const mainText = hintMatch
-    ? message.content.slice(0, hintMatch.index).trim()
+  const hintMatch = message.content.match(/\[HINT:\s*([\s\S]*?)\]/);
+  const coachMatch = message.content.match(/\[COACH:\s*([\s\S]*?)\]/);
+  const hasAnnotations = hintMatch || coachMatch;
+  const mainText = hasAnnotations
+    ? message.content
+        .replace(/\s*\[(?:HINT|COACH):\s*[\s\S]*?\]/g, '')
+        .trim()
     : message.content;
   const { play, isLoading, isPlaying, disabled } = useAudio();
   const hasAutoPlayed = useRef(false);
@@ -51,6 +55,9 @@ export function SimulatorMessage({
           )}
         </div>
         {hintMatch && <p className="text-xs italic opacity-80">{hintMatch[1]}</p>}
+        {coachMatch && (
+          <p className="text-xs text-muted-foreground">{coachMatch[1]}</p>
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 {
   "name": "Hanazono - japanesse survival phrases",
-  "version": "3.9.1",
+  "version": "3.9.2",
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "node --use-system-ca ./node_modules/next/dist/bin/next build",
     "start": "node --use-system-ca ./node_modules/next/dist/bin/next start",
     "lint": "eslint",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
     "format": "prettier --write . --ignore-unknown",
     "format:check": "prettier --check . --ignore-unknown",
     "test": "vitest run"
