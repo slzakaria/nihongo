@@ -116,6 +116,12 @@ html {
   font-family: var(--font-noto-serif-jp), serif;
 }
 
+@media (display-mode: standalone) {
+  .site-navbar {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
 .dark .navbar-logo {
   color: #85b7eb;
 }
