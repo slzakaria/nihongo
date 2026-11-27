@@ -94,7 +94,6 @@ const EXPLORE_TILES = [
 ];
 
 export default function Home() {
-  const cards = useProgressStore((s) => s.cards);
   const user = useAuthStore((s) => s.user);
   const scenarios = useContentStore((s) => s.content.phrases);
   const showSearch = useSearchDialogStore((s) => s.show);
@@ -102,13 +101,30 @@ export default function Home() {
   const [canScrollExploreLeft, setCanScrollExploreLeft] = useState(false);
   const [canScrollExploreRight, setCanScrollExploreRight] = useState(false);
 
+  const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
+  const cards = useProgressStore((s) => s.cards);
+
   const totalPhrases = useMemo(
     () => scenarios.reduce((sum, s) => sum + s.phrases.length, 0),
     [scenarios],
   );
-  const reviewedCount = useMemo(
-    () => Object.values(cards).filter((c) => c.lastReview !== null).length,
-    [cards],
+  const phrasesExplored = useMemo(
+    () =>
+      scenarios.reduce(
+        (sum, s) => sum + s.phrases.filter((p) => Boolean(scenarioProgress[p.id])).length,
+        0,
+      ),
+    [scenarios, scenarioProgress],
+  );
+  const totalFlashcards = scenarios.length;
+  const flashcardsCompleted = useMemo(
+    () =>
+      scenarios.filter(
+        (s) =>
+          s.phrases.length > 0 &&
+          s.phrases.every((p) => Boolean(cards[p.id]) && cards[p.id].lastReview !== null),
+      ).length,
+    [scenarios, cards],
   );
   const featured = useMemo(
     () =>
@@ -176,7 +192,12 @@ export default function Home() {
     <div className="relative isolate mx-auto flex w-full max-w-5xl flex-1 flex-col gap-14 px-4 py-10 sm:px-6">
       <FloatingPhrases />
 
-      <HeroBanner phrasesReviewed={reviewedCount} totalPhrases={totalPhrases} />
+      <HeroBanner
+        phrasesExplored={phrasesExplored}
+        totalPhrases={totalPhrases}
+        flashcardsCompleted={flashcardsCompleted}
+        totalFlashcards={totalFlashcards}
+      />
 
       <section className="explore-section relative left-1/2 flex w-screen -translate-x-1/2 flex-col gap-5">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
@@ -242,7 +263,7 @@ export default function Home() {
                     )}
                     <span
                       className={cn(
-                        'explore-card-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-lg shadow-sm transition duration-300 group-hover:-rotate-6 group-hover:scale-110',
+                        'explore-card-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-lg shadow-sm transition duration-300 group-hover:-rotate-6 group-hover:scale-110 animate-pulse',
                         tile.tone,
                       )}
                     >

@@ -4,44 +4,50 @@ import { Button } from '@/components/ui/button';
 import { CherryBlossom } from '@/components/marketing/CherryBlossom';
 
 export function HeroBanner({
-  phrasesReviewed,
+  phrasesExplored,
   totalPhrases,
+  flashcardsCompleted,
+  totalFlashcards,
 }: {
-  phrasesReviewed: number;
+  phrasesExplored: number;
   totalPhrases: number;
+  flashcardsCompleted: number;
+  totalFlashcards: number;
 }) {
   const progress =
-    totalPhrases > 0 ? Math.min(100, (phrasesReviewed / totalPhrases) * 100) : 0;
+    totalPhrases > 0 ? Math.min(100, (phrasesExplored / totalPhrases) * 100) : 0;
+  const flashcardProgress =
+    totalFlashcards > 0
+      ? Math.min(100, (flashcardsCompleted / totalFlashcards) * 100)
+      : 0;
 
   return (
     <section className="hero-banner relative min-h-[320px] overflow-hidden rounded-2xl px-5 py-8 sm:px-10 sm:py-12">
       <div className="relative z-10 w-full sm:max-w-[62%]">
         <p className="hero-kicker mb-4 text-[11px] font-medium tracking-[0.18em]">
           <span className="flex flex-col items-start">
-            <span>✦ FOR YOUR NEXT TRIP</span>
+            <span><span className='mx-1 animate-pulse'>✦</span>FOR YOUR NEXT TRIP</span>
           </span>
         </p>
-        <h1 className="mb-3 flex items-start gap-2.5">
-          <span className="hero-title-en mt-1 flex shrink-0 items-center">
-            <Image
-              src="/hanazono.svg"
-              alt=""
-              width={40}
-              height={40}
-              className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
-              priority
-            />
+        <div className="mb-3 flex shrink-0 items-center">
+          <Image
+            src="/hanazono.svg"
+            alt=""
+            width={40}
+            height={40}
+            className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
+            priority
+          />
+        </div>
+        <h1 className="mb-3 flex flex-col">
+          <span className="hero-title-en text-2xl font-semibold leading-snug sm:text-3xl">
+            Survival Japanese for your trip
           </span>
-          <span className="flex min-w-0 flex-col">
-            <span className="hero-title-en text-2xl font-semibold leading-snug sm:text-3xl">
-              Survival Japanese for your trip
-            </span>
-            <span lang="ja" className="kana-text mt-1 text-sm leading-snug sm:text-base">
-              りょこうでつかえるにほんご
-            </span>
+          <span lang="ja" className="kana-text mt-1 text-sm leading-snug sm:text-base">
+            りょこうでつかえるにほんご
           </span>
         </h1>
-        <p className="hero-description mb-6 max-w-[380px] text-sm leading-relaxed sm:mb-7">
+        <p className="hero-description mb-6 max-w-[380px] md:max-w-[440px] text-sm leading-relaxed sm:mb-7">
           <span className="flex flex-col gap-1">
             <span>
               Explore real-life scenarios, review their phrases with spaced repetition,
@@ -53,7 +59,7 @@ export function HeroBanner({
           </span>
         </p>
 
-        <div className="mb-6 flex flex-col gap-2.5 sm:mb-7 sm:flex-row sm:flex-wrap">
+        <div className="mb-6 flex flex-col gap-2.5 sm:mb-7 sm:flex-row sm:flex-wrap md:max-w-[440px] justify-start">
           <Button
             asChild
             className="hero-primary-cta w-full cursor-pointer rounded-[10px] px-5 sm:w-auto"
@@ -69,17 +75,17 @@ export function HeroBanner({
           </Button>
         </div>
 
-        <div className="max-w-[300px]">
+        <div className="max-w-[380px] md:max-w-[420px]">
           <div className="hero-progress-label mb-1.5 flex justify-between text-[11px]">
-            <span>Your progress</span>
+            <span>Explored</span>
             <span>
-              {phrasesReviewed} / {totalPhrases} phrases
+              {phrasesExplored} / {totalPhrases} <span className='ml-1'>Scenario phrases</span>
             </span>
           </div>
           <div
-            className="hero-progress-track h-1 overflow-hidden rounded-full"
+            className="hero-progress-track h-1.5 overflow-hidden rounded-full"
             role="progressbar"
-            aria-label="Phrase review progress"
+            aria-label="Scenario phrases explored progress"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.round(progress)}
@@ -87,6 +93,29 @@ export function HeroBanner({
             <span
               className="hero-progress-fill block h-full rounded-full"
               style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="mt-3 max-w-[380px] md:max-w-[420px]">
+          <div className="hero-progress-label mb-1.5 flex justify-between text-[11px]">
+            <span>Studied</span>
+            <span>
+              {flashcardsCompleted} / {totalFlashcards}{' '}
+              <span className="ml-1">Flashcard decks</span>
+            </span>
+          </div>
+          <div
+            className="hero-progress-track h-1.5 overflow-hidden rounded-full"
+            role="progressbar"
+            aria-label="Flashcards studied progress"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(flashcardProgress)}
+          >
+            <span
+              className="hero-progress-fill block h-full rounded-full"
+              style={{ width: `${flashcardProgress}%` }}
             />
           </div>
         </div>

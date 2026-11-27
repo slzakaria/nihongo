@@ -66,45 +66,55 @@ export function SimulatorTeaser() {
             </Link>
           </Button>
         </div>
-
-        <div className="simulator-chat w-full overflow-hidden rounded-2xl border">
-          <div className="simulator-chat-header flex items-center gap-1.5 border-b px-4 py-3">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#ed93b1]" aria-hidden="true" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#85b7eb]" aria-hidden="true" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#fac775]" aria-hidden="true" />
-            <span className="ml-2 truncate text-xs text-muted-foreground">
-              いざかや・Izakaya scenario
-            </span>
-          </div>
-          <div className="flex flex-col gap-3 p-4">
-            {MOCK_MESSAGES.map((m, i) => (
-              <div
-                key={i}
-                className={`simulator-bubble simulator-bubble--${m.role} ${
-                  m.role === 'user' ? 'ml-auto max-w-[75%] text-right' : 'max-w-[85%]'
-                } rounded-[10px] px-3 py-2.5 text-sm`}
-              >
-                <p lang="ja" className="font-medium">
-                  {m.japanese}
-                </p>
-                <p className="simulator-translation text-xs">{m.translation}</p>
-              </div>
-            ))}
-          </div>
-          <div className="simulator-chat-input flex items-center gap-2 border-t p-3">
-            <div className="flex h-9 flex-1 items-center rounded-lg border px-3 text-sm text-muted-foreground">
-              Type your reply...
+        <Link href="/simulator">
+          <div className="simulator-chat w-full overflow-hidden rounded-2xl border">
+            <div className="simulator-chat-header flex items-center gap-1.5 border-b px-4 py-3">
+              <span
+                className="h-2.5 w-2.5 rounded-full bg-[#ed93b1]"
+                aria-hidden="true"
+              />
+              <span
+                className="h-2.5 w-2.5 rounded-full bg-[#85b7eb]"
+                aria-hidden="true"
+              />
+              <span
+                className="h-2.5 w-2.5 rounded-full bg-[#fac775]"
+                aria-hidden="true"
+              />
+              <span className="ml-2 truncate text-xs text-muted-foreground">
+                いざかや・Izakaya scenario
+              </span>
             </div>
-            <Button
-              size="icon"
-              className="simulator-send-button h-8 w-8 shrink-0 rounded-lg"
-              disabled
-              aria-label="Send"
-            >
-              <ArrowUp className="h-4 w-4" />
-            </Button>
+            <div className="flex flex-col gap-3 p-4 animate-pulse">
+              {MOCK_MESSAGES.map((m, i) => (
+                <div
+                  key={i}
+                  className={`simulator-bubble simulator-bubble--${m.role} ${
+                    m.role === 'user' ? 'ml-auto max-w-[75%] text-right' : 'max-w-[85%]'
+                  } rounded-[10px] px-3 py-2.5 text-sm`}
+                >
+                  <p lang="ja" className="font-medium">
+                    {m.japanese}
+                  </p>
+                  <p className="simulator-translation text-xs">{m.translation}</p>
+                </div>
+              ))}
+            </div>
+            <div className="simulator-chat-input flex items-center gap-2 border-t p-3">
+              <div className="flex h-9 flex-1 items-center rounded-lg border px-3 text-sm text-muted-foreground">
+                Type your reply...
+              </div>
+              <Button
+                size="icon"
+                className="simulator-send-button h-8 w-8 shrink-0 rounded-lg animate-bounce"
+                disabled
+                aria-label="Send"
+              >
+                <ArrowUp className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     </section>
   );

@@ -33,13 +33,13 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
     starter ? [{ role: 'assistant', content: starter }] : [],
   );
   const [apiHistory, setApiHistory] = useState<ChatMessage[]>([]);
-  const [autoPlayIndex, setAutoPlayIndex] = useState<number | null>(starter ? 0 : null);
+  const [autoPlayIndex, setAutoPlayIndex] = useState<number | null>(null);
   const [resumed, setResumed] = useState(false);
   const [input, setInput] = useState('');
   const inputRef = useRef(input);
   const [isStreaming, setIsStreaming] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const {
     isSupported: micSupported,
     isListening,
@@ -52,6 +52,37 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
   useEffect(() => {
     inputRef.current = input;
   }, [input]);
+
+  // Browsers block autoplay-with-sound until the page has received a user gesture (click,
+  // key press, or touch) — playing the opener immediately on mount fails silently every time
+  // since there's been no interaction yet. Wait for the first gesture, then let it play.
+  const resumedRef = useRef(resumed);
+  useEffect(() => {
+    resumedRef.current = resumed;
+  }, [resumed]);
+
+  useEffect(() => {
+    if (!starter) return;
+    const triggerAutoplay = () => {
+      if (!resumedRef.current) setAutoPlayIndex(0);
+    };
+    window.addEventListener('pointerdown', triggerAutoplay, { once: true });
+    window.addEventListener('keydown', triggerAutoplay, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', triggerAutoplay);
+      window.removeEventListener('keydown', triggerAutoplay);
+    };
+  }, [starter]);
+
+  // Keep the view anchored to the latest message any time the conversation changes
+  // (new messages, streaming chunks, or a resumed conversation loading in). We scroll
+  // the chat container's scrollTop directly instead of scrollIntoView, which would
+  // also scroll the page itself into view and cause the whole page to jump.
+  useEffect(() => {
+    const el = messagesContainerRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+  }, [messages]);
 
   // Resume a signed-in user's last conversation for this scenario, if any
   useEffect(() => {
@@ -124,6 +155,21 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
         return;
       }
 
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[baseLen + 1] = {
+            role: 'assistant',
+            content: `${data?.error ?? 'Sorry, something went wrong.'} [HINT: connection error]`,
+          };
+          return updated;
+        });
+        return;
+      }
+
       if (!res.body) throw new Error('No response body');
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -138,7 +184,6 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
           updated[baseLen + 1] = { role: 'assistant', content: assistantText };
           return updated;
         });
-        scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
 
       setApiHistory([...nextApiHistory, { role: 'assistant', content: assistantText }]);
@@ -204,11 +249,13 @@ export function SimulatorChat({ scenarioSlug }: { scenarioSlug: string }) {
           </div>
         )}
 
-        <div className="flex max-h-[60vh] flex-col gap-3 overflow-y-auto p-4 sm:max-h-[65vh]">
+        <div
+          ref={messagesContainerRef}
+          className="flex h-[50vh] max-h-[50vh] min-h-0 flex-col gap-3 overflow-y-auto p-4"
+        >
           {messages.map((m, i) => (
             <SimulatorMessage key={i} message={m} autoPlay={i === autoPlayIndex} />
           ))}
-          <div ref={scrollRef} />
         </div>
 
         <form
