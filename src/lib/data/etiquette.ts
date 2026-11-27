@@ -31,6 +31,8 @@ export const ETIQUETTE: Record<string, string[]> = {
     'In Tokyo, stand on the left on escalators. In Osaka, stand on the right.',
     'Priority seats are for elderly, pregnant and disabled passengers. Give them up if someone needs them.',
     'Do not talk on the phone on trains.',
+    'Point with a whole open hand rather than one finger when asking for directions — it reads as more polite.',
+    'People will sometimes walk a little way with you to show the route, rather than just pointing. Showing a map app on your phone is also completely normal.',
   ],
   hotel: [
     'Check-in is usually from mid-afternoon and check-out is by about 11am.',
@@ -96,12 +98,6 @@ export const ETIQUETTE: Record<string, string[]> = {
     'Karaoke rooms are charged by the time, and the drink bar is usually included.',
     'Many groups share the microphone. Sing a few songs, then pass it on.',
     'You can order food and drinks from the phone in the room.',
-  ],
-  directions: [
-    'Point with a whole open hand rather than one finger — it reads as more polite.',
-    'People will sometimes walk a little way with you to show the route, rather than just pointing.',
-    "Showing a map app on your phone when asking for directions is completely normal — don't feel shy about it.",
-    'Addresses are based on area, block and building numbers rather than street names, so locals may point you toward a landmark instead.',
   ],
   'time-dates': [
     'Dates are often written year/month/day, and some calendars also show the Japanese era name (令和, Reiwa) next to the Western year.',

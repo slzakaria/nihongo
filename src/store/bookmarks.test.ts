@@ -31,7 +31,6 @@ describe('bookmark store', () => {
       user: {
         id: 'user-1',
         email: null,
-        phone: null,
         createdAt: null,
         lastSignInAt: null,
       },

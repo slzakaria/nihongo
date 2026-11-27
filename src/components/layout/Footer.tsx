@@ -2,13 +2,16 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { Smartphone } from 'lucide-react';
 import { navLinks } from '@/components/layout/Navbar';
+import { useInstallAppDialogStore } from '@/store/installAppDialog';
 
 // Logo and nav grouped together as one row, signature line centered below — kept as a tight
 // cluster rather than spread edge-to-edge, so there's no big empty gap between them.
 export function Footer() {
   const links = navLinks;
   const year = new Date().getFullYear();
+  const showInstallApp = useInstallAppDialogStore((s) => s.show);
 
   return (
     <footer className="mt-auto border-t border-border bg-background px-4 py-5 sm:px-6">
@@ -26,6 +29,15 @@ export function Footer() {
               花園 - はなぞの
             </span>
           </Link>
+
+          <button
+            type="button"
+            onClick={showInstallApp}
+            className="flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+          >
+            <Smartphone className="h-3.5 w-3.5" />
+            Install app
+          </button>
 
           <nav
             aria-label="Footer"

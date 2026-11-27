@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useAuthStore } from '@/store/auth';
+import { useProfileFieldsStore } from '@/store/profileFields';
 import type * as profileApi from '@/lib/supabase/profile';
 
-export const FEATURE_TOUR_VERSION = 2;
+export const FEATURE_TOUR_VERSION = 3;
 
 // Supabase code loads on the first write, keeping it out of the first-paint bundle
 const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
@@ -41,18 +42,24 @@ export const useOnboardingStore = create<OnboardingStore>()(
       completeOnboarding: (name) => {
         set({ hasOnboarded: true, userName: name });
         const userId = useAuthStore.getState().user?.id;
-        if (userId) void upsertProfile(userId, { user_name: name, has_onboarded: true });
+        if (userId)
+          useProfileFieldsStore
+            .getState()
+            .queueFields(userId, { user_name: name, has_onboarded: true });
       },
       setUserName: (name) => {
         set({ userName: name });
         const userId = useAuthStore.getState().user?.id;
-        if (userId) void upsertProfile(userId, { user_name: name });
+        if (userId) useProfileFieldsStore.getState().queueFields(userId, { user_name: name });
       },
       setAvatarUrl: (url) => set({ avatarUrl: url }),
       markProfileIntroSeen: () => {
         set({ profileIntroSeen: true });
         const userId = useAuthStore.getState().user?.id;
-        if (userId) void upsertProfile(userId, { profile_intro_seen: true });
+        if (userId)
+          void upsertProfile(userId, { profile_intro_seen: true }).catch((error) =>
+            console.error('Unable to save that the profile intro was seen.', error),
+          );
       },
       markFeatureTourSeen: () => {
         set({ featureTourSeen: true, featureTourVersion: FEATURE_TOUR_VERSION });
@@ -61,7 +68,9 @@ export const useOnboardingStore = create<OnboardingStore>()(
           void upsertProfile(userId, {
             feature_tour_seen: true,
             feature_tour_version: FEATURE_TOUR_VERSION,
-          });
+          }).catch((error) =>
+            console.error('Unable to save that the feature tour was seen.', error),
+          );
       },
     }),
     {

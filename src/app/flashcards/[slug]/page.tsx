@@ -23,8 +23,8 @@ export async function generateMetadata({
   const scenario = phrases.find((s) => s.slug === slug);
   if (!scenario) return {};
   return {
-    title: `${scenario.label} Flashcards`,
-    description: `Spaced-repetition flashcards for ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases.`,
+    title: `${scenario.label} Flashcards — Japanese Phrases`,
+    description: `Review ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases in Japanese with spaced-repetition flashcards before your trip.`,
     alternates: { canonical: `/flashcards/${slug}` },
   };
 }

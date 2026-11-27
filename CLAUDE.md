@@ -26,7 +26,8 @@ Hanazono is a travel-focused Japanese learning app. It combines scenario phrases
 - Phrase and kana practice content is bundled with the app and remains available offline.
 - Review progress and bookmarks are stored locally; signed-in changes are synchronized with Supabase.
 - Clerk is the identity provider. Do not treat authentication or Supabase as optional/local-only features.
-- The production service worker is `public/sw.js`; the offline practice entry point is `/offline-practice`.
+- The production service worker is `public/sw.js`; it caches Scenarios/Flashcards/Kana pages (and their assets) as they're visited, so they stay available on a later cold offline load, not just mid-session. The offline practice entry point is `/offline-practice`.
+- The app can be installed to a device home screen (iOS share-sheet steps or native install prompt); see `src/hooks/useInstallApp.ts` and `src/components/layout/InstallAppDialog.tsx`.
 - Keep AI, database service-role, and speech-provider credentials on the server.
 
 ## Implementation conventions

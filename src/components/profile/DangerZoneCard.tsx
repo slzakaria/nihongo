@@ -39,7 +39,6 @@ export function DangerZoneCard() {
         profile: {
           name: userName,
           email: user.email,
-          phone: user.phone,
           createdAt: user.createdAt,
           lastSignInAt: user.lastSignInAt,
         },

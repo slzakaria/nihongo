@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Hanazono - Survival Japanese' },
+  title: { absolute: 'Hanazono — Survival Japanese for Travel' },
   description:
-    'Survival Japanese for your trip: phrases, flashcards, and a live conversation simulator.',
+    'Explore real-life Japanese travel scenarios, review their phrases with spaced-repetition flashcards, then practise speaking in a live AI conversation simulator. A free Japanese phrasebook app for your next trip.',
   alternates: { canonical: '/' },
 };
 

@@ -7,7 +7,8 @@
 - **Scenario phrasebook:** 35 travel situations, from restaurants and konbini to trains, hotels, onsen and emergencies, plus two learning/reference categories. Explore phrase progress is tracked separately from flashcard reviews.
 - **Spaced-repetition flashcards:** scenario-based review decks with fixed Again (30 seconds), Hard (10 minutes), Good (1 day) and Easy (3 days) intervals. Flashcard reviews are tracked independently from scenario phrase progress. Bookmark phrases and review them in a focused saved-phrase queue.
 - **Kana study:** hiragana and katakana, organised by row, with a separate practice flow for kana due for review.
-- **Offline practice:** phrase and kana flashcards work from bundled content, save progress on the device, and queue signed-in changes to sync when reconnected. Open Offline practice once while online to cache its app shell.
+- **Offline practice:** phrase and kana flashcards work from bundled content, save progress on the device, and queue signed-in changes to sync when reconnected. The Scenarios, Flashcards and Kana pages are themselves cached by the service worker as you visit them, so a page you've opened once stays available offline later, even after closing the tab — not just mid-session. An app-wide "you're offline" indicator appears whenever the connection drops.
+- **Installable app:** add Hanazono to your home screen (iOS share-sheet steps or the native install prompt on Android/Chrome) for an app-like, full-screen experience. Reachable from the account menu, the footer, and the feature tour.
 - **Getting-started tour:** a shorter first-visit tour is shown to signed-in and anonymous visitors. Signed-in completion is saved to the account; anonymous completion is remembered in a first-party cookie. Informational popups are spaced at least 24 hours apart in the browser.
 - **Speaking practice:** listen to a phrase, record it in a supported browser, and get a match score with word-by-word feedback.
 - **AI conversation simulator:** role-play travel scenarios with an AI partner. Type or speak your replies, and return to saved conversations later.
@@ -17,7 +18,7 @@
 - **Daily recap:** revisit your recent study streak, phrase reviews and simulator practice.
 - **Profile and preferences:** view progress, due cards, goals, badges, saved phrases and account activity; update your display name and avatar; choose a theme, romaji display mode and speech speed. Streak protection can cover a planned break.
 - **Accounts:** Clerk-managed sign-in and sign-up. Signed-in profile and study data sync across devices.
-- **Themes and installability:** light, dark and system themes; the web app manifest supports adding Hanazono to a device home screen.
+- **Themes:** light, dark and system themes.
 - **Homepage:** a travel-focused hero, horizontally scrollable Explore links, a two-column simulator preview on desktop, featured scenarios, and a responsive kana teaser.
 
 ## Design system
@@ -76,7 +77,7 @@ The phrase and kana JSON is bundled with the app, so database access is not requ
 node --env-file=.env scripts/seed-content.mjs
 ```
 
-To use offline practice in a production deployment, open `/offline-practice` once while connected so the service worker can cache its app shell and static assets. Generated audio, speech services, and the AI simulator still need their respective network services.
+To use offline practice in a production deployment, open `/offline-practice`, `/scenarios`, `/flashcards`, or `/kana` once while connected so the service worker can cache the app shell, the page itself, and its static assets. Generated audio, speech services, and the AI simulator still need their respective network services.
 
 ### 4. Run
 
@@ -112,7 +113,7 @@ src/
     speech/, tts/       Speech scoring, recognition and audio playback
   store/                Zustand stores for auth, progress, bookmarks, goals and preferences
 supabase/migrations/    Database schema changes
-public/sw.js            Production service worker for offline practice
+public/sw.js            Production service worker for offline practice and page caching
 public/offline.html     Cached offline fallback shell
 scripts/                Content seeding
 ```
@@ -127,4 +128,4 @@ Phrases live in `src/lib/data/phrases.json`, with kana in `hiragana.json` and `k
 
 - Microphone-based practice depends on browser speech-recognition support and microphone permission.
 - AI conversation, speaking feedback and generated audio require their corresponding API keys and may be subject to provider limits.
-- Offline app-shell support requires a browser with service-worker support and a prior online visit to Offline practice. Offline progress is stored on the current device until signed-in changes can sync.
+- Offline app-shell support requires a browser with service-worker support. A scenario, flashcards or kana page must be opened once while online before it's available offline; after that, it's cached for offline use even on a later cold load. Offline progress is stored on the current device until signed-in changes can sync.

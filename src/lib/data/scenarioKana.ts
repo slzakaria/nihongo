@@ -12,7 +12,6 @@ export const SCENARIO_KANA: Record<string, string> = {
   'getting-around': 'いどう',
   hotel: 'ホテル',
   'bar-cocktails': 'バーとカクテル',
-  directions: 'みちあんない',
   emergencies: 'きんきゅうとけいさつ',
   'time-dates': 'じかんとひづけ',
   'language-barrier': 'ことばのかべ',

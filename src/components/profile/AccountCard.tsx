@@ -55,11 +55,6 @@ export function AccountCard() {
   const rows: { key: EditableField | null; label: string; value: string }[] = [
     { key: 'name', label: 'Registered name', value: userName || '—' },
     { key: null, label: 'Email', value: user.email ?? '—' },
-    {
-      key: null,
-      label: 'Phone',
-      value: user.phone ? `+${user.phone.replace(/^\+/, '')}` : '—',
-    },
     { key: null, label: 'Joined', value: formatDate(user.createdAt) },
     {
       key: null,
@@ -78,7 +73,7 @@ export function AccountCard() {
         <div className="relative">
           <Avatar
             url={avatarUrl}
-            label={userName || user.email || user.phone || '?'}
+            label={userName || user.email || '?'}
             className="h-16 w-16 text-xl shadow-sm"
           />
           {uploading && (
@@ -89,9 +84,7 @@ export function AccountCard() {
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-lg font-semibold">{userName || 'Traveller'}</p>
-          <p className="truncate text-sm text-muted-foreground">
-            {user.email ?? user.phone}
-          </p>
+          <p className="truncate text-sm text-muted-foreground">{user.email}</p>
         </div>
         <div className="flex flex-col items-end gap-1">
           <Button

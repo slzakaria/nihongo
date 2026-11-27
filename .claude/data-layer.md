@@ -24,7 +24,9 @@
 ## Offline practice
 
 - `/offline-practice` is the dedicated entry point for offline flashcard and kana practice.
-- `public/sw.js` caches the offline fallback shell and same-origin assets requested from the offline-practice page. The page should be opened once while online before relying on the cached shell.
-- Study content is bundled and progress is persisted locally; network-dependent simulator, speech, and generated-audio services are not available offline.
+- `public/sw.js` caches the offline fallback shell plus same-origin assets requested from the offline-practice, scenarios, flashcards, and kana pages.
+- Scenario/flashcards/kana page navigations are network-first with a per-page cache fallback (`PAGE_CACHE` in `sw.js`): the page is cached on every successful visit (capped, oldest evicted first) and served from that cache if a later navigation to the same URL fails offline — so a page opened once while online stays available on a cold offline load later, not just within the same session. A page never visited still falls back to the generic offline shell.
+- `src/hooks/useOnlineStatus.ts` centralizes `navigator.onLine`/`online`/`offline` detection; `src/components/layout/OfflineBadge.tsx` shows an app-wide offline indicator, and `src/components/flashcards/SyncStatus.tsx` shows pending-write detail within practice flows.
+- Study content is bundled and progress is persisted locally; network-dependent simulator, speech, generated-audio, and AI word-lookup (`/api/word`) services are not available offline.
 
 Keep Supabase service-role credentials and external AI or speech-provider keys on the server. Do not fetch bundled phrase data from a new API without a product requirement.

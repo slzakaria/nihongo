@@ -23,8 +23,8 @@ export async function generateMetadata({
   const scenario = phrases.find((s) => s.slug === slug);
   if (!scenario) return {};
   return {
-    title: `${scenario.label} Conversation Practice`,
-    description: `Practise a ${scenario.label.toLowerCase()} conversation in Japanese with a live AI partner.`,
+    title: `${scenario.label} Conversation Practice in Japanese`,
+    description: `Practise a ${scenario.label.toLowerCase()} conversation in Japanese with a live AI partner — great prep for your trip.`,
     alternates: { canonical: `/simulator/${slug}` },
   };
 }

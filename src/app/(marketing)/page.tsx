@@ -35,9 +35,6 @@ const FEATURED_SLUGS = [
   'restaurant',
   'shopping',
   'getting-around',
-  'bar-cocktails',
-  'hotel',
-  'directions',
   'language-barrier',
   'konbini-food',
 ];

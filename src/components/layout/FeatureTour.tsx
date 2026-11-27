@@ -10,12 +10,14 @@ import {
   Layers,
   Mic,
   Route,
+  Smartphone,
   Sparkles,
   type LucideIcon,
   UserRound,
 } from 'lucide-react';
 import { useAuthStore } from '@/store/auth';
 import { FEATURE_TOUR_VERSION, useOnboardingStore } from '@/store/onboarding';
+import { useInstallAppDialogStore } from '@/store/installAppDialog';
 import { markInfoPopupShown, useInfoPopupCooldown } from '@/hooks/useInfoPopupCooldown';
 import { isAdminEmail } from '@/lib/admin';
 import { Button } from '@/components/ui/button';
@@ -35,6 +37,7 @@ const SLIDES: {
   title: string;
   text: string;
   learningFlow?: boolean;
+  installApp?: boolean;
 }[] = [
   {
     icon: Sparkles,
@@ -75,7 +78,13 @@ const SLIDES: {
   {
     icon: Download,
     title: 'Practice offline',
-    text: 'Open Offline practice once while connected to cache phrase and kana practice. Your progress saves on this device and signed-in changes sync when you reconnect.',
+    text: 'Open Offline practice, or any Scenarios, Flashcards or Kana page, once while connected — it stays available offline afterwards, even on a later visit. Your progress saves on this device and signed-in changes sync when you reconnect.',
+  },
+  {
+    icon: Smartphone,
+    title: 'Install Hanazono',
+    text: 'Add Hanazono to your home screen for a full-screen, app-like experience with no browser bar. Find it anytime from the account menu or the footer.',
+    installApp: true,
   },
 ];
 
@@ -92,6 +101,7 @@ export function FeatureTour() {
   const hasOnboarded = useOnboardingStore((s) => s.hasOnboarded);
   const featureTourVersion = useOnboardingStore((s) => s.featureTourVersion);
   const markFeatureTourSeen = useOnboardingStore((s) => s.markFeatureTourSeen);
+  const showInstallApp = useInstallAppDialogStore((s) => s.show);
   const [tourProgress, setTourProgress] = useState<{
     scope: string | null;
     index: number;
@@ -211,6 +221,20 @@ export function FeatureTour() {
                 <span className="text-xs font-medium">{label}</span>
               </div>
             ))}
+          </div>
+        )}
+
+        {slide.installApp && (
+          <div className="flex justify-center px-6 pb-6">
+            <Button
+              type="button"
+              variant="outline"
+              className="cursor-pointer gap-2"
+              onClick={showInstallApp}
+            >
+              <Smartphone className="h-4 w-4" />
+              Show me how
+            </Button>
           </div>
         )}
 

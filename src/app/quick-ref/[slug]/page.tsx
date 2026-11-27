@@ -22,8 +22,8 @@ export async function generateMetadata({
   const scenario = phrases.find((s) => s.slug === slug);
   if (!scenario) return {};
   return {
-    title: `${scenario.label} Quick Reference`,
-    description: `A printable table of ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases with romaji and English.`,
+    title: `${scenario.label} Quick Reference — Japanese Phrases`,
+    description: `A printable table of ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases in Japanese with romaji and English translations.`,
     alternates: { canonical: `/quick-ref/${slug}` },
   };
 }

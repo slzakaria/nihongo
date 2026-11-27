@@ -6,7 +6,6 @@ const roles: Record<string, string> = {
   shopping: 'shop assistant at a clothing store in Harajuku',
   transport: 'station staff member at a busy Tokyo train station',
   hotel: 'front desk staff at a business hotel',
-  directions: 'local resident on the street',
   greetings: 'friendly local you just met',
   emergencies: 'helpful bystander',
   numbers: 'cashier at a convenience store',
@@ -32,7 +31,6 @@ const starters: Record<string, string> = {
   transport: 'いらっしゃいませ、どちらまでですか？\n[HINT: Hello! Where are you headed?]',
   hotel:
     'いらっしゃいませ、ご予約のお客様でしょうか？\n[HINT: Welcome! Do you have a reservation?]',
-  directions: 'こんにちは、お困りですか？\n[HINT: Hello, do you need help?]',
   greetings: 'こんにちは！\n[HINT: Hello!]',
   emergencies: '大丈夫ですか？\n[HINT: Are you okay?]',
   numbers: 'いらっしゃいませ！\n[HINT: Welcome!]',
@@ -87,13 +85,6 @@ const flows: Record<string, string[]> = {
     'Explain check-in and hand over the room key',
     'Ask about breakfast or any other requests',
     'Share the Wi-Fi and elevator details and say goodnight',
-  ],
-  directions: [
-    'Ask if they need help and where they want to go',
-    'Give directions using landmarks',
-    'Ask if they understood or need it repeated',
-    'Suggest the nearest station or a landmark to find their way',
-    'Wish them a good day',
   ],
   greetings: [
     'Greet them and ask how they are doing',

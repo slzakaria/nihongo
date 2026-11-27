@@ -52,8 +52,6 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-sans: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
-  --font-mono: var(--font-geist-mono);
   --font-serif-jp: var(--font-noto-serif-jp);
 }
 
@@ -95,7 +93,7 @@ body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   color: var(--foreground);
-  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
 
@@ -824,13 +822,13 @@ html {
 .hero-title-en,
 .hero-page-title {
   color: var(--hero-title-en);
-  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-description,
 .hero-page-description {
   color: var(--hero-subtitle);
-  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-banner .hero-primary-cta {
@@ -862,7 +860,7 @@ html {
 
 .hero-progress-label {
   color: var(--hero-kicker);
-  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-progress-track {
@@ -875,7 +873,7 @@ html {
 }
 
 .hero-vocab-pill {
-  font-family: var(--font-inter), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), var(--font-noto-serif-jp), Arial, Helvetica, sans-serif;
 }
 
 .hero-vocab-pill--pink {

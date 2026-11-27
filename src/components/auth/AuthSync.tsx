@@ -5,6 +5,7 @@ import { useUser } from '@clerk/nextjs';
 import { useAuthStore, type AppUser } from '@/store/auth';
 import { useProgressStore } from '@/store/progress';
 import { useBookmarkStore } from '@/store/bookmarks';
+import { useProfileFieldsStore } from '@/store/profileFields';
 import { dayKey } from '@/lib/activity/studyDays';
 import {
   clearDeviceData,
@@ -17,7 +18,6 @@ export function AuthSync() {
   const { isLoaded, isSignedIn, user } = useUser();
   const userKey = isSignedIn && user ? user.id : null;
   const email = user?.primaryEmailAddress?.emailAddress ?? null;
-  const phone = user?.primaryPhoneNumber?.phoneNumber ?? null;
   const externalId = user?.externalId ?? null;
   const createdAt = user?.createdAt ? user.createdAt.toISOString() : null;
   const lastSignInAt = user?.lastSignInAt ? user.lastSignInAt.toISOString() : null;
@@ -41,7 +41,6 @@ export function AuthSync() {
     const appUser: AppUser = {
       id: externalId ?? userKey,
       email,
-      phone,
       createdAt,
       lastSignInAt,
     };
@@ -50,9 +49,11 @@ export function AuthSync() {
     void import('@/lib/supabase/sync')
       .then((m) => m.syncForUser(appUser.id))
       .catch((error) => console.error('Unable to synchronize account data.', error));
-    void import('@/lib/supabase/profile').then((m) => m.syncAccountFields(appUser));
+    void import('@/lib/supabase/profile')
+      .then((m) => m.syncAccountFields(appUser))
+      .catch((error) => console.error('Unable to sync account details.', error));
     // Only re-sync when the signed-in person or their details change
-  }, [isLoaded, userKey, externalId, email, phone, createdAt, lastSignInAt]);
+  }, [isLoaded, userKey, externalId, email, createdAt, lastSignInAt]);
 
   useEffect(() => {
     if (!userKey) return;
@@ -80,6 +81,9 @@ export function AuthSync() {
     const unsubscribeBookmarks = useBookmarkStore.subscribe((state, previous) => {
       if (state.pendingByUser !== previous.pendingByUser) requestSync();
     });
+    const unsubscribeProfileFields = useProfileFieldsStore.subscribe((state, previous) => {
+      if (state.pendingByUser !== previous.pendingByUser) requestSync();
+    });
     const onOnline = () => requestSync(0);
     const onVisible = () => {
       if (document.visibilityState === 'visible') requestSync(0);
@@ -90,6 +94,7 @@ export function AuthSync() {
     return () => {
       unsubscribeProgress();
       unsubscribeBookmarks();
+      unsubscribeProfileFields();
       window.removeEventListener('online', onOnline);
       document.removeEventListener('visibilitychange', onVisible);
     };

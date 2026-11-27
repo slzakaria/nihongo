@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Flashcards',
+  title: 'Japanese Flashcards (Spaced Repetition)',
   description:
-    'Spaced-repetition flashcards for Japanese travel phrases, one scenario at a time.',
+    'Review Japanese travel phrases with spaced-repetition flashcards, organized by scenario, so you remember what you need before your trip.',
   alternates: { canonical: '/flashcards' },
 };
 
