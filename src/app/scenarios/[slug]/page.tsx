@@ -25,8 +25,8 @@ export async function generateMetadata({
   const scenario = phrases.find((s) => s.slug === slug);
   if (!scenario) return {};
   return {
-    title: `${scenario.label} Phrases`,
-    description: `${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases in Japanese with romaji and English, plus example replies.`,
+    title: `${scenario.label} Phrases in Japanese for Travel`,
+    description: `Learn ${scenario.phrases.length} ${scenario.label.toLowerCase()} phrases in Japanese with romaji, English translations, and etiquette tips for your trip.`,
     alternates: { canonical: `/scenarios/${slug}` },
   };
 }

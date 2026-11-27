@@ -47,6 +47,10 @@ export function WordLookup({
       setResult(cached);
       return;
     }
+    if (!navigator.onLine) {
+      setError("Word lookup needs a connection. You're offline right now.");
+      return;
+    }
     setResult(null);
     setLoading(true);
     try {

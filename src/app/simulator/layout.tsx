@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Conversation Simulator',
+  title: 'AI Japanese Conversation Simulator',
   description:
-    'Practise Japanese conversations for travel situations with a live AI partner.',
+    'Practise real Japanese conversations for travel situations with a live AI partner — reply by text or voice and get instant feedback.',
   alternates: { canonical: '/simulator' },
 };
 

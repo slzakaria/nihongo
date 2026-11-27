@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Hiragana and Katakana',
+  title: 'Learn Hiragana and Katakana',
   description:
-    'Learn the hiragana and katakana syllabaries row by row, with spaced-repetition practice.',
+    'Learn hiragana and katakana row by row with free spaced-repetition flashcard practice, right in your browser.',
   alternates: { canonical: '/kana' },
 };
 

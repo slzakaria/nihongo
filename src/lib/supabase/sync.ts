@@ -5,6 +5,7 @@ import { useGoalsStore } from '@/store/goals';
 import { useBadgesStore } from '@/store/badges';
 import { useStreakStore } from '@/store/streak';
 import { useBookmarkStore } from '@/store/bookmarks';
+import { useProfileFieldsStore } from '@/store/profileFields';
 import { fetchProfile, upsertProfile } from '@/lib/supabase/profile';
 import {
   deleteScenarioCards,
@@ -38,13 +39,15 @@ function isOnline(): boolean {
 function hasPendingWrites(userId: string): boolean {
   const progress = useProgressStore.getState();
   const bookmarks = useBookmarkStore.getState();
+  const profileFields = useProfileFieldsStore.getState();
   return Boolean(
     Object.keys(progress.pendingCardsByUser[userId] ?? {}).length ||
     Object.keys(progress.pendingReviewEventsByUser[userId] ?? {}).length ||
     Object.keys(progress.pendingScenarioProgressByUser?.[userId] ?? {}).length ||
     Object.keys(progress.pendingStudyDaysByUser[userId] ?? {}).length ||
     Object.keys(progress.pendingScenarioResetsByUser[userId] ?? {}).length ||
-    Object.keys(bookmarks.pendingByUser[userId] ?? {}).length,
+    Object.keys(bookmarks.pendingByUser[userId] ?? {}).length ||
+    Object.keys(profileFields.pendingByUser[userId] ?? {}).length,
   );
 }
 
@@ -228,6 +231,17 @@ async function flushPendingWrites(userId: string): Promise<boolean> {
       );
       succeeded = ok && succeeded;
     }
+
+    const profileFieldsSnapshot = useProfileFieldsStore.getState().pendingByUser[userId];
+    if (profileFieldsSnapshot && Object.keys(profileFieldsSnapshot).length > 0) {
+      const ok = await attempt(
+        'account settings',
+        () => upsertProfile(userId, profileFieldsSnapshot),
+        () =>
+          useProfileFieldsStore.getState().acknowledgeFields(userId, profileFieldsSnapshot),
+      );
+      succeeded = ok && succeeded;
+    }
   }
 
   return succeeded;
@@ -279,6 +293,26 @@ async function hydrateOnSignIn(userId: string): Promise<boolean> {
       useStreakStore.setState({
         freezeUntil: profile.streak_freeze_until ?? null,
       });
+
+      // Re-apply any edit that hasn't been confirmed written yet, so a stale server copy
+      // (e.g. from a write that failed while offline) can't silently overwrite it.
+      const pendingFields = useProfileFieldsStore.getState().pendingByUser[userId];
+      if (pendingFields) {
+        if (pendingFields.user_name !== undefined || pendingFields.has_onboarded !== undefined) {
+          useOnboardingStore.setState({
+            ...(pendingFields.user_name !== undefined && {
+              userName: pendingFields.user_name ?? '',
+            }),
+            ...(pendingFields.has_onboarded !== undefined && {
+              hasOnboarded: pendingFields.has_onboarded,
+            }),
+          });
+        }
+        if (pendingFields.romaji_mode !== undefined)
+          useSettingsStore.setState({ romajiMode: pendingFields.romaji_mode });
+        if (pendingFields.weekly_goal !== undefined)
+          useGoalsStore.setState({ weeklyGoal: pendingFields.weekly_goal });
+      }
 
       const localBadges = Object.keys(useBadgesStore.getState().celebrated);
       const serverBadges = profile.celebrated_badges ?? [];

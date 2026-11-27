@@ -1140,6 +1140,50 @@
           "english": "Can I get the receipt by email?",
           "difficulty": "hard",
           "notes": "領収書 (ryoushuusho) = official receipt. Apps usually send it automatically after the ride."
+        },
+        {
+          "id": "di-01",
+          "japanese": "〜にいきたいんですが",
+          "romaji": "[place] ni ikitain desu ga",
+          "english": "I'd like to go to [place]",
+          "difficulty": "easy",
+          "notes": "The んですが softens it into a request.",
+          "kanji": "〜に行きたいんですが"
+        },
+        {
+          "id": "di-02",
+          "japanese": "まっすぐいってください",
+          "romaji": "Massugu itte kudasai",
+          "english": "Go straight",
+          "difficulty": "easy",
+          "notes": "Key direction words: まっすぐ/みぎ/ひだり (右/左).",
+          "kanji": "まっすぐ行ってください"
+        },
+        {
+          "id": "di-03",
+          "japanese": "ここからとおいですか？",
+          "romaji": "Koko kara tooi desu ka?",
+          "english": "Is it far from here?",
+          "difficulty": "easy",
+          "notes": "ちかいです (近いです, chikai desu) = it is close.",
+          "kanji": "ここから遠いですか？"
+        },
+        {
+          "id": "di-04",
+          "japanese": "ちずをえがいてもらえますか？",
+          "romaji": "Chizu wo kaite moraemasu ka?",
+          "english": "Could you draw me a map?",
+          "difficulty": "medium",
+          "notes": "Japanese people are incredibly helpful — many will walk you there.",
+          "kanji": "地図を描いてもらえますか？"
+        },
+        {
+          "id": "di-05",
+          "japanese": "トイレはどこですか？",
+          "romaji": "Toire wa doko desu ka?",
+          "english": "Where is the toilet?",
+          "difficulty": "easy",
+          "notes": "Japanese public toilets are world-class."
         }
       ]
     },
@@ -1574,57 +1618,6 @@
           "difficulty": "medium",
           "notes": "Situation: the cocktail or spirit on the menu has run out for the night. Ask for a recommendation to replace it.",
           "kanji": "そのカクテルは、売り切れですか？"
-        }
-      ]
-    },
-    {
-      "slug": "directions",
-      "label": "Directions",
-      "icon": "🗺️",
-      "phrases": [
-        {
-          "id": "di-01",
-          "japanese": "〜にいきたいんですが",
-          "romaji": "[place] ni ikitain desu ga",
-          "english": "I'd like to go to [place]",
-          "difficulty": "easy",
-          "notes": "The んですが softens it into a request.",
-          "kanji": "〜に行きたいんですが"
-        },
-        {
-          "id": "di-02",
-          "japanese": "まっすぐいってください",
-          "romaji": "Massugu itte kudasai",
-          "english": "Go straight",
-          "difficulty": "easy",
-          "notes": "Key direction words: まっすぐ/みぎ/ひだり (右/左).",
-          "kanji": "まっすぐ行ってください"
-        },
-        {
-          "id": "di-03",
-          "japanese": "ここからとおいですか？",
-          "romaji": "Koko kara tooi desu ka?",
-          "english": "Is it far from here?",
-          "difficulty": "easy",
-          "notes": "ちかいです (近いです, chikai desu) = it is close.",
-          "kanji": "ここから遠いですか？"
-        },
-        {
-          "id": "di-04",
-          "japanese": "ちずをえがいてもらえますか？",
-          "romaji": "Chizu wo kaite moraemasu ka?",
-          "english": "Could you draw me a map?",
-          "difficulty": "medium",
-          "notes": "Japanese people are incredibly helpful — many will walk you there.",
-          "kanji": "地図を描いてもらえますか？"
-        },
-        {
-          "id": "di-05",
-          "japanese": "トイレはどこですか？",
-          "romaji": "Toire wa doko desu ka?",
-          "english": "Where is the toilet?",
-          "difficulty": "easy",
-          "notes": "Japanese public toilets are world-class."
         }
       ]
     },

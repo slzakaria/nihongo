@@ -22,7 +22,6 @@ describe('progress store offline queue', () => {
       user: {
         id: 'user-1',
         email: null,
-        phone: null,
         createdAt: null,
         lastSignInAt: null,
       },
@@ -79,7 +78,6 @@ describe('progress store offline queue', () => {
       user: {
         id: 'user-1',
         email: null,
-        phone: null,
         createdAt: null,
         lastSignInAt: null,
       },
@@ -109,7 +107,6 @@ describe('progress store offline queue', () => {
       user: {
         id: 'user-1',
         email: null,
-        phone: null,
         createdAt: null,
         lastSignInAt: null,
       },

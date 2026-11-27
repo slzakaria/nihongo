@@ -37,6 +37,7 @@ docs/                      User-facing project documentation
 
 - Phrase and kana content is bundled with the app so standard study flows do not need a content API.
 - Zustand stores keep study state available locally. Signed-in changes are queued and synchronized with Supabase; the offline practice flow can continue without a network connection.
+- The service worker (`public/sw.js`) caches the Scenarios/Flashcards/Kana pages themselves (plus their assets) as they're visited, so a page opened once while online is available on a later cold offline load, not only mid-session.
 - Clerk provides identity. Supabase stores account profiles, review progress, bookmarks, and study activity.
 - API credentials for AI and speech providers must remain server-side.
 

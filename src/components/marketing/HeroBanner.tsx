@@ -53,14 +53,17 @@ export function HeroBanner({
           </span>
         </p>
 
-        <div className="mb-6 flex flex-wrap gap-2.5 sm:mb-7">
-          <Button asChild className="hero-primary-cta cursor-pointer rounded-[10px] px-5">
+        <div className="mb-6 flex flex-col gap-2.5 sm:mb-7 sm:flex-row sm:flex-wrap">
+          <Button
+            asChild
+            className="hero-primary-cta w-full cursor-pointer rounded-[10px] px-5 sm:w-auto"
+          >
             <Link href="/scenarios">Start with scenarios</Link>
           </Button>
           <Button
             asChild
             variant="outline"
-            className="hero-secondary-cta cursor-pointer rounded-[10px] px-5"
+            className="hero-secondary-cta w-full cursor-pointer rounded-[10px] px-5 sm:w-auto"
           >
             <Link href="/flashcards">Go to flashcards</Link>
           </Button>

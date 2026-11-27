@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { LogOut, User, UserRound } from 'lucide-react';
+import { LogOut, Smartphone, User, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import { useClerk } from '@clerk/nextjs';
 import { useAuthStore } from '@/store/auth';
 import { useOnboardingStore } from '@/store/onboarding';
 import { Button } from '@/components/ui/button';
 import { useSignInDialogStore } from '@/store/signInDialog';
+import { useInstallAppDialogStore } from '@/store/installAppDialog';
 import { Avatar } from '@/components/ui/avatar';
 
 export function AuthMenu() {
@@ -15,6 +16,7 @@ export function AuthMenu() {
   const userName = useOnboardingStore((s) => s.userName);
   const avatarUrl = useOnboardingStore((s) => s.avatarUrl);
   const showSignIn = useSignInDialogStore((s) => s.show);
+  const showInstallApp = useInstallAppDialogStore((s) => s.show);
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -51,7 +53,7 @@ export function AuthMenu() {
         {user ? (
           <Avatar
             url={avatarUrl}
-            label={userName || user.email || user.phone || '?'}
+            label={userName || user.email || '?'}
             className="h-5 w-5 text-[9px]"
           />
         ) : (
@@ -66,7 +68,7 @@ export function AuthMenu() {
               <p className="px-1 text-xs font-medium text-muted-foreground">
                 Signed in as
               </p>
-              <p className="truncate px-1 text-sm">{user.email ?? user.phone}</p>
+              <p className="truncate px-1 text-sm">{user.email}</p>
               <Button
                 asChild
                 type="button"
@@ -79,6 +81,19 @@ export function AuthMenu() {
                   <UserRound className="h-3.5 w-3.5" />
                   View profile
                 </Link>
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start gap-2 cursor-pointer"
+                onClick={() => {
+                  setOpen(false);
+                  showInstallApp();
+                }}
+              >
+                <Smartphone className="h-3.5 w-3.5" />
+                Install app
               </Button>
               <Button
                 type="button"

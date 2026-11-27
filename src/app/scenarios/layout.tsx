@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Scenarios',
+  title: 'Japanese Travel Phrases & Scenarios',
   description:
-    'Japanese phrases for everyday travel situations, from greetings and restaurants to onsen and trains.',
+    'Browse Japanese phrases for real travel situations — restaurants, trains, hotels, onsen, and more — with romaji, English translations, and etiquette tips.',
   alternates: { canonical: '/scenarios' },
 };
 

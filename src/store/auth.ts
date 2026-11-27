@@ -5,7 +5,6 @@ import { create } from 'zustand';
 export interface AppUser {
   id: string;
   email: string | null;
-  phone: string | null;
   createdAt: string | null;
   lastSignInAt: string | null;
 }

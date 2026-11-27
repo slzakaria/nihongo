@@ -7,7 +7,6 @@ export interface ProfileRow {
   user_name: string | null;
   avatar_url: string | null;
   email: string | null;
-  phone: string | null;
   last_sign_in_at: string | null;
   profile_intro_seen: boolean;
   feature_tour_seen: boolean;
@@ -36,14 +35,13 @@ export async function upsertProfile(
 ) {
   const supabase = createClient();
   const { error } = await supabase.from('profiles').upsert({ id: userId, ...fields });
-  if (error) console.error(error);
+  if (error) throw error;
 }
 
 // Mirrors the account details that live in Supabase Auth, so they are also visible on the profiles table
 export async function syncAccountFields(user: AppUser) {
   await upsertProfile(user.id, {
     email: user.email,
-    phone: user.phone ? `+${user.phone.replace(/^\+/, '')}` : null,
     last_sign_in_at: user.lastSignInAt,
   });
 }

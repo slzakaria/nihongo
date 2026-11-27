@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/auth';
 import { useBookmarkStore } from '@/store/bookmarks';
 import { useProgressStore } from '@/store/progress';
+import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 
 export function SyncStatus() {
   const userId = useAuthStore((s) => s.user?.id);
@@ -22,18 +22,7 @@ export function SyncStatus() {
   const pendingBookmarks = useBookmarkStore(
     (s) => Object.keys(s.pendingByUser[userId ?? ''] ?? {}).length,
   );
-  const [online, setOnline] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const update = () => setOnline(navigator.onLine);
-    update();
-    window.addEventListener('online', update);
-    window.addEventListener('offline', update);
-    return () => {
-      window.removeEventListener('online', update);
-      window.removeEventListener('offline', update);
-    };
-  }, []);
+  const online = useOnlineStatus();
 
   const hasPending =
     pendingCards +

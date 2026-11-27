@@ -1,9 +1,9 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import { ui } from '@clerk/ui';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Geist_Mono, Inter, Noto_Serif_JP } from 'next/font/google';
+import { DM_Mono, Noto_Serif_JP, Plus_Jakarta_Sans } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { NavigationProgress } from '@/components/layout/NavigationProgress';
 import { LoadingOverlay } from '@/components/layout/LoadingOverlay';
@@ -16,11 +16,18 @@ import { DeferredGlobals } from '@/components/layout/DeferredGlobals';
 import { SITE_URL } from '@/lib/site';
 import './globals.css';
 
-const inter = Inter({
-  variable: '--font-inter',
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+});
+
+const dmMono = DM_Mono({
+  variable: '--font-mono',
   subsets: ['latin'],
   weight: ['300', '400', '500'],
 });
+
 
 const notoSerifJP = Noto_Serif_JP({
   variable: '--font-noto-serif-jp',
@@ -29,19 +36,15 @@ const notoSerifJP = Noto_Serif_JP({
   preload: false,
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Hanazono - Survival Japanese',
+    default: 'Hanazono — Survival Japanese for Travel',
     template: '%s | Hanazono',
   },
   description:
-    'Hanazono - Survival Japanese for your trip — phrases, flashcards, and a live simulator.',
+    'Learn survival Japanese for your trip with real-life travel scenarios, spaced-repetition flashcards, and a live AI conversation simulator — a free Japanese phrasebook for travelers.',
   applicationName: 'Hanazono',
   manifest: '/site.webmanifest',
   icons: {
@@ -51,18 +54,45 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
+  // iOS Safari ignores the manifest's display/theme fields for "Add to Home Screen" and
+  // needs these dedicated meta tags instead to launch standalone with no browser chrome.
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Hanazono',
+  },
   openGraph: {
     type: 'website',
     siteName: 'Hanazono',
     url: SITE_URL,
-    title: 'Hanazono - Survival Japanese',
-    description: 'Phrases, flashcards and a live simulator for travelling in Japan.',
+    title: 'Hanazono — Survival Japanese for Travel',
+    description:
+      'Learn survival Japanese for your trip with real-life travel scenarios, spaced-repetition flashcards, and a live AI conversation simulator.',
+    images: [
+      {
+        url: '/hanazono-opengraph.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hanazono — Survival Japanese for your trip',
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
-    title: 'Hanazono - Survival Japanese',
-    description: 'Phrases, flashcards and a live simulator for travelling in Japan.',
+    card: 'summary_large_image',
+    title: 'Hanazono — Survival Japanese for Travel',
+    description:
+      'Learn survival Japanese for your trip with real-life travel scenarios, spaced-repetition flashcards, and a live AI conversation simulator.',
+    images: ['/hanazono-opengraph.png'],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#faf7f4' },
+    { media: '(prefers-color-scheme: dark)', color: '#12151f' },
+  ],
+  // viewport-fit=cover lets content extend under the iOS notch/home indicator in standalone mode
+  viewportFit: 'cover',
 };
 
 // Applied before hydration so there's no flash of the wrong theme on load
@@ -73,7 +103,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${notoSerifJP.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${plusJakarta.variable} ${notoSerifJP.variable} ${dmMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

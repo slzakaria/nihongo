@@ -1,11 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useAuthStore } from '@/store/auth';
-import type * as profileApi from '@/lib/supabase/profile';
-
-// Supabase code loads on the first write, keeping it out of the first-paint bundle
-const upsertProfile: typeof profileApi.upsertProfile = async (...args) =>
-  (await import('@/lib/supabase/profile')).upsertProfile(...args);
+import { useProfileFieldsStore } from '@/store/profileFields';
 
 const todayKey = () => {
   const d = new Date();
@@ -51,7 +47,8 @@ export const useGoalsStore = create<GoalsStore>()(
         const value = Math.max(1, Math.min(1000, Math.round(goal)));
         set({ weeklyGoal: value });
         const userId = useAuthStore.getState().user?.id;
-        if (userId) void upsertProfile(userId, { weekly_goal: value });
+        if (userId)
+          useProfileFieldsStore.getState().queueFields(userId, { weekly_goal: value });
       },
       recordReview: () => {
         const today = todayKey();

@@ -32,6 +32,14 @@ const SignInDialog = dynamic(
   () => import('@/components/auth/SignInDialog').then((m) => m.SignInDialog),
   { ssr: false },
 );
+const InstallAppDialog = dynamic(
+  () => import('@/components/layout/InstallAppDialog').then((m) => m.InstallAppDialog),
+  { ssr: false },
+);
+const OfflineBadge = dynamic(
+  () => import('@/components/layout/OfflineBadge').then((m) => m.OfflineBadge),
+  { ssr: false },
+);
 
 // Page view tracking loads after the page is interactive. inject() also tracks client-side route changes.
 export function DeferredGlobals() {
@@ -50,6 +58,8 @@ export function DeferredGlobals() {
       <RateLimitDialog />
       <SearchDialog />
       <DailyRecap />
+      <InstallAppDialog />
+      <OfflineBadge />
     </>
   );
 }
