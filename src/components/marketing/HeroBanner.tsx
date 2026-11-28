@@ -8,11 +8,15 @@ export function HeroBanner({
   totalPhrases,
   flashcardsCompleted,
   totalFlashcards,
+  kanaLearned,
+  totalKana,
 }: {
   phrasesExplored: number;
   totalPhrases: number;
   flashcardsCompleted: number;
   totalFlashcards: number;
+  kanaLearned: number;
+  totalKana: number;
 }) {
   const progress =
     totalPhrases > 0 ? Math.min(100, (phrasesExplored / totalPhrases) * 100) : 0;
@@ -20,6 +24,8 @@ export function HeroBanner({
     totalFlashcards > 0
       ? Math.min(100, (flashcardsCompleted / totalFlashcards) * 100)
       : 0;
+  const kanaProgress =
+    totalKana > 0 ? Math.min(100, (kanaLearned / totalKana) * 100) : 0;
 
   return (
     <section className="hero-banner relative min-h-[320px] overflow-hidden rounded-2xl px-5 py-8 sm:px-10 sm:py-12">
@@ -116,6 +122,29 @@ export function HeroBanner({
             <span
               className="hero-progress-fill block h-full rounded-full"
               style={{ width: `${flashcardProgress}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="mt-3 max-w-[380px] md:max-w-[420px]">
+          <div className="hero-progress-label mb-1.5 flex justify-between text-[11px]">
+            <span>Learned</span>
+            <span>
+              {kanaLearned} / {totalKana}{' '}
+              <span className="ml-1">Kana characters</span>
+            </span>
+          </div>
+          <div
+            className="hero-progress-track h-1.5 overflow-hidden rounded-full"
+            role="progressbar"
+            aria-label="Kana learned progress"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(kanaProgress)}
+          >
+            <span
+              className="hero-progress-fill block h-full rounded-full"
+              style={{ width: `${kanaProgress}%` }}
             />
           </div>
         </div>

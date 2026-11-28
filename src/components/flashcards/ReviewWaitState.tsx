@@ -18,7 +18,6 @@ export function ReviewWaitState({
 
   return (
     <div className="flex flex-col items-center gap-3 py-16 text-center">
-      <SyncStatus />
       <p className="text-lg font-medium">All ready cards are done</p>
       <p className="text-sm text-foreground">
         The next learning card returns in <strong>{countdown}</strong>.
@@ -34,6 +33,7 @@ export function ReviewWaitState({
       >
         Practice the set anyway
       </Button>
+      <SyncStatus />
     </div>
   );
 }

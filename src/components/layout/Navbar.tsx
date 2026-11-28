@@ -27,6 +27,16 @@ export function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const visibleLinks = navLinks;
 
+  // Only one account/settings/mobile-nav dropdown should be open at a time. Bumping
+  // these counters forces the other menus closed so they never overlap on mobile.
+  const [closeAuthMenuSignal, setCloseAuthMenuSignal] = useState(0);
+  const [closeSettingsMenuSignal, setCloseSettingsMenuSignal] = useState(0);
+  const closeOtherMenus = (opening: 'auth' | 'settings') => {
+    closeMobileMenu();
+    if (opening !== 'auth') setCloseAuthMenuSignal((n) => n + 1);
+    if (opening !== 'settings') setCloseSettingsMenuSignal((n) => n + 1);
+  };
+
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
       if (headerRef.current && !headerRef.current.contains(e.target as Node))
@@ -57,8 +67,14 @@ export function Navbar() {
         </Link>
 
         <div className="header-actions flex items-center gap-1 sm:hidden">
-          <AuthMenu />
-          <SettingsMenu onOpen={closeMobileMenu} />
+          <AuthMenu
+            onOpen={() => closeOtherMenus('auth')}
+            closeSignal={closeAuthMenuSignal}
+          />
+          <SettingsMenu
+            onOpen={() => closeOtherMenus('settings')}
+            closeSignal={closeSettingsMenuSignal}
+          />
           <Button
             type="button"
             variant="ghost"
@@ -66,9 +82,11 @@ export function Navbar() {
             className="h-7 w-7 cursor-pointer p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            onClick={() =>
-              setMobileOpenPath((current) => (current === pathname ? null : pathname))
-            }
+            onClick={() => {
+              setCloseAuthMenuSignal((n) => n + 1);
+              setCloseSettingsMenuSignal((n) => n + 1);
+              setMobileOpenPath((current) => (current === pathname ? null : pathname));
+            }}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
@@ -102,8 +120,14 @@ export function Navbar() {
         </nav>
 
         <div className="header-actions hidden shrink-0 items-center gap-2 sm:flex">
-          <AuthMenu />
-          <SettingsMenu />
+          <AuthMenu
+            onOpen={() => closeOtherMenus('auth')}
+            closeSignal={closeAuthMenuSignal}
+          />
+          <SettingsMenu
+            onOpen={() => closeOtherMenus('settings')}
+            closeSignal={closeSettingsMenuSignal}
+          />
         </div>
       </div>
 

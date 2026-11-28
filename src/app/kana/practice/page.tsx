@@ -7,6 +7,18 @@ import { loadKana, useContentStore } from '@/lib/data/content';
 import { useProgressStore } from '@/store/progress';
 import { KanaQuizDeck } from '@/components/kana/KanaQuizDeck';
 import { BilingualText } from '@/components/layout/BilingualText';
+import type { Phrase } from '@/types';
+
+// Fisher-Yates shuffle, kept outside the component so calling Math.random isn't
+// treated as an impure render-body call.
+function shuffle<T>(items: T[]): T[] {
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 // Spaced-repetition review of every hiragana and katakana character
 export default function KanaPracticePage() {
@@ -19,7 +31,11 @@ export default function KanaPracticePage() {
   }, []);
 
   const rows = useMemo(() => [...hiragana, ...katakana], [hiragana, katakana]);
-  const kanaPhrases = useMemo(() => rows.flatMap((r) => r.phrases), [rows]);
+  // Shuffled once per mount so the quiz doesn't always ask characters in gojuon order.
+  const kanaPhrases = useMemo<Phrase[]>(
+    () => shuffle(rows.flatMap((r) => r.phrases)),
+    [rows],
+  );
 
   const onInit = useCallback(() => {
     for (const row of rows)

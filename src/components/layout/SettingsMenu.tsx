@@ -34,8 +34,19 @@ const themes: { value: Theme; label: string; icon: typeof Sun }[] = [
   { value: 'system', label: 'System', icon: Monitor },
 ];
 
-export function SettingsMenu({ onOpen }: { onOpen?: () => void }) {
-  const [open, setOpen] = useState(false);
+export function SettingsMenu({
+  onOpen,
+  closeSignal,
+}: {
+  onOpen?: () => void;
+  /** Bump this value from a parent to force the menu closed, e.g. when another menu opens. */
+  closeSignal?: number;
+}) {
+  // Tracks the closeSignal value the open state was last set for, so a bump from the
+  // parent (another menu opening) forces this one closed without an effect + setState.
+  const [openState, setOpenState] = useState({ signal: closeSignal, open: false });
+  const open = openState.signal === closeSignal && openState.open;
+  const setOpen = (value: boolean) => setOpenState({ signal: closeSignal, open: value });
   const romajiMode = useSettingsStore((s) => s.romajiMode);
   const setRomajiMode = useSettingsStore((s) => s.setRomajiMode);
   const ttsSpeed = useSettingsStore((s) => s.ttsSpeed);
@@ -50,6 +61,7 @@ export function SettingsMenu({ onOpen }: { onOpen?: () => void }) {
     }
     document.addEventListener('mousedown', onClickOutside);
     return () => document.removeEventListener('mousedown', onClickOutside);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -69,7 +81,7 @@ export function SettingsMenu({ onOpen }: { onOpen?: () => void }) {
       </Button>
 
       {open && (
-        <div className="absolute right-0 top-full z-10 mt-2 w-56 rounded-md border border-border bg-card p-2 shadow-md">
+        <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-md border border-border bg-card p-2 shadow-md">
           <p className="px-2 py-1 text-xs font-medium text-muted-foreground">Theme</p>
           <div className="flex gap-1 px-1 pb-2">
             {themes.map((t) => {

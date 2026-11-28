@@ -35,12 +35,12 @@ export function ScenarioCard({
       className="scenario-card mx-auto w-[95%] overflow-hidden"
       index={index}
     >
-      <div className="relative aspect-[3/1] w-full overflow-hidden bg-muted">
+      <div className="relative h-[88px] w-full overflow-hidden bg-muted sm:h-auto sm:aspect-[3/1]">
         <Image
           src={`/scenarios/${scenario.slug}.png`}
           alt=""
           fill
-          sizes="(min-width: 1088px) 315px, (min-width: 640px) calc((100vw - 80px) / 3), (min-width: 480px) calc((100vw - 64px) / 3), calc((100vw - 48px) / 2)"
+          sizes="(min-width: 1088px) 315px, (min-width: 640px) calc((100vw - 80px) / 3), calc(95vw - 30px)"
           loading={eager ? 'eager' : 'lazy'}
           className="object-cover transition duration-500 group-hover:scale-105"
         />
