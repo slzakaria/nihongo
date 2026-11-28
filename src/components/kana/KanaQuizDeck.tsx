@@ -6,6 +6,7 @@ import { ProgressBar } from '@/components/flashcards/ProgressBar';
 import { SyncStatus } from '@/components/flashcards/SyncStatus';
 import { ReviewWaitState } from '@/components/flashcards/ReviewWaitState';
 import { useFlashcardSession } from '@/hooks/useFlashcardSession';
+import { useAudio } from '@/hooks/useAudio';
 import { BilingualText } from '@/components/layout/BilingualText';
 import { Phrase } from '@/types';
 import { cn } from '@/lib/utils';
@@ -50,6 +51,7 @@ export function KanaQuizDeck({
 
   const { phrase, grade, total, currentIndex, done, waiting, remainingMs } =
     useFlashcardSession(phrases, force);
+  const { play, isLoading, isPlaying } = useAudio();
 
   const choices = useMemo(
     () => (phrase ? pickChoices(phrase, phrases) : []),
@@ -62,6 +64,8 @@ export function KanaQuizDeck({
   // pause so the user can see the correct/incorrect feedback before the next card.
   useEffect(() => {
     if (!picked) return;
+    if (isLoading || isPlaying) return;
+
     const correct = picked.answer === phrase?.romaji;
     const timeout = setTimeout(
       () => grade(correct ? CORRECT_GRADE : INCORRECT_GRADE),
@@ -69,12 +73,11 @@ export function KanaQuizDeck({
     );
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [picked]);
+  }, [picked, isLoading, isPlaying]);
 
   if (total === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-16 text-center">
-        <SyncStatus />
         <p className="text-lg font-medium">
           <BilingualText
             english="Nothing due right now"
@@ -94,6 +97,7 @@ export function KanaQuizDeck({
         >
           Practice anyway
         </Button>
+        <SyncStatus />
       </div>
     );
   }
@@ -110,7 +114,6 @@ export function KanaQuizDeck({
   if (done || !phrase) {
     return (
       <div className="flex flex-col items-center gap-2 py-16 text-center">
-        <SyncStatus />
         <p className="text-lg font-medium">
           <BilingualText
             english="Session complete 🎉"
@@ -123,6 +126,7 @@ export function KanaQuizDeck({
             japanese={`${total}まいのカードをふくしゅうしました。`}
           />
         </p>
+        <SyncStatus />
       </div>
     );
   }
@@ -132,7 +136,6 @@ export function KanaQuizDeck({
 
   return (
     <div className="flex flex-col gap-4">
-      <SyncStatus />
       <ProgressBar current={currentIndex} total={total} />
 
       <div className="flex items-center justify-center rounded-lg border border-border bg-card py-10">
@@ -151,7 +154,10 @@ export function KanaQuizDeck({
               type="button"
               variant="outline"
               disabled={isAnswered}
-              onClick={() => setPicked({ phraseId: phrase.id, answer: choice })}
+              onClick={() => {
+                setPicked({ phraseId: phrase.id, answer: choice });
+                void play(phrase.japanese);
+              }}
               className={cn(
                 'h-12 cursor-pointer text-base',
                 isAnswered &&
@@ -179,6 +185,8 @@ export function KanaQuizDeck({
           {isCorrect ? 'Correct!' : `Not quite — it's "${phrase.romaji}".`}
         </p>
       )}
+
+      <SyncStatus />
     </div>
   );
 }

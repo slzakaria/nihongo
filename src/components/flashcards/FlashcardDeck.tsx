@@ -87,7 +87,6 @@ export function FlashcardDeck({
   if (total === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-16 text-center">
-        <SyncStatus />
         <p className="text-lg font-medium">
           <BilingualText
             english="Nothing due right now"
@@ -107,6 +106,7 @@ export function FlashcardDeck({
         >
           Practice anyway
         </Button>
+        <SyncStatus />
       </div>
     );
   }
@@ -123,7 +123,6 @@ export function FlashcardDeck({
   if (done || !phrase) {
     return (
       <div className="flex flex-col items-center gap-2 py-16 text-center">
-        <SyncStatus />
         <p className="text-lg font-medium">
           <BilingualText
             english="Session complete 🎉"
@@ -143,13 +142,13 @@ export function FlashcardDeck({
             scenarioLabel={scenario.label}
           />
         )}
+        <SyncStatus />
       </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <SyncStatus />
       <ProgressBar current={currentIndex} total={total} />
 
       {!showBack && (
@@ -241,6 +240,8 @@ export function FlashcardDeck({
           </div>
         </>
       )}
+
+      <SyncStatus />
     </div>
   );
 }

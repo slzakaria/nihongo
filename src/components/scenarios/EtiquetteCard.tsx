@@ -17,7 +17,9 @@ export function EtiquetteCard({ tips }: { tips: string[] }) {
         </div>
         <ul className="flex list-disc flex-col gap-1.5 pl-5 text-sm text-muted-foreground">
           {tips.map((tip) => (
-            <li key={tip}>{tip}</li>
+            <li key={tip} className="break-words">
+              {tip}
+            </li>
           ))}
         </ul>
       </CardContent>

@@ -66,7 +66,7 @@ export default async function ScenarioDetailPage({
       />
       <ScenarioSidebar currentSlug={scenario.slug} basePath="/scenarios" />
 
-      <div className="flex flex-1 flex-col gap-6">
+      <div className="flex min-w-0 flex-1 flex-col gap-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div className="min-w-0">
             <Link

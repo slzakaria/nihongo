@@ -25,7 +25,7 @@ import { BilingualText } from '@/components/layout/BilingualText';
 import { SimulatorTeaser } from '@/components/marketing/SimulatorTeaser';
 import { useProgressStore } from '@/store/progress';
 import { useAuthStore } from '@/store/auth';
-import { useContentStore } from '@/lib/data/content';
+import { loadKana, useContentStore } from '@/lib/data/content';
 import { useSearchDialogStore } from '@/store/searchDialog';
 import { cn } from '@/lib/utils';
 
@@ -96,6 +96,8 @@ const EXPLORE_TILES = [
 export default function Home() {
   const user = useAuthStore((s) => s.user);
   const scenarios = useContentStore((s) => s.content.phrases);
+  const hiragana = useContentStore((s) => s.content.hiragana);
+  const katakana = useContentStore((s) => s.content.katakana);
   const showSearch = useSearchDialogStore((s) => s.show);
   const exploreCarouselRef = useRef<HTMLDivElement>(null);
   const [canScrollExploreLeft, setCanScrollExploreLeft] = useState(false);
@@ -103,6 +105,12 @@ export default function Home() {
 
   const scenarioProgress = useProgressStore((s) => s.scenarioProgress ?? {});
   const cards = useProgressStore((s) => s.cards);
+
+  useEffect(() => {
+    void loadKana().catch((error) => {
+      console.error('Unable to load kana progress data.', error);
+    });
+  }, []);
 
   const totalPhrases = useMemo(
     () => scenarios.reduce((sum, s) => sum + s.phrases.length, 0),
@@ -125,6 +133,15 @@ export default function Home() {
           s.phrases.every((p) => Boolean(cards[p.id]) && cards[p.id].lastReview !== null),
       ).length,
     [scenarios, cards],
+  );
+  const kanaRows = useMemo(() => [...hiragana, ...katakana], [hiragana, katakana]);
+  const kanaPhrases = useMemo(
+    () => kanaRows.flatMap((row) => row.phrases),
+    [kanaRows],
+  );
+  const kanaLearned = useMemo(
+    () => kanaPhrases.filter((phrase) => (cards[phrase.id]?.correctReviews ?? 0) > 0).length,
+    [kanaPhrases, cards],
   );
   const featured = useMemo(
     () =>
@@ -189,7 +206,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative isolate mx-auto flex w-full max-w-5xl flex-1 flex-col gap-14 px-4 py-10 sm:px-6">
+    <div className="relative isolate mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-10 sm:gap-10 sm:px-6">
       <FloatingPhrases />
 
       <HeroBanner
@@ -197,6 +214,8 @@ export default function Home() {
         totalPhrases={totalPhrases}
         flashcardsCompleted={flashcardsCompleted}
         totalFlashcards={totalFlashcards}
+        kanaLearned={kanaLearned}
+        totalKana={kanaPhrases.length}
       />
 
       <section className="explore-section relative left-1/2 flex w-screen -translate-x-1/2 flex-col gap-5">
@@ -312,7 +331,7 @@ export default function Home() {
           titleKana="にんきのシナリオ"
           description="The situations travellers ask about most."
         />
-        <div className="grid grid-cols-2 gap-4 min-[480px]:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {featured.map((s, i) => (
             <ScenarioCard key={s.slug} scenario={s} index={i} />
           ))}

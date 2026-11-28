@@ -70,7 +70,7 @@ export function PhraseCard({
           {romajiMode !== 'never' && (
             <p
               className={cn(
-                'text-sm text-muted-foreground',
+                'break-words text-sm text-muted-foreground',
                 !showRomaji && 'opacity-0 select-none',
               )}
             >
@@ -80,7 +80,9 @@ export function PhraseCard({
           )}
         </div>
 
-        {phrase.notes && <p className="text-xs text-muted-foreground">{phrase.notes}</p>}
+        {phrase.notes && (
+          <p className="break-words text-xs text-muted-foreground">{phrase.notes}</p>
+        )}
 
         {phrase.responses.length > 0 && (
           <details
@@ -102,22 +104,24 @@ export function PhraseCard({
               {phrase.responses.map((r, i) => (
                 <li key={i} className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
-                    <p lang="ja" className="text-sm font-medium">
+                    <p lang="ja" className="break-words text-sm font-medium">
                       {r.japanese}
                     </p>
                     <AudioButton text={r.japanese} className="h-8 w-8 shrink-0" />
                   </div>
                   {showRomaji && (
-                    <p className="text-xs text-muted-foreground">
+                    <p className="break-words text-xs text-muted-foreground">
                       <span className="mr-1 font-medium">Romaji:</span>
                       {r.romaji}
                     </p>
                   )}
-                  <p className="text-xs text-muted-foreground">
+                  <p className="break-words text-xs text-muted-foreground">
                     <span className="mr-1 font-medium">English:</span>
                     {r.english}
                   </p>
-                  <p className="text-xs italic text-muted-foreground">{r.listen_for}</p>
+                  <p className="break-words text-xs italic text-muted-foreground">
+                    {r.listen_for}
+                  </p>
                 </li>
               ))}
             </ul>

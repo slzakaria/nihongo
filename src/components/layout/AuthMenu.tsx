@@ -11,13 +11,24 @@ import { useSignInDialogStore } from '@/store/signInDialog';
 import { useInstallAppDialogStore } from '@/store/installAppDialog';
 import { Avatar } from '@/components/ui/avatar';
 
-export function AuthMenu() {
+export function AuthMenu({
+  onOpen,
+  closeSignal,
+}: {
+  onOpen?: () => void;
+  /** Bump this value from a parent to force the menu closed, e.g. when another menu opens. */
+  closeSignal?: number;
+}) {
   const user = useAuthStore((s) => s.user);
   const userName = useOnboardingStore((s) => s.userName);
   const avatarUrl = useOnboardingStore((s) => s.avatarUrl);
   const showSignIn = useSignInDialogStore((s) => s.show);
   const showInstallApp = useInstallAppDialogStore((s) => s.show);
-  const [open, setOpen] = useState(false);
+  // Tracks the closeSignal value the open state was last set for, so a bump from the
+  // parent (another menu opening) forces this one closed without an effect + setState.
+  const [openState, setOpenState] = useState({ signal: closeSignal, open: false });
+  const open = openState.signal === closeSignal && openState.open;
+  const setOpen = (value: boolean) => setOpenState({ signal: closeSignal, open: value });
   const [signingOut, setSigningOut] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const { signOut: clerkSignOut } = useClerk();
@@ -28,6 +39,7 @@ export function AuthMenu() {
     }
     document.addEventListener('mousedown', onClickOutside);
     return () => document.removeEventListener('mousedown', onClickOutside);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function signOut() {
@@ -47,7 +59,14 @@ export function AuthMenu() {
         variant="ghost"
         size="icon"
         aria-label="Account"
-        onClick={() => (user ? setOpen((o) => !o) : showSignIn())}
+        onClick={() => {
+          if (!user) {
+            showSignIn();
+            return;
+          }
+          if (!open) onOpen?.();
+          setOpen(!open);
+        }}
         className="cursor-pointer"
       >
         {user ? (
@@ -62,7 +81,7 @@ export function AuthMenu() {
       </Button>
 
       {open && (
-        <div className="absolute right-0 top-full z-10 mt-2 w-64 rounded-md border border-border bg-card p-3 shadow-md">
+        <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-md border border-border bg-card p-3 shadow-md">
           {user ? (
             <div className="space-y-2">
               <p className="px-1 text-xs font-medium text-muted-foreground">

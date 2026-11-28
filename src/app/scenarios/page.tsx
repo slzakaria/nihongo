@@ -12,7 +12,7 @@ export default function ScenariosPage() {
   const { groups, ungrouped, displayIndex } = groupScenarios(scenarios);
 
   const renderScenarioGrid = (items: typeof scenarios) => (
-    <div className="grid grid-cols-2 gap-4 min-[480px]:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {items.map((scenario) => {
         const index = displayIndex.get(scenario.slug) ?? 0;
         return (
